@@ -23,6 +23,9 @@ import {
     jobit,
     tripguide,
     threejs,
+    bootstrap,
+    autocad,
+    sass,
   } from "../assets";
   
   export const navLinks = [
@@ -73,17 +76,13 @@ import {
       icon: javascript,
     },
     {
-      name: "TypeScript",
-      icon: typescript,
-    },
-    {
       name: "React JS",
       icon: reactjs,
     },
-    {
-      name: "Redux Toolkit",
-      icon: redux,
-    },
+    // {
+    //   name: "Redux Toolkit",
+    //   icon: redux,
+    // },
     {
       name: "Tailwind CSS",
       icon: tailwind,
@@ -109,62 +108,57 @@ import {
       icon: figma,
     },
     {
-      name: "docker",
-      icon: docker,
+      name: "bootstrap",
+      icon: bootstrap,
     },
+    {
+      name: "sass",
+      icon: sass,
+    },
+    {
+      name: "autocad",
+      icon: autocad
+    }
   ];
   
   const experiences = [
     {
-      title: "React.js Developer",
-      company_name: "Starbucks",
+      title: "QA/QC Engineer",
+      company_name: "SJ E&I",
       icon: starbucks,
       iconBg: "#383E56",
-      date: "March 2020 - April 2021",
+      date: "02/2016 - 09/2017",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Inspecting PreLoop and Final Loop checks in DCS at the Pagbilao Power Plant.",
+        "Identifying and troubleshooting issues to ensure safety and regulatory compliance.",
+        "Committed to ongoing professional development and staying up-to-date with industry standards and best practices.",
+        "Working collaboratively with teams to ensure timely project delivery.",
       ],
     },
     {
-      title: "React Native Developer",
-      company_name: "Tesla",
+      title: "Project Engineer",
+      company_name: "EISSS",
       icon: tesla,
       iconBg: "#E6DEDD",
-      date: "Jan 2021 - Feb 2022",
+      date: "10/2017 - 01/2021",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Assess complex engineering problems across various plants and factories.",
+        "Utilize CAD to convert assessments into easy-to-read system drawings for effective communication with clients and contractors.",
+        "Provide analytical problem-solving abilities to effectively identify issues and provide innovative solutions.",
+        "Demonstrate strong attention to detail to ensure accuracy in all work done.",
       ],
     },
     {
-      title: "Web Developer",
-      company_name: "Shopify",
+      title: "Content Moderator",
+      company_name: "TaskUs",
       icon: shopify,
       iconBg: "#383E56",
-      date: "Jan 2022 - Jan 2023",
+      date: "02/2021 - Present",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "Full stack Developer",
-      company_name: "Meta",
-      icon: meta,
-      iconBg: "#E6DEDD",
-      date: "Jan 2023 - Present",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Specialize in video copyright and monetization for high-profile TikTok clients on YouTube.",
+        "Utilize manual searches, reviews, and claims to protect and monetize clients' videos.",
+        "Expertise in potential and Pex claims to identify copyright infringement and ensure effective protection and monetization.",
+        "Contribute to the successful transition of numerous high-profile TikTok creators to YouTube.",
       ],
     },
   ];
