@@ -28,6 +28,7 @@ import {
     bootstrap,
     autocad,
     sass,
+    imageverse,
   } from "../assets";
   
   export const navLinks = [
@@ -256,6 +257,27 @@ import {
     //   image: tripguide,
     //   source_code_link: "https://github.com/",
     // },
+    {
+      name: "ImageVerse",
+      description:
+        "With ImageVerse, users can easily generate images using Dall-E's powerful image generation, save them to Cloudinary, and store them in a MongoDB database. The MERN stack provides a robust and scalable platform for the application, while Tailwind ensures a nice and responsive user interface.",
+      tags: [
+        {
+          name: "dalle",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "mernstack",
+          color: "green-text-gradient",
+        },
+        {
+          name: "tailwind",
+          color: "pink-text-gradient",
+        },
+      ],
+      image: imageverse,
+      source_code_link: "https://6433eafe2e231e78ffc8c358--flourishing-mochi-9d739d.netlify.app/",
+    },
     {
       name: "BookNook",
       description:

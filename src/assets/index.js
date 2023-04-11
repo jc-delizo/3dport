@@ -34,6 +34,7 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 import booknook from "./booknook.png";
+import imageverse from "./imageverse.png";
 import stopcount from "./stopcount.png";
 
 export {
@@ -66,6 +67,7 @@ export {
   carrent,
   jobit,
   tripguide,
+  imageverse,
   booknook,
   stopcount,
   bootstrap,
