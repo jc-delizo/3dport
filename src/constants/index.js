@@ -47,16 +47,16 @@ import {
   ];
   
   const services = [
-    {
-      title: "Web Developer",
-      icon: web,
-    },
+    // {
+    //   title: "Full Stack Web Developer",
+    //   icon: web,
+    // },
     {
       title: "React Developer",
       icon: mobile,
     },
     {
-      title: "Frontend Developer",
+      title: "Full Stack Web Developer",
       icon: backend,
     },
     {
