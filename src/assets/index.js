@@ -37,7 +37,16 @@ import booknook from "./booknook.png";
 import imageverse from "./imageverse.png";
 import stopcount from "./stopcount.png";
 
+import githublogo from "./githublogo.png";
+import gitlablogo from "./gitlablogo.png";
+import linkedinlogo from "./linkedinlogo.png";
+import resumelogo from "./resumelogo.png";
+
 export {
+  githublogo,
+  gitlablogo,
+  linkedinlogo,
+  resumelogo,
   logo,
   backend,
   creator,
