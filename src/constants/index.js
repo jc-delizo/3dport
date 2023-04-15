@@ -219,7 +219,7 @@ import {
     {
       name: "BookNook",
       description:
-        "THIS PAGE IS CURRENTLY IN DEVELOPMENT. An ecommerce website that features books as products. It has user/admin functions that makes it possible to be used in real-world applications. I expect to finish it this at April 2023, with a design that resembles a nook where you can read books comfortably.",
+        "An ecommerce website that features books as products. It has user/admin functions that makes it possible to be used in real-world applications. I expect to finish it this at April 2023, with a design that resembles a nook where you can read books comfortably.",
       tags: [
         {
           name: "bootstrap",
