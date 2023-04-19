@@ -217,7 +217,7 @@ import {
       source_code_link: "https://6433eafe2e231e78ffc8c358--flourishing-mochi-9d739d.netlify.app/",
     },
     {
-      name: "BookNook",
+      name: "ReadWell",
       description:
         "An ecommerce website that features books as products. It has user/admin functions that makes it possible to be used in real-world applications. I expect to finish it this at April 2023, with a design that resembles a nook where you can read books comfortably.",
       tags: [
