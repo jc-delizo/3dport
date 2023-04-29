@@ -34,6 +34,7 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 import booknook from "./booknook.png";
+import readwell from "./readwell.png";
 import imageverse from "./imageverse.png";
 import stopcount from "./stopcount.png";
 
@@ -78,6 +79,7 @@ export {
   tripguide,
   imageverse,
   booknook,
+  readwell,
   stopcount,
   bootstrap,
   autocad,

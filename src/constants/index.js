@@ -22,7 +22,7 @@ import {
     carrent,
     jobit,
     tripguide,
-    booknook,
+    readwell,
     stopcount,
     threejs,
     bootstrap,
@@ -219,7 +219,7 @@ import {
     {
       name: "ReadWell",
       description:
-        "An ecommerce website that features books as products. It has user/admin functions that makes it possible to be used in real-world applications. I expect to finish it this at April 2023, with a design that resembles a nook where you can read books comfortably.",
+        "An ecommerce website for books that showcases my skills in MERN Stack. It has user/admin functions that makes it possible to be used in real-world applications. To log in as admin, use 'admin@gmail.com' as email and 'admin' as password. Please don't mess up the books in archives ! LoL",
       tags: [
         {
           name: "bootstrap",
@@ -234,7 +234,7 @@ import {
           color: "pink-text-gradient",
         },
       ],
-      image: booknook,
+      image: readwell,
       source_code_link: "https://capstone-3-omega-navy.vercel.app/",
     },
     {
@@ -274,12 +274,12 @@ import {
     {
       title: "LinkedIn",
       icon: linkedinlogo,
-      newtab_link: "http://www.linkedin.com/in/jc-delizo"
+      newtab_link: "https://www.linkedin.com/in/jcdelizo/"
     },
     {
       title: "Resume",
       icon: resumelogo,
-      newtab_link: "https://drive.google.com/file/d/16aG_r4J1qJRNfih6OQ7F3XSjIDTjB_gp/view?usp=sharing"
+      newtab_link: "https://drive.google.com/file/d/1iucph0gQPWmNIAKODeYA_2lAMfSeqj-_/view?usp=sharing"
     },
   ];
   
