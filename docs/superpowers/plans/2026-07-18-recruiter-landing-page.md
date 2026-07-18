@@ -696,9 +696,15 @@ describe('Reveal', () => {
     expect(screen.getByText('content')).toBeInTheDocument()
   })
 
+  // NOTE: an earlier version of this test asserted `toMatch(/reveal/)`, which is
+  // vacuous — the revealed class `reveal-visible` also contains "reveal", so it
+  // passed in both states. Assert the absence of `reveal-visible` instead, and
+  // add a test that fires the observer callback to prove the reveal actually works.
+  // The committed version in src/components/ui/Reveal.test.jsx is authoritative.
   it('starts hidden so the entry animation has somewhere to travel from', () => {
     const { container } = render(<Reveal><p>content</p></Reveal>)
-    expect(container.firstChild.className).toMatch(/reveal/)
+    expect(container.firstChild.className).toContain('reveal')
+    expect(container.firstChild.className).not.toContain('reveal-visible')
   })
 })
 ```
