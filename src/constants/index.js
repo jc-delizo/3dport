@@ -28,6 +28,10 @@ import {
     bootstrap,
     autocad,
     sass,
+    jira,
+    linear,
+    coda,
+    oakdrive,
     imageverse,
     github,
     githublogo,
@@ -53,28 +57,23 @@ import {
   
   const services = [
     {
-      title: "React Developer",
-      icon: mobile,
-    },
-    {
-      title: "Full Stack Web Developer",
-      icon: backend,
-    },
-    {
-      title: "CAD Designer",
+      title: "Digital Transformation PM",
       icon: creator,
+    },
+    {
+      title: "Scrum Master & Agile Delivery",
+      icon: web,
+    },
+    {
+      title: "Technical Product Leader",
+      icon: backend,
     },
   ];
   
+  // Each ball renders in its own WebGL canvas, and browsers cap a page at ~16
+  // live contexts. Hero + stars + earth take 3, so keep this list at 12 or
+  // fewer or the oldest context (the hero computer) gets dropped.
   const technologies = [
-    {
-      name: "HTML 5",
-      icon: html,
-    },
-    {
-      name: "CSS 3",
-      icon: css,
-    },
     {
       name: "JavaScript",
       icon: javascript,
@@ -112,12 +111,16 @@ import {
       icon: figma,
     },
     {
-      name: "bootstrap",
-      icon: bootstrap,
+      name: "Jira",
+      icon: jira,
     },
     {
-      name: "sass",
-      icon: sass,
+      name: "Linear",
+      icon: linear,
+    },
+    {
+      name: "Coda",
+      icon: coda,
     },
     {
       name: "autocad",
@@ -157,12 +160,28 @@ import {
       company_name: "TaskUs",
       icon: shopify,
       iconBg: "#383E56",
-      date: "02/2021 - Present",
+      date: "02/2021 - 06/2023",
       points: [
         "Specialize in video copyright and monetization for high-profile TikTok clients on YouTube.",
         "Utilize manual searches, reviews, and claims to protect and monetize clients' videos.",
         "Expertise in potential and Pex claims to identify copyright infringement and ensure effective protection and monetization.",
         "Contribute to the successful transition of numerous high-profile TikTok creators to YouTube.",
+      ],
+    },
+    {
+      title: "Digital Transformation Project Manager",
+      company_name: "Oak Drive Ventures Inc.",
+      icon: oakdrive,
+      iconBg: "#ffffff",
+      date: "07/2023 - Present",
+      points: [
+        "Scaled the Digital Transformation team's delivery capacity by over 10x, from roughly 2 systems per year to 20-28 projects per year.",
+        "Led the transition from traditional project execution to Agile delivery practices, improving planning, collaboration, and delivery predictability.",
+        "Managed delivery of enterprise applications including HRIS platforms, ERP modules, collection automation tools, and internal business systems.",
+        "Reduced developer context switching by centralizing stakeholder requests through an AI-powered ticketing system.",
+        "Created executive dashboards in Coda, Gamma, Linear, and a custom app for real-time project and sprint visibility.",
+        "Designed wireframes and user flows in Figma, bridging business requirements and technical implementation to reduce development rework.",
+        "Balanced 5-11 concurrent projects while maintaining predictable delivery schedules.",
       ],
     },
   ];
@@ -279,7 +298,7 @@ import {
     {
       title: "Resume",
       icon: resumelogo,
-      newtab_link: "https://drive.google.com/file/d/1iucph0gQPWmNIAKODeYA_2lAMfSeqj-_/view?usp=sharing"
+      newtab_link: "https://drive.google.com/file/d/1do0NBgr3It45EtiWg1kayCHj15HvFVq4/view?usp=sharing"
     },
   ];
   

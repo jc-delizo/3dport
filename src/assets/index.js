@@ -20,12 +20,16 @@ import reactjs from "./tech/reactjs.png";
 import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
-import threejs from "./tech/threejs.svg";
+import threejs from "./tech/threejs.png";
 import bootstrap from "./tech/bootstrap.png"
 import autocad from "./tech/autocad.png"
 import sass from "./tech/sass.png"
+import jira from "./tech/jira.png";
+import linear from "./tech/linear.png";
+import coda from "./tech/coda.png";
 
 import meta from "./company/meta.png";
+import oakdrive from "./company/oakdrive.png";
 import shopify from "./company/shopify.png";
 import starbucks from "./company/starbucks.png";
 import tesla from "./company/tesla.png";
@@ -84,4 +88,8 @@ export {
   bootstrap,
   autocad,
   sass,
+  jira,
+  linear,
+  coda,
+  oakdrive,
 };

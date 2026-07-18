@@ -44,7 +44,7 @@ const About = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
       >
-          Hello! I am a frontend developer who takes pride in creating web experiences that are both aesthetically pleasing and user-friendly. My expertise includes HTML, CSS, Bootstrap, React, Vite, and Tailwind, which allows me to develop responsive and scalable applications that cater to users' needs. In addition to frontend development, I am also proficient in fullstack development, enabling me to assist in bringing your project from conception to launch. I am committed to staying up-to-date with the latest industry trends and technologies to provide innovative solutions that align with your specific requirements.
+          Hello! I am a Digital Transformation Project Manager with an engineering background, working where business requirements meet technical execution. I lead cross-functional teams that deliver enterprise systems, internal platforms, and workflow automation, using Scrum and Kanban, AI-powered workflows, and data-driven project management to keep delivery predictable. Because I came up through engineering and full-stack development, I can move between a stakeholder conversation, a Figma wireframe, and the implementation details without losing the thread. I am driven by problem-solving, adaptability, and building scalable digital solutions in fast-paced environments.
       </motion.p>
 
       <div className='mt-20 flex flex-wrap gap-10'>
