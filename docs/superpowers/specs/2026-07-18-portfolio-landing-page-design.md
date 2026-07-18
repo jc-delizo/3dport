@@ -534,11 +534,26 @@ Most recruiters meet this site as a LinkedIn or JobStreet link card, not as a pa
   searchable strings — "Digital Transformation" and "Delivery Manager" — and the two target titles
   are stated explicitly in §5.9 anyway.
 - **Description (≤155 chars):** `Digital Transformation leader who scaled software delivery from 2 to 20–28 projects a year through Agile, AI-powered workflows, and delivery system design.`
-- **OG image (1200×630):** must match the site's light, near-monochrome design language (§3.5) —
-  white background, `#09090B` type, the single `#2563EB` accent on the metric only. Large type reading
-  `JC Delizo · Digital Transformation & Technical Delivery · 2 systems/year → 20–28 projects/year`,
-  with a small professional headshot bottom-right. No gradients, no laptops, no stock photography.
-  It should read like a consulting firm's landing page, not a Behance portfolio.
+- **OG image — type-only, no headshot** (decided 2026-07-18; a photo can be added later without
+  changing anything else).
+
+  **Dimensions: 1200 × 630 px — a 1.91:1 ratio.** This is the near-universal standard: LinkedIn,
+  Facebook, Slack, and X (`summary_large_image`) all render it without letterboxing.
+
+  - Keep all text inside a centred **safe area of roughly 1080 × 540**. Some clients crop the edges
+    slightly, and different feeds crop differently — anything near the border can be cut.
+  - Export as PNG (type-only artwork stays crisp and small). Keep it **under 1MB**; platform limits
+    are higher, but large files get fetched slowly or skipped.
+  - **`og:image` must be an absolute URL**, not a relative path — `https://jc-delizo.github.io/3dport/og.png`.
+    Relative paths are the single most common reason preview cards silently fail to render.
+  - Re-scraping: LinkedIn caches aggressively. After deploying, run the URL through LinkedIn's Post
+    Inspector to force a refresh, or the old blank card persists for weeks.
+
+  **Content:** must match the site's light, near-monochrome design language (§3.5) — white background,
+  `#09090B` type, the single `#2563EB` accent on the metric only. Large type reading
+  `JC Delizo · Digital Transformation & Delivery Manager · 2 systems/year → 20–28 projects/year`.
+  No gradients, no laptops, no stock photography. It should read like a consulting firm's landing
+  page, not a Behance portfolio.
 
   *(An earlier draft specified a dark background; that predates the move to a light theme and is
   superseded. The link card is the first impression and must not contradict the page behind it.)*
@@ -560,15 +575,14 @@ verify the first deploy actually publishes before considering the redesign done.
 
 ## 9. Open items
 
-1. **Headshot** for the OG image — optional, blocked on JC. A face lifts click-through on a shared
-   link; a type-only card is still perfectly professional. Either send a photo or say skip.
+1. ~~**Headshot** for the OG image~~ — **Resolved 2026-07-18.** Skipped; the preview card is
+   type-only. A photo can be added later without touching anything else.
 2. ~~**Linear write-back**~~ — **Resolved 2026-07-18.** JC meant descriptions for the portfolio, not
    for Linear. The company workspace is read-only for this project and stays untouched.
-3. **Third proof stat — JC's call.** Currently **15** (enterprise systems live in production).
-   The alternative proposed is **7 — ERP Modules Delivered**, on the grounds that ERP is tangible and
-   searchable where "enterprise systems" is abstract. Recommendation: keep **15**. Next to `10×` and
-   `20–28`, a `7` reads as the weakest number in the row, and the ERP tangibility is already delivered
-   by Initiative 2, which leads with the seven modules. One-line change if JC disagrees.
+3. ~~**Third proof stat**~~ — **Resolved 2026-07-18. Locked to 15** ("Enterprise systems live in
+   production"). The alternative, "7 — ERP Modules Delivered", was considered and rejected: next to
+   `10×` and `20–28`, a `7` reads as the weakest number in the row, and the ERP tangibility is already
+   carried by Initiative 2, which opens with the seven modules.
 
 4. **Single file vs. split into `vision.md` / `design-system.md` / `content.md` / `implementation.md`.**
    Kept as one file for now. Separation of concerns applies when parts change independently, and here
