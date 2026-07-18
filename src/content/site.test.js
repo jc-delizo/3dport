@@ -19,10 +19,12 @@ describe('confidentiality', () => {
     expect(corpus).not.toContain(term)
   })
 
-  it('does not leak the CFB or L&H codenames', () => {
-    // Word-boundary matched so "L&H" is caught but ordinary prose is not.
+  it('does not leak the CFB, L&H, ODVI, or FC codenames', () => {
+    // Word-boundary matched so "CFB", "ODVI", "FC" are caught but ordinary prose is not.
     expect(corpus).not.toMatch(/\bCFB\b/)
     expect(corpus).not.toMatch(/L&H/)
+    expect(corpus).not.toMatch(/\bODVI\b/)
+    expect(corpus).not.toMatch(/\bFC\b/)
   })
 
   it('still names the employer, which is permitted', () => {
