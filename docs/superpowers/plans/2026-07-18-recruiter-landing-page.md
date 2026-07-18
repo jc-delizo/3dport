@@ -2040,7 +2040,9 @@ The workflow triggers on `main`; the repository's only branch is `master`, so it
 
 - [ ] **Step 1: Fix the workflow trigger and Node version**
 
-In `.github/workflows/main.yml`, change:
+In `.github/workflows/main.yml`:
+
+1. Change the trigger to the branch that actually exists:
 
 ```yaml
 on:
@@ -2048,7 +2050,18 @@ on:
     branches: ['master']
 ```
 
-and bump the Node setup step to `node-version: 20` (Vite 6 requires Node 18+; the workflow currently pins 18, which works, but 20 matches local development more closely).
+2. Bump Node to 20 (Vite 6 needs 18+; 20 matches local development).
+
+3. **Bump the deprecated Pages actions.** The workflow pins `actions/upload-pages-artifact@v1` and
+   `actions/deploy-pages@v1`. Both are deprecated and will likely fail even once the trigger is fixed.
+   Move to `@v3` and `@v4` respectively, and `actions/checkout@v4` / `actions/setup-node@v4`.
+
+4. **Confirm the repository's Pages source is set to "GitHub Actions"** in Settings → Pages. If it is
+   set to a branch instead, the workflow will run and still not publish.
+
+Note there is currently **no working publish path at all**: the workflow watches a branch that does not
+exist, `npm run deploy` calls `gh-pages` which is not installed, and `dist/` is gitignored. Merging to
+`master` alone will not update the live site.
 
 - [ ] **Step 2: Run the full check locally**
 
