@@ -4,6 +4,21 @@ Date: 2026-07-18
 Repo: `jc-delizo/3dport` — branch `redesign/landing-page`
 Published URL: https://jc-delizo.github.io/3dport/ (**must not change**)
 
+## Contents
+
+1. [Goal](#1-goal) — audience, positioning, design philosophy, the section-question test
+2. [Constraints](#2-constraints) — technical, mobile, confidentiality
+3. [Verified facts](#3-verified-facts) — every number, and its provenance
+3.5 [Design language](#35-design-language) — palette, type, layout, motion, accessibility
+4. [Page structure](#4-page-structure) — section order
+5. [Section-by-section copy](#5-section-by-section-copy) — final wording
+6. [What is removed](#6-what-is-removed) — and the dependencies dropped
+7. [Link preview](#7-link-preview-first-impression-before-the-click) — meta and OG image
+8. [Deployment](#8-deployment)
+9. [Open items](#9-open-items)
+
+*Kept as one file deliberately — see §9.4.*
+
 ---
 
 ## 1. Goal
@@ -23,16 +38,26 @@ and Technical Program / Delivery Manager. Explicitly *not* product management at
 **Differentiator:** not "project manager" — *builds delivery systems*. Many people manage projects;
 few redesign how an engineering organization operates.
 
+### Design philosophy
+
+> **Target impression: a well-run internal software platform, not a portfolio.**
+
+Everything in §3.5 derives from this one sentence. Someone hiring for these roles is hiring *clarity
+brought to complexity*; the site must feel like that before a word is read.
+
 ### Quality test for every section
 
-Each section must answer a **different** recruiter question. If a section answers a question already
-answered, shorten or cut it.
+> **Every section must answer a different recruiter question.**
+
+This is the rule that prevents scope creep. Whenever something is tempting to add, ask which recruiter
+question it answers. If it doesn't answer a new one, delete it.
 
 | Section | Question it answers |
 |---|---|
 | Hero | Why should I keep reading? |
 | Proof bar | Is the headline believable? |
 | Initiatives | How does he solve problems? |
+| Principles | **How does he think?** |
 | Experience | Where has he done this? |
 | Capabilities | What domains can he operate in? |
 | Tools | Can he fit our environment? |
@@ -131,6 +156,10 @@ Geist reads as *engineered* rather than *designed*, which is the point.
 
 ### Layout, cards, motion, icons
 
+- **Container width: `max-width: 72rem`** for standard sections; `80rem` is permitted only for the
+  full-bleed proof bar. Specified explicitly so it isn't invented at build time.
+- **Paragraph measure: `max-width: 65ch`.** No prose runs the full container width. This single rule
+  does more for readability than any other.
 - Everything aligns to an invisible grid. No floating decoration. Whitespace *is* the design.
 - Section spacing: 160px after hero, 120px between subsequent sections (scaled down on mobile).
 - Cards are uniform: border, `rounded-xl`, background, padding. **No shadows, no elevation, no
@@ -156,6 +185,18 @@ Big number, tiny label, nothing else:
 +--------------------------+
 ```
 
+### Accessibility (non-negotiable)
+
+Cheap to build, and a site selling "clarity and control" that fails these undercuts its own claim.
+
+- **WCAG AA contrast** on all text. The `#52525B` secondary on `#FFFFFF` passes; verify any variation.
+- **Visible keyboard focus** on every interactive element. Never `outline: none` without a replacement.
+- **`prefers-reduced-motion`** respected — all fade/slide reveals disabled when set.
+- **Semantic landmarks**: `header`, `nav`, `main`, `section`, `footer`, with one `h1` and no skipped
+  heading levels.
+- **Skip-to-content** link as the first focusable element.
+- Real `alt` text on the headshot; decorative elements marked `aria-hidden`.
+
 ### The one bespoke visual element
 
 In place of a hero illustration, a **typographic delivery pipeline** — no graphics, type only:
@@ -177,11 +218,12 @@ arrive wondering whether he can solve their problem.
 1. Hero
 2. Proof bar
 3. Initiatives
-4. Experience
-5. Capabilities
-6. Tools
-7. About
-8. Availability + Contact
+4. Principles
+5. Experience
+6. Capabilities
+7. Tools
+8. About
+9. Availability + Contact
 
 ---
 
@@ -196,7 +238,7 @@ on mobile. The nav is the one place a second bordered button is allowed.
 ### 5.1 Hero
 
 > # JC Delizo
-> ## Digital Transformation & Technical Delivery
+> ## Digital Transformation & Delivery Manager
 >
 > I help organizations deliver software faster by transforming the way teams work.
 >
@@ -231,12 +273,22 @@ word **Initiatives** — it satisfies the length objection completely while spea
 vocabulary per §3.5. Trade-off accepted: "Case Studies" is instantly legible to anyone, "Initiatives"
 is insider language — which is the point, since the audience uses it daily. Trivially reversible.)
 
-Uniform template: **Problem** (two sentences) → **Approach** (three or four bullets) →
-**Outcome** (numbers) → **Lesson** (one sentence). No screenshots, no client names.
+Uniform template: **Category label** (2–3 words, small caps, above the title) → **Title** →
+**Problem** (two sentences) → **Approach** (three or four bullets) → **Outcome** (numbers).
+No screenshots, no client names.
+
+The category label exists because people scan headings rather than read paragraphs — it lets a
+recruiter grasp the shape of all five initiatives in about five seconds.
+
+**The per-initiative "Lesson" line is removed.** It previously carried the "how does he think?" job,
+which now belongs to the Principles section (§5.4) — and the lessons duplicated the principles almost
+word for word. Applying the section-question test: one of them had to go.
 
 ---
 
 #### CS1 — Scaling Software Delivery
+
+`DELIVERY TRANSFORMATION`
 
 **Problem.** The digital transformation team could deliver only about two enterprise systems a year.
 Planning was inconsistent, workflows were fragmented, and there was no shared visibility into
@@ -251,11 +303,12 @@ delivery status.
 **Outcome.** Delivery capacity increased from roughly **2 systems per year to 20–28 projects per
 year**, while delivery schedules stayed predictable.
 
-**Lesson.** Scaling delivery was never about adding people — it was about removing bottlenecks.
 
 ---
 
 #### CS2 — Multi-Entity ERP Rollout
+
+`ENTERPRISE ERP`
 
 **Problem.** Several corporate entities ran HR, finance, and operations on fragmented and largely
 manual processes. There was no shared source of truth across payroll, recruitment, employee records,
@@ -270,11 +323,12 @@ or accounting.
 **Outcome.** **Seven Odoo modules live in production** — accounting, employee records, recruitment,
 helpdesk, agreements, performance management, and the shared core — with payroll in active delivery.
 
-**Lesson.** Sequencing matters more than scope: one module at a time kept adoption high and risk low.
 
 ---
 
 #### CS3 — AI-Powered Request Management
+
+`AI WORKFLOW`
 
 **Problem.** Developers were interrupted constantly by stakeholders across several communication
 channels. Requests arrived unstructured, so engineering time went to clarification rather than build.
@@ -287,11 +341,12 @@ channels. Requests arrived unstructured, so engineering time went to clarificati
 **Outcome.** Developer context switching dropped, incoming requirements arrived materially better
 formed, and the team gained a single source of truth for incoming work.
 
-**Lesson.** Let AI absorb the repetitive coordination so engineers can spend attention on hard problems.
 
 ---
 
 #### CS4 — Enterprise Transformation Portfolio
+
+`PORTFOLIO MANAGEMENT`
 
 **Problem.** Business units across HR, finance, treasury, legal, credit, and operations all needed
 digital solutions while sharing one constrained engineering team.
@@ -305,11 +360,12 @@ digital solutions while sharing one constrained engineering team.
 management, finance workflows, treasury queuing, legal case management, inventory tracking, and
 AI-enabled internal operations.
 
-**Lesson.** Saying no to the wrong work is what makes the right work predictable.
 
 ---
 
 #### CS5 — Building a Scalable Delivery System
+
+`OPERATING MODEL`
 
 **Problem.** Project management depended on manual coordination. That limited transparency and made
 throughput impossible to increase without adding headcount.
@@ -322,18 +378,36 @@ throughput impossible to increase without adding headcount.
 **Outcome.** A repeatable delivery system that supports substantially higher throughput while
 improving visibility, prioritization, and cross-functional collaboration.
 
-**Lesson.** A delivery system compounds; heroics don't.
 
 *(Note: the blanket "no technology list" rule is dropped for CS5 — here the tooling* is *the story.)*
 
-### 5.4 Experience
+### 5.4 Principles — four cards
+
+Answers the one question nothing else on the page answers: **how does he think?** The Initiatives
+show *what he did*; this shows *how he approaches work*. People remember principles.
+
+Four cards, one line each, no elaboration:
+
+- **Build systems, not heroics.**
+- **Measure outcomes, not activity.**
+- **Simplify before scaling.**
+- **Use AI to remove repetitive work.**
+
+Thirty seconds to read. This section replaces the per-initiative "Lesson" lines, which said the same
+things five times over.
+
+### 5.5 Experience
 
 Cards, not a timeline. Company · Role · Years · three achievements each. No repetition of case-study detail.
 
+**No achievement already proven elsewhere may be repeated here.** The 10× figure appears in the hero,
+the proof bar, and Initiative 1 — stating it a fourth time reads as padding. Experience answers
+*where*, and specifically *what else*.
+
 **Oak Drive Ventures Inc.** — Digital Transformation Project Manager — 07/2023–Present
-- Scaled team delivery capacity roughly 10×, from ~2 systems a year to 20–28 projects a year.
-- Led the shift from traditional project execution to Agile delivery practices.
-- Delivered enterprise applications across HR, finance, credit, treasury, and legal functions.
+- Led delivery for business functions spanning HR, finance, credit, treasury, legal, and operations.
+- Owned the delivery process end to end: intake, prioritization, sprint execution, and release.
+- Built the team's documentation and executive reporting practice across Coda, Linear, and dashboards.
 
 **TaskUs – SuperBam** — Content Moderator — 02/2021–06/2023
 - Protected and monetized content for high-profile creators through copyright claim workflows.
@@ -350,12 +424,12 @@ Cards, not a timeline. Company · Role · Years · three achievements each. No r
 - Ensured compliance with safety and quality standards.
 - Identified issues early to protect project delivery schedules.
 
-### 5.5 Capabilities — six
+### 5.6 Capabilities — six
 
 Agile Transformation · Technical Delivery Leadership · AI Workflow Design ·
 Process Optimization · Enterprise Systems (ERP / HRIS) · Cross-Functional Leadership
 
-### 5.6 Tools
+### 5.7 Tools
 
 Small, grouped text tags. No logos, no 3D.
 
@@ -368,19 +442,18 @@ Small, grouped text tags. No logos, no 3D.
 Odoo is listed explicitly — it is JC's most searchable technical specialization and was absent from
 every earlier draft.
 
-### 5.7 About — one paragraph
+### 5.8 About — one paragraph
 
-> I'm a Digital Transformation Project Manager with an engineering background who enjoys redesigning
-> the way software teams work. My focus is helping organizations improve delivery through Agile,
-> AI-powered workflows, and operational process design rather than relying solely on additional
-> resources.
+> I'm a Digital Transformation Project Manager with an engineering background who specializes in
+> redesigning software delivery systems through Agile, AI-powered workflows, and operational process
+> design — improving throughput without relying solely on additional resources.
 
-### 5.8 Availability + Contact
+### 5.9 Availability + Contact
 
 > ## Currently exploring new opportunities
 >
-> I'm currently employed and open to discussing Digital Transformation Manager and Technical Program /
-> Delivery Manager opportunities where I can help organizations improve software delivery, operational
+> I'm currently employed and selectively exploring Digital Transformation Manager and Technical
+> Program / Delivery Manager opportunities where I can help organizations improve software delivery, operational
 > efficiency, and cross-functional execution.
 
 Buttons: **Email** (mailto, address shown in plain text) · **LinkedIn** · **Résumé**
@@ -389,7 +462,7 @@ No contact form. The old EmailJS form used three-year-old keys and failed silent
 visitor "Thank you, I will get back to you" whether or not anything sent. A mailto link cannot fail
 silently.
 
-### 5.9 Footer
+### 5.10 Footer
 
 Copyright line only.
 
@@ -431,8 +504,13 @@ static page.
 
 Most recruiters meet this site as a LinkedIn or JobStreet link card, not as a page.
 
-- **Title:** `JC Delizo | Digital Transformation & Technical Delivery`
-  (Deliberately not "Project Manager" or "Scrum Master" — titles change, value doesn't.)
+- **Title:** `JC Delizo | Digital Transformation & Delivery Manager`
+
+  An earlier draft used "Digital Transformation & Technical Delivery" on the reasoning that titles
+  change but value doesn't. That's true for positioning and wrong for discovery: **recruiters search
+  job titles, not concepts.** Nobody searches "technical delivery". This phrasing carries both
+  searchable strings — "Digital Transformation" and "Delivery Manager" — and the two target titles
+  are stated explicitly in §5.9 anyway.
 - **Description (≤155 chars):** `Digital Transformation leader who scaled software delivery from 2 to 20–28 projects a year through Agile, AI-powered workflows, and delivery system design.`
 - **OG image (1200×630):** must match the site's light, near-monochrome design language (§3.5) —
   white background, `#09090B` type, the single `#2563EB` accent on the metric only. Large type reading
@@ -464,5 +542,15 @@ verify the first deploy actually publishes before considering the redesign done.
 2. **Linear write-back** — JC's "you can put descriptions on them too" was ambiguous. Linear is
    untouched pending confirmation of whether he wants project descriptions written into the company
    workspace or only used here.
-3. The third proof stat is **15** (production only). JC may elect 18 (including in-flight) instead;
-   both are verified, 15 is the more conservative claim. No further decision needed unless he prefers 18.
+3. **Third proof stat — JC's call.** Currently **15** (enterprise systems live in production).
+   The alternative proposed is **7 — ERP Modules Delivered**, on the grounds that ERP is tangible and
+   searchable where "enterprise systems" is abstract. Recommendation: keep **15**. Next to `10×` and
+   `20–28`, a `7` reads as the weakest number in the row, and the ERP tangibility is already delivered
+   by Initiative 2, which leads with the seven modules. One-line change if JC disagrees.
+
+4. **Single file vs. split into `vision.md` / `design-system.md` / `content.md` / `implementation.md`.**
+   Kept as one file for now. Separation of concerns applies when parts change independently, and here
+   they don't — the palette constrains the OG image, the positioning constrains the copy, the motion
+   budget determines a dependency. The two contradictions caught during review (dark OG image against
+   a light page; the reopened proof-stat decision) were both found *because* everything sat in one
+   document. Revisit if this passes ~800 lines or if the design system starts being reused elsewhere.
