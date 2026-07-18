@@ -1,27 +1,28 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx}"],
-  mode: "jit",
+  content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
-        primary: "#050816",
-        secondary: "#aaa6c3",
-        tertiary: "#151030",
-        "black-100": "#100d25",
-        "black-200": "#090325",
-        "white-100": "#f3f3f3",
+        canvas: '#FFFFFF',
+        ink: '#09090B',
+        muted: '#52525B',
+        hairline: '#E4E4E7',
+        card: '#FAFAFA',
+        accent: '#2563EB',
       },
-      boxShadow: {
-        card: "0px 35px 120px -15px #211e35",
+      fontFamily: {
+        sans: ['"Geist Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
-      screens: {
-        xs: "450px",
-      },
-      backgroundImage: {
-        "hero-pattern": "url('/src/assets/herobg.png')",
+      fontSize: {
+        label: ['0.8125rem', { lineHeight: '1.25rem' }], // 13px
+        body: ['1rem', { lineHeight: '1.65rem' }], // 16px
+        'card-title': ['1.25rem', { lineHeight: '1.75rem' }], // 20px
+        section: ['2rem', { lineHeight: '2.4rem' }], // 32px
+        hero: ['3.5rem', { lineHeight: '3.9rem' }], // 56px
+        'hero-lg': ['4rem', { lineHeight: '4.4rem' }], // 64px
       },
     },
   },
   plugins: [],
-};
+}
