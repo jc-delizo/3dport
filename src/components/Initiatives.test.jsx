@@ -26,6 +26,6 @@ describe('Initiatives', () => {
 
   it('leaks no internal entity codenames', () => {
     const { container } = render(<Initiatives />)
-    expect(container.textContent).not.toMatch(/\bCFB\b|PCNI|SUKI|Isla Terra|Moonrock/)
+    expect(container.textContent).not.toMatch(/\bCFB\b|L&H|\bODVI\b|\bDVCD\b|\bFC\b|PCNI|SUKI|Isla Terra|Oak Drive Capital|Sandy Beach|Moonrock/)
   })
 })

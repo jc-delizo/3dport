@@ -30,8 +30,8 @@ export function Initiatives() {
 
                 <Block label="Approach">
                   <ul className="list-disc space-y-2 pl-5 text-muted">
-                    {approach.map((point) => (
-                      <li key={point}>{point}</li>
+                    {approach.map((point, index) => (
+                      <li key={`${id}-${index}`}>{point}</li>
                     ))}
                   </ul>
                 </Block>
