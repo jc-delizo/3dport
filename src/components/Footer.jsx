@@ -1,18 +1,12 @@
-import React from 'react';
-import { socmed } from '../constants';
+import { site } from '../content/site'
+import { Container } from './ui/Container'
 
-const Footer = () => {
+export function Footer() {
   return (
-    <div className="flex flex-row flex-wrap justify-center gap-10 pb-10">
-      {socmed.map((item) => (
-        <div key={item.title}>
-          <a href={item.newtab_link} target="_blank" rel="noreferrer">
-            <img src={item.icon} alt={item.title} width="50" height="50" />
-          </a>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default Footer;
+    <footer className="border-t border-hairline py-10">
+      <Container>
+        <p className="text-label text-muted">{site.footer}</p>
+      </Container>
+    </footer>
+  )
+}
