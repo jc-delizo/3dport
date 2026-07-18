@@ -74,3 +74,43 @@ describe('structure', () => {
     expect(experienceText).not.toMatch(/10×|10x/)
   })
 })
+
+describe('meta drift guard', () => {
+  it('index.html meta tags match site.meta', () => {
+    const fs = require('node:fs')
+    const path = require('node:path')
+
+    // Read index.html from project root
+    const indexPath = path.resolve(__dirname, '../../index.html')
+    const htmlContent = fs.readFileSync(indexPath, 'utf-8')
+
+    // Helper to decode HTML entities
+    function decodeHtmlEntities(str) {
+      const entities = {
+        '&amp;': '&',
+        '&lt;': '<',
+        '&gt;': '>',
+        '&quot;': '"',
+        '&#39;': "'",
+      }
+      return str.replace(/&(?:amp|lt|gt|quot|#39);/g, (match) => entities[match] || match)
+    }
+
+    // Extract title
+    const titleMatch = htmlContent.match(/<title>([^<]+)<\/title>/)
+    const htmlTitle = titleMatch ? decodeHtmlEntities(titleMatch[1]) : null
+
+    // Extract meta description (handles multiline attributes)
+    const descMatch = htmlContent.match(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i)
+    const htmlDescription = descMatch ? decodeHtmlEntities(descMatch[1]) : null
+
+    // Extract og:image (handles multiline attributes)
+    const ogImageMatch = htmlContent.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i)
+    const htmlOgImage = ogImageMatch ? ogImageMatch[1] : null
+
+    // Assert they match
+    expect(htmlTitle).toBe(site.meta.title)
+    expect(htmlDescription).toBe(site.meta.description)
+    expect(htmlOgImage).toBe(site.meta.ogImage)
+  })
+})

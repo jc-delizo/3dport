@@ -1,7 +1,7 @@
 {
   "name": "3dportfolio",
   "version": "0.0.1",
-  "homepage": "https://jc-delizo.github.io/3dportfolio/",
+  "homepage": "https://jc-delizo.github.io/3dport/",
   "private": false,
   "scripts": {
     "dev": "vite",
