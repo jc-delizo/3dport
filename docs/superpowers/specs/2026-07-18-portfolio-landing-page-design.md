@@ -280,6 +280,18 @@ No screenshots, no client names.
 The category label exists because people scan headings rather than read paragraphs — it lets a
 recruiter grasp the shape of all five initiatives in about five seconds.
 
+**Depth comes from real constraints, never from inflation.** These initiatives should read as
+difficult because they were. The credibility of the 10× headline depends on everything around it
+being verifiable — a padded description doesn't just fail under interview questioning, it makes an
+interviewer wonder what else was padded. So: name the actual constraints (multi-tenancy, sequential
+locking, dependency sequencing, shared engineering capacity), never invent scale, technologies, or
+outcomes. The genuine complexity here is currently *under*-sold, not over-sold.
+
+*(An earlier draft had "Building a Scalable Delivery System" as CS5. It answered the same question as
+CS1 — how did you scale delivery? — so per the section-question test one had to go. Its tooling-evolution
+content is folded into CS1's Approach, and CS5 is now the approval platform, which is the strongest
+evidence on the page for the "technical" half of Technical Delivery Manager.)*
+
 **The per-initiative "Lesson" line is removed.** It previously carried the "how does he think?" job,
 which now belongs to the Principles section (§5.4) — and the lessons duplicated the principles almost
 word for word. Applying the section-question test: one of them had to go.
@@ -299,6 +311,9 @@ delivery status.
 - Standardized intake and prioritization across all requesting business functions.
 - Introduced AI-assisted workflows to remove repetitive coordination work.
 - Made delivery status visible to executives through live dashboards.
+- Evolved the tooling deliberately rather than all at once: traditional project management to Scrum,
+  documentation standardized in Coda, execution tracking migrated to Linear, AI automation layered
+  on last.
 
 **Outcome.** Delivery capacity increased from roughly **2 systems per year to 20–28 projects per
 year**, while delivery schedules stayed predictable.
@@ -363,23 +378,30 @@ AI-enabled internal operations.
 
 ---
 
-#### CS5 — Building a Scalable Delivery System
+#### CS5 — Multi-Entity Approval Workflow Platform
 
-`OPERATING MODEL`
+`APPROVAL SYSTEMS`
 
-**Problem.** Project management depended on manual coordination. That limited transparency and made
-throughput impossible to increase without adding headcount.
+**Problem.** Operational and financial approvals — travel, repairs, project execution, asset
+management — ran on email and paper across five corporate entities. Routing was inconsistent, no two
+departments approved the same way, and nothing was auditable.
 
 **Approach.**
-- Evolved delivery from traditional project management to Scrum.
-- Standardized documentation and workflows in Coda.
-- Migrated execution tracking to Linear and layered AI-assisted automation on top.
+- Specified a multi-tenant data model scoping every user and document to its corporate entity, so
+  cross-entity routing and segment reporting were possible at all.
+- Designed a dynamic routing engine: instead of fixed templates, a requester composes the approval
+  chain per document, selecting approvers from a global directory and tagging each with an action
+  type — prepared, reviewed, recommended, noted, approved, final approval.
+- Enforced strict sequential locking, so a step cannot act until the preceding step completes, with
+  drag-and-drop ordering at composition time.
+- Balanced that freedom with safeguards: an admin view that can halt, reorder, or inject approvers
+  mid-flight; a return-for-correction path; and an immutable audit trail of every action and change.
+- Added SSO with automatic provisioning of claimable accounts and a first-run onboarding flow.
 
-**Outcome.** A repeatable delivery system that supports substantially higher throughput while
-improving visibility, prioritization, and cross-functional collaboration.
+**Outcome.** Replaced ad-hoc approvals across five corporate entities with a single auditable
+platform. Currently in user training ahead of rollout.
 
-
-*(Note: the blanket "no technology list" rule is dropped for CS5 — here the tooling* is *the story.)*
+*(Confidentiality: the five entities are never named — "five corporate entities" only. See §2.)*
 
 ### 5.4 Principles — four cards
 
@@ -538,10 +560,10 @@ verify the first deploy actually publishes before considering the redesign done.
 
 ## 9. Open items
 
-1. **Headshot** for the OG image — blocked on JC.
-2. **Linear write-back** — JC's "you can put descriptions on them too" was ambiguous. Linear is
-   untouched pending confirmation of whether he wants project descriptions written into the company
-   workspace or only used here.
+1. **Headshot** for the OG image — optional, blocked on JC. A face lifts click-through on a shared
+   link; a type-only card is still perfectly professional. Either send a photo or say skip.
+2. ~~**Linear write-back**~~ — **Resolved 2026-07-18.** JC meant descriptions for the portfolio, not
+   for Linear. The company workspace is read-only for this project and stays untouched.
 3. **Third proof stat — JC's call.** Currently **15** (enterprise systems live in production).
    The alternative proposed is **7 — ERP Modules Delivered**, on the grounds that ERP is tangible and
    searchable where "enterprise systems" is abstract. Recommendation: keep **15**. Next to `10×` and
