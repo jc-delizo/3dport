@@ -1,34 +1,36 @@
 {
   "name": "3dportfolio",
   "version": "0.0.1",
-  "homepage": "https://jc-delizo.github.io/3dportfolio/",
+  "homepage": "https://jc-delizo.github.io/3dport/",
   "private": false,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "og": "node scripts/generate-og.mjs"
   },
   "dependencies": {
-    "@emailjs/browser": "^3.10.0",
-    "@react-three/drei": "^9.57.3",
-    "@react-three/fiber": "^8.12.0",
-    "framer-motion": "^10.6.1",
-    "maath": "^0.5.3",
+    "@fontsource/geist-sans": "^5.2.5",
+    "lucide-react": "^1.25.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-parallax-tilt": "^1.7.118",
-    "react-router-dom": "^6.9.0",
-    "react-vertical-timeline-component": "^3.6.0",
-    "three": "^0.150.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^1.1.4",
+    "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.14",
+    "jsdom": "^25.0.1",
     "postcss": "^8.4.5",
+    "puppeteer-core": "^25.3.0",
     "tailwindcss": "^3.0.20",
-    "vite": "^2.6.13"
+    "vite": "^6.4.3",
+    "vitest": "^2.1.9"
   }
 }
