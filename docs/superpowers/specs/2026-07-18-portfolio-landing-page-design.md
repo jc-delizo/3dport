@@ -32,7 +32,7 @@ answered, shorten or cut it.
 |---|---|
 | Hero | Why should I keep reading? |
 | Proof bar | Is the headline believable? |
-| Case Studies | How does he solve problems? |
+| Initiatives | How does he solve problems? |
 | Experience | Where has he done this? |
 | Capabilities | What domains can he operate in? |
 | Tools | Can he fit our environment? |
@@ -81,6 +81,94 @@ workspace on 2026-07-18 (54 projects total; JC is lead on 26).
 
 ---
 
+## 3.5 Design language
+
+**Target impression: a well-run internal software platform, not a portfolio.**
+
+Someone hiring a Digital Transformation or Technical Delivery Manager is hiring *clarity brought to
+complexity*. The site must feel like that before a word is read. The emotions being sold are calm,
+clarity, control, and confidence — not creativity, not technical brilliance.
+
+Reference points: Linear, Raycast, Stripe Dashboard, shadcn/ui, Notion, GitHub. What these share is
+that they are software people trust to organize complex work.
+
+**Bar:** it should look less like a portfolio and more like the dashboard of someone you'd trust to
+run a multi-million-dollar transformation programme.
+
+### Vocabulary
+
+Use the audience's own dialect throughout: **Initiatives, Systems, Delivery, Outcomes** — not
+"Projects". This reinforces the positioning without stating it.
+
+### Colour — near-monochrome, light
+
+| Token | Value |
+|---|---|
+| Background | `#FFFFFF` (or `#FCFCFC`) |
+| Primary text | `#09090B` |
+| Secondary text | `#52525B` |
+| Borders | `#E4E4E7` |
+| Card background | `#FAFAFA` |
+| Accent (one only) | `#2563EB` |
+
+The accent appears **only** on buttons, links, and metric numbers. Nowhere else. This is a deliberate
+reversal of the current dark theme (`#050816`).
+
+Background may carry a 1px grid at ~3% opacity. Nothing else — no gradients, no blobs, no particles.
+
+### Typography
+
+Self-hosted **Geist** (woff2, bundled — no Google Fonts or CDN request). Inter is the fallback.
+Geist reads as *engineered* rather than *designed*, which is the point.
+
+| Role | Size |
+|---|---|
+| Hero | 56–64px |
+| Section title | 32px |
+| Card title | 20px |
+| Body | 16px |
+| Label | 13px |
+
+### Layout, cards, motion, icons
+
+- Everything aligns to an invisible grid. No floating decoration. Whitespace *is* the design.
+- Section spacing: 160px after hero, 120px between subsequent sections (scaled down on mobile).
+- Cards are uniform: border, `rounded-xl`, background, padding. **No shadows, no elevation, no
+  glassmorphism.** Effectively a shadcn Card.
+- Motion: fade, slide, and opacity only. No bounce, scale, rotate, or spin. Executives don't notice
+  good animation but do notice distracting animation.
+- Icons: Lucide only, single colour, 16–18px, and only where they carry meaning. No emoji, no
+  colourful brand logos.
+- Buttons: exactly **one** filled primary per screen; everything else is ghost/outline.
+
+### Metric cards
+
+Big number, tiny label, nothing else:
+
+```
++--------------------------+
+|                          |
+| 10×                      |
+|                          |
+| Increase in              |
+| Delivery Capacity        |
+|                          |
++--------------------------+
+```
+
+### The one bespoke visual element
+
+In place of a hero illustration, a **typographic delivery pipeline** — no graphics, type only:
+
+```
+Business  →  Process  →  System  →  Team  →  Outcome
+```
+
+Animated very subtly (fade/slide on entry only). It quietly communicates how JC thinks, and costs
+almost nothing to build. This is the *only* decorative element on the site.
+
+---
+
 ## 4. Page structure
 
 Order is deliberate. **About sits near the end** — nobody arrives wondering about JC's story; they
@@ -88,7 +176,7 @@ arrive wondering whether he can solve their problem.
 
 1. Hero
 2. Proof bar
-3. Case Studies
+3. Initiatives
 4. Experience
 5. Capabilities
 6. Tools
@@ -98,6 +186,12 @@ arrive wondering whether he can solve their problem.
 ---
 
 ## 5. Section-by-section copy
+
+### 5.0 Navigation
+
+Sticky, very thin, near-invisible until needed. Links: **Transformation · Initiatives · Experience ·
+Capabilities · Contact**, with an outlined **Résumé** button on the right. Collapses to a single menu
+on mobile. The nav is the one place a second bordered button is allowed.
 
 ### 5.1 Hero
 
@@ -109,10 +203,13 @@ arrive wondering whether he can solve their problem.
 > Increased software delivery capacity from **2 systems/year to 20–28 projects/year** through
 > Agile, AI-powered workflows, and scalable delivery systems.
 
-Buttons: **View Case Studies** · **Download Résumé** · **LinkedIn**
+Buttons: **View Initiatives** · **Download Résumé** · **LinkedIn**
 
-Nothing else. No 3D. One screen. Visual interest from typography, spacing, and a restrained CSS
-background treatment only.
+Below the buttons, the typographic delivery pipeline from §3.5
+(`Business → Process → System → Team → Outcome`).
+
+Nothing else. No 3D. One screen. Visual interest comes from typography, spacing, and the faint
+background grid only.
 
 ### 5.2 Proof bar — three stats
 
@@ -124,10 +221,15 @@ background treatment only.
 
 Three, not five. Mixing metrics with non-metrics ("Scrum", "Enterprise") dilutes the row.
 
-### 5.3 Case Studies
+### 5.3 Initiatives
 
-Section title: **Case Studies.** (Considered "Selected Transformation Initiatives"; rejected — three
-words where one works, and long headings wrap badly on mobile.)
+Section title: **Initiatives.**
+
+(Decision history: "Selected Transformation Initiatives" was rejected as three words where one works,
+and long headings wrap badly on mobile. "Case Studies" was then chosen. Now superseded by the single
+word **Initiatives** — it satisfies the length objection completely while speaking the audience's own
+vocabulary per §3.5. Trade-off accepted: "Case Studies" is instantly legible to anyone, "Initiatives"
+is insider language — which is the point, since the audience uses it daily. Trivially reversible.)
 
 Uniform template: **Problem** (two sentences) → **Approach** (three or four bullets) →
 **Outcome** (numbers) → **Lesson** (one sentence). No screenshots, no client names.
@@ -310,9 +412,18 @@ Copyright line only.
 **No WebGL replacement is built.** A bespoke animated node graph would cost more than the model it
 replaces and communicate just as little. Visual interest comes from typography, spacing, and CSS.
 
-Dependencies to drop: `three`, `@react-three/fiber`, `@react-three/drei`, `maath`,
-`@emailjs/browser`, `react-vertical-timeline-component`, `react-parallax-tilt`.
-`framer-motion` stays for restrained scroll reveals.
+**Dependencies to drop:** `three`, `@react-three/fiber`, `@react-three/drei`, `maath`,
+`@emailjs/browser`, `react-vertical-timeline-component`, `react-parallax-tilt`, and
+**`framer-motion`**.
+
+Framer Motion is dropped too. §3.5 allows only fade, slide, and opacity — that's CSS transitions plus
+an `IntersectionObserver` hook, roughly 20 lines, against ~50KB of library. Keeping it would invite
+exactly the animation the design language forbids.
+
+**Dependencies to add:** `lucide-react` (icons), and self-hosted Geist woff2 files (no CDN request).
+
+Expected result: the bundle drops from ~1.1MB of JavaScript and ~24MB of 3D assets to a small
+static page.
 
 ---
 
@@ -323,10 +434,14 @@ Most recruiters meet this site as a LinkedIn or JobStreet link card, not as a pa
 - **Title:** `JC Delizo | Digital Transformation & Technical Delivery`
   (Deliberately not "Project Manager" or "Scrum Master" — titles change, value doesn't.)
 - **Description (≤155 chars):** `Digital Transformation leader who scaled software delivery from 2 to 20–28 projects a year through Agile, AI-powered workflows, and delivery system design.`
-- **OG image (1200×630):** dark background, large type, reading
+- **OG image (1200×630):** must match the site's light, near-monochrome design language (§3.5) —
+  white background, `#09090B` type, the single `#2563EB` accent on the metric only. Large type reading
   `JC Delizo · Digital Transformation & Technical Delivery · 2 systems/year → 20–28 projects/year`,
   with a small professional headshot bottom-right. No gradients, no laptops, no stock photography.
   It should read like a consulting firm's landing page, not a Behance portfolio.
+
+  *(An earlier draft specified a dark background; that predates the move to a light theme and is
+  superseded. The link card is the first impression and must not contradict the page behind it.)*
 
 Requires `og:title`, `og:description`, `og:image`, `og:url`, `og:type`, plus the Twitter card
 equivalents, in `index.html`.
