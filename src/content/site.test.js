@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { site } from './site'
+import { findForbidden, FORBIDDEN_COUNT } from './forbidden'
 
 // Every string in the content tree, flattened.
 function allStrings(value, acc = []) {
@@ -12,19 +13,15 @@ function allStrings(value, acc = []) {
 const corpus = allStrings(site).join('\n')
 
 describe('confidentiality', () => {
-  // Spec §2. These are internal entity codenames and must never ship.
-  const forbidden = ['PCNI', 'SUKI', 'DVCD', 'Isla Terra', 'Oak Drive Capital', 'Sandy Beach', 'Moonrock']
-
-  it.each(forbidden)('does not leak %s', (term) => {
-    expect(corpus).not.toContain(term)
+  // Terms are compared as hashes (src/content/forbidden.js) because this repo is public.
+  // Listing them literally here — as an earlier version did — published the very strings
+  // the guard exists to protect.
+  it('leaks none of the forbidden terms', () => {
+    expect(findForbidden(corpus)).toEqual([])
   })
 
-  it('does not leak the CFB, L&H, ODVI, or FC codenames', () => {
-    // Word-boundary matched so "CFB", "ODVI", "FC" are caught but ordinary prose is not.
-    expect(corpus).not.toMatch(/\bCFB\b/)
-    expect(corpus).not.toMatch(/L&H/)
-    expect(corpus).not.toMatch(/\bODVI\b/)
-    expect(corpus).not.toMatch(/\bFC\b/)
+  it('guards the full list, not a subset', () => {
+    expect(FORBIDDEN_COUNT).toBe(11)
   })
 
   it('still names the employer, which is permitted', () => {

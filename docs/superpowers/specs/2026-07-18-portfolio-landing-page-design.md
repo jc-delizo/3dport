@@ -78,7 +78,7 @@ question it answers. If it doesn't answer a new one, delete it.
 
 ### Confidentiality
 Source material comes from an internal Linear workspace. The following must **never** appear:
-- Internal business-unit or entity codenames (CFB, PCNI, L&H, ODVI, SUKI, DVCD, FC).
+- Internal business-unit or entity codenames (see `src/content/forbidden.js`).
 - Colleague names or email addresses.
 - Which projects were cancelled, or internal HR/contract notes.
 

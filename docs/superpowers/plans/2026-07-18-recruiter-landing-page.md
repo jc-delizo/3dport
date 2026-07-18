@@ -25,7 +25,7 @@ Every task's requirements implicitly include this section. Values are copied ver
 - **Icons:** Lucide only, single colour, 16–18px, only where they carry meaning.
 - **Section spacing:** 160px after hero, 120px between sections (reduced on mobile).
 - **No CDN requests.** Fonts are bundled. (The current `index.css` imports Poppins from Google Fonts — this must go.)
-- **Confidentiality — these strings must never appear in shipped output:** `CFB`, `PCNI`, `L&H`, `ODVI`, `SUKI`, `DVCD`, `Isla Terra`, `Oak Drive Capital`, `Sandy Beach`, `Moonrock`, or any colleague name. `Oak Drive Ventures` **is** permitted (employer).
+- **Confidentiality — these strings must never appear in shipped output:** `[redacted]`, `[redacted]`, `[redacted]`, `[redacted]`, `[redacted]`, `[redacted]`, `[redacted]`, `[redacted]`, `[redacted]`, `[redacted]`, or any colleague name. `Oak Drive Ventures` **is** permitted (employer).
 - **Factual rule:** never claim "26 initiatives". Third proof stat is **15 — Enterprise systems live in production**.
 - **Accessibility:** WCAG AA contrast, visible keyboard focus, semantic landmarks, one `h1`, skip-to-content link, `prefers-reduced-motion` respected.
 
@@ -388,16 +388,16 @@ const corpus = allStrings(site).join('\n')
 
 describe('confidentiality', () => {
   // Spec §2. These are internal entity codenames and must never ship.
-  const forbidden = ['PCNI', 'SUKI', 'DVCD', 'Isla Terra', 'Oak Drive Capital', 'Sandy Beach', 'Moonrock']
+  const forbidden = ['[redacted]', '[redacted]', '[redacted]', '[redacted]', '[redacted]', '[redacted]', '[redacted]']
 
   it.each(forbidden)('does not leak %s', (term) => {
     expect(corpus).not.toContain(term)
   })
 
-  it('does not leak the CFB, L&H, ODVI, or FC codenames', () => {
+  it('does not leak the [redacted], [redacted], [redacted], or FC codenames', () => {
     // Word-boundary matched so short tokens are caught but ordinary prose is not.
     expect(corpus).not.toMatch(/\bCFB\b/)
-    expect(corpus).not.toMatch(/L&H/)
+    expect(corpus).not.toMatch(/[redacted]/)
     expect(corpus).not.toMatch(/\bODVI\b/)
     expect(corpus).not.toMatch(/\bFC\b/)
   })
@@ -454,7 +454,7 @@ describe('structure', () => {
 - [ ] **Step 3: Run the tests — expect PASS**
 
 Run: `npm test`
-Expected: all tests pass. If "does not leak the CFB codename" fails, a codename has crept into the copy — fix the copy, never the test.
+Expected: all tests pass. If "does not leak the [redacted] codename" fails, a codename has crept into the copy — fix the copy, never the test.
 
 - [ ] **Step 4: Commit**
 
@@ -1238,7 +1238,7 @@ describe('Initiatives', () => {
 
   it('leaks no internal entity codenames', () => {
     const { container } = render(<Initiatives />)
-    expect(container.textContent).not.toMatch(/\bCFB\b|PCNI|SUKI|Isla Terra|Moonrock/)
+    expect(container.textContent).not.toMatch(/\bCFB\b|[redacted]|[redacted]|[redacted]|[redacted]/)
   })
 })
 ```

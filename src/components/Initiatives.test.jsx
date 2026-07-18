@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { Initiatives } from './Initiatives'
 import { site } from '../content/site'
+import { findForbidden } from '../content/forbidden'
 
 describe('Initiatives', () => {
   it('renders all five initiatives with title and category', () => {
@@ -26,6 +27,6 @@ describe('Initiatives', () => {
 
   it('leaks no internal entity codenames', () => {
     const { container } = render(<Initiatives />)
-    expect(container.textContent).not.toMatch(/\bCFB\b|L&H|\bODVI\b|\bDVCD\b|\bFC\b|PCNI|SUKI|Isla Terra|Oak Drive Capital|Sandy Beach|Moonrock/)
+    expect(findForbidden(container.textContent)).toEqual([])
   })
 })
