@@ -7,6 +7,19 @@ import { Button } from './ui/Button'
 export function Nav() {
   const [open, setOpen] = useState(false)
 
+  // Closing the mobile menu unmounts the link that was just activated, which drops
+  // focus to <body> and loses a keyboard user's place. Move focus to the section
+  // they asked for instead.
+  const closeAndFocus = (id) => {
+    setOpen(false)
+    requestAnimationFrame(() => {
+      const target = document.getElementById(id)
+      if (!target) return
+      target.setAttribute('tabindex', '-1')
+      target.focus({ preventScroll: true })
+    })
+  }
+
   return (
     <header className="sticky top-0 z-40 border-b border-hairline bg-canvas/85 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
@@ -43,7 +56,7 @@ export function Nav() {
               <a
                 key={id}
                 href={`#${id}`}
-                onClick={() => setOpen(false)}
+                onClick={() => closeAndFocus(id)}
                 className="text-body text-muted hover:text-ink"
               >
                 {label}

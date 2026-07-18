@@ -170,6 +170,61 @@ export const site = {
     },
   ],
 
+  // Verbatim LinkedIn recommendations. Emmanuel's names internal project names
+  // (FCT, Bucketlist, IMU, RFP Builder) — his own public words, quoted and attributed,
+  // not a fresh disclosure by JC. Trim them if that ever becomes a concern.
+  recommendations: [
+    {
+      quote:
+        'I strongly recommend Engr. John Carlo Delizo as a Project Manager. Despite leading multiple projects simultaneously — including FCT (Field Collection Tool), Bucketlist, IMU (Itinerary Manager Uniformed) for field staff tracking, and the AI-powered RFP Builder Automation — he consistently delivers high-quality results through exceptional leadership, strategic planning, and flawless execution. His ability to turn complex ideas into successful solutions makes him an outstanding leader.',
+      name: 'Emmanuel Louis Gonzaga',
+      context: 'Reported to JC directly',
+      date: 'July 2026',
+    },
+    {
+      quote:
+        'JC has the initiative to finish the task in timely manner. He is also a team player and grounded.',
+      name: 'Lisette Racoma',
+      context: 'Lead, I&C at FDC Utilities Inc. — managed JC directly',
+      date: 'April 2023',
+    },
+  ],
+
+  // Ordered by relevance to the target roles, not by date. The two PICS certifications
+  // lead because the national exam rankings are the strongest verifiable credential here.
+  certifications: [
+    {
+      name: 'Certified Instrumentation and Control Engineer',
+      issuer: 'Philippine Instrumentation and Control Society',
+      date: 'Nov 2018',
+      note: 'Ranked 8th of 1,057 examinees',
+    },
+    {
+      name: 'Certified Instrumentation and Control Technician',
+      issuer: 'Philippine Instrumentation and Control Society',
+      date: 'Nov 2018',
+      note: 'Ranked 11th of 2,089 examinees',
+    },
+    {
+      name: 'Full Stack Web Development',
+      issuer: 'Zuitt Coding Bootcamp',
+      date: 'Feb 2023',
+      note: 'Enthusiastic Learner Award · DPC-0225-0012',
+    },
+    {
+      name: 'Object-Oriented Programming with JavaScript',
+      issuer: 'Zuitt Coding Bootcamp',
+      date: 'Mar 2023',
+      note: 'DPC-0273-0011',
+    },
+    {
+      name: 'MySQL for MongoDB Developers',
+      issuer: 'Zuitt Coding Bootcamp',
+      date: 'Mar 2023',
+      note: 'DPC-0277-0011',
+    },
+  ],
+
   capabilities: [
     { icon: 'Workflow', label: 'Agile Transformation' },
     { icon: 'GitBranch', label: 'Technical Delivery Leadership' },

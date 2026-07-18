@@ -9,11 +9,18 @@ export function Reveal({ as: Tag = 'div', delay = 0, className = '', children })
     if (!node) return
 
     // Respect the user's motion preference: show immediately, never animate.
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) {
+    // Listened to rather than read once, so switching the OS setting mid-session
+    // reveals anything still waiting instead of leaving it stuck hidden.
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (query.matches) {
       setVisible(true)
       return
     }
+
+    const onPreferenceChange = (event) => {
+      if (event.matches) setVisible(true)
+    }
+    query.addEventListener('change', onPreferenceChange)
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -25,7 +32,11 @@ export function Reveal({ as: Tag = 'div', delay = 0, className = '', children })
       { rootMargin: '0px 0px -10% 0px' }
     )
     observer.observe(node)
-    return () => observer.disconnect()
+
+    return () => {
+      query.removeEventListener('change', onPreferenceChange)
+      observer.disconnect()
+    }
   }, [])
 
   return (

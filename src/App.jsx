@@ -4,8 +4,10 @@ import { ProofBar } from './components/ProofBar'
 import { Initiatives } from './components/Initiatives'
 import { Principles } from './components/Principles'
 import { Experience } from './components/Experience'
+import { Recommendations } from './components/Recommendations'
 import { Capabilities } from './components/Capabilities'
 import { Tools } from './components/Tools'
+import { Certifications } from './components/Certifications'
 import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
@@ -23,8 +25,10 @@ export default function App() {
         <Initiatives />
         <Principles />
         <Experience />
+        <Recommendations />
         <Capabilities />
         <Tools />
+        <Certifications />
         <About />
         <Contact />
       </main>
