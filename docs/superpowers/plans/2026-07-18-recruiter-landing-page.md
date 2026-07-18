@@ -39,7 +39,7 @@ The repo is on Vite 2.9 (2022) with `@vitejs/plugin-react` 1.x. Modern Vitest re
 - Modify: `package.json`
 - Modify: `vite.config.js`
 - Create: `src/test/setup.js`
-- Create: `src/test/smoke.test.js`
+- Create: `src/test/smoke.test.jsx`
 
 **Interfaces:**
 - Consumes: nothing.
@@ -107,7 +107,13 @@ In `package.json`, add to `"scripts"`:
 
 - [ ] **Step 5: Write a smoke test**
 
-`src/test/smoke.test.js`:
+`src/test/smoke.test.jsx`:
+
+**The `.jsx` extension is required, not cosmetic.** Under Vite 6, `@vitejs/plugin-react` v4 delegates
+JSX to esbuild, which recognises JSX only by file extension. A `.js` file containing JSX fails with a
+Vite import-analysis error. Every test file in this plan that contains JSX must end in `.jsx`;
+`src/content/site.test.js` has no JSX and correctly stays `.js`.
+
 
 ```js
 import { describe, it, expect } from 'vitest'
