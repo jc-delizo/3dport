@@ -1,6 +1,6 @@
 export const site = {
   meta: {
-    title: 'JC Delizo | Digital Transformation & Delivery Manager',
+    title: 'JC Delizo | Digital Transformation Project Manager',
     description:
       'Digital Transformation leader who scaled software delivery from 2 to 20–28 projects a year through Agile, AI-powered workflows, and delivery system design.',
     url: 'https://jc-delizo.github.io/3dport/',
@@ -17,7 +17,7 @@ export const site = {
 
   hero: {
     name: 'JC Delizo',
-    title: 'Digital Transformation & Delivery Manager',
+    title: 'Digital Transformation Project Manager',
     claim: 'I help organizations deliver software faster by transforming the way teams work.',
     support:
       'Increased software delivery capacity from 2 systems/year to 20–28 projects/year through Agile, AI-powered workflows, and scalable delivery systems.',
@@ -31,7 +31,10 @@ export const site = {
     ],
   },
 
-  pipeline: ['Business', 'Process', 'System', 'Team', 'Outcome'],
+  // Career arc, shown as the typographic row under the hero CTAs. Replaced the old
+  // method pipeline (Business → Process → System → Team → Outcome), which duplicated
+  // what the Principles section and the Initiatives already demonstrate.
+  pipeline: ['Digital Transformation PM', 'Scrum Master', 'Technical Product Leader'],
 
   proof: [
     { value: '10×', label: 'Increase in delivery capacity' },
