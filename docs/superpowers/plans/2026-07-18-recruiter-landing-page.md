@@ -600,13 +600,11 @@ import '@fontsource/geist-sans/400.css'
 import '@fontsource/geist-sans/600.css'
 ```
 
-- [ ] **Step 5: Delete the legacy style helper**
+- [ ] **Step 5: Leave `src/styles.js` in place for now**
 
-```bash
-git rm src/styles.js
-```
-
-This file exports the old dark-theme `styles` object. Components still importing it are deleted in Task 12; until then the build may fail, which is expected and resolved there.
+Do **not** delete it in this task. It exports the old dark-theme `styles` object, and `Works.jsx`,
+`Tech.jsx` and `Feedbacks.jsx` still import it — deleting it here would break `npm run build` for
+every task up to Task 12. It is removed in Task 12 alongside the components that use it.
 
 - [ ] **Step 6: Verify Tailwind compiles the new tokens**
 
@@ -1715,7 +1713,7 @@ This is the task that removes ~24MB of assets and seven dependencies. Do it in o
 
 **Files:**
 - Modify: `src/App.jsx` (full replacement)
-- Delete: `src/components/canvas/` (entire directory), `src/components/Loader.jsx`, `src/components/Works.jsx`, `src/components/Tech.jsx`, `src/components/Feedbacks.jsx`, `src/components/index.js`, `src/hoc/` (entire directory), `src/utils/motion.js`, `src/constants/index.js`, `src/assets/` (entire directory), `public/desktop_pc/`, `public/planet/`
+- Delete: `src/components/canvas/` (entire directory), `src/components/Loader.jsx`, `src/components/Works.jsx`, `src/components/Tech.jsx`, `src/components/Feedbacks.jsx`, `src/components/index.js`, `src/hoc/` (entire directory), `src/utils/motion.js`, `src/constants/index.js`, `src/styles.js`, `src/assets/` (entire directory), `public/desktop_pc/`, `public/planet/`
 - Create: `src/App.test.jsx`
 - Modify: `package.json` (remove dependencies)
 
@@ -1814,8 +1812,11 @@ export default function App() {
 git rm -r src/components/canvas src/hoc src/assets public/desktop_pc public/planet
 git rm src/components/Loader.jsx src/components/Works.jsx src/components/Tech.jsx \
        src/components/Feedbacks.jsx src/components/index.js src/utils/motion.js \
-       src/constants/index.js
+       src/constants/index.js src/styles.js
 ```
+
+`src/styles.js` is removed here rather than in Task 3 because the components above import it; deleting
+it earlier would break the build for every intervening task.
 
 - [ ] **Step 5: Remove dead dependencies**
 
