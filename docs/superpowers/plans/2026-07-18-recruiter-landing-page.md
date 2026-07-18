@@ -617,7 +617,13 @@ every task up to Task 12. It is removed in Task 12 alongside the components that
 - [ ] **Step 6: Verify Tailwind compiles the new tokens**
 
 Run: `npx tailwindcss -c tailwind.config.cjs -i src/index.css -o /tmp/tw-check.css`
-Expected: exit 0, and `grep -c "container-page" /tmp/tw-check.css` returns at least 1.
+Expected: exit 0.
+
+Do **not** then grep the output for `container-page` and expect a hit. Tailwind v3's JIT purges
+`@layer components` rules that no scanned file references, and no component consumes these classes
+until Task 4. A zero count here is correct, not a failure. To prove the classes compile, temporarily
+create a file referencing them, re-run, confirm the count is non-zero, then delete the probe and
+verify `git status` is clean.
 
 - [ ] **Step 7: Commit**
 
