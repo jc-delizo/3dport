@@ -10,7 +10,8 @@
     "deploy": "gh-pages -d dist",
     "test": "vitest run",
     "test:watch": "vitest",
-    "og": "node scripts/generate-og.mjs"
+    "og": "node scripts/generate-og.mjs",
+    "headshot": "node scripts/generate-headshot.mjs"
   },
   "dependencies": {
     "@fontsource/geist-sans": "^5.2.5",

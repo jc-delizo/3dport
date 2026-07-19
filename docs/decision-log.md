@@ -133,6 +133,15 @@ the strongest independently verifiable credential available.
 **Testimonials were never faked.** Before real recommendations existed, the page used verifiable
 metrics as credibility markers instead of inventing quotes.
 
+**The About portrait is a supplied cutout, not the original photo.** The studio headshot had a
+near-black gradient background that fought the light page — and it could not be cut out
+programmatically, because the subject is *darker than the backdrop*: hair `(0,0,1)` and suit
+`(14,20,39)` against a `(23,23,21)` corner. Every threshold erased the jacket and the crown of the
+hair before touching the background. Tools that succeed here use semantic segmentation, not colour
+keying. JC supplied a background-removed master; it lives at `assets/head-master.png`, outside
+`src/` so Vite never bundles it. Regenerate the web assets with `npm run headshot` — do not attempt
+a local re-cut of the original.
+
 ---
 
 ## Defects the process caught
@@ -186,3 +195,6 @@ preview image, and the served metadata.
 - **Never revive the retracted "26" claim.** See the spec for why.
 - Link previews are cached for about a week; after changing the preview card, force a re-scrape or the
   stale version persists — including on already-published posts.
+- **Portrait assets are derived, not hand-made.** `public/head.avif` and `public/head.jpg` come from
+  `npm run headshot`. Do not edit them directly. The generator enforces a size budget and fails if
+  the AVIF loses its alpha channel.
