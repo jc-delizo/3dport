@@ -200,14 +200,16 @@ In `package.json`, add `headshot` to `scripts`, immediately after `og`:
 npm run headshot
 ```
 
-Expected output:
+Expected output (actual bytes, as the script reports them):
 
 ```
-wrote .../public/head.avif (11.7K)
-wrote .../public/head.jpg (23.4K)
+wrote .../public/head.avif (8.4K)
+wrote .../public/head.jpg (21.2K)
 ```
 
-Sizes may vary by a few hundred bytes across ImageMagick builds. Anything over budget throws.
+Sizes vary across ImageMagick and libaom versions; anything over budget throws. Note that `du -h`
+reports 12K and 24K for these same files — that is 4K block allocation, not file size. Compare
+against `stat -c %s`, not `du`.
 
 - [ ] **Step 7: Run the asset test to confirm it passes**
 
@@ -407,12 +409,27 @@ Expected: 57 passed (51 existing + 2 from Task 1 + 4 here). Build exits 0. `dist
 
 - [ ] **Step 7: Verify `/3dport/` survived in the built output**
 
+Do **not** grep for the literal string `/3dport/head.avif`. The minifier factors the shared base
+prefix into a helper, so the concatenated literal never appears in the bundle and a naive grep
+returns empty on correct code. Verify the helper, its call sites, and a live fetch instead:
+
 ```bash
-grep -o '/3dport/head\.[a-z]*' dist/assets/*.js | sort -u
+grep -oE '[A-Za-z_$][A-Za-z0-9_$]*=[a-z]+=>`/3dport/\$\{[a-z]+\}`' dist/assets/*.js
+grep -oE '[A-Za-z_$][A-Za-z0-9_$]*\("head\.(avif|jpg)"\)' dist/assets/*.js
 ls -la dist/head.avif dist/head.jpg
+
+npx vite preview --port 4178 &
+sleep 4
+for p in /3dport/head.avif /3dport/head.jpg; do
+  curl -s -o /dev/null -w "$p %{http_code} %{content_type}\n" "http://localhost:4178$p"
+done
+kill %1
 ```
 
-Expected: both `/3dport/head.avif` and `/3dport/head.jpg` appear in the bundle, and both files exist in `dist/`.
+Expected: a helper of the form `X=v=>`/3dport/${v}`` plus call sites `X("head.avif")` and
+`X("head.jpg")`; both files present in `dist/`; and both URLs returning `200` with content types
+`image/avif` and `image/jpeg`. The live fetch is the authoritative check — it tests what the browser
+will actually request.
 
 - [ ] **Step 8: Commit**
 
