@@ -525,7 +525,38 @@ Run the whole thing end to end before claiming completion. Evidence before asser
 - [ ] `du -sh dist` → ≤ 440K
 - [ ] `grep -c '/3dport/' dist/index.html` → non-zero (base path intact)
 - [ ] `ls dist/head.avif dist/head.jpg` → both present
-- [ ] Open `dist/index.html` in a browser at 375px and 1440px width. Confirm: portrait renders (not a broken image), shoulders meet the frame's bottom edge, no horizontal overflow at 375px, and the section reads correctly stacked on mobile.
+- [ ] **Measure the portrait box at three widths — do not eyeball it.** jsdom performs no layout, so
+  the entire test suite is structurally blind to layout defects. An "open it in a browser" instruction
+  was in an earlier version of this checklist and got checked off without catching a 147px empty panel
+  on mobile. Record numbers:
+
+```bash
+cat > ./measure-tmp.mjs <<'EOF'
+import puppeteer from 'puppeteer-core'
+const b = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: 'new', args: ['--no-sandbox'] })
+const p = await b.newPage()
+for (const w of [375, 768, 1440]) {
+  await p.setViewport({ width: w, height: 900 })
+  await p.goto('http://localhost:4180/3dport/', { waitUntil: 'networkidle0' })
+  const r = await p.evaluate(() => {
+    const img = document.querySelector('img[alt="JC Delizo"]')
+    const fig = img.closest('figure')
+    return { fig: Math.round(fig.getBoundingClientRect().width), img: Math.round(img.getBoundingClientRect().width) }
+  })
+  console.log(`${w} figure=${r.fig} img=${r.img} gap=${r.fig - r.img}`)
+}
+await b.close()
+EOF
+npx vite preview --port 4180 >/dev/null 2>&1 &
+sleep 4 && node ./measure-tmp.mjs; kill %1; rm -f ./measure-tmp.mjs
+```
+
+  Expected: `gap` is 2px (border only) at all three widths. A gap in the tens or hundreds means the
+  figure is stretching and needs `self-start`. The harness must live in the project root to resolve
+  `puppeteer-core`, and must be deleted afterward.
+
+- [ ] Open `dist/index.html` in a browser at 375px and 1440px. Confirm the portrait renders (not a
+  broken image), shoulders meet the frame's bottom edge, and there is no horizontal overflow at 375px.
 - [ ] Confirm the portrait is the only image change — the OG card at `public/og.png` is untouched.
 
 **Not in this plan:** deploying. Publication is a separate decision, and the parent spec's own history records that a green checkmark is not evidence of publication — verify the live URL, the preview image, and the served metadata before believing a deploy worked.
