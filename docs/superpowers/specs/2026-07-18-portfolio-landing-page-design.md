@@ -577,6 +577,10 @@ verify the first deploy actually publishes before considering the redesign done.
 
 1. ~~**Headshot** for the OG image~~ — **Resolved 2026-07-18.** Skipped; the preview card is
    type-only. A photo can be added later without touching anything else.
+   **Amended 2026-07-19:** still true of the OG card, which remains type-only — but a headshot
+   *was* added to the About section under
+   `docs/superpowers/specs/2026-07-19-about-headshot-design.md`. The site has a photo; the link
+   preview does not.
 2. ~~**Linear write-back**~~ — **Resolved 2026-07-18.** JC meant descriptions for the portfolio, not
    for Linear. The company workspace is read-only for this project and stays untouched.
 3. ~~**Third proof stat**~~ — **Resolved 2026-07-18. Locked to 15** ("Enterprise systems live in
