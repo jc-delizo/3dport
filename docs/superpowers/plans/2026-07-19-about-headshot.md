@@ -293,6 +293,12 @@ describe('About', () => {
     // Vite rewrites asset paths in HTML and CSS but not in JS strings. A bare
     // "/head.avif" would 404 under the /3dport/ base. This is the only component
     // that references a public asset, so nothing else guards it.
+    //
+    // Verified 2026-07-19: under Vitest 2.1.9 + jsdom, import.meta.env.BASE_URL
+    // resolves to '/3dport/' (it inherits vite.config.js `base`), so this
+    // assertion distinguishes correct code from the bug. Do not assume this —
+    // some Vitest setups resolve BASE_URL to '/' in test mode, which would make
+    // the assertion untestable rather than merely fragile.
     const { container } = render(<About />)
     expect(container.querySelector('picture source').getAttribute('srcset')).toBe('/3dport/head.avif')
     expect(screen.getByAltText('JC Delizo').getAttribute('src')).toBe('/3dport/head.jpg')
