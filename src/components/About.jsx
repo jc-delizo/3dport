@@ -18,7 +18,7 @@ export function About() {
             {/* Not the Card primitive: Card hard-codes p-6 md:p-8, and a p-0 override
                 is resolved by Tailwind's stylesheet order, not class order. The
                 portrait needs zero padding so it can bleed off the bottom edge. */}
-            <figure className="shrink-0 overflow-hidden rounded-xl border border-hairline bg-card">
+            <figure className="self-start shrink-0 overflow-hidden rounded-xl border border-hairline bg-card">
               <picture>
                 <source srcSet={asset('head.avif')} type="image/avif" />
                 <img

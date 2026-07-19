@@ -14,6 +14,11 @@ describe('About', () => {
     expect(source).toHaveAttribute('type', 'image/avif')
     expect(source.getAttribute('srcset')).toMatch(/head\.avif$/)
     expect(screen.getByAltText('JC Delizo').getAttribute('src')).toMatch(/head\.jpg$/)
+    // querySelector('picture source') matches regardless of document order, so it
+    // cannot by itself prove the AVIF <source> precedes the <img> fallback. Pin
+    // source order explicitly: it is the entire mechanism by which <picture>
+    // prefers AVIF over the JPEG.
+    expect(container.querySelector('picture > *:first-child')).toBe(source)
   })
 
   it('prefixes both asset paths with the deploy base', () => {
