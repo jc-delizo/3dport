@@ -191,36 +191,130 @@ export const site = {
   ],
 
   // Ordered by relevance to the target roles, not by date. The two PICS certifications
-  // lead because the national exam rankings are the strongest verifiable credential here.
+  // lead as featured cards — the national exam rankings are the strongest verifiable
+  // credential here. Open University display names are approved renames; the official
+  // certificate titles are recorded in
+  // docs/superpowers/specs/2026-07-31-certifications-expansion-design.md §4.
   certifications: [
     {
       name: 'Certified Instrumentation and Control Engineer',
       issuer: 'Philippine Instrumentation and Control Society',
-      date: 'Nov 2018',
+      date: '2018',
+      url: 'https://drive.google.com/file/d/1KQnIfynOvAwnVbk1sjalBO1kvbvwb76j/view?usp=sharing',
       note: 'Ranked 8th of 1,057 examinees',
+      featured: true,
     },
     {
       name: 'Certified Instrumentation and Control Technician',
       issuer: 'Philippine Instrumentation and Control Society',
-      date: 'Nov 2018',
+      date: '2018',
+      url: 'https://drive.google.com/file/d/1xjIMN90watG8_hBkIYzvLZZnYpraH6TR/view?usp=sharing',
       note: 'Ranked 11th of 2,089 examinees',
+      featured: true,
+    },
+    {
+      name: 'Project Governance & PMO',
+      issuer: 'The Open University',
+      date: '2026',
+      url: 'https://drive.google.com/file/d/1J2akTjCZQOMzXbIBFINFLDscFVmZIoOF/view?usp=drive_link',
+    },
+    {
+      name: 'Software Development for Enterprise Systems',
+      issuer: 'The Open University',
+      date: '2026',
+      url: 'https://drive.google.com/file/d/1NsGfL4E1kTo1Lx2oji-0JdXFN7GQmVJe/view?usp=drive_link',
+    },
+    {
+      name: 'Software Development Approaches',
+      issuer: 'The Open University',
+      date: '2026',
+      url: 'https://drive.google.com/file/d/1z-3ELbbT9YqJi4wspIyjQBV5sfaMYK3G/view?usp=drive_link',
+    },
+    {
+      name: 'Delivering Successful IT Systems',
+      issuer: 'The Open University',
+      date: '2026',
+      url: 'https://drive.google.com/file/d/12jz3npwp_0Qj_awXHu4QZTzaG7rq3nqD/view?usp=drive_link',
+    },
+    {
+      name: 'Project Management Essentials',
+      issuer: 'The Open University',
+      date: '2026',
+      url: 'https://drive.google.com/file/d/1JZ3CQTmsobFWVko5PEmTM7lppoVhjKf8/view?usp=drive_link',
+    },
+    {
+      name: 'Change Management for Hybrid Work',
+      issuer: 'The Open University',
+      date: '2026',
+      url: 'https://drive.google.com/file/d/1qhRonGRJcJ4YDEn8CtqRx0nWGp1vu6zO/view?usp=drive_link',
+    },
+    {
+      name: 'Managing Virtual Project Teams',
+      issuer: 'The Open University',
+      date: '2026',
+      url: 'https://drive.google.com/file/d/14ZvcFwPcQPfk5fE69a3Xm2K4GUCfXnA-/view?usp=drive_link',
+    },
+    // No shareable credential exists for this course; it renders unlinked (spec §2).
+    {
+      name: 'Agile Project Management',
+      issuer: 'Alison',
+      date: '2026',
+    },
+    {
+      name: 'AI Capabilities and Limitations',
+      issuer: 'Anthropic',
+      date: '2026',
+      url: 'https://verify.skilljar.com/c/fx8zb2jpzmb3',
+    },
+    {
+      name: 'AI Fluency: Framework & Foundations',
+      issuer: 'Anthropic',
+      date: '2026',
+      url: 'https://verify.skilljar.com/c/jcisomdtuk9f',
+    },
+    {
+      name: 'AI Fluency for Builders',
+      issuer: 'Anthropic',
+      date: '2026',
+      url: 'https://verify.skilljar.com/c/k2o4dxyjy3yk',
+    },
+    {
+      name: 'Model Context Protocol: Advanced Topics',
+      issuer: 'Anthropic',
+      date: '2026',
+      url: 'https://verify.skilljar.com/c/x3yhyuej563n',
+    },
+    {
+      name: 'Claude on Google Cloud',
+      issuer: 'Anthropic',
+      date: '2026',
+      url: 'https://verify.skilljar.com/c/3np2qtp8rujt',
+    },
+    {
+      name: 'Teaching AI Fluency',
+      issuer: 'Anthropic',
+      date: '2026',
+      url: 'https://verify.skilljar.com/c/qh73wcpgrf37',
     },
     {
       name: 'Full Stack Web Development',
       issuer: 'Zuitt Coding Bootcamp',
-      date: 'Feb 2023',
+      date: '2023',
+      url: 'https://share.zertify.zuitt.co/certificate/fd382383-216f-4982-93fe-3d748352ce5a/',
       note: 'Enthusiastic Learner Award · DPC-0225-0012',
     },
     {
       name: 'Object-Oriented Programming with JavaScript',
       issuer: 'Zuitt Coding Bootcamp',
-      date: 'Mar 2023',
+      date: '2023',
+      url: 'https://share.zertify.zuitt.co/certificate/4257e147-6505-4714-afd3-4031e2c29855/',
       note: 'DPC-0273-0011',
     },
     {
       name: 'MySQL for MongoDB Developers',
       issuer: 'Zuitt Coding Bootcamp',
-      date: 'Mar 2023',
+      date: '2023',
+      url: 'https://share.zertify.zuitt.co/certificate/49b3be22-9145-4117-849e-50b42ef543d8',
       note: 'DPC-0277-0011',
     },
   ],

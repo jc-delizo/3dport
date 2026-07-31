@@ -111,3 +111,30 @@ describe('meta drift guard', () => {
     expect(htmlOgImage).toBe(site.meta.ogImage)
   })
 })
+
+describe('certifications data', () => {
+  it('has 19 entries; 18 carry https credential URLs, Alison carries none', () => {
+    expect(site.certifications.length).toBe(19)
+    const withUrl = site.certifications.filter((c) => c.url)
+    expect(withUrl.length).toBe(18)
+    withUrl.forEach((c) => expect(c.url).toMatch(/^https:\/\//))
+    const alison = site.certifications.find((c) => c.issuer === 'Alison')
+    expect(alison.name).toBe('Agile Project Management')
+    expect(alison.url).toBeUndefined()
+  })
+
+  it('features exactly the two PICS national-ranking certifications, first', () => {
+    const featured = site.certifications.filter((c) => c.featured)
+    expect(featured.map((c) => c.name)).toEqual([
+      'Certified Instrumentation and Control Engineer',
+      'Certified Instrumentation and Control Technician',
+    ])
+    featured.forEach((c) => expect(c.note).toMatch(/^Ranked/))
+    expect(site.certifications.indexOf(featured[0])).toBe(0)
+    expect(site.certifications.indexOf(featured[1])).toBe(1)
+  })
+
+  it('uses year-only dates in this section', () => {
+    site.certifications.forEach((c) => expect(c.date).toMatch(/^\d{4}$/))
+  })
+})
