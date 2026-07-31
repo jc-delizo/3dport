@@ -97,8 +97,11 @@ Anthropic AI certs (sheet order), then the 3 Zuitt bootcamp certs (current site 
 `src/content/site.js` certifications become:
 
 ```js
-{ name, issuer, date, url, note?, featured? }
+{ name, issuer, date, url?, note? }
 ```
+
+(Amended 2026-07-31: `featured` was removed with the flat-rows revision; Anthropic entries carry
+their Skilljar credential ID as `note`, Zuitt-style.)
 
 Copy stays in the one content module; the component renders whatever the module holds. No new
 dependencies, no meta/OG changes (so no link-preview re-scrape needed).
@@ -107,7 +110,7 @@ dependencies, no meta/OG changes (so no link-preview re-scrape needed).
 
 Update `Certifications.test.jsx` to assert:
 
-- 19 entries render; the 2 featured PICS cards show their ranking notes.
+- 19 entries render as flat rows (no card headings); the 2 PICS rows show their ranking notes.
 - Exactly 18 entries have an `href`; all links carry `target="_blank"` and
   `rel="noopener noreferrer"`; the Alison entry renders no anchor element.
 - Every `url` present in the content module is `https://`.
@@ -117,7 +120,8 @@ must stay green.
 
 ## 8. Out of scope
 
-- No changes to any other section, the OG image, or meta tags.
+- No changes to the OG image or meta tags. (Amended 2026-07-31: a "Certifications" nav link was
+  added at JC's request — the only change outside the section.)
 - No re-litigation of the four excluded 2022 certifications.
 - Certificate PDFs/images are **not** copied into the repo — Drive links are the agreed hosting.
 

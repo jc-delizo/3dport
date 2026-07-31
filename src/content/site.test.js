@@ -134,4 +134,12 @@ describe('certifications data', () => {
   it('uses year-only dates in this section', () => {
     site.certifications.forEach((c) => expect(c.date).toMatch(/^\d{4}$/))
   })
+
+  it('shows each Anthropic credential ID, matching its verification URL', () => {
+    const anthropic = site.certifications.filter((c) => c.issuer === 'Anthropic')
+    expect(anthropic.length).toBe(6)
+    anthropic.forEach((c) => {
+      expect(c.note).toBe(c.url.split('/').pop())
+    })
+  })
 })

@@ -139,7 +139,9 @@ inflated — renames; the official↔display mapping lives in
 section display year-only, so a column of identical "Jul 2026" labels doesn't shout about the
 clustering the linked certificates already disclose. Every credential URL was verified
 publicly accessible before shipping; the Alison entry has no shareable credential and renders
-unlinked. The 2022 marketing/design courses stay excluded.
+unlinked. The 2022 marketing/design courses stay excluded. A "Certifications" nav link was added
+the same day, and entries with issuer-assigned credential IDs (Anthropic, Zuitt) show them on the
+row.
 
 **Testimonials were never faked.** Before real recommendations existed, the page used verifiable
 metrics as credibility markers instead of inventing quotes.
