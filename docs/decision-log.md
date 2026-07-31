@@ -130,6 +130,17 @@ argument at the moment a recruiter is deciding. A test now fails if it is pasted
 dilute the story. The five that shipped all support it, led by two national exam rankings, which are
 the strongest independently verifiable credential available.
 
+**Amended 2026-07-31: the section grew from 5 to 19 entries** after a deliberate July 2026
+upskilling sprint — 7 Open University governance/delivery courses, 6 Anthropic AI
+certifications, 1 Alison course. The two PICS rankings keep the featured-card treatment;
+everything else is a compact linked row. Open University display names are trimmed — never
+inflated — renames; the official↔display mapping lives in
+`docs/superpowers/specs/2026-07-31-certifications-expansion-design.md` §4. Dates in this
+section display year-only, so a column of identical "Jul 2026" labels doesn't shout about the
+clustering the linked certificates already disclose. Every credential URL was verified
+publicly accessible before shipping; the Alison entry has no shareable credential and renders
+unlinked. The 2022 marketing/design courses stay excluded.
+
 **Testimonials were never faked.** Before real recommendations existed, the page used verifiable
 metrics as credibility markers instead of inventing quotes.
 
