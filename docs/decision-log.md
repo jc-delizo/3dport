@@ -132,8 +132,8 @@ the strongest independently verifiable credential available.
 
 **Amended 2026-07-31: the section grew from 5 to 19 entries** after a deliberate July 2026
 upskilling sprint — 7 Open University governance/delivery courses, 6 Anthropic AI
-certifications, 1 Alison course. The two PICS rankings keep the featured-card treatment;
-everything else is a compact linked row. Open University display names are trimmed — never
+certifications, 1 Alison course. All 19 render as compact linked rows in one flat list; the two PICS
+rankings lead it, their national-ranking notes shown on the row. Open University display names are trimmed — never
 inflated — renames; the official↔display mapping lives in
 `docs/superpowers/specs/2026-07-31-certifications-expansion-design.md` §4. Dates in this
 section display year-only, so a column of identical "Jul 2026" labels doesn't shout about the

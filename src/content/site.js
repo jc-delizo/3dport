@@ -191,10 +191,9 @@ export const site = {
   ],
 
   // Ordered by relevance to the target roles, not by date. The two PICS certifications
-  // lead as featured cards — the national exam rankings are the strongest verifiable
-  // credential here. Open University display names are approved renames; the official
-  // certificate titles are recorded in
-  // docs/superpowers/specs/2026-07-31-certifications-expansion-design.md §4.
+  // lead — the national exam rankings are the strongest verifiable credential here.
+  // Open University display names are approved renames; the official certificate titles
+  // are recorded in docs/superpowers/specs/2026-07-31-certifications-expansion-design.md §4.
   certifications: [
     {
       name: 'Certified Instrumentation and Control Engineer',
@@ -202,7 +201,6 @@ export const site = {
       date: '2018',
       url: 'https://drive.google.com/file/d/1KQnIfynOvAwnVbk1sjalBO1kvbvwb76j/view?usp=sharing',
       note: 'Ranked 8th of 1,057 examinees',
-      featured: true,
     },
     {
       name: 'Certified Instrumentation and Control Technician',
@@ -210,7 +208,6 @@ export const site = {
       date: '2018',
       url: 'https://drive.google.com/file/d/1xjIMN90watG8_hBkIYzvLZZnYpraH6TR/view?usp=sharing',
       note: 'Ranked 11th of 2,089 examinees',
-      featured: true,
     },
     {
       name: 'Project Governance & PMO',

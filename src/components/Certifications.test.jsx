@@ -4,7 +4,7 @@ import { Certifications } from './Certifications'
 import { site } from '../content/site'
 
 describe('Certifications', () => {
-  it('renders all 19 certifications with issuer and date', () => {
+  it('renders all 19 certifications as flat rows with issuer and date', () => {
     const { container } = render(<Certifications />)
     expect(site.certifications.length).toBe(19)
     site.certifications.forEach(({ name, issuer, date }) => {
@@ -12,8 +12,9 @@ describe('Certifications', () => {
       expect(screen.getAllByText(issuer).length).toBeGreaterThan(0)
       expect(screen.getAllByText(date).length).toBeGreaterThan(0)
     })
-    // Two tiers: exactly the two featured entries render as cards (h3 headings).
-    expect(container.querySelectorAll('h3').length).toBe(2)
+    // One flat list: every entry is a row, no card headings remain.
+    expect(container.querySelectorAll('li').length).toBe(19)
+    expect(container.querySelectorAll('h3').length).toBe(0)
   })
 
   it('links every credentialed entry to its certificate in a new tab, safely', () => {

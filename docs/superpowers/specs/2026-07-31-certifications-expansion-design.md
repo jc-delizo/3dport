@@ -63,6 +63,11 @@ site (fuller than the sheet's, e.g. "Object-Oriented Programming with JavaScript
 
 ## 5. Layout
 
+> **Amended 2026-07-31 (JC's call, after seeing the rendered two-tier layout):** no featured
+> cards — all 19 entries render as compact rows in one flat list. The two PICS entries stay
+> first and their ranking notes render as the row's note line. The tier description below is
+> retained for history but superseded.
+
 Two tiers, **no grouping** (JC's explicit call — a flat list, not issuer sections):
 
 1. **Featured cards:** the two PICS certifications keep the current full-card treatment with

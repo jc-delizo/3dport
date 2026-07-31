@@ -123,15 +123,12 @@ describe('certifications data', () => {
     expect(alison.url).toBeUndefined()
   })
 
-  it('features exactly the two PICS national-ranking certifications, first', () => {
-    const featured = site.certifications.filter((c) => c.featured)
-    expect(featured.map((c) => c.name)).toEqual([
-      'Certified Instrumentation and Control Engineer',
-      'Certified Instrumentation and Control Technician',
-    ])
-    featured.forEach((c) => expect(c.note).toMatch(/^Ranked/))
-    expect(site.certifications.indexOf(featured[0])).toBe(0)
-    expect(site.certifications.indexOf(featured[1])).toBe(1)
+  it('leads with the two PICS national-ranking certifications', () => {
+    const [first, second] = site.certifications
+    expect(first.name).toBe('Certified Instrumentation and Control Engineer')
+    expect(second.name).toBe('Certified Instrumentation and Control Technician')
+    ;[first, second].forEach((c) => expect(c.note).toMatch(/^Ranked/))
+    expect(site.certifications.some((c) => c.featured)).toBe(false)
   })
 
   it('uses year-only dates in this section', () => {
