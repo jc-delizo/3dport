@@ -191,25 +191,11 @@ export const site = {
     },
   ],
 
-  // Ordered by relevance to the target roles, not by date. The two PICS certifications
-  // lead — the national exam rankings are the strongest verifiable credential here.
+  // Sorted newest first: the July 2026 delivery/AI certifications are the most
+  // role-relevant, the 2018 PICS national-ranking pair closes the list.
   // Open University display names are approved renames; the official certificate titles
   // are recorded in docs/superpowers/specs/2026-07-31-certifications-expansion-design.md §4.
   certifications: [
-    {
-      name: 'Certified Instrumentation and Control Engineer',
-      issuer: 'Philippine Instrumentation and Control Society',
-      date: '2018',
-      url: 'https://drive.google.com/file/d/1KQnIfynOvAwnVbk1sjalBO1kvbvwb76j/view?usp=sharing',
-      note: 'Ranked 8th of 1,057 examinees',
-    },
-    {
-      name: 'Certified Instrumentation and Control Technician',
-      issuer: 'Philippine Instrumentation and Control Society',
-      date: '2018',
-      url: 'https://drive.google.com/file/d/1xjIMN90watG8_hBkIYzvLZZnYpraH6TR/view?usp=sharing',
-      note: 'Ranked 11th of 2,089 examinees',
-    },
     {
       name: 'Project Governance & PMO',
       issuer: 'The Open University',
@@ -320,6 +306,20 @@ export const site = {
       date: '2023',
       url: 'https://share.zertify.zuitt.co/certificate/49b3be22-9145-4117-849e-50b42ef543d8',
       note: 'DPC-0277-0011',
+    },
+    {
+      name: 'Certified Instrumentation and Control Engineer',
+      issuer: 'Philippine Instrumentation and Control Society',
+      date: '2018',
+      url: 'https://drive.google.com/file/d/1KQnIfynOvAwnVbk1sjalBO1kvbvwb76j/view?usp=sharing',
+      note: 'Ranked 8th of 1,057 examinees',
+    },
+    {
+      name: 'Certified Instrumentation and Control Technician',
+      issuer: 'Philippine Instrumentation and Control Society',
+      date: '2018',
+      url: 'https://drive.google.com/file/d/1xjIMN90watG8_hBkIYzvLZZnYpraH6TR/view?usp=sharing',
+      note: 'Ranked 11th of 2,089 examinees',
     },
   ],
 

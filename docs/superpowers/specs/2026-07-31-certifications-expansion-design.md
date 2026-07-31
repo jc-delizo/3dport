@@ -92,6 +92,10 @@ the 7 Open University delivery/governance certs (PMO first, then sheet order), t
 Agile Project Management (role-relevant, so it sits with the delivery certs), then the 6
 Anthropic AI certs (sheet order), then the 3 Zuitt bootcamp certs (current site order).
 
+> **Amended 2026-07-31 (JC's call):** ordering is now newest-first — the 2026 certs
+> (Open University, Alison, Anthropic) then 2023 Zuitt, with the 2018 PICS pair closing the
+> list. The paragraph above is retained for history but superseded.
+
 ## 6. Content model
 
 `src/content/site.js` certifications become:

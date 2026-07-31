@@ -34,7 +34,7 @@ describe('Certifications', () => {
     expect(alison.closest('a')).toBeNull()
   })
 
-  it('leads with the two national exam rankings, which are the strongest credential', () => {
+  it('shows the two national exam rankings, the strongest verifiable credential', () => {
     render(<Certifications />)
     expect(screen.getByText(/8th of 1,057/)).toBeInTheDocument()
     expect(screen.getByText(/11th of 2,089/)).toBeInTheDocument()
