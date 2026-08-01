@@ -26,7 +26,7 @@ export const site = {
     secondaryCtas: [
       {
         label: 'Download Résumé',
-        href: 'https://drive.google.com/file/d/1do0NBgr3It45EtiWg1kayCHj15HvFVq4/view?usp=sharing',
+        href: 'https://drive.google.com/file/d/1qXS39D5IIhlsfCpolatVm3pR00pEsW0F/view?usp=sharing',
       },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jcdelizo/' },
     ],
@@ -134,13 +134,21 @@ export const site = {
       role: 'Digital Transformation Project Manager',
       period: '07/2023 – Present',
       points: [
-        'Led delivery for business functions spanning HR, finance, credit, treasury, legal, and operations.',
-        'Owned the delivery process end to end: intake, prioritization, sprint execution, and release.',
-        "Built the team's documentation and executive reporting practice across Coda, Linear, and dashboards.",
+        'Led a cross-functional team of 6 developers, 1 QA, and 1 designer serving 22 departments and 1,600+ employees.',
+        'Reported directly to the COO, presenting sprint and portfolio updates to the C-suite and department heads.',
+        'Delivered 65 systems end to end over 3 years — intake, prioritization, sprint execution, UAT, change management, and go-live.',
+        'Led the transition from traditional project execution to Agile delivery (Scrum), running sprint planning, backlog refinement, and retrospectives.',
+        'Reduced developer context switching by centralizing stakeholder intake through an AI-powered ticketing system.',
+        'Created executive dashboards in Coda, Gamma, Linear, and a custom app for real-time roadmap, velocity, and sprint visibility.',
+        'Improved stakeholder communication through transparent project tracking, sprint updates, and an AI-powered support channel.',
+        'Designed wireframes and user flows in Figma, translating business requirements into user-centered technical solutions.',
+        'Optimized delivery processes through risk identification, bottleneck analysis, and automation of intake, ticket routing, and backlog administration.',
+        'Managed delivery of enterprise applications — HRIS platforms, ERP modules, and collection automation tools — coordinating 3 external vendors (Heliconia, Jeonsoft, Pinfront).',
+        'Balanced 5–11 concurrent projects with predictable schedules, documenting each across Coda, Figma, and Gamma.',
       ],
     },
     {
-      company: 'TaskUs – SuperBam',
+      company: 'TaskUs – SuperBam · Remote',
       role: 'Content Moderator',
       period: '02/2021 – 06/2023',
       points: [
@@ -333,15 +341,18 @@ export const site = {
   ],
 
   tools: [
-    { group: 'Delivery', items: ['Jira', 'Linear', 'Coda'] },
-    { group: 'Enterprise Systems', items: ['Odoo ERP'] },
+    {
+      group: 'Delivery',
+      items: ['Jira', 'Linear', 'Coda', 'ClickUp', 'Monday', 'Asana', 'Trello', 'Notion', 'Azure DevOps'],
+    },
+    { group: 'Enterprise Systems', items: ['Odoo ERP', 'Google Workspace'] },
     { group: 'Design', items: ['Figma', 'Balsamiq'] },
     { group: 'Development', items: ['Git', 'GitHub', 'Vercel'] },
     { group: 'AI', items: ['Claude', 'Cursor', 'ChatGPT', 'Gemini', 'Codex'] },
   ],
 
   about:
-    "I'm a Digital Transformation Project Manager with an engineering background who specializes in redesigning software delivery systems through Agile, AI-powered workflows, and operational process design — improving throughput without relying solely on additional resources.",
+    "I'm a Digital Transformation Project Manager with an engineering background and 10+ years across engineering and software delivery. I specialize in redesigning software delivery systems through Agile, AI-powered workflows, and operational process design — improving throughput without relying solely on additional resources.",
 
   availability: {
     heading: 'Currently exploring new opportunities',
@@ -352,7 +363,7 @@ export const site = {
     email: 'mrjcdelizo@gmail.com',
     linkedin: 'https://www.linkedin.com/in/jcdelizo/',
     resume:
-      'https://drive.google.com/file/d/1do0NBgr3It45EtiWg1kayCHj15HvFVq4/view?usp=sharing',
+      'https://drive.google.com/file/d/1qXS39D5IIhlsfCpolatVm3pR00pEsW0F/view?usp=sharing',
   },
 
   footer: `© ${new Date().getFullYear()} JC Delizo`,
