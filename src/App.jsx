@@ -2,6 +2,7 @@ import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { ProofBar } from './components/ProofBar'
 import { Initiatives } from './components/Initiatives'
+import { Portfolio } from './components/Portfolio'
 import { Principles } from './components/Principles'
 import { Experience } from './components/Experience'
 import { Recommendations } from './components/Recommendations'
@@ -23,6 +24,7 @@ export default function App() {
         <Hero />
         <ProofBar />
         <Initiatives />
+        <Portfolio />
         <Principles />
         <Experience />
         <Recommendations />
