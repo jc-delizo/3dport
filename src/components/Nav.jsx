@@ -27,7 +27,7 @@ export function Nav() {
           JC Delizo
         </a>
 
-        <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-5 md:flex lg:gap-8">
           {site.nav.map(({ id, label }) => (
             <a key={id} href={`#${id}`} className="text-label text-muted hover:text-ink">
               {label}
