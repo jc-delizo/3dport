@@ -9,6 +9,7 @@ export const site = {
 
   nav: [
     { id: 'initiatives', label: 'Initiatives' },
+    { id: 'portfolio', label: 'Portfolio' },
     { id: 'principles', label: 'Principles' },
     { id: 'experience', label: 'Experience' },
     { id: 'capabilities', label: 'Capabilities' },
@@ -120,6 +121,346 @@ export const site = {
         'Replaced ad-hoc approvals across five corporate entities with a single auditable platform. Currently in user training ahead of rollout.',
     },
   ],
+
+  // Full delivery portfolio, grouped by domain. Titles are deliberately generalized:
+  // the confidentiality guard (forbidden.js) bans internal entity and project names.
+  // The internal-name mapping lives OUTSIDE this public repo.
+  portfolio: {
+    intro:
+      'The systems and initiatives behind the numbers above — titles generalized where client confidentiality requires.',
+    groups: [
+      {
+        group: 'ERP & HR Platforms',
+        items: [
+          {
+            title: 'Enterprise ERP Transformation Program',
+            role: 'Led',
+            desc: 'Org-wide rollout replacing fragmented HR, payroll, accounting, recruitment, helpdesk, and performance processes with connected ERP workflows.',
+          },
+          {
+            title: 'Payroll Implementation — 1,600 Employees',
+            role: 'Led',
+            desc: 'Payroll rules, leave, statutory contributions, migration, parallel runs, UAT, cutover, and post-launch support.',
+          },
+          {
+            title: 'Central Employee Information System',
+            role: 'Led',
+            desc: 'Employee profiles, movements, disciplinary cases, exits, and HR reporting feeding every other ERP module.',
+          },
+          {
+            title: 'Performance Management System',
+            role: 'Coordinated',
+            desc: 'KRAs, appraisals, performance conversations, reports, and PIP workflows for managers, employees, and HR.',
+          },
+          {
+            title: 'ERP Accounting Module',
+            role: 'Coordinated',
+            desc: 'Financial reports, assets, bills, journal entries, audit access, and specialized reporting corrections.',
+          },
+          {
+            title: 'Employment Agreements Module',
+            role: 'Coordinated',
+            desc: 'Offer, contract, and agreement-template generation with controlled document access.',
+          },
+          {
+            title: 'HR & Internal Helpdesk',
+            role: 'Coordinated',
+            desc: 'Structured ticket workflows with team-specific visibility, reporting, exports, FAQs, and resolution tracking.',
+          },
+          {
+            title: 'Performance Evaluation Form Automation',
+            role: 'Coordinated',
+            desc: 'Digitized evaluation cycle — account setup, submissions, performance conversations, and HR monitoring of the first full cycle.',
+          },
+          {
+            title: 'ERP eLearning Evaluation',
+            role: 'Coordinated',
+            desc: 'Business evaluation of standard employee-learning features against HR requirements ahead of implementation.',
+          },
+        ],
+      },
+      {
+        group: 'Recruitment & Onboarding',
+        items: [
+          {
+            title: 'Multi-Company Recruitment Platform',
+            role: 'Led',
+            desc: 'Manpower requests through Day-1 onboarding, with approval routing, applicant tracking, and strict company-level data isolation.',
+          },
+          {
+            title: 'Recruitment Automation with Executive Email Approvals',
+            role: 'Coordinated',
+            desc: 'Manpower requests to completed hiring: executive email approvals, external integrations, and candidate-data controls.',
+          },
+          {
+            title: 'ERP Recruitment Module',
+            role: 'Coordinated',
+            desc: 'Vacancies, applicants, job offers, contracts, and centralized recruitment reporting for HR.',
+          },
+          {
+            title: 'Async Interview Platform',
+            role: 'Led',
+            desc: 'Candidate interviews without simultaneous availability — end-to-end testing, training, turnover, and rollout.',
+          },
+        ],
+      },
+      {
+        group: 'Lending & Credit',
+        items: [
+          {
+            title: 'Universal Finance System',
+            role: 'Oversight',
+            desc: 'Configurable finance platform — customers, loans, charges, amortization, collateral, letters, permissions, and reporting.',
+          },
+          {
+            title: 'Loan Origination System',
+            role: 'Oversight',
+            desc: 'Loan requests, verification, approvals, role-based access, encryption, data masking, and audit trails.',
+          },
+          {
+            title: 'Credit Approval Queuing',
+            role: 'Coordinated',
+            desc: 'Digitized submission, queuing, review, and approval of credit applications with role-specific dashboards.',
+          },
+          {
+            title: 'Nextbank Companion App — Microloan Operations',
+            role: 'Oversight',
+            desc: 'Loan, payment, and collection workflows: payment-file processing, production tagging, large reports, and health checks.',
+          },
+          {
+            title: 'Nextbank Companion App — Sister Lending Company',
+            role: 'Oversight',
+            desc: "Companion implementation serving a second lending entity's loan and customer-processing operations.",
+          },
+          {
+            title: 'Nextbank Core Implementation — Sister Lending Company',
+            role: 'Oversight',
+            desc: "Core lending-platform initiative supporting the entity's loan and customer-management operations.",
+          },
+          {
+            title: 'MSME Credit Risk Framework',
+            role: 'Oversight',
+            desc: 'Structured evaluation criteria and risk visibility for MSME lending decisions.',
+          },
+        ],
+      },
+      {
+        group: 'Collections & Recovery',
+        items: [
+          {
+            title: 'Unified Collection Tool',
+            role: 'Led',
+            desc: 'Consolidated separate collection applications into one platform — development, migration, UAT, parallel testing, rollout.',
+          },
+          {
+            title: 'Collection Queuing System',
+            role: 'Led',
+            desc: 'Queue for collection requests, swiping, releases, and acknowledgements, integrated with the ATM inventory system.',
+          },
+          {
+            title: 'Collection Automation Platform',
+            role: 'Coordinated',
+            desc: 'Standardized collection workflow adopted across five operating areas of a microloan product.',
+          },
+          {
+            title: 'Field Collection Tool',
+            role: 'Oversight',
+            desc: 'Structured recording of field collection activities, customer interactions, and outcomes.',
+          },
+          {
+            title: 'Tele Collection Tool',
+            role: 'Coordinated',
+            desc: 'Telecollection follow-ups with centralized monitoring of remote collection work.',
+          },
+          {
+            title: 'Legal & Remedial Case Management',
+            role: 'Oversight',
+            desc: 'Centralized case information, actions, and monitoring, pushed through UAT, turnover, and rollout.',
+          },
+        ],
+      },
+      {
+        group: 'Field & Branch Operations',
+        items: [
+          {
+            title: 'Field Itinerary Management — Uniformed Personnel',
+            role: 'Led',
+            desc: 'Itineraries, visits, calls, and GPS tracking replacing legacy workflows; offline capability and a stabilized go-live.',
+          },
+          {
+            title: 'Field Itinerary Management — Civilian Personnel',
+            role: 'Coordinated',
+            desc: 'Itinerary and field-activity management for scheduled client work by civilian staff.',
+          },
+          {
+            title: 'ATM Inventory & Movement Tracking',
+            role: 'Coordinated',
+            desc: 'Custody, availability, and processing visibility for ATM inventory across the organization.',
+          },
+          {
+            title: 'Local Bank & Passbook Inventory System',
+            role: 'Coordinated',
+            desc: 'Local-bank records, passbooks, surrendered ATMs, and client-account status handling.',
+          },
+          {
+            title: 'Pouch Receiving System',
+            role: 'Oversight',
+            desc: 'Inbound/outbound pouch and item tracking between branches, departments, and the head-office mailroom.',
+          },
+          {
+            title: 'Client Updater',
+            role: 'Coordinated',
+            desc: 'Client-information updates with visible ownership of update responsibilities; bug resolution and re-adoption.',
+          },
+          {
+            title: 'Online Marketing Representative Automation',
+            role: 'Led',
+            desc: 'Early-stage automation of the online representative workflow, being moved from idea to defined project.',
+          },
+        ],
+      },
+      {
+        group: 'Finance Automation',
+        items: [
+          {
+            title: 'Request-for-Payment Automation',
+            role: 'Coordinated',
+            desc: 'Weekly RFP generation with Accounting validation, covering card-statement expenses with incomplete invoices.',
+          },
+          {
+            title: 'Budget Automation Tool',
+            role: 'Oversight',
+            desc: 'Automated budget templates, calculations, recasting, branch updates, and consolidated inputs.',
+          },
+        ],
+      },
+      {
+        group: 'AI & Automation',
+        items: [
+          {
+            title: 'AI Delivery Platform',
+            role: 'Led',
+            desc: 'AI conversations, ticketing, Linear integration, meeting automation, and automated development workflows for the team.',
+          },
+          {
+            title: 'Smart Improvement Recommendations',
+            role: 'Oversight',
+            desc: 'AI pipeline analyzing repositories for prioritized code-quality, security, performance, and architecture recommendations.',
+          },
+          {
+            title: 'Zero-Touch Maintenance',
+            role: 'Oversight',
+            desc: 'AI agents implementing and monitoring selected development issues via GitHub integration, webhooks, and label tracking.',
+          },
+          {
+            title: 'Discord AI Chat Assistant',
+            role: 'Oversight',
+            desc: 'Departmental AI assistant with personas, worker agents, and project-thread interpretation.',
+          },
+          {
+            title: 'Telegram Assistant Bot',
+            role: 'Oversight',
+            desc: 'Multi-user Gmail and Calendar assistant with user isolation and security testing.',
+          },
+          {
+            title: 'AI-Powered Development Workflow',
+            role: 'Coordinated',
+            desc: 'Shared AI tools and practices adopted across the development team.',
+          },
+          {
+            title: 'Spec-Driven Development Practice',
+            role: 'Coordinated',
+            desc: 'Specification-first development standard so requirements are defined before coding.',
+          },
+        ],
+      },
+      {
+        group: 'Data & Analytics',
+        items: [
+          {
+            title: 'Data Loader Automation',
+            role: 'Oversight',
+            desc: 'Scheduled extraction, file generation, and loading across Postgres, Snowflake, S3, and Google Chat.',
+          },
+          {
+            title: 'Analytics Exchange',
+            role: 'Coordinated',
+            desc: 'Snowflake validation and analyst capability-building toward self-serve data access.',
+          },
+          {
+            title: 'Snowflake Ecosystem Modernization',
+            role: 'Oversight',
+            desc: 'Exploration of Cortex, Openflow, cost management, and dashboards to modernize the data platform.',
+          },
+          {
+            title: 'Snowflake Openflow Exploration',
+            role: 'Coordinated',
+            desc: 'Data-movement exploration connecting operational systems such as the ERP with Snowflake.',
+          },
+          {
+            title: 'Executive Scoreboard Dashboard',
+            role: 'Oversight',
+            desc: 'Consolidated executive scoreboards with planned Linear, Clockify, and operational data integrations.',
+          },
+          {
+            title: 'Department Delivery Dashboard',
+            role: 'Coordinated',
+            desc: 'Department-level delivery and performance dashboard feeding the executive view.',
+          },
+          {
+            title: 'Marketing Representative Intelligence',
+            role: 'Coordinated',
+            desc: 'Employee and release data combined for representative performance monitoring; scoping and MVP planning.',
+          },
+          {
+            title: 'Marketing Representative Productivity Analysis',
+            role: 'Oversight',
+            desc: 'Regression analysis linking operational data to representative performance.',
+          },
+        ],
+      },
+      {
+        group: 'Internal Platforms',
+        items: [
+          {
+            title: 'Project & Workspace Hub',
+            role: 'Coordinated',
+            desc: 'Central store of roles, milestones, blockers, decisions, and success measures, aligned with Linear reporting.',
+          },
+          {
+            title: 'Policy Hub',
+            role: 'Coordinated',
+            desc: 'Company policies, templates, submissions, and approval workflows with structured browsing and access controls.',
+          },
+          {
+            title: 'Greenlight Document Workflow Platform',
+            role: 'Coordinated',
+            desc: 'Digitized forms, uploads, document types, and department workflows with customized business rules.',
+          },
+          {
+            title: 'Team Workspaces Platform',
+            role: 'Oversight',
+            desc: 'Workspace environment and supporting apps, including sign-in OTP delivery and meeting-app enhancements.',
+          },
+          {
+            title: 'Bucketlist V2 Modernization',
+            role: 'Oversight',
+            desc: 'Redesigned V2 architecture with testing, migration, user transition, and turnover.',
+          },
+          {
+            title: 'Room & Parking Reservation',
+            role: 'Oversight',
+            desc: 'Availability checking and conflict-free reservations for meeting rooms and parking.',
+          },
+          {
+            title: 'Transaction Queuing — Partner Organization',
+            role: 'Coordinated',
+            desc: "Early business-process scoping for a partner organization's transaction queuing, with the third-party vendor.",
+          },
+        ],
+      },
+    ],
+  },
 
   principles: [
     'Build systems, not heroics.',

@@ -145,3 +145,41 @@ describe('certifications data', () => {
     })
   })
 })
+
+describe('portfolio data', () => {
+  const groups = site.portfolio.groups
+  const items = groups.flatMap((g) => g.items)
+
+  it('has 9 groups totalling 57 entries, in the approved order', () => {
+    expect(groups).toHaveLength(9)
+    expect(items).toHaveLength(57)
+    expect(groups.map((g) => g.items.length)).toEqual([9, 4, 7, 6, 7, 2, 7, 8, 7])
+  })
+
+  it('uses only the three role chips, in the approved split', () => {
+    const count = (role) => items.filter((i) => i.role === role).length
+    expect(count('Led')).toBe(10)
+    expect(count('Coordinated')).toBe(26)
+    expect(count('Oversight')).toBe(21)
+    expect(items.every((i) => ['Led', 'Coordinated', 'Oversight'].includes(i.role))).toBe(true)
+  })
+
+  it('keeps every entry complete, with a one-line single-sentence description', () => {
+    items.forEach(({ title, role, desc }) => {
+      expect(title).toBeTruthy()
+      expect(role).toBeTruthy()
+      expect(desc).toMatch(/\.$/)
+      expect(desc).not.toMatch(/\n/)
+    })
+  })
+
+  it('has unique titles across all groups', () => {
+    expect(new Set(items.map((i) => i.title)).size).toBe(items.length)
+  })
+
+  it('adds the Portfolio nav entry directly after Initiatives', () => {
+    const ids = site.nav.map((n) => n.id)
+    expect(site.nav).toHaveLength(7)
+    expect(ids.indexOf('portfolio')).toBe(ids.indexOf('initiatives') + 1)
+  })
+})
