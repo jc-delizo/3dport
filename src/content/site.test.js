@@ -34,10 +34,12 @@ describe('factual rules', () => {
     expect(corpus).not.toMatch(/\b26\b/)
   })
 
-  it('uses 15 enterprise systems as the third proof stat', () => {
-    expect(site.proof).toHaveLength(3)
-    expect(site.proof[2].value).toBe('15')
-    expect(site.proof[2].label).toMatch(/live in production/i)
+  it('uses 65 delivered and 15 live in production as the closing proof stats', () => {
+    expect(site.proof).toHaveLength(4)
+    expect(site.proof[2].value).toBe('65')
+    expect(site.proof[2].label).toMatch(/3 years/i)
+    expect(site.proof[3].value).toBe('15')
+    expect(site.proof[3].label).toMatch(/live in production/i)
   })
 })
 
@@ -158,9 +160,9 @@ describe('portfolio data', () => {
 
   it('uses only the three role chips, in the approved split', () => {
     const count = (role) => items.filter((i) => i.role === role).length
-    expect(count('Led')).toBe(10)
-    expect(count('Coordinated')).toBe(26)
-    expect(count('Oversight')).toBe(21)
+    expect(count('Led')).toBe(35)
+    expect(count('Coordinated')).toBe(8)
+    expect(count('Oversight')).toBe(14)
     expect(items.every((i) => ['Led', 'Coordinated', 'Oversight'].includes(i.role))).toBe(true)
   })
 

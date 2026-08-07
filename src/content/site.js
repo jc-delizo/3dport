@@ -2,7 +2,7 @@ export const site = {
   meta: {
     title: 'JC Delizo | Digital Transformation Project Manager',
     description:
-      'Digital Transformation leader who scaled software delivery from 2 to 20–28 projects a year through Agile, AI-powered workflows, and delivery system design.',
+      'Digital Transformation Project Manager and Software Delivery Manager who scaled delivery from 2 to 20–28 projects a year through Agile and AI workflows.',
     url: 'https://jc-delizo.github.io/3dport/',
     ogImage: 'https://jc-delizo.github.io/3dport/og.png',
   },
@@ -36,11 +36,12 @@ export const site = {
   // Career arc, shown as the typographic row under the hero CTAs. Replaced the old
   // method pipeline (Business → Process → System → Team → Outcome), which duplicated
   // what the Principles section and the Initiatives already demonstrate.
-  pipeline: ['Digital Transformation PM', 'Scrum Master', 'Technical Product Leader'],
+  pipeline: ['Digital Transformation PM', 'Technical Program Management', 'Software Delivery Manager'],
 
   proof: [
     { value: '10×', label: 'Increase in delivery capacity' },
     { value: '20–28', label: 'Projects delivered per year' },
+    { value: '65', label: 'Systems delivered end to end in 3 years' },
     { value: '15', label: 'Enterprise systems live in production' },
   ],
 
@@ -54,6 +55,7 @@ export const site = {
       approach: [
         'Introduced Scrum with sprint planning, backlog refinement, and delivery metrics.',
         'Standardized intake and prioritization across all requesting business functions.',
+        'Established delivery governance — support tiering, an SLA framework, and an executive reporting cadence.',
         'Introduced AI-assisted workflows to remove repetitive coordination work.',
         'Made delivery status visible to executives through live dashboards.',
         'Evolved the tooling deliberately rather than all at once: traditional project management to Scrum, documentation standardized in Coda, execution tracking migrated to Linear, AI automation layered on last.',
@@ -149,7 +151,7 @@ export const site = {
           },
           {
             title: 'Performance Management System',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'KRAs, appraisals, performance conversations, reports, and PIP workflows for managers, employees, and HR.',
           },
           {
@@ -159,17 +161,17 @@ export const site = {
           },
           {
             title: 'Employment Agreements Module',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Offer, contract, and agreement-template generation with controlled document access.',
           },
           {
             title: 'HR & Internal Helpdesk',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Structured ticket workflows with team-specific visibility, reporting, exports, FAQs, and resolution tracking.',
           },
           {
             title: 'Performance Evaluation Form Automation',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Digitized evaluation cycle — account setup, submissions, performance conversations, and HR monitoring of the first full cycle.',
           },
           {
@@ -189,12 +191,12 @@ export const site = {
           },
           {
             title: 'Recruitment Automation with Executive Email Approvals',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Manpower requests to completed hiring: executive email approvals, external integrations, and candidate-data controls.',
           },
           {
             title: 'ERP Recruitment Module',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Vacancies, applicants, job offers, contracts, and centralized recruitment reporting for HR.',
           },
           {
@@ -214,12 +216,12 @@ export const site = {
           },
           {
             title: 'Loan Origination System',
-            role: 'Oversight',
+            role: 'Led',
             desc: 'Loan requests, verification, approvals, role-based access, encryption, data masking, and audit trails.',
           },
           {
             title: 'Credit Approval Queuing',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Digitized submission, queuing, review, and approval of credit applications with role-specific dashboards.',
           },
           {
@@ -259,22 +261,22 @@ export const site = {
           },
           {
             title: 'Collection Automation Platform',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Standardized collection workflow adopted across five operating areas of a microloan product.',
           },
           {
             title: 'Field Collection Tool',
-            role: 'Oversight',
+            role: 'Led',
             desc: 'Structured recording of field collection activities, customer interactions, and outcomes.',
           },
           {
             title: 'Tele Collection Tool',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Telecollection follow-ups with centralized monitoring of remote collection work.',
           },
           {
             title: 'Legal & Remedial Case Management',
-            role: 'Oversight',
+            role: 'Led',
             desc: 'Centralized case information, actions, and monitoring, pushed through UAT, turnover, and rollout.',
           },
         ],
@@ -289,7 +291,7 @@ export const site = {
           },
           {
             title: 'Field Itinerary Management — Civilian Personnel',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Itinerary and field-activity management for scheduled client work by civilian staff.',
           },
           {
@@ -299,17 +301,17 @@ export const site = {
           },
           {
             title: 'Local Bank & Passbook Inventory System',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Local-bank records, passbooks, surrendered ATMs, and client-account status handling.',
           },
           {
             title: 'Pouch Receiving System',
-            role: 'Oversight',
+            role: 'Led',
             desc: 'Inbound/outbound pouch and item tracking between branches, departments, and the head-office mailroom.',
           },
           {
             title: 'Client Updater',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Client-information updates with visible ownership of update responsibilities; bug resolution and re-adoption.',
           },
           {
@@ -324,7 +326,7 @@ export const site = {
         items: [
           {
             title: 'Request-for-Payment Automation',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Weekly RFP generation with Accounting validation, covering card-statement expenses with incomplete invoices.',
           },
           {
@@ -364,12 +366,12 @@ export const site = {
           },
           {
             title: 'AI-Powered Development Workflow',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Shared AI tools and practices adopted across the development team.',
           },
           {
             title: 'Spec-Driven Development Practice',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Specification-first development standard so requirements are defined before coding.',
           },
         ],
@@ -399,22 +401,22 @@ export const site = {
           },
           {
             title: 'Executive Scoreboard Dashboard',
-            role: 'Oversight',
+            role: 'Led',
             desc: 'Consolidated executive scoreboards with planned Linear, Clockify, and operational data integrations.',
           },
           {
             title: 'Department Delivery Dashboard',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Department-level delivery and performance dashboard feeding the executive view.',
           },
           {
             title: 'Marketing Representative Intelligence',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Employee and release data combined for representative performance monitoring; scoping and MVP planning.',
           },
           {
             title: 'Marketing Representative Productivity Analysis',
-            role: 'Oversight',
+            role: 'Led',
             desc: 'Regression analysis linking operational data to representative performance.',
           },
         ],
@@ -434,7 +436,7 @@ export const site = {
           },
           {
             title: 'Greenlight Document Workflow Platform',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Digitized forms, uploads, document types, and department workflows with customized business rules.',
           },
           {
@@ -449,7 +451,7 @@ export const site = {
           },
           {
             title: 'Room & Parking Reservation',
-            role: 'Oversight',
+            role: 'Led',
             desc: 'Availability checking and conflict-free reservations for meeting rooms and parking.',
           },
           {

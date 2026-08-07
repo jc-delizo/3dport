@@ -4,9 +4,9 @@ import { ProofBar } from './ProofBar'
 import { site } from '../content/site'
 
 describe('ProofBar', () => {
-  it('renders exactly three stats', () => {
+  it('renders exactly four stats', () => {
     const { container } = render(<ProofBar />)
-    expect(container.querySelectorAll('[data-stat]')).toHaveLength(3)
+    expect(container.querySelectorAll('[data-stat]')).toHaveLength(4)
   })
 
   it('renders each value and label', () => {

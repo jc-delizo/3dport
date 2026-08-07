@@ -7,7 +7,7 @@ export function ProofBar() {
   return (
     <section aria-label="Impact at a glance" className="border-b border-hairline section-gap">
       <Container wide>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {site.proof.map(({ value, label }, i) => (
             <Reveal key={label} delay={i * 80}>
               <Card className="h-full">
