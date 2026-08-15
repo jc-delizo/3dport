@@ -1,3 +1,9 @@
+// The résumé ships with the site so it downloads same-origin and updates with each
+// deploy. BASE_URL, not a bare "/resume.pdf": the site deploys under /3dport/.
+const RESUME_PDF = `${import.meta.env.BASE_URL}resume.pdf`
+// The filename the browser saves the download as, independent of the URL.
+const RESUME_FILENAME = 'JC Delizo - Resume.pdf'
+
 export const site = {
   meta: {
     title: 'JC Delizo | Digital Transformation Project Manager',
@@ -7,13 +13,28 @@ export const site = {
     ogImage: 'https://jc-delizo.github.io/3dport/og.png',
   },
 
+  // Entries with `items` render as dropdowns; entries with `id` are direct
+  // links. Case Studies stays top-level deliberately — it's the page hiring
+  // managers most need to find.
   nav: [
-    { id: 'initiatives', label: 'Initiatives' },
-    { id: 'portfolio', label: 'Portfolio' },
-    { id: 'principles', label: 'Principles' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'capabilities', label: 'Capabilities' },
-    { id: 'certifications', label: 'Certifications' },
+    {
+      label: 'Projects',
+      items: [
+        { id: 'initiatives', label: 'Initiatives' },
+        { id: 'portfolio', label: 'Delivery Portfolio' },
+        { id: 'principles', label: 'Principles' },
+      ],
+    },
+    { id: 'case-studies', label: 'Case Studies' },
+    {
+      label: 'Experience',
+      items: [
+        { id: 'experience', label: 'Work History' },
+        { id: 'capabilities', label: 'Capabilities' },
+        { id: 'tools', label: 'Tools' },
+        { id: 'certifications', label: 'Certifications' },
+      ],
+    },
     { id: 'contact', label: 'Contact' },
   ],
 
@@ -22,13 +43,10 @@ export const site = {
     title: 'Digital Transformation Project Manager',
     claim: 'I help organizations deliver software faster by transforming the way teams work.',
     support:
-      'Increased software delivery capacity from 2 systems/year to 20–28 projects/year through Agile, AI-powered workflows, and scalable delivery systems.',
+      'Increased software delivery capacity from 2 to 20–28 projects/year through Agile, AI-powered workflows, and scalable delivery systems.',
     primaryCta: { label: 'View Initiatives', href: '#initiatives' },
     secondaryCtas: [
-      {
-        label: 'Download Résumé',
-        href: 'https://drive.google.com/file/d/1qXS39D5IIhlsfCpolatVm3pR00pEsW0F/view?usp=sharing',
-      },
+      { label: 'Download Résumé', href: RESUME_PDF, download: RESUME_FILENAME },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jcdelizo/' },
     ],
   },
@@ -41,7 +59,7 @@ export const site = {
   proof: [
     { value: '10×', label: 'Increase in delivery capacity' },
     { value: '20–28', label: 'Projects delivered per year' },
-    { value: '65', label: 'Systems delivered end to end in 3 years' },
+    { value: '65', label: 'Projects delivered end to end in 3 years' },
     { value: '15', label: 'Enterprise systems live in production' },
   ],
 
@@ -51,7 +69,7 @@ export const site = {
       category: 'Delivery Transformation',
       title: 'Scaling Software Delivery',
       problem:
-        'The digital transformation team could deliver only about two enterprise systems a year. Planning was inconsistent, workflows were fragmented, and there was no shared visibility into delivery status.',
+        'The digital transformation team could deliver only about two projects a year. Planning was inconsistent, workflows were fragmented, and there was no shared visibility into delivery status.',
       approach: [
         'Introduced Scrum with sprint planning, backlog refinement, and delivery metrics.',
         'Standardized intake and prioritization across all requesting business functions.',
@@ -61,7 +79,7 @@ export const site = {
         'Evolved the tooling deliberately rather than all at once: traditional project management to Scrum, documentation standardized in Coda, execution tracking migrated to Linear, AI automation layered on last.',
       ],
       outcome:
-        'Delivery capacity increased from roughly 2 systems per year to 20–28 projects per year, while delivery schedules stayed predictable.',
+        'Delivery capacity increased from roughly 2 projects per year to 20–28 projects per year, while delivery schedules stayed predictable.',
     },
     {
       id: 'erp-rollout',
@@ -121,6 +139,198 @@ export const site = {
       ],
       outcome:
         'Replaced ad-hoc approvals across five corporate entities with a single auditable platform. Currently in user training ahead of rollout.',
+    },
+  ],
+
+  // Deep dives behind two initiatives. Content is drawn from delivery records and
+  // production data compiled 2026-08-15; every figure is sourced, TBD metrics from
+  // the source briefs are omitted rather than estimated. All internal codenames,
+  // entity names, people, and issue IDs are generalized (guarded by forbidden.js;
+  // the name mapping lives outside this public repo).
+  caseStudies: [
+    {
+      id: 'approval-platform-case',
+      title: 'Multi-Entity Approval Workflow Platform',
+      summary:
+        'An approvals platform for five corporate entities that replaced email-and-paper routing with composable, auditable approval chains — designed, built, and shipped to production in 30 days.',
+      stats: [
+        { value: '30', label: 'Days from design sprint to go-live' },
+        { value: '5', label: 'Corporate entities live at cutover' },
+        { value: '8', label: 'Document types seeded at launch' },
+        { value: '0', label: 'Support tickets since go-live' },
+      ],
+      timeline: [
+        {
+          date: 'Jun 1',
+          title: 'One-day design sprint',
+          detail:
+            'Domain modeling, architecture, test plan, premortem, and delivery plan produced through an AI-phased framework — every phase gated on human approval before the next began.',
+        },
+        {
+          date: 'Jun 4–8',
+          title: 'Parallel build on four tracks',
+          detail:
+            'Four workstreams built simultaneously, then merged in a dedicated integration pass that resolved cross-track conflicts and cleared every failing test.',
+        },
+        {
+          date: 'Jun 4–8',
+          title: 'Named hardening cycle',
+          detail:
+            'A checklisted debug cycle fixed request-creation and file-upload defects, each verified end to end in the browser before the demo.',
+        },
+        {
+          date: 'Jun 9',
+          title: 'Stakeholder demo',
+          detail:
+            'Held its original date; portfolio triage tracked the project as the lowest-risk item in an eight-project go-live cluster.',
+        },
+        {
+          date: 'Jun 20',
+          title: 'Training and turnover',
+          detail: 'User training delivered against an in-repo user manual ahead of cutover.',
+        },
+        {
+          date: 'Jun 30',
+          title: 'Go-live across five entities',
+          detail:
+            'Shipped on the original target date, alongside seven other projects sharing the same deadline.',
+        },
+        {
+          date: 'Jul–Aug',
+          title: 'Production hardening',
+          detail:
+            'Single sign-on provisioning, data seeding, and UX refinements after launch — with zero support tickets recorded since go-live.',
+        },
+      ],
+      story: [
+        'The build paired one newly hired developer with an AI-phased delivery framework: interview, domain model, architecture, tests, premortem, and plan each produced as reviewable artifacts, none accepted without human sign-off. My role was the delivery system around it — daily scrum, checkpoint reviews three times a day, and portfolio-level triage across the eight projects sharing the June 30 deadline.',
+        'Acceptance was demo-led: a stakeholder demo on June 9, a standing debug milestone, training on June 20, then a big-bang cutover on June 30. Onboarding kept hardening after go-live — sign-on accounts were auto-provisioned as claimable, so five entities could ramp without a registration bottleneck.',
+        'The defining product decision was a composable routing engine: requesters build each document’s approval chain from a cross-entity directory instead of picking from fixed templates. That freedom is balanced by sequential step locking, an admin view that can halt or resequence a chain mid-flight, and an immutable audit trail — with 11 architecture decision records documenting the trade-offs.',
+      ],
+      moments: [
+        {
+          title: 'The compressed design met reality',
+          body:
+            'A one-day design pass produced field-mapping defects that broke request creation days before the demo. The response was a named, checklisted debug cycle with end-to-end browser verification — the demo date held.',
+        },
+        {
+          title: 'A rebrand landed mid-build',
+          body:
+            'Entity branding decisions arrived after build start, renaming the product while schema work was in flight. The change was absorbed as one explicit epic — rebrand, schema, and refactor checklists in a single place instead of scattered fixes.',
+        },
+        {
+          title: 'Scope expanded before v1 shipped',
+          body:
+            'A new chain of financial document types was requested while the first release was still in development. It was captured as a formal phase-two change request with its own implementation plan — protecting the go-live date instead of absorbing the scope.',
+        },
+        {
+          title: 'Eight projects, one team, one date',
+          body:
+            'The June 30 cluster put eight go-lives on one small team. Portfolio checkpoints ranked this project low-risk by June 5, letting attention flow to the projects actually burning.',
+        },
+      ],
+      sources:
+        'Figures from delivery records and repository history; support-ticket count measured August 7, 2026. Internal names generalized for confidentiality.',
+    },
+    {
+      id: 'ai-delivery-platform-case',
+      title: 'AI Delivery Platform',
+      summary:
+        'The internal AI platform behind the delivery numbers on this page — conversational intake, an AI project-management layer, meeting automation, and human-gated automated implementation — built by the team it serves, in the gaps between client projects.',
+      stats: [
+        { value: '949', label: 'Tickets processed through AI intake' },
+        { value: '61', label: 'Users onboarded' },
+        { value: '22', label: 'Automated implementation runs' },
+        { value: '3', label: 'Days from first commit to first production ticket' },
+      ],
+      timeline: [
+        {
+          date: 'Feb',
+          title: 'MVP in one sprint',
+          detail:
+            'A conversational intake chat shipped first; the first real production ticket arrived three days after the first commit.',
+        },
+        {
+          date: 'Feb–Mar',
+          title: 'Intake and ticketing core',
+          detail:
+            'Conversational requirement gathering, automatic ticket classification and drafting, and two-way sync with the delivery tracker.',
+        },
+        {
+          date: 'Apr',
+          title: 'The stall',
+          detail:
+            'Three commits all month: the team’s capacity went to an eight-project go-live cluster. The platform ran untouched on its early core — evidence the foundation was stable.',
+        },
+        {
+          date: 'May',
+          title: 'The push',
+          detail:
+            '365 commits — 64% of all platform activity: model switching, ticket replies, the first automated implementation run, and structured logging as the base for self-monitoring.',
+        },
+        {
+          date: 'Jun',
+          title: 'AI project-manager layer',
+          detail:
+            'A portfolio context engine that drafts the team’s thrice-daily checkpoints, rebuilt for bounded concurrency after a documented bottleneck investigation.',
+        },
+        {
+          date: 'Jul',
+          title: 'Automation matured',
+          detail:
+            'A two-stage plan-and-implement pipeline with three human approval gates, an async deploy queue, and meeting transcription rebuilt after a production failure.',
+        },
+        {
+          date: 'Aug',
+          title: 'Steady state',
+          detail:
+            'A nightly health review parses structured logs and files its own tickets — the platform is now a user of its own front door.',
+        },
+      ],
+      story: [
+        'There was no dedicated platform team: the system was built by the delivery team, for the delivery team, between more than twenty business projects — and the commit history shows exactly that. When client go-lives consumed the team in April, the platform ran untouched; when capacity returned in May, 64% of all its code landed in a single month.',
+        'There was no big-bang rollout either. Features deploy continuously behind per-worker flags, the users are the operators — dogfooding replaces formal UAT — and an in-app announcement system carries each release to its 61 users. The only dangerous path, AI-written code changes, is guarded by three human approval gates.',
+        'The architectural principle throughout: the AI drafts, a human approves, and the system of record is never written without an audit trail. Reads never hit the external tracker live — a webhook-fed local replica cut API usage from an exhausted 2,500-requests-per-hour budget to roughly 72 — and deploys are verified against the target database rather than trusted exit codes.',
+      ],
+      moments: [
+        {
+          title: 'Rate limits nearly killed the core integration',
+          body:
+            'Early sync burned the delivery tracker’s entire 2,500-request-per-hour budget. The fix inverted the architecture — a webhook-fed local replica with a ten-minute reconcile sweep — dropping steady-state usage to about 72 requests an hour.',
+        },
+        {
+          title: 'The flagship froze days after launch',
+          body:
+            'The AI project-manager layer shipped with a global lock: one long-running conversation froze every other one. A same-day investigation rebuilt it around bounded concurrency with per-conversation exclusivity.',
+        },
+        {
+          title: 'A meeting bot lost a real meeting',
+          body:
+            'The first transcription architecture silently produced almost nothing from a live session — the kind of failure users discover before you do. It was rebuilt speech-first rather than patched.',
+        },
+        {
+          title: 'A deploy reported success while the feature was absent',
+          body:
+            'The deploy tooling never installed new modules, so “deployed” could be a lie. The pipeline now verifies installed state in the target database instead of trusting exit codes.',
+        },
+      ],
+      chart: {
+        title: 'Platform commits per month, 2026',
+        note:
+          'The April stall and the May push — the shape of a platform built in the gaps between client projects.',
+        unit: 'commits',
+        points: [
+          { label: 'Feb', value: 35 },
+          { label: 'Mar', value: 74 },
+          { label: 'Apr', value: 3 },
+          { label: 'May', value: 365 },
+          { label: 'Jun', value: 52 },
+          { label: 'Jul', value: 41 },
+          { label: 'Aug', value: 1 },
+        ],
+      },
+      sources:
+        'Figures from repository history and production data measured August 15, 2026. Internal names generalized for confidentiality.',
     },
   ],
 
@@ -210,14 +420,14 @@ export const site = {
         group: 'Lending & Credit',
         items: [
           {
-            title: 'Universal Finance System',
-            role: 'Oversight',
-            desc: 'Configurable finance platform — customers, loans, charges, amortization, collateral, letters, permissions, and reporting.',
-          },
-          {
             title: 'Loan Origination System',
             role: 'Led',
             desc: 'Loan requests, verification, approvals, role-based access, encryption, data masking, and audit trails.',
+          },
+          {
+            title: 'Universal Finance System',
+            role: 'Oversight',
+            desc: 'Configurable finance platform — customers, loans, charges, amortization, collateral, letters, permissions, and reporting.',
           },
           {
             title: 'Credit Approval Queuing',
@@ -380,6 +590,16 @@ export const site = {
         group: 'Data & Analytics',
         items: [
           {
+            title: 'Executive Scoreboard Dashboard',
+            role: 'Led',
+            desc: 'Consolidated executive scoreboards with planned Linear, Clockify, and operational data integrations.',
+          },
+          {
+            title: 'Department Delivery Dashboard',
+            role: 'Led',
+            desc: 'Department-level delivery and performance dashboard feeding the executive view.',
+          },
+          {
             title: 'Data Loader Automation',
             role: 'Oversight',
             desc: 'Scheduled extraction, file generation, and loading across Postgres, Snowflake, S3, and Google Chat.',
@@ -400,16 +620,6 @@ export const site = {
             desc: 'Data-movement exploration connecting operational systems such as the ERP with Snowflake.',
           },
           {
-            title: 'Executive Scoreboard Dashboard',
-            role: 'Led',
-            desc: 'Consolidated executive scoreboards with planned Linear, Clockify, and operational data integrations.',
-          },
-          {
-            title: 'Department Delivery Dashboard',
-            role: 'Led',
-            desc: 'Department-level delivery and performance dashboard feeding the executive view.',
-          },
-          {
             title: 'Marketing Representative Intelligence',
             role: 'Led',
             desc: 'Employee and release data combined for representative performance monitoring; scoping and MVP planning.',
@@ -425,6 +635,11 @@ export const site = {
         group: 'Internal Platforms',
         items: [
           {
+            title: 'Greenlight Document Workflow Platform',
+            role: 'Led',
+            desc: 'Digitized forms, uploads, document types, and department workflows with customized business rules.',
+          },
+          {
             title: 'Project & Workspace Hub',
             role: 'Coordinated',
             desc: 'Central store of roles, milestones, blockers, decisions, and success measures, aligned with Linear reporting.',
@@ -433,11 +648,6 @@ export const site = {
             title: 'Policy Hub',
             role: 'Coordinated',
             desc: 'Company policies, templates, submissions, and approval workflows with structured browsing and access controls.',
-          },
-          {
-            title: 'Greenlight Document Workflow Platform',
-            role: 'Led',
-            desc: 'Digitized forms, uploads, document types, and department workflows with customized business rules.',
           },
           {
             title: 'Team Workspaces Platform',
@@ -479,7 +689,7 @@ export const site = {
       points: [
         'Led a cross-functional team of 6 developers, 1 QA, and 1 designer serving 22 departments and 1,600+ employees.',
         'Reported directly to the COO, presenting sprint and portfolio updates to the C-suite and department heads.',
-        'Delivered 65 systems end to end over 3 years — intake, prioritization, sprint execution, UAT, change management, and go-live.',
+        'Delivered 65 projects end to end over 3 years — intake, prioritization, sprint execution, UAT, change management, and go-live.',
         'Led the transition from traditional project execution to Agile delivery (Scrum), running sprint planning, backlog refinement, and retrospectives.',
         'Reduced developer context switching by centralizing stakeholder intake through an AI-powered ticketing system.',
         'Created executive dashboards in Coda, Gamma, Linear, and a custom app for real-time roadmap, velocity, and sprint visibility.',
@@ -533,6 +743,16 @@ export const site = {
       context: 'Reported to JC directly',
       date: 'July 2026',
     },
+    // Harrison's words relayed by JC 2026-08-15, grammar lightly fixed with
+    // meaning preserved — do not embellish further. Dated June 2023: JC's last
+    // month at TaskUs, marking the end of the working relationship.
+    {
+      quote:
+        'JC is a good teammate — always dependable and easy to approach. He brings a good working vibe and finishes assigned tasks quickly and accurately.',
+      name: 'Harrison Wallace',
+      context: 'Teammate at TaskUs – SuperBam',
+      date: 'June 2023',
+    },
     {
       quote:
         'JC has the initiative to finish the task in timely manner. He is also a team player and grounded.',
@@ -542,8 +762,9 @@ export const site = {
     },
   ],
 
-  // Sorted newest first: the July 2026 delivery/AI certifications are the most
-  // role-relevant, the 2018 PICS national-ranking pair closes the list.
+  // The first six are the featured set the collapsed view shows — governance/delivery,
+  // AI fluency, the national engineering ranking, and the technical foundation. The
+  // rest render behind the See more toggle, newest first, PICS technician closing.
   // Open University display names are approved renames; the official certificate titles
   // are recorded in docs/superpowers/specs/2026-07-31-certifications-expansion-design.md §4.
   certifications: [
@@ -552,6 +773,40 @@ export const site = {
       issuer: 'The Open University',
       date: '2026',
       url: 'https://drive.google.com/file/d/1J2akTjCZQOMzXbIBFINFLDscFVmZIoOF/view?usp=drive_link',
+    },
+    {
+      name: 'Delivering Successful IT Systems',
+      issuer: 'The Open University',
+      date: '2026',
+      url: 'https://drive.google.com/file/d/12jz3npwp_0Qj_awXHu4QZTzaG7rq3nqD/view?usp=drive_link',
+    },
+    {
+      name: 'AI Fluency: Framework & Foundations',
+      issuer: 'Anthropic',
+      date: '2026',
+      url: 'https://verify.skilljar.com/c/jcisomdtuk9f',
+      note: 'jcisomdtuk9f',
+    },
+    {
+      name: 'AI Fluency for Builders',
+      issuer: 'Anthropic',
+      date: '2026',
+      url: 'https://verify.skilljar.com/c/k2o4dxyjy3yk',
+      note: 'k2o4dxyjy3yk',
+    },
+    {
+      name: 'Certified Instrumentation and Control Engineer',
+      issuer: 'Philippine Instrumentation and Control Society',
+      date: '2018',
+      url: 'https://drive.google.com/file/d/1KQnIfynOvAwnVbk1sjalBO1kvbvwb76j/view?usp=sharing',
+      note: 'Ranked 8th of 1,057 examinees',
+    },
+    {
+      name: 'Full Stack Web Development',
+      issuer: 'Zuitt Coding Bootcamp',
+      date: '2023',
+      url: 'https://share.zertify.zuitt.co/certificate/fd382383-216f-4982-93fe-3d748352ce5a/',
+      note: 'Enthusiastic Learner Award · DPC-0225-0012',
     },
     {
       name: 'Software Development for Enterprise Systems',
@@ -564,12 +819,6 @@ export const site = {
       issuer: 'The Open University',
       date: '2026',
       url: 'https://drive.google.com/file/d/1z-3ELbbT9YqJi4wspIyjQBV5sfaMYK3G/view?usp=drive_link',
-    },
-    {
-      name: 'Delivering Successful IT Systems',
-      issuer: 'The Open University',
-      date: '2026',
-      url: 'https://drive.google.com/file/d/12jz3npwp_0Qj_awXHu4QZTzaG7rq3nqD/view?usp=drive_link',
     },
     {
       name: 'Project Management Essentials',
@@ -603,20 +852,6 @@ export const site = {
       note: 'fx8zb2jpzmb3',
     },
     {
-      name: 'AI Fluency: Framework & Foundations',
-      issuer: 'Anthropic',
-      date: '2026',
-      url: 'https://verify.skilljar.com/c/jcisomdtuk9f',
-      note: 'jcisomdtuk9f',
-    },
-    {
-      name: 'AI Fluency for Builders',
-      issuer: 'Anthropic',
-      date: '2026',
-      url: 'https://verify.skilljar.com/c/k2o4dxyjy3yk',
-      note: 'k2o4dxyjy3yk',
-    },
-    {
       name: 'Model Context Protocol: Advanced Topics',
       issuer: 'Anthropic',
       date: '2026',
@@ -638,13 +873,6 @@ export const site = {
       note: 'qh73wcpgrf37',
     },
     {
-      name: 'Full Stack Web Development',
-      issuer: 'Zuitt Coding Bootcamp',
-      date: '2023',
-      url: 'https://share.zertify.zuitt.co/certificate/fd382383-216f-4982-93fe-3d748352ce5a/',
-      note: 'Enthusiastic Learner Award · DPC-0225-0012',
-    },
-    {
       name: 'Object-Oriented Programming with JavaScript',
       issuer: 'Zuitt Coding Bootcamp',
       date: '2023',
@@ -659,13 +887,6 @@ export const site = {
       note: 'DPC-0277-0011',
     },
     {
-      name: 'Certified Instrumentation and Control Engineer',
-      issuer: 'Philippine Instrumentation and Control Society',
-      date: '2018',
-      url: 'https://drive.google.com/file/d/1KQnIfynOvAwnVbk1sjalBO1kvbvwb76j/view?usp=sharing',
-      note: 'Ranked 8th of 1,057 examinees',
-    },
-    {
       name: 'Certified Instrumentation and Control Technician',
       issuer: 'Philippine Instrumentation and Control Society',
       date: '2018',
@@ -674,6 +895,7 @@ export const site = {
     },
   ],
 
+  // All twelve map to the resume's Skills line — don't add one that doesn't.
   capabilities: [
     { icon: 'Workflow', label: 'Agile Transformation' },
     { icon: 'GitBranch', label: 'Technical Delivery Leadership' },
@@ -681,6 +903,12 @@ export const site = {
     { icon: 'Target', label: 'Process Optimization' },
     { icon: 'Database', label: 'Enterprise Systems (ERP / HRIS)' },
     { icon: 'Users', label: 'Cross-Functional Leadership' },
+    { icon: 'Layers', label: 'Portfolio & Program Governance' },
+    { icon: 'Briefcase', label: 'Vendor Management' },
+    { icon: 'Handshake', label: 'Stakeholder Management' },
+    { icon: 'LineChart', label: 'Executive Reporting' },
+    { icon: 'RefreshCw', label: 'Change Management' },
+    { icon: 'ShieldAlert', label: 'Risk & Dependency Management' },
   ],
 
   tools: [
@@ -688,25 +916,88 @@ export const site = {
       group: 'Delivery',
       items: ['Jira', 'Linear', 'Coda', 'ClickUp', 'Monday', 'Asana', 'Trello', 'Notion', 'Azure DevOps'],
     },
-    { group: 'Enterprise Systems', items: ['Odoo ERP', 'Google Workspace'] },
-    { group: 'Design', items: ['Figma', 'Balsamiq'] },
-    { group: 'Development', items: ['Git', 'GitHub', 'Vercel'] },
-    { group: 'AI', items: ['Claude', 'Cursor', 'ChatGPT', 'Gemini', 'Codex'] },
+    {
+      group: 'Enterprise Systems',
+      items: ['Odoo ERP', 'Google Workspace', 'Microsoft 365', 'SharePoint'],
+    },
+    { group: 'CRM & Automation', items: ['HubSpot', 'GoHighLevel', 'Power Automate'] },
+    { group: 'Design', items: ['Figma', 'Balsamiq', 'Canva', 'Adobe Creative Cloud', 'CapCut'] },
+    {
+      group: 'Engineering & Cloud',
+      items: [
+        'Git',
+        'GitHub',
+        'Vercel',
+        'React',
+        'Vite',
+        'Node.js',
+        'Laravel',
+        'MongoDB',
+        'MySQL',
+        'Snowflake',
+        'AWS',
+        'DigitalOcean',
+        'Contabo',
+        'PostHog',
+      ],
+    },
+    {
+      group: 'AI',
+      items: [
+        'Claude',
+        'Cursor',
+        'ChatGPT',
+        'Gemini',
+        'Codex',
+        'OpenCode',
+        'Grok',
+        'ElevenLabs',
+        'Higgsfield',
+        'Gamma',
+      ],
+    },
   ],
 
-  about:
-    "I'm a Digital Transformation Project Manager with an engineering background and 10+ years across engineering and software delivery. I specialize in redesigning software delivery systems through Agile, AI-powered workflows, and operational process design — improving throughput without relying solely on additional resources.",
+  // Three-beat story approved by JC 2026-08-15: pivot years left implied, no
+  // location on the site (both deliberate — don't "complete" them).
+  about: {
+    story: [
+      {
+        title: 'The engineer',
+        body:
+          'I started in industrial control systems — a licensed Instrumentation & Control Engineer, ranked 8th of 1,057 nationally, spending five years inspecting and commissioning control systems in plants and factories. That is where I learned that systems fail at their interfaces, and that a checklist beats a hero.',
+      },
+      {
+        title: 'The pivot',
+        body:
+          'In 2023 I retrained as a full-stack developer — a deliberate reinvention, not a detour. I wanted to build the systems, not just inspect them. That same year I joined Oak Drive Ventures to lead digital transformation.',
+      },
+      {
+        title: 'The delivery leader',
+        body:
+          'Today I run software delivery for a team of six developers, one QA, and one designer serving 22 departments and 1,600+ employees, reporting to the COO. My job is the delivery system itself: Agile cadence, AI-powered workflows, and process design that took the team from 2 projects a year to 20–28.',
+      },
+    ],
+    facts: [
+      'Licensed I&C Engineer — ranked 8th of 1,057',
+      '10+ years engineering & software delivery',
+      '65 projects shipped end to end since 2023',
+      'Reports to the COO · 22 departments served',
+    ],
+  },
 
+  // Deliberately NOT a job-search announcement: JC is employed and the site is
+  // public. Availability stays implied; the section is an open door.
   availability: {
-    heading: 'Currently exploring new opportunities',
-    body: "I'm currently employed and selectively exploring Digital Transformation Manager and Technical Program / Delivery Manager opportunities where I can help organizations improve software delivery, operational efficiency, and cross-functional execution.",
+    heading: "Let's talk",
+    body: 'The fastest way to reach me is email. Whether you want to compare notes on delivery systems, dig into how one of the case studies was run, or explore working together — my inbox is open.',
   },
 
   contact: {
     email: 'mrjcdelizo@gmail.com',
     linkedin: 'https://www.linkedin.com/in/jcdelizo/',
-    resume:
-      'https://drive.google.com/file/d/1qXS39D5IIhlsfCpolatVm3pR00pEsW0F/view?usp=sharing',
+    resume: RESUME_PDF,
+    resumeFilename: RESUME_FILENAME,
   },
 
   footer: `© ${new Date().getFullYear()} JC Delizo`,
