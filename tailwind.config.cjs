@@ -1,18 +1,31 @@
 /** @type {import('tailwindcss').Config} */
+// Colors, fonts and radii resolve to CSS variables declared in src/index.css,
+// where each [data-theme] block overrides them — that's the whole theme system
+// from Tailwind's point of view.
 module.exports = {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
-        canvas: '#FFFFFF',
-        ink: '#09090B',
-        muted: '#52525B',
-        hairline: '#E4E4E7',
-        card: '#FAFAFA',
-        accent: '#2563EB',
+        canvas: 'rgb(var(--color-canvas) / <alpha-value>)',
+        ink: 'rgb(var(--color-ink) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        hairline: 'rgb(var(--color-hairline) / <alpha-value>)',
+        card: 'rgb(var(--color-card) / <alpha-value>)',
+        accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        'accent-contrast': 'rgb(var(--color-accent-contrast) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['"Geist Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        sans: 'var(--font-body)',
+        display: 'var(--font-display)',
+        mono: 'var(--font-mono)',
+      },
+      borderRadius: {
+        card: 'var(--radius-card)',
+        button: 'var(--radius-button)',
+      },
+      letterSpacing: {
+        display: 'var(--tracking-display)',
       },
       fontSize: {
         label: ['0.8125rem', { lineHeight: '1.25rem' }], // 13px

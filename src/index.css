@@ -2,10 +2,199 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Design tokens. :root carries Daylight (the default); each [data-theme] block
+   overrides the same set. Tailwind utilities reference these vars (see
+   tailwind.config.cjs), so every component re-themes without code changes.
+   Chart SVG colors are the one exception — they come from the theme grammar
+   (src/theme/themes.js) because SVG presentation attributes can't read var(). */
+/* Colors are space-separated RGB triplets so Tailwind opacity modifiers
+   (bg-canvas/85 etc.) keep working: rgb(var(--color-x) / <alpha-value>). */
+:root {
+  --color-canvas: 255 255 255;
+  --color-ink: 9 9 11;
+  --color-muted: 82 82 91;
+  --color-hairline: 228 228 231;
+  --color-card: 250 250 250;
+  --color-accent: 37 99 235;
+  --color-accent-contrast: 255 255 255;
+  --font-display: 'Geist Sans', Inter, system-ui, sans-serif;
+  --font-body: 'Geist Sans', Inter, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --radius-card: 0.75rem;
+  --radius-button: 0.5rem;
+  --tracking-display: -0.025em;
+  color-scheme: light;
+}
+
+[data-theme='midnight'] {
+  --color-canvas: 9 9 11;
+  --color-ink: 250 250 250;
+  --color-muted: 161 161 170;
+  --color-hairline: 39 39 42;
+  --color-card: 17 17 19;
+  --color-accent: 59 130 246;
+  --color-accent-contrast: 255 255 255;
+  color-scheme: dark;
+}
+
+[data-theme='cupertino'] {
+  --color-canvas: 255 255 255;
+  --color-ink: 29 29 31;
+  --color-muted: 110 110 115;
+  --color-hairline: 224 224 224;
+  --color-card: 245 245 247;
+  --color-accent: 0 102 204;
+  --color-accent-contrast: 255 255 255;
+  --radius-button: 9999px;
+  --radius-card: 1.125rem;
+  --tracking-display: -0.01em;
+  color-scheme: light;
+}
+
+[data-theme='paper'] {
+  --color-canvas: 250 249 245;
+  --color-ink: 20 20 19;
+  --color-muted: 108 106 100;
+  --color-hairline: 230 223 216;
+  --color-card: 239 233 222;
+  --color-accent: 169 88 62;
+  --color-accent-contrast: 255 255 255;
+  --radius-card: 0.75rem;
+  --font-display: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --tracking-display: -0.02em;
+  color-scheme: light;
+}
+
+/* Copernicus-style: display serif sits at weight 400, never bold. */
+[data-theme='paper'] .font-display {
+  font-weight: 400;
+}
+
+[data-theme='studio'] {
+  --color-canvas: 255 255 255;
+  --color-ink: 13 13 13;
+  --color-muted: 64 64 64;
+  --color-hairline: 229 229 229;
+  --color-card: 245 245 245;
+  /* Monochrome chrome: black is the interactive color. */
+  --color-accent: 13 13 13;
+  --color-accent-contrast: 255 255 255;
+  --radius-button: 9999px;
+  --radius-card: 1.5rem;
+  --tracking-display: -0.02em;
+  color-scheme: light;
+}
+
+/* Surface scopes: a surface locally re-declares the tokens, so everything
+   inside re-themes with zero component branching. The generic rule restarts
+   color inheritance: text without its own text-* class would otherwise inherit
+   the color computed at <body> from the ROOT ink — dark-on-dark on dark
+   surfaces. */
+[data-surface] {
+  color: rgb(var(--color-ink));
+}
+[data-theme='cupertino'] [data-surface='parchment'] {
+  --color-canvas: 245 245 247;
+  --color-card: 255 255 255;
+  --color-hairline: 214 214 219;
+}
+[data-theme='cupertino'] [data-surface='dark'] {
+  --color-canvas: 39 39 41;
+  --color-ink: 255 255 255;
+  --color-muted: 204 204 206;
+  --color-hairline: 66 66 69;
+  --color-card: 44 44 46;
+  --color-accent: 41 151 255;
+  --color-accent-contrast: 255 255 255;
+  color-scheme: dark;
+}
+
+/* The system-wide Apple press micro-interaction, buttons only. */
+[data-theme='cupertino'] [data-btn]:active {
+  transform: scale(0.95);
+}
+
+/* Paper surface scopes: dark navy product chrome + the coral callout band. */
+[data-theme='paper'] [data-surface='dark'] {
+  --color-canvas: 24 23 21;
+  --color-ink: 250 249 245;
+  --color-muted: 160 157 150;
+  --color-hairline: 58 56 52;
+  --color-card: 37 35 32;
+  --color-accent: 211 117 78;
+  --color-accent-contrast: 24 23 21;
+  color-scheme: dark;
+}
+/* Studio block scopes: giant pastel sticky-notes on a clean white wall. Cards
+   inside a block go white; the navy block is the single inverse moment. */
+[data-theme='studio'] [data-surface='lime'] {
+  --color-canvas: 214 242 106;
+  --color-card: 255 255 255;
+  --color-hairline: 173 202 74;
+}
+[data-theme='studio'] [data-surface='lilac'] {
+  --color-canvas: 227 222 252;
+  --color-card: 255 255 255;
+  --color-hairline: 188 180 226;
+}
+[data-theme='studio'] [data-surface='cream'] {
+  --color-canvas: 245 238 220;
+  --color-card: 255 255 255;
+  --color-hairline: 212 200 170;
+}
+[data-theme='studio'] [data-surface='mint'] {
+  --color-canvas: 207 244 228;
+  --color-card: 255 255 255;
+  --color-hairline: 157 208 186;
+}
+[data-theme='studio'] [data-surface='navy'] {
+  --color-canvas: 30 30 70;
+  --color-ink: 255 255 255;
+  --color-muted: 199 199 221;
+  --color-hairline: 70 70 110;
+  --color-card: 45 45 90;
+  --color-accent: 255 255 255;
+  --color-accent-contrast: 30 30 70;
+  color-scheme: dark;
+}
+
+/* Studio marquee strip: mono caps domains scrolling under the nav. */
+.marquee {
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  padding: 0.5rem 0;
+  animation: marquee 45s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+[data-theme='paper'] [data-surface='coral'] {
+  --color-canvas: 169 88 62;
+  --color-ink: 255 255 255;
+  --color-muted: 255 237 230;
+  --color-hairline: 199 129 105;
+  --color-card: 148 74 50;
+  /* CTAs invert on coral: cream button, coral text — the claude.com callout. */
+  --color-accent: 250 249 245;
+  --color-accent-contrast: 169 88 62;
+  color-scheme: light;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-    color-scheme: light;
   }
 
   body {
@@ -52,6 +241,11 @@
     @apply py-16 md:py-[7.5rem];
   }
 
+  /* Tile rhythm: taller air, no borders — the surface change is the divider. */
+  .section-gap-tile {
+    @apply py-20 md:py-32;
+  }
+
   .reveal {
     opacity: 0;
     transform: translateY(12px);
@@ -62,6 +256,49 @@
     opacity: 1;
     transform: none;
   }
+}
+
+/* The inlined draw.io exports carry their own ge-flow-animation inline styles;
+   this is the site-side kill switch for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .diagram-frame [style*='ge-flow-animation'] {
+    animation: none !important;
+  }
+}
+
+/* Case-study overlay: backdrop fades in, panel rises — a page-open feeling
+   without a router. Reduced motion gets an instant cut. */
+.case-overlay-backdrop {
+  animation: overlay-fade 240ms ease-out;
+}
+.case-overlay-panel {
+  animation: overlay-rise 340ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes overlay-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes overlay-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-overlay-backdrop,
+  .case-overlay-panel {
+    animation: none;
+  }
+}
+
+/* Horizontal scrollers that hide their scrollbar (Recommendations). */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Skip link: first focusable element, visible only on focus. */
