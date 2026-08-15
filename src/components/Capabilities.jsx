@@ -1,15 +1,42 @@
-import { Workflow, GitBranch, Sparkles, Target, Database, Users } from 'lucide-react'
+import {
+  Workflow,
+  GitBranch,
+  Sparkles,
+  Target,
+  Database,
+  Users,
+  Layers,
+  Briefcase,
+  Handshake,
+  LineChart,
+  RefreshCw,
+  ShieldAlert,
+} from 'lucide-react'
 import { site } from '../content/site'
 import { Container } from './ui/Container'
+import { Section } from './ui/Section'
 import { Card } from './ui/Card'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 
-const ICONS = { Workflow, GitBranch, Sparkles, Target, Database, Users }
+const ICONS = {
+  Workflow,
+  GitBranch,
+  Sparkles,
+  Target,
+  Database,
+  Users,
+  Layers,
+  Briefcase,
+  Handshake,
+  LineChart,
+  RefreshCw,
+  ShieldAlert,
+}
 
 export function Capabilities() {
   return (
-    <section className="border-b border-hairline section-gap">
+    <Section surface="capabilities">
       <Container>
         <SectionHeading id="capabilities" label="Where I operate" title="Capabilities." />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -26,6 +53,6 @@ export function Capabilities() {
           })}
         </div>
       </Container>
-    </section>
+    </Section>
   )
 }

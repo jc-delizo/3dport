@@ -1,8 +1,32 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme as render } from '../test/render'
 import { About } from './About'
+import { site } from '../content/site'
 
 describe('About', () => {
+  it('tells the three-beat story: engineer → pivot → delivery leader', () => {
+    render(<About />)
+    expect(site.about.story.map((s) => s.title)).toEqual([
+      'The engineer',
+      'The pivot',
+      'The delivery leader',
+    ])
+    site.about.story.forEach(({ title, body }) => {
+      expect(screen.getByText(title)).toBeInTheDocument()
+      expect(screen.getByText(body)).toBeInTheDocument()
+    })
+  })
+
+  it('lists the fast facts — location-free, pivot gap left implied, per JC', () => {
+    render(<About />)
+    expect(site.about.facts).toHaveLength(4)
+    site.about.facts.forEach((fact) => expect(screen.getByText(fact)).toBeInTheDocument())
+    const text = JSON.stringify(site.about)
+    expect(text).not.toMatch(/Batangas|Philippines|Rosario/i)
+    expect(text).not.toMatch(/TaskUs|moderat/i)
+  })
+
   it('renders the portrait with real alt text', () => {
     render(<About />)
     expect(screen.getByAltText('JC Delizo')).toBeInTheDocument()

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme as render } from '../test/render'
 import { Principles } from './Principles'
 import { Capabilities } from './Capabilities'
 import { site } from '../content/site'

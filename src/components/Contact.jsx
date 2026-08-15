@@ -1,17 +1,18 @@
 import { site } from '../content/site'
 import { Container } from './ui/Container'
+import { Section } from './ui/Section'
 import { SectionHeading } from './ui/SectionHeading'
 import { Button } from './ui/Button'
 import { Reveal } from './ui/Reveal'
 
 export function Contact() {
   const { heading, body } = site.availability
-  const { email, linkedin, resume } = site.contact
+  const { email, linkedin, resume, resumeFilename } = site.contact
 
   return (
-    <section className="section-gap">
+    <Section surface="contact" divider={false}>
       <Container>
-        <SectionHeading id="contact" label="Availability" title={heading} />
+        <SectionHeading id="contact" label="Contact" title={heading} />
         <Reveal>
           <p className="measure text-body text-muted">{body}</p>
 
@@ -20,12 +21,12 @@ export function Contact() {
             <Button href={linkedin} variant="ghost" external>
               LinkedIn
             </Button>
-            <Button href={resume} variant="ghost" external>
+            <Button href={resume} variant="ghost" download={resumeFilename}>
               Résumé
             </Button>
           </div>
         </Reveal>
       </Container>
-    </section>
+    </Section>
   )
 }

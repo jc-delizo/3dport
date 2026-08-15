@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme as render } from '../test/render'
 import { Contact } from './Contact'
 import { Tools } from './Tools'
 import { site } from '../content/site'
@@ -14,9 +15,15 @@ describe('Contact', () => {
     )
   })
 
-  it('states availability using confident phrasing', () => {
+  it('invites conversation without announcing a job search', () => {
+    // JC is employed and the site is public: availability stays implied.
+    // "exploring opportunities" phrasing is banned from this section.
     render(<Contact />)
-    expect(screen.getByText(/selectively exploring/i)).toBeInTheDocument()
+    const { heading, body } = site.availability
+    expect(screen.getByText(body)).toBeInTheDocument()
+    const text = `${heading} ${body}`
+    expect(text).not.toMatch(/opportunit|exploring|open to roles|job|hiring/i)
+    expect(text).toMatch(/talk|conversation|reach/i)
   })
 })
 

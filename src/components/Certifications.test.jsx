@@ -1,24 +1,44 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme as render } from '../test/render'
+import userEvent from '@testing-library/user-event'
 import { Certifications } from './Certifications'
 import { site } from '../content/site'
 
 describe('Certifications', () => {
-  it('renders all 19 certifications as flat rows with issuer and date', () => {
+  it('shows only the six featured certifications when collapsed', () => {
     const { container } = render(<Certifications />)
-    expect(site.certifications.length).toBe(19)
-    site.certifications.forEach(({ name, issuer, date }) => {
+    expect(container.querySelectorAll('li').length).toBe(6)
+    site.certifications.slice(0, 6).forEach(({ name }) => {
       expect(screen.getByText(name)).toBeInTheDocument()
-      expect(screen.getAllByText(issuer).length).toBeGreaterThan(0)
-      expect(screen.getAllByText(date).length).toBeGreaterThan(0)
     })
-    // One flat list: every entry is a row, no card headings remain.
-    expect(container.querySelectorAll('li').length).toBe(19)
-    expect(container.querySelectorAll('h3').length).toBe(0)
+    // The strongest credential note is visible without expanding.
+    expect(screen.getByText(/8th of 1,057/)).toBeInTheDocument()
   })
 
-  it('links every credentialed entry to its certificate in a new tab, safely', () => {
+  it('expands to all 19 via See more and collapses again via See less', async () => {
+    const user = userEvent.setup()
     const { container } = render(<Certifications />)
+
+    const toggle = screen.getByRole('button', { name: /\+ 13 more certifications/i })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+
+    await user.click(toggle)
+    expect(container.querySelectorAll('li').length).toBe(19)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(toggle).toHaveTextContent(/show less/i)
+    expect(screen.getByText(/11th of 2,089/)).toBeInTheDocument()
+
+    await user.click(toggle)
+    expect(container.querySelectorAll('li').length).toBe(6)
+    expect(toggle).toHaveTextContent(/13 more certifications/i)
+  })
+
+  it('links every credentialed entry to its certificate in a new tab, safely', async () => {
+    const user = userEvent.setup()
+    const { container } = render(<Certifications />)
+    await user.click(screen.getByRole('button', { name: /\+ 13 more certifications/i }))
+
     const links = container.querySelectorAll('a')
     expect(links.length).toBe(18)
     links.forEach((a) => {
@@ -28,20 +48,18 @@ describe('Certifications', () => {
     })
   })
 
-  it('renders the Alison entry as plain text — no anchor, no dead link', () => {
+  it('renders the Alison entry as plain text — no anchor, no dead link', async () => {
+    const user = userEvent.setup()
     render(<Certifications />)
+    await user.click(screen.getByRole('button', { name: /\+ 13 more certifications/i }))
     const alison = screen.getByText('Agile Project Management')
     expect(alison.closest('a')).toBeNull()
   })
 
-  it('shows the two national exam rankings, the strongest verifiable credential', () => {
-    render(<Certifications />)
-    expect(screen.getByText(/8th of 1,057/)).toBeInTheDocument()
-    expect(screen.getByText(/11th of 2,089/)).toBeInTheDocument()
-  })
-
-  it('omits the 2022 marketing and design courses, which dilute the positioning', () => {
+  it('omits the 2022 marketing and design courses, which dilute the positioning', async () => {
+    const user = userEvent.setup()
     const { container } = render(<Certifications />)
+    await user.click(screen.getByRole('button', { name: /\+ 13 more certifications/i }))
     expect(container.textContent).not.toMatch(/Social Media Management|FB Ads|Copywriting|Canva/i)
   })
 })

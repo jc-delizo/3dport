@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme as render } from '../test/render'
 import { Portfolio } from './Portfolio'
 import { site } from '../content/site'
 
@@ -25,6 +26,14 @@ describe('Portfolio', () => {
         expect(screen.getByText(desc)).toBeInTheDocument()
       })
     })
+  })
+
+  it('anchors every entry with a slug id for direct linking', () => {
+    const { container } = render(<Portfolio />)
+    expect(container.querySelector('#payroll-implementation-1-600-employees')).not.toBeNull()
+    expect(container.querySelectorAll('article[id]').length).toBe(
+      site.portfolio.groups.reduce((n, g) => n + g.items.length, 0)
+    )
   })
 
   it('renders exactly one role chip per entry', () => {

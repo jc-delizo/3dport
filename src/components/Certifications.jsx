@@ -1,8 +1,15 @@
+import { useState } from 'react'
 import { ExternalLink } from 'lucide-react'
 import { site } from '../content/site'
 import { Container } from './ui/Container'
+import { Section } from './ui/Section'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
+import { ListMore } from './ui/InlineDisclosure'
+
+// How many certifications the collapsed view shows. The featured set leads the
+// content array (see the comment above site.certifications), so slicing is enough.
+const FEATURED_COUNT = 6
 
 // The name is the accessible link; the icon is only the visual cue that it leaves the page.
 // Entries without a credential URL (Alison) render as plain text — never a dead link.
@@ -22,13 +29,16 @@ function CredentialName({ name, url, className = '' }) {
 }
 
 export function Certifications() {
+  const [expanded, setExpanded] = useState(false)
+  const visible = expanded ? site.certifications : site.certifications.slice(0, FEATURED_COUNT)
+
   return (
-    <section className="border-b border-hairline section-gap">
+    <Section surface="certifications">
       <Container>
         <SectionHeading id="certifications" label="Verified" title="Certifications." />
         <Reveal>
-          <ul className="border-t border-hairline">
-            {site.certifications.map(({ name, issuer, date, note, url }) => (
+          <ul id="certifications-list" className="border-t border-hairline">
+            {visible.map(({ name, issuer, date, note, url }) => (
               <li
                 key={name}
                 className="flex flex-col gap-1 border-b border-hairline py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
@@ -44,8 +54,15 @@ export function Certifications() {
               </li>
             ))}
           </ul>
+          <ListMore
+            expanded={expanded}
+            onToggle={() => setExpanded((v) => !v)}
+            controls="certifications-list"
+            moreLabel={`${site.certifications.length - FEATURED_COUNT} more certifications`}
+            className="mt-5"
+          />
         </Reveal>
       </Container>
-    </section>
+    </Section>
   )
 }

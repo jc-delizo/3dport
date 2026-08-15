@@ -15,12 +15,37 @@ import {
   SiClaude,
   SiCursor,
   SiGooglegemini,
+  SiHubspot,
+  SiElevenlabs,
+  SiReact,
+  SiVite,
+  SiNodedotjs,
+  SiMongodb,
+  SiMysql,
+  SiLaravel,
+  SiDigitalocean,
+  SiContabo,
+  SiPosthog,
+  SiSnowflake,
 } from 'react-icons/si'
-import { TbBrandMonday, TbBrandOpenai } from 'react-icons/tb'
+import { TbBrandMonday, TbBrandOpenai, TbBrandOffice, TbBrandAdobe, TbBrandAws } from 'react-icons/tb'
 import { VscAzureDevops } from 'react-icons/vsc'
-import { PencilRuler, SquareTerminal } from 'lucide-react'
+import {
+  Bot,
+  Clapperboard,
+  Film,
+  Megaphone,
+  Palette,
+  PencilRuler,
+  Presentation,
+  Share2,
+  SquareCode,
+  SquareTerminal,
+  Workflow,
+} from 'lucide-react'
 import { site } from '../content/site'
 import { Container } from './ui/Container'
+import { Section } from './ui/Section'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 
@@ -38,21 +63,45 @@ const TOOL_ICONS = {
   'Azure DevOps': VscAzureDevops,
   'Odoo ERP': SiOdoo,
   'Google Workspace': SiGoogle,
+  'Microsoft 365': TbBrandOffice,
+  SharePoint: Share2,
+  HubSpot: SiHubspot,
+  GoHighLevel: Megaphone,
+  'Power Automate': Workflow,
   Figma: SiFigma,
   Balsamiq: PencilRuler,
+  Canva: Palette,
+  'Adobe Creative Cloud': TbBrandAdobe,
+  CapCut: Clapperboard,
   Git: SiGit,
   GitHub: SiGithub,
   Vercel: SiVercel,
+  React: SiReact,
+  Vite: SiVite,
+  'Node.js': SiNodedotjs,
+  Snowflake: SiSnowflake,
+  Laravel: SiLaravel,
+  MongoDB: SiMongodb,
+  MySQL: SiMysql,
+  AWS: TbBrandAws,
+  DigitalOcean: SiDigitalocean,
+  Contabo: SiContabo,
+  PostHog: SiPosthog,
   Claude: SiClaude,
   Cursor: SiCursor,
   ChatGPT: TbBrandOpenai,
   Gemini: SiGooglegemini,
   Codex: SquareTerminal,
+  OpenCode: SquareCode,
+  Grok: Bot,
+  ElevenLabs: SiElevenlabs,
+  Higgsfield: Film,
+  Gamma: Presentation,
 }
 
 export function Tools() {
   return (
-    <section className="border-b border-hairline section-gap">
+    <Section surface="tools">
       <Container>
         <SectionHeading id="tools" label="Environment" title="Tools." />
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -77,6 +126,6 @@ export function Tools() {
           ))}
         </div>
       </Container>
-    </section>
+    </Section>
   )
 }

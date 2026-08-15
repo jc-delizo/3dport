@@ -1,5 +1,6 @@
 import { site } from '../content/site'
 import { Container } from './ui/Container'
+import { Section } from './ui/Section'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 
@@ -10,7 +11,7 @@ const asset = (file) => `${import.meta.env.BASE_URL}${file}`
 
 export function About() {
   return (
-    <section className="border-b border-hairline section-gap">
+    <Section surface="about">
       <Container>
         <SectionHeading id="about" label="Background" title="About." />
         <Reveal>
@@ -30,10 +31,30 @@ export function About() {
                 />
               </picture>
             </figure>
-            <p className="measure text-body text-muted">{site.about}</p>
+            <div className="min-w-0">
+              {site.about.story.map(({ title, body }) => (
+                <div key={title} className="mb-8 last:mb-0">
+                  <p className="font-mono text-label uppercase tracking-widest text-muted">
+                    {title}
+                  </p>
+                  <p className="measure mt-2 text-body text-muted">{body}</p>
+                </div>
+              ))}
+
+              <ul className="mt-10 flex flex-wrap gap-2">
+                {site.about.facts.map((fact) => (
+                  <li
+                    key={fact}
+                    className="rounded-button border border-hairline bg-card px-3.5 py-1.5 text-label"
+                  >
+                    {fact}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Reveal>
       </Container>
-    </section>
+    </Section>
   )
 }
