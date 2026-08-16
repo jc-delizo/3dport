@@ -83,8 +83,9 @@ describe('link preview', () => {
 })
 
 describe('structure', () => {
-  it('has exactly five initiatives, each with a category', () => {
-    expect(site.initiatives).toHaveLength(5)
+  it('has exactly four initiatives — the approval platform lives in Case Studies only', () => {
+    expect(site.initiatives).toHaveLength(4)
+    expect(site.initiatives.map((i) => i.id)).not.toContain('approval-platform')
     site.initiatives.forEach((i) => {
       expect(i.category).toBeTruthy()
       expect(i.approach.length).toBeGreaterThanOrEqual(3)

@@ -9,13 +9,15 @@ describe('Footer', () => {
     expect(screen.getByText(/© \d{4} JC Delizo/)).toBeInTheDocument()
   })
 
-  it('shows real build stats — stack, test count, commit, date', () => {
+  it('shows the stack and build stats — tools, test count, commit; no date', () => {
     render(<Footer />)
     const line = screen.getByTestId('build-info')
     expect(line).toHaveTextContent(/React \d+/)
     expect(line).toHaveTextContent(/Vite/)
+    expect(line).toHaveTextContent(/Tailwind CSS/)
+    expect(line).toHaveTextContent(/draw\.io/)
     expect(line).toHaveTextContent(/\d+ tests/)
     expect(line).toHaveTextContent(/[0-9a-f]{7}/)
-    expect(line).toHaveTextContent(/\d{4}-\d{2}-\d{2}/)
+    expect(line).not.toHaveTextContent(/\d{4}-\d{2}-\d{2}/)
   })
 })

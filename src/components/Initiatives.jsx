@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { site } from '../content/site'
 import processDiagram from '../content/diagrams/process.svg?raw'
+import intakeDiagram from '../content/diagrams/intake.svg?raw'
+import erpDiagram from '../content/diagrams/erp.svg?raw'
 import { Container } from './ui/Container'
 import { Section } from './ui/Section'
 import { Card } from './ui/Card'
@@ -15,6 +17,8 @@ import { PlaybookOverlay } from './PlaybookOverlay'
 // studies). More arrive as JC draws them — one line each here.
 const INITIATIVE_DIAGRAMS = {
   'scaling-delivery': processDiagram,
+  'erp-rollout': erpDiagram,
+  'ai-intake': intakeDiagram,
 }
 
 function Block({ label, children }) {

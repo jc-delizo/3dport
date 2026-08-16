@@ -5,11 +5,21 @@ import { Recommendations } from './Recommendations'
 import { site } from '../content/site'
 
 describe('Recommendations', () => {
-  it('carries the three real recommendations, Harrison from the TaskUs chapter included', () => {
-    expect(site.recommendations).toHaveLength(3)
+  it('carries the four real recommendations with corrected attributions', () => {
+    expect(site.recommendations.map((r) => r.name)).toEqual([
+      'Emmanuel Louis Gonzaga',
+      'Ronak Viramgama',
+      'Harrison Wallace',
+      'Lisette Racoma',
+    ])
     const harrison = site.recommendations.find((r) => r.name === 'Harrison Wallace')
+    expect(harrison.context).toMatch(/COO/)
     // Dated to the end of the TaskUs working relationship, per JC.
     expect(harrison.date).toBe('June 2023')
+    const emmanuel = site.recommendations.find((r) => r.name === 'Emmanuel Louis Gonzaga')
+    expect(emmanuel.date).toBe('December 2024')
+    // Toned down at JC's request — the superlative stack is gone.
+    expect(emmanuel.quote).not.toMatch(/strongly recommend|flawless|exceptional|outstanding/i)
   })
 
   it('scrolls horizontally with the scrollbar hidden, cards snapping into place', () => {

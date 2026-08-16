@@ -23,7 +23,8 @@ export function Footer() {
       <Container className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
         <p className="text-label text-muted">{site.footer}</p>
         <p data-testid="build-info" className="font-mono text-label text-muted">
-          React {reactVersion.split('.')[0]} · Vite · {info.tests} tests · {info.sha} · {info.date}
+          React {reactVersion.split('.')[0]} · Vite · Tailwind CSS · draw.io · {info.tests} tests ·{' '}
+          {info.sha}
         </p>
       </Container>
     </footer>

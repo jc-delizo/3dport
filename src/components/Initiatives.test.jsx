@@ -10,16 +10,16 @@ const cardButtons = () =>
   screen.getAllByRole('button', { name: /view (diagram & story|full story)/i })
 
 describe('Initiatives cards', () => {
-  it('renders all five as teasers — category, title, problem, view button; no accordion', () => {
+  it('renders all four as teasers — category, title, problem, view button; no accordion', () => {
     render(<Initiatives />)
     site.initiatives.forEach(({ title, category, problem }) => {
       expect(screen.getByRole('heading', { name: title, level: 3 })).toBeInTheDocument()
       expect(screen.getByText(category)).toBeInTheDocument()
       expect(screen.getByText(problem)).toBeInTheDocument()
     })
-    expect(cardButtons()).toHaveLength(5)
-    // The card with a diagram promises it in its button label.
-    expect(screen.getByRole('button', { name: /view diagram & story/i })).toBeInTheDocument()
+    expect(cardButtons()).toHaveLength(site.initiatives.length)
+    // Three cards now carry diagrams and promise them in their button labels.
+    expect(screen.getAllByRole('button', { name: /view diagram & story/i })).toHaveLength(3)
     // Nothing deep renders until an overlay opens.
     expect(screen.queryByText('Approach')).toBeNull()
     expect(screen.queryByText('Outcome')).toBeNull()
@@ -50,6 +50,16 @@ describe('Initiatives overlay', () => {
     first.approach.forEach((point) => expect(screen.getByText(point)).toBeInTheDocument())
     expect(screen.getByText(first.outcome)).toBeInTheDocument()
     // scaling-delivery carries the process diagram inside its overlay.
+    expect(document.querySelector('.case-overlay-panel .diagram-frame')).not.toBeNull()
+  })
+
+  it('shows the ERP rollout diagram inside its overlay', async () => {
+    const user = userEvent.setup()
+    render(<Initiatives />)
+    await user.click(cardButtons()[1])
+    expect(
+      screen.getByRole('heading', { name: site.initiatives[1].title, level: 2 })
+    ).toBeInTheDocument()
     expect(document.querySelector('.case-overlay-panel .diagram-frame')).not.toBeNull()
   })
 

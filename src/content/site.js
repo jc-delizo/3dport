@@ -124,22 +124,6 @@ export const site = {
       outcome:
         'Delivered systems spanning payroll, recruitment, employee records, performance management, finance workflows, treasury queuing, legal case management, inventory tracking, and AI-enabled internal operations.',
     },
-    {
-      id: 'approval-platform',
-      category: 'Approval Systems',
-      title: 'Multi-Entity Approval Workflow Platform',
-      problem:
-        'Operational and financial approvals — travel, repairs, project execution, asset management — ran on email and paper across five corporate entities. Routing was inconsistent, no two departments approved the same way, and nothing was auditable.',
-      approach: [
-        'Specified a multi-tenant data model scoping every user and document to its corporate entity, so cross-entity routing and segment reporting were possible at all.',
-        'Designed a dynamic routing engine: instead of fixed templates, a requester composes the approval chain per document, selecting approvers from a global directory and tagging each with an action type.',
-        'Enforced strict sequential locking, so a step cannot act until the preceding step completes, with drag-and-drop ordering at composition time.',
-        'Balanced that freedom with safeguards: an admin view that can halt, reorder, or inject approvers mid-flight; a return-for-correction path; and an immutable audit trail of every action and change.',
-        'Added single sign-on with automatic provisioning of claimable accounts and a first-run onboarding flow.',
-      ],
-      outcome:
-        'Replaced ad-hoc approvals across five corporate entities with a single auditable platform. Currently in user training ahead of rollout.',
-    },
   ],
 
   // Deep dives behind two initiatives. Content is drawn from delivery records and
@@ -732,16 +716,23 @@ export const site = {
     },
   ],
 
-  // Verbatim LinkedIn recommendations. Emmanuel's names internal project names
-  // (FCT, Bucketlist, IMU, RFP Builder) — his own public words, quoted and attributed,
-  // not a fresh disclosure by JC. Trim them if that ever becomes a concern.
+  // Real recommendations only. Emmanuel's is paraphrased for length and tone
+  // at JC's request (the verbatim original lives on LinkedIn); Ronak's and
+  // Lisette's are verbatim; Harrison's was relayed by JC and grammar-fixed.
   recommendations: [
     {
       quote:
-        'I strongly recommend Engr. John Carlo Delizo as a Project Manager. Despite leading multiple projects simultaneously — including FCT (Field Collection Tool), Bucketlist, IMU (Itinerary Manager Uniformed) for field staff tracking, and the AI-powered RFP Builder Automation — he consistently delivers high-quality results through exceptional leadership, strategic planning, and flawless execution. His ability to turn complex ideas into successful solutions makes him an outstanding leader.',
+        'Working under JC across several projects running at the same time — from field operations tools to an AI-powered automation initiative — was a genuinely good experience. He plans ahead, communicates clearly, and delivers consistently even with a full portfolio in flight. He has a way of turning complex ideas into working solutions.',
       name: 'Emmanuel Louis Gonzaga',
       context: 'Reported to JC directly',
-      date: 'July 2026',
+      date: 'December 2024',
+    },
+    {
+      quote:
+        'Engr. John Carlo was a great client to work with. He was clear and organized when explaining the requirements, had a good understanding of the overall workflow, and was always easy to communicate with. I also really appreciated his professional and friendly approach throughout the project. It was a smooth and positive experience working with him.',
+      name: 'Ronak Viramgama',
+      context: 'Python · Odoo Developer — JC was the client',
+      date: 'August 2026',
     },
     // Harrison's words relayed by JC 2026-08-15, grammar lightly fixed with
     // meaning preserved — do not embellish further. Dated June 2023: JC's last
@@ -750,7 +741,7 @@ export const site = {
       quote:
         'JC is a good teammate — always dependable and easy to approach. He brings a good working vibe and finishes assigned tasks quickly and accurately.',
       name: 'Harrison Wallace',
-      context: 'Teammate at TaskUs – SuperBam',
+      context: 'COO at TaskUs – SuperBam',
       date: 'June 2023',
     },
     {

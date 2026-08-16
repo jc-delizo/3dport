@@ -2,9 +2,11 @@ import { describe, it, expect } from 'vitest'
 import approvalSvg from './diagrams/approval.svg?raw'
 import aiSvg from './diagrams/ai.svg?raw'
 import processSvg from './diagrams/process.svg?raw'
+import intakeSvg from './diagrams/intake.svg?raw'
+import erpSvg from './diagrams/erp.svg?raw'
 import { findForbidden } from './forbidden'
 
-const both = { approvalSvg, aiSvg, processSvg }
+const both = { approvalSvg, aiSvg, processSvg, intakeSvg, erpSvg }
 
 describe('draw.io diagram exports (sanitized outside the repo)', () => {
   it('leak nothing: no internal terms, no embedded mxfile, no raster label fallbacks', () => {
@@ -29,5 +31,7 @@ describe('draw.io diagram exports (sanitized outside the repo)', () => {
     expect(approvalSvg).toContain('How an Approval Travels')
     expect(aiSvg).toContain('AI Delivery Platform — How It All Connects')
     expect(processSvg).toContain('Project Management Process Flow')
+    expect(intakeSvg).toContain('AI-Powered Request Management — Intake Flow')
+    expect(erpSvg).toContain('ERP Rollout — How We Did It')
   })
 })
