@@ -292,6 +292,38 @@
   }
 }
 
+/* PM × Engineer slider: token-driven so it restyles per theme. */
+.pm-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  border-radius: 9999px;
+  background: rgb(var(--color-hairline));
+}
+.pm-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: rgb(var(--color-accent));
+  border: 3px solid rgb(var(--color-canvas));
+  box-shadow: 0 0 0 1px rgb(var(--color-hairline));
+  cursor: grab;
+}
+.pm-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: rgb(var(--color-accent));
+  border: 3px solid rgb(var(--color-canvas));
+  box-shadow: 0 0 0 1px rgb(var(--color-hairline));
+  cursor: grab;
+}
+.pm-slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
 /* Horizontal scrollers that hide their scrollbar (Recommendations). */
 .no-scrollbar {
   scrollbar-width: none;

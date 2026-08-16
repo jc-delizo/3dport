@@ -5,6 +5,7 @@ import { Initiatives } from './components/Initiatives'
 import { CaseStudies } from './components/CaseStudies'
 import { Portfolio } from './components/Portfolio'
 import { Principles } from './components/Principles'
+import { Approach } from './components/Approach'
 import { Experience } from './components/Experience'
 import { Recommendations } from './components/Recommendations'
 import { Capabilities } from './components/Capabilities'
@@ -28,6 +29,7 @@ export default function App() {
         <CaseStudies />
         <Portfolio />
         <Principles />
+        <Approach />
         <Experience />
         <Recommendations />
         <Capabilities />

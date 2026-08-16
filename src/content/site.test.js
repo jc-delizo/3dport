@@ -144,6 +144,22 @@ describe('tools data', () => {
   })
 })
 
+describe('approach data', () => {
+  it('carries the PM × Engineer slider content with complete flows', () => {
+    expect(site.approach.pm.flow).toHaveLength(6)
+    expect(site.approach.eng.flow).toHaveLength(6)
+    expect(site.approach.bridge.flow).toHaveLength(7)
+    expect(site.approach.pm.points.length).toBeGreaterThanOrEqual(5)
+    expect(site.approach.eng.points.length).toBeGreaterThanOrEqual(5)
+    expect(site.approach.arc).toEqual([
+      'Engineering',
+      'Software Development',
+      'Project Management',
+      'Digital Transformation',
+    ])
+  })
+})
+
 describe('capabilities data', () => {
   it('carries the twelve capabilities, all backed by the resume skills line', () => {
     expect(site.capabilities.map((c) => c.label)).toEqual([

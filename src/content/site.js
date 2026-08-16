@@ -658,6 +658,62 @@ export const site = {
     ],
   },
 
+  // The PM × Engineer slider. The default sits at the balanced center on
+  // purpose: the message is "a PM who operates comfortably close to the
+  // engineering side", never "PM or engineer".
+  approach: {
+    title: 'How I approach software',
+    intro:
+      'I operate comfortably on both sides of the table — translating business outcomes into delivery decisions, and technical complexity into business outcomes.',
+    pm: {
+      label: 'Project Manager',
+      caption: 'I think in outcomes, constraints, dependencies, and delivery.',
+      flow: ['Scope', 'Timeline', 'Risks', 'Stakeholders', 'Dependencies', 'Delivery'],
+      points: [
+        'Define what success looks like',
+        'Align stakeholders and priorities',
+        'Manage scope, risks, and dependencies',
+        'Keep teams focused on the highest-value work',
+        'Make delivery visible and predictable',
+      ],
+      evidence: '65 projects end to end · 5–11 concurrent · ERP & HRIS delivery',
+    },
+    eng: {
+      label: 'Engineer',
+      caption: 'I understand how the software underneath the project is actually built.',
+      flow: ['Architecture', 'APIs', 'Database', 'Components', 'Git', 'Deployment'],
+      points: [
+        'Understand system architecture',
+        'Translate requirements into technical solutions',
+        'Understand APIs, databases, and application structure',
+        'Work comfortably with developers',
+        'Understand Git and software-development workflows',
+        'Understand deployment and technical dependencies',
+      ],
+      evidence: 'BS I&C Engineering · full-stack trained · Git · React · Node.js · Odoo',
+    },
+    bridge: {
+      label: 'Where delivery meets engineering',
+      caption:
+        'Good technical delivery happens when business context and engineering reality are understood together.',
+      flow: [
+        'Business outcome',
+        'Product / requirements',
+        'Project delivery',
+        'Technical solution',
+        'Engineering',
+        'Deployment',
+        'Measurable outcome',
+      ],
+    },
+    credibility: '10+ years across engineering and software delivery',
+    arc: ['Engineering', 'Software Development', 'Project Management', 'Digital Transformation'],
+    final: {
+      lead: 'Not just managing software.\nUnderstanding how to deliver it.',
+      sub: "That's the difference between coordinating a technical team and leading technical delivery.",
+    },
+  },
+
   principles: [
     'Build systems, not heroics.',
     'Measure outcomes, not activity.',
