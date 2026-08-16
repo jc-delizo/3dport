@@ -92,20 +92,18 @@ export function Approach() {
     setInteracted(true)
   }
 
-  // One-time attract demo: on first scroll into view, the thumb oscillates
-  // left–right with decaying amplitude (~5 sweeps) and settles on the center
-  // detent — "this is interactive" without a modal or a tooltip tour. Runs
-  // once per visitor, cancels the moment they grab the slider, and is skipped
+  // Attract demo: on first scroll into view each page load, the thumb
+  // oscillates left–right with decaying amplitude (~5 sweeps) and settles on
+  // the center detent — "this is interactive" without a modal or tooltip
+  // tour. Cancels the moment the visitor grabs the slider, and is skipped
   // under prefers-reduced-motion (the text hint carries the message instead).
   useEffect(() => {
-    if (localStorage.getItem('3dport-slider-demo')) return undefined
     const el = sliderWrapRef.current
     if (!el) return undefined
     const io = new IntersectionObserver(
       (entries) => {
         if (!entries.some((e) => e.isIntersecting)) return
         io.disconnect()
-        localStorage.setItem('3dport-slider-demo', '1')
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
         const start = performance.now()
         const DURATION = 3400

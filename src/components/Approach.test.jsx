@@ -78,13 +78,14 @@ describe('Approach section', () => {
     expect(screen.getByText(/slide me/i).className).toMatch(/opacity-0/)
   })
 
-  it('arms the one-time attract demo via an intersection observer, remembered per visitor', () => {
+  it('arms the attract demo on every page load — nothing persisted', () => {
     const before = global.IntersectionObserverInstances.length
     render(<Approach />)
     const io = global.IntersectionObserverInstances[global.IntersectionObserverInstances.length - 1]
     expect(global.IntersectionObserverInstances.length).toBeGreaterThan(before)
     io.callback([{ isIntersecting: true }])
-    expect(localStorage.getItem('3dport-slider-demo')).toBe('1')
+    // Replays per load: no visitor flag is written.
+    expect(localStorage.getItem('3dport-slider-demo')).toBeNull()
     // Grabbing the slider cancels the demo without errors.
     fireEvent.pointerDown(screen.getByRole('slider'))
   })
