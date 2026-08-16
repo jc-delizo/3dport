@@ -41,16 +41,31 @@ describe('Approach section', () => {
     expect(slider).toHaveAttribute('aria-valuetext', expect.stringMatching(/balanced/i))
   })
 
-  it('gently snaps to the balanced center when released within ±4 points', () => {
+  it('always settles on one of the three detents on release — never in between', () => {
     render(<Approach />)
     const slider = screen.getByRole('slider')
-    fireEvent.change(slider, { target: { value: '47' } })
-    fireEvent.pointerUp(slider)
+    const settle = (v) => {
+      fireEvent.change(slider, { target: { value: String(v) } })
+      fireEvent.pointerUp(slider)
+      return slider.value
+    }
+    expect(settle(47)).toBe('50')
+    expect(settle(58)).toBe('50')
+    expect(settle(80)).toBe('100')
+    expect(settle(10)).toBe('0')
+  })
+
+  it('steps between the three detents with arrow keys', () => {
+    render(<Approach />)
+    const slider = screen.getByRole('slider')
     expect(slider).toHaveValue('50')
-    // Outside the magnet zone nothing moves.
-    fireEvent.change(slider, { target: { value: '58' } })
-    fireEvent.pointerUp(slider)
-    expect(slider).toHaveValue('58')
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    expect(slider).toHaveValue('100')
+    fireEvent.keyDown(slider, { key: 'ArrowLeft' })
+    fireEvent.keyDown(slider, { key: 'ArrowLeft' })
+    expect(slider).toHaveValue('0')
+    fireEvent.keyDown(slider, { key: 'ArrowUp' })
+    expect(slider).toHaveValue('50')
   })
 
   it('carries the three captions, the closing message, and the credibility arc', () => {

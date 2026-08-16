@@ -20,16 +20,16 @@ export const site = {
     {
       label: 'Projects',
       items: [
+        { id: 'approach', label: 'How I Approach Software' },
         { id: 'initiatives', label: 'Initiatives' },
+        { id: 'case-studies', label: 'Case Studies' },
         { id: 'portfolio', label: 'Delivery Portfolio' },
         { id: 'principles', label: 'Principles' },
       ],
     },
-    { id: 'case-studies', label: 'Case Studies' },
     {
       label: 'Experience',
       items: [
-        { id: 'approach', label: 'How I Approach Software' },
         { id: 'experience', label: 'Work History' },
         { id: 'capabilities', label: 'Capabilities' },
         { id: 'tools', label: 'Tools' },
@@ -680,7 +680,7 @@ export const site = {
       evidence: '65 projects end to end · 5–11 concurrent · ERP & HRIS delivery',
     },
     eng: {
-      label: 'Engineer',
+      label: 'Software Engineer',
       caption: 'I understand how the software underneath the project is actually built.',
       flow: ['Architecture', 'APIs', 'Database', 'Components', 'Git', 'Deployment'],
       points: [

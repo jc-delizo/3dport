@@ -328,25 +328,23 @@ describe('portfolio data', () => {
     ])
   })
 
-  it('groups the nav: Projects ▾ · Case Studies · Experience ▾ · Contact', () => {
-    expect(site.nav.map((n) => n.label)).toEqual([
-      'Projects',
-      'Case Studies',
-      'Experience',
-      'Contact',
-    ])
-    const [projects, caseStudies, experience, contact] = site.nav
-    expect(projects.items.map((i) => i.id)).toEqual(['initiatives', 'portfolio', 'principles'])
-    expect(projects.items[1].label).toBe('Delivery Portfolio')
-    expect(experience.items.map((i) => i.id)).toEqual([
+  it('groups the nav: Projects ▾ · Experience ▾ · Contact, mirroring page order', () => {
+    expect(site.nav.map((n) => n.label)).toEqual(['Projects', 'Experience', 'Contact'])
+    const [projects, experience, contact] = site.nav
+    expect(projects.items.map((i) => i.id)).toEqual([
       'approach',
+      'initiatives',
+      'case-studies',
+      'portfolio',
+      'principles',
+    ])
+    expect(projects.items.find((i) => i.id === 'portfolio').label).toBe('Delivery Portfolio')
+    expect(experience.items.map((i) => i.id)).toEqual([
       'experience',
       'capabilities',
       'tools',
       'certifications',
     ])
-    expect(experience.items[0].label).toBe('How I Approach Software')
-    expect(caseStudies.id).toBe('case-studies')
     expect(contact.id).toBe('contact')
   })
 })

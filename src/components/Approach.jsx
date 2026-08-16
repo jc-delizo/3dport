@@ -73,6 +73,12 @@ function CaptionStack({ layers }) {
   )
 }
 
+// The slider rests only on three detents — PM, balanced center, engineer.
+// Dragging stays continuous so the content interpolates live; release settles
+// on the nearest detent, and arrow keys step detent-to-detent.
+const DETENTS = [0, 50, 100]
+const nearestDetent = (v) => DETENTS.reduce((a, b) => (Math.abs(b - v) < Math.abs(a - v) ? b : a))
+
 export function Approach() {
   const [value, setValue] = useState(50)
   const t = value / 100
@@ -108,20 +114,33 @@ export function Approach() {
               </span>
             </div>
             <div className="relative mt-3">
-              {/* Center tick: the sweet spot. */}
-              <span
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-3 w-px -translate-x-1/2 -translate-y-1/2 bg-muted"
-              />
+              {/* The three resting dots; center is the sweet spot. */}
+              {DETENTS.map((d) => (
+                <span
+                  key={d}
+                  aria-hidden="true"
+                  className={`absolute top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full ${
+                    d === 50 ? 'bg-muted' : 'bg-hairline'
+                  }`}
+                  style={{ left: `${d}%` }}
+                />
+              ))}
               <input
                 type="range"
                 min="0"
                 max="100"
                 value={value}
                 onChange={(e) => setValue(Number(e.target.value))}
-                // Gentle magnet: releasing within ±4 of center settles on the
-                // sweet spot. Pointer-release only — keyboard steps stay exact.
-                onPointerUp={() => setValue((v) => (Math.abs(v - 50) <= 4 ? 50 : v))}
+                onPointerUp={() => setValue((v) => nearestDetent(v))}
+                onKeyDown={(e) => {
+                  const step = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key]
+                  if (!step) return // Home/End keep their native behavior
+                  e.preventDefault()
+                  setValue((v) => {
+                    const i = DETENTS.indexOf(nearestDetent(v))
+                    return DETENTS[Math.min(DETENTS.length - 1, Math.max(0, i + step))]
+                  })
+                }}
                 aria-label="Blend between project-manager and engineer perspective"
                 aria-valuetext={valueText(value)}
                 className="pm-slider relative w-full"

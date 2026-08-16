@@ -310,7 +310,7 @@ export function CaseStudies() {
           nearly derailed them. Every figure comes from delivery records or production data.
         </SectionHeading>
 
-        <div className="grid gap-4">
+        <div className="grid gap-4 md:grid-cols-2">
           {site.caseStudies.map((study, i) => (
             <Reveal key={study.id} delay={Math.min(i, 3) * 60} id={`${study.id}-trigger`}>
               <StudyCard study={study} index={i} onOpen={() => setOpenId(study.id)} />

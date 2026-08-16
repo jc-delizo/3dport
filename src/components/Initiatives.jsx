@@ -136,7 +136,7 @@ export function Initiatives() {
       <Container>
         <SectionHeading id="initiatives" label="Selected work" title="Initiatives." />
 
-        <div className="grid gap-4">
+        <div className="grid gap-4 md:grid-cols-2">
           {site.initiatives.map((initiative, i) => (
             <Reveal
               key={initiative.id}

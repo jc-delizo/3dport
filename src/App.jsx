@@ -25,11 +25,11 @@ export default function App() {
       <main id="main">
         <Hero />
         <ProofBar />
+        <Approach />
         <Initiatives />
         <CaseStudies />
         <Portfolio />
         <Principles />
-        <Approach />
         <Experience />
         <Recommendations />
         <Capabilities />

@@ -18,6 +18,8 @@ describe('Initiatives cards', () => {
       expect(screen.getByText(problem)).toBeInTheDocument()
     })
     expect(cardButtons()).toHaveLength(site.initiatives.length)
+    // Compressed layout: 2×2 on desktop so the section is half as tall.
+    expect(document.querySelector('.grid').className).toMatch(/md:grid-cols-2/)
     // Three cards now carry diagrams and promise them in their button labels.
     expect(screen.getAllByRole('button', { name: /view diagram & story/i })).toHaveLength(3)
     // Nothing deep renders until an overlay opens.
