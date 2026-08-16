@@ -15,8 +15,9 @@ describe('CaseStudies cards', () => {
       stats.forEach(({ label }) => expect(screen.getByText(label)).toBeInTheDocument())
     })
     expect(screen.getAllByRole('button', { name: /view diagram/i })).toHaveLength(2)
-    // Side-by-side on desktop.
-    expect(document.querySelector('.grid').className).toMatch(/md:grid-cols-2/)
+    // Full-width stacked cards — the 4-tile stat rows need the room; a 2-up
+    // grid squeezed them into a mess (reverted at JC's request).
+    expect(document.querySelector('.grid').className).not.toMatch(/md:grid-cols-2/)
     // Deep content lives only in the overlay now.
     expect(screen.queryByText(site.caseStudies[0].timeline[0].title)).toBeNull()
     expect(screen.queryByRole('dialog')).toBeNull()
