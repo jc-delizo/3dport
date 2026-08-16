@@ -74,6 +74,8 @@ describe('Approach section', () => {
     render(<Approach />)
     const panel = document.querySelector('[data-approach-panel]')
     expect(panel.className).toMatch(/transition-colors/)
+    // Same outer width as the Studio color blocks.
+    expect(panel.parentElement.className).toMatch(/max-w-\[80rem\]/)
     const slider = screen.getByRole('slider')
     const bgAt = (v) => {
       fireEvent.change(slider, { target: { value: String(v) } })

@@ -94,6 +94,7 @@ export function Approach() {
   const { grammar } = useTheme()
   const [value, setValue] = useState(50)
   const [interacted, setInteracted] = useState(false)
+  const [demoActive, setDemoActive] = useState(false)
   const sliderWrapRef = useRef(null)
   const demoRaf = useRef(null)
   const interactedRef = useRef(false)
@@ -101,6 +102,7 @@ export function Approach() {
   const markInteracted = () => {
     interactedRef.current = true
     cancelAnimationFrame(demoRaf.current)
+    setDemoActive(false)
     setInteracted(true)
   }
 
@@ -117,16 +119,18 @@ export function Approach() {
         if (!entries.some((e) => e.isIntersecting)) return
         io.disconnect()
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+        setDemoActive(true)
         const start = performance.now()
-        const DURATION = 3400
+        const DURATION = 1800
         const tick = (now) => {
           const p = (now - start) / DURATION
           if (p >= 1 || interactedRef.current) {
             if (!interactedRef.current) setValue(50)
+            setDemoActive(false)
             return
           }
           const decay = Math.exp(-2.1 * p)
-          setValue(Math.round(50 + 50 * Math.sin(p * Math.PI * 5) * decay))
+          setValue(Math.round(50 + 50 * Math.sin(p * Math.PI * 3) * decay))
           demoRaf.current = requestAnimationFrame(tick)
         }
         demoRaf.current = requestAnimationFrame(tick)
@@ -150,14 +154,18 @@ export function Approach() {
 
   return (
     <Section surface="approach">
-      <Container>
+      <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
         {/* The living surface: blends between the theme's three approach
-            colors as the slider moves, easing like the text does. */}
+            colors as the slider moves, easing like the text does. Same outer
+            width as the Studio color blocks. */}
         <div
           data-approach-panel
-          className="rounded-card px-6 py-10 transition-colors duration-150 md:px-10 md:py-14"
-          style={{ backgroundColor: blendSurface(grammar.approach, value / 100) }}
+          className="rounded-card py-10 transition-colors duration-150 md:py-14"
+          // The attract demo moves the thumb, not the room: while it plays,
+          // the surface stays pinned to the center color.
+          style={{ backgroundColor: blendSurface(grammar.approach, demoActive ? 0.5 : value / 100) }}
         >
+        <Container>
         <SectionHeading id="approach" label="Both sides of the table" title={approach.title}>
           {approach.intro}
         </SectionHeading>
@@ -330,8 +338,9 @@ export function Approach() {
             <p className="measure mx-auto mt-3 text-body text-muted">{approach.final.sub}</p>
           </div>
         </Reveal>
+        </Container>
         </div>
-      </Container>
+      </div>
     </Section>
   )
 }
