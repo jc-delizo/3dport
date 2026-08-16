@@ -24,6 +24,9 @@ export const THEMES = [
         textMuted: '#52525B',
         textStrong: '#09090B',
       },
+      // The approach slider's living surface — one color per detent, blended
+      // continuously between them as the slider moves.
+      approach: { pm: '#E7F0FA', mid: '#FAF3DF', eng: '#E4F4ED' },
     },
   },
   {
@@ -41,6 +44,9 @@ export const THEMES = [
         textMuted: '#A1A1AA',
         textStrong: '#FAFAFA',
       },
+      // The approach slider's living surface — one color per detent, blended
+      // continuously between them as the slider moves.
+      approach: { pm: '#0E1A2B', mid: '#221C0E', eng: '#0F211C' },
     },
   },
   {
@@ -78,6 +84,9 @@ export const THEMES = [
         textMuted: '#CCCCCE',
         textStrong: '#FFFFFF',
       },
+      // The approach slider's living surface — one color per detent, blended
+      // continuously between them as the slider moves.
+      approach: { pm: '#EAF2FB', mid: '#F7F0DF', eng: '#E9F4EF' },
     },
   },
   {
@@ -105,6 +114,9 @@ export const THEMES = [
         textMuted: '#A09D96',
         textStrong: '#FAF9F5',
       },
+      // The approach slider's living surface — one color per detent, blended
+      // continuously between them as the slider moves.
+      approach: { pm: '#EBEDF5', mid: '#F5EBD7', eng: '#E7EFE7' },
     },
   },
   {
@@ -135,6 +147,9 @@ export const THEMES = [
         textMuted: '#404040',
         textStrong: '#0D0D0D',
       },
+      // The approach slider's living surface — one color per detent, blended
+      // continuously between them as the slider moves.
+      approach: { pm: '#D8E9F8', mid: '#F8EAC2', eng: '#CDEFE3' },
     },
   },
 ]

@@ -5,7 +5,7 @@ import { render, screen, act } from '@testing-library/react'
 import { THEMES, DEFAULT_THEME } from './themes'
 import { ThemeProvider, useTheme } from './ThemeContext'
 
-const GRAMMAR_KEYS = ['nav', 'rhythm', 'button', 'display', 'chart']
+const GRAMMAR_KEYS = ['nav', 'rhythm', 'button', 'display', 'chart', 'approach']
 const CHART_KEYS = ['accent', 'surface', 'grid', 'textMuted', 'textStrong']
 
 describe('theme registry', () => {
@@ -72,6 +72,10 @@ describe('theme registry', () => {
       GRAMMAR_KEYS.forEach((k) => expect(t.grammar[k], `${t.id}.${k}`).toBeTruthy())
       CHART_KEYS.forEach((k) =>
         expect(t.grammar.chart[k], `${t.id}.chart.${k}`).toMatch(/^#[0-9A-Fa-f]{6}$/)
+      )
+      // The approach section's living surface: a color per slider detent.
+      ;['pm', 'mid', 'eng'].forEach((k) =>
+        expect(t.grammar.approach[k], `${t.id}.approach.${k}`).toMatch(/^#[0-9A-Fa-f]{6}$/)
       )
     })
   })

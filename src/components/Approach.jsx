@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { site } from '../content/site'
+import { useTheme } from '../theme/ThemeContext'
 import { Container } from './ui/Container'
 import { Section } from './ui/Section'
 import { SectionHeading } from './ui/SectionHeading'
@@ -77,9 +78,20 @@ function CaptionStack({ layers }) {
 // Dragging stays continuous so the content interpolates live; release settles
 // on the nearest detent, and arrow keys step detent-to-detent.
 const DETENTS = [0, 50, 100]
+
+// Piecewise-linear blend across the theme's three approach colors:
+// pm at 0 → mid at 50 → eng at 100.
+const hexToRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16))
+function blendSurface({ pm, mid, eng }, t) {
+  const [from, to, k] = t <= 0.5 ? [pm, mid, t * 2] : [mid, eng, (t - 0.5) * 2]
+  const a = hexToRgb(from)
+  const b = hexToRgb(to)
+  return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',')})`
+}
 const nearestDetent = (v) => DETENTS.reduce((a, b) => (Math.abs(b - v) < Math.abs(a - v) ? b : a))
 
 export function Approach() {
+  const { grammar } = useTheme()
   const [value, setValue] = useState(50)
   const [interacted, setInteracted] = useState(false)
   const sliderWrapRef = useRef(null)
@@ -139,6 +151,13 @@ export function Approach() {
   return (
     <Section surface="approach">
       <Container>
+        {/* The living surface: blends between the theme's three approach
+            colors as the slider moves, easing like the text does. */}
+        <div
+          data-approach-panel
+          className="rounded-card px-6 py-10 transition-colors duration-150 md:px-10 md:py-14"
+          style={{ backgroundColor: blendSurface(grammar.approach, value / 100) }}
+        >
         <SectionHeading id="approach" label="Both sides of the table" title={approach.title}>
           {approach.intro}
         </SectionHeading>
@@ -262,7 +281,7 @@ export function Approach() {
               style={{ opacity: pm > 0.7 ? 1 : 0, pointerEvents: 'none' }}
               aria-hidden={pm <= 0.7}
             >
-              <div className="bg-canvas px-6">
+              <div className="px-6">
                 <Chain steps={approach.pm.flow} strength={1} />
               </div>
             </div>
@@ -271,7 +290,7 @@ export function Approach() {
               style={{ opacity: eng > 0.7 ? 1 : 0, pointerEvents: 'none' }}
               aria-hidden={eng <= 0.7}
             >
-              <div className="bg-canvas px-6">
+              <div className="px-6">
                 <Chain steps={approach.eng.flow} strength={1} />
               </div>
             </div>
@@ -311,6 +330,7 @@ export function Approach() {
             <p className="measure mx-auto mt-3 text-body text-muted">{approach.final.sub}</p>
           </div>
         </Reveal>
+        </div>
       </Container>
     </Section>
   )

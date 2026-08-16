@@ -70,6 +70,26 @@ describe('Approach section', () => {
     expect(slider).toHaveValue('50')
   })
 
+  it('lives on a surface that blends between three colors as the slider moves', () => {
+    render(<Approach />)
+    const panel = document.querySelector('[data-approach-panel]')
+    expect(panel.className).toMatch(/transition-colors/)
+    const slider = screen.getByRole('slider')
+    const bgAt = (v) => {
+      fireEvent.change(slider, { target: { value: String(v) } })
+      return panel.style.backgroundColor
+    }
+    const pm = bgAt(0)
+    const mid = bgAt(50)
+    const eng = bgAt(100)
+    expect(pm).not.toBe(mid)
+    expect(mid).not.toBe(eng)
+    // A quarter position blends — it matches neither endpoint exactly.
+    const quarter = bgAt(25)
+    expect(quarter).not.toBe(pm)
+    expect(quarter).not.toBe(mid)
+  })
+
   it('hints that the slider is interactive until the first interaction', () => {
     render(<Approach />)
     const hint = screen.getByText(/slide me/i)
