@@ -119,6 +119,9 @@ export function Approach() {
                 max="100"
                 value={value}
                 onChange={(e) => setValue(Number(e.target.value))}
+                // Gentle magnet: releasing within ±4 of center settles on the
+                // sweet spot. Pointer-release only — keyboard steps stay exact.
+                onPointerUp={() => setValue((v) => (Math.abs(v - 50) <= 4 ? 50 : v))}
                 aria-label="Blend between project-manager and engineer perspective"
                 aria-valuetext={valueText(value)}
                 className="pm-slider relative w-full"

@@ -339,12 +339,13 @@ describe('portfolio data', () => {
     expect(projects.items.map((i) => i.id)).toEqual(['initiatives', 'portfolio', 'principles'])
     expect(projects.items[1].label).toBe('Delivery Portfolio')
     expect(experience.items.map((i) => i.id)).toEqual([
+      'approach',
       'experience',
       'capabilities',
       'tools',
       'certifications',
     ])
-    expect(experience.items[0].label).toBe('Work History')
+    expect(experience.items[0].label).toBe('How I Approach Software')
     expect(caseStudies.id).toBe('case-studies')
     expect(contact.id).toBe('contact')
   })

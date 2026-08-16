@@ -29,6 +29,7 @@ export const site = {
     {
       label: 'Experience',
       items: [
+        { id: 'approach', label: 'How I Approach Software' },
         { id: 'experience', label: 'Work History' },
         { id: 'capabilities', label: 'Capabilities' },
         { id: 'tools', label: 'Tools' },

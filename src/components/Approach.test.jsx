@@ -41,6 +41,18 @@ describe('Approach section', () => {
     expect(slider).toHaveAttribute('aria-valuetext', expect.stringMatching(/balanced/i))
   })
 
+  it('gently snaps to the balanced center when released within ±4 points', () => {
+    render(<Approach />)
+    const slider = screen.getByRole('slider')
+    fireEvent.change(slider, { target: { value: '47' } })
+    fireEvent.pointerUp(slider)
+    expect(slider).toHaveValue('50')
+    // Outside the magnet zone nothing moves.
+    fireEvent.change(slider, { target: { value: '58' } })
+    fireEvent.pointerUp(slider)
+    expect(slider).toHaveValue('58')
+  })
+
   it('carries the three captions, the closing message, and the credibility arc', () => {
     render(<Approach />)
     expect(screen.getByText(site.approach.pm.caption)).toBeInTheDocument()
