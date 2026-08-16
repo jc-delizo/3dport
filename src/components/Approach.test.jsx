@@ -1,10 +1,12 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { screen, fireEvent } from '@testing-library/react'
 import { renderWithTheme as render } from '../test/render'
 import { Approach } from './Approach'
 import { site } from '../content/site'
 
 describe('Approach section', () => {
+  beforeEach(() => localStorage.clear())
+
   it('renders the heading, intro, and a real range slider defaulting to the balanced center', () => {
     render(<Approach />)
     expect(screen.getByRole('heading', { name: /how i approach software/i })).toBeInTheDocument()
@@ -66,6 +68,25 @@ describe('Approach section', () => {
     expect(slider).toHaveValue('0')
     fireEvent.keyDown(slider, { key: 'ArrowUp' })
     expect(slider).toHaveValue('50')
+  })
+
+  it('hints that the slider is interactive until the first interaction', () => {
+    render(<Approach />)
+    const hint = screen.getByText(/slide me/i)
+    expect(hint.className).not.toMatch(/opacity-0/)
+    fireEvent.pointerDown(screen.getByRole('slider'))
+    expect(screen.getByText(/slide me/i).className).toMatch(/opacity-0/)
+  })
+
+  it('arms the one-time attract demo via an intersection observer, remembered per visitor', () => {
+    const before = global.IntersectionObserverInstances.length
+    render(<Approach />)
+    const io = global.IntersectionObserverInstances[global.IntersectionObserverInstances.length - 1]
+    expect(global.IntersectionObserverInstances.length).toBeGreaterThan(before)
+    io.callback([{ isIntersecting: true }])
+    expect(localStorage.getItem('3dport-slider-demo')).toBe('1')
+    // Grabbing the slider cancels the demo without errors.
+    fireEvent.pointerDown(screen.getByRole('slider'))
   })
 
   it('carries the three captions, the closing message, and the credibility arc', () => {

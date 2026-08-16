@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { site } from '../content/site'
 import { Container } from './ui/Container'
 import { Section } from './ui/Section'
@@ -81,6 +81,55 @@ const nearestDetent = (v) => DETENTS.reduce((a, b) => (Math.abs(b - v) < Math.ab
 
 export function Approach() {
   const [value, setValue] = useState(50)
+  const [interacted, setInteracted] = useState(false)
+  const sliderWrapRef = useRef(null)
+  const demoRaf = useRef(null)
+  const interactedRef = useRef(false)
+
+  const markInteracted = () => {
+    interactedRef.current = true
+    cancelAnimationFrame(demoRaf.current)
+    setInteracted(true)
+  }
+
+  // One-time attract demo: on first scroll into view, the thumb oscillates
+  // left–right with decaying amplitude (~5 sweeps) and settles on the center
+  // detent — "this is interactive" without a modal or a tooltip tour. Runs
+  // once per visitor, cancels the moment they grab the slider, and is skipped
+  // under prefers-reduced-motion (the text hint carries the message instead).
+  useEffect(() => {
+    if (localStorage.getItem('3dport-slider-demo')) return undefined
+    const el = sliderWrapRef.current
+    if (!el) return undefined
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return
+        io.disconnect()
+        localStorage.setItem('3dport-slider-demo', '1')
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+        const start = performance.now()
+        const DURATION = 3400
+        const tick = (now) => {
+          const p = (now - start) / DURATION
+          if (p >= 1 || interactedRef.current) {
+            if (!interactedRef.current) setValue(50)
+            return
+          }
+          const decay = Math.exp(-2.1 * p)
+          setValue(Math.round(50 + 50 * Math.sin(p * Math.PI * 5) * decay))
+          demoRaf.current = requestAnimationFrame(tick)
+        }
+        demoRaf.current = requestAnimationFrame(tick)
+      },
+      { threshold: 0.5 }
+    )
+    io.observe(el)
+    return () => {
+      io.disconnect()
+      cancelAnimationFrame(demoRaf.current)
+    }
+  }, [])
+
   const t = value / 100
   const pm = 1 - t
   const eng = t
@@ -98,7 +147,15 @@ export function Approach() {
 
         <Reveal>
           {/* The slider */}
-          <div className="mx-auto max-w-2xl">
+          <div ref={sliderWrapRef} className="mx-auto max-w-2xl">
+            <p
+              aria-hidden="true"
+              className={`mb-2 text-center font-mono text-[11px] uppercase tracking-widest text-accent transition-opacity duration-300 ${
+                interacted ? 'opacity-0' : ''
+              }`}
+            >
+              ← slide me →
+            </p>
             <div className="flex items-center justify-between font-mono text-label uppercase tracking-widest">
               <span
                 className="transition-opacity duration-150"
@@ -130,9 +187,14 @@ export function Approach() {
                 min="0"
                 max="100"
                 value={value}
-                onChange={(e) => setValue(Number(e.target.value))}
+                onChange={(e) => {
+                  markInteracted()
+                  setValue(Number(e.target.value))
+                }}
+                onPointerDown={markInteracted}
                 onPointerUp={() => setValue((v) => nearestDetent(v))}
                 onKeyDown={(e) => {
+                  markInteracted()
                   const step = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key]
                   if (!step) return // Home/End keep their native behavior
                   e.preventDefault()
