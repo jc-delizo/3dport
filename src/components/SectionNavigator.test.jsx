@@ -62,7 +62,7 @@ describe('SectionNavigator', () => {
         { isIntersecting: true, target: sec('portfolio') },
       ])
     )
-    expect(screen.getByRole('link', { name: /portfolio/i })).toHaveAttribute('aria-current', 'true')
+    expect(screen.getByRole('link', { name: /projects/i })).toHaveAttribute('aria-current', 'true')
     expect(document.querySelectorAll('[aria-current="true"]').length).toBe(1)
   })
 })

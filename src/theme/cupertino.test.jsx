@@ -23,7 +23,7 @@ describe('Cupertino experience', () => {
 
   it('keeps the grouped dropdowns working inside the global bar', () => {
     render(<Nav />)
-    expect(screen.getByRole('button', { name: 'Projects' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: 'Portfolio' })).toHaveAttribute(
       'aria-haspopup',
       'true'
     )

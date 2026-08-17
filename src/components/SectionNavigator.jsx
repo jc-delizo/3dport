@@ -12,7 +12,7 @@ export const SECTIONS = [
   { id: 'approach', label: 'Approach' },
   { id: 'initiatives', label: 'Initiatives' },
   { id: 'case-studies', label: 'Case Studies' },
-  { id: 'portfolio', label: 'Portfolio' },
+  { id: 'portfolio', label: 'Projects' },
   { id: 'principles', label: 'Principles' },
   { id: 'experience', label: 'Experience' },
   { id: 'capabilities', label: 'Capabilities' },

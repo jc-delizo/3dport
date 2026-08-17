@@ -20,7 +20,7 @@ describe('Experience', () => {
     const user = userEvent.setup()
     render(<Experience />)
 
-    const toggle = screen.getByRole('button', { name: /\+ 3 earlier roles/i })
+    const toggle = screen.getByRole('button', { name: /\+ 4 earlier roles/i })
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
 
     await user.click(toggle)
@@ -38,7 +38,7 @@ describe('Experience', () => {
   it('does not repeat the 10x figure proven elsewhere', async () => {
     const user = userEvent.setup()
     const { container } = render(<Experience />)
-    await user.click(screen.getByRole('button', { name: /\+ 3 earlier roles/i }))
+    await user.click(screen.getByRole('button', { name: /\+ 4 earlier roles/i }))
     expect(container.textContent).not.toMatch(/10×|10x/)
   })
 })

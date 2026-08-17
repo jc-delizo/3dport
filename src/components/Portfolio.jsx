@@ -9,7 +9,7 @@ export function Portfolio() {
   return (
     <Section surface="portfolio">
       <Container>
-        <SectionHeading id="portfolio" label="Full portfolio" title="Delivery Portfolio.">
+        <SectionHeading id="portfolio" label="Full portfolio" title="Projects Delivered.">
           {site.portfolio.intro}
         </SectionHeading>
 

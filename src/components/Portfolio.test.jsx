@@ -7,7 +7,7 @@ import { site } from '../content/site'
 describe('Portfolio', () => {
   it('renders the section heading and intro', () => {
     render(<Portfolio />)
-    expect(screen.getByRole('heading', { name: 'Delivery Portfolio.' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Projects Delivered.' })).toBeInTheDocument()
     expect(screen.getByText(site.portfolio.intro)).toBeInTheDocument()
   })
 

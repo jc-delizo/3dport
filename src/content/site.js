@@ -17,13 +17,14 @@ export const site = {
   // links. Case Studies stays top-level deliberately — it's the page hiring
   // managers most need to find.
   nav: [
+    { id: 'top', label: 'Home' },
     {
-      label: 'Projects',
+      label: 'Portfolio',
       items: [
         { id: 'approach', label: 'How I Approach Software' },
         { id: 'initiatives', label: 'Initiatives' },
         { id: 'case-studies', label: 'Case Studies' },
-        { id: 'portfolio', label: 'Delivery Portfolio' },
+        { id: 'portfolio', label: 'Projects' },
         { id: 'principles', label: 'Principles' },
       ],
     },
@@ -746,9 +747,10 @@ export const site = {
       role: 'Content Moderator',
       period: '02/2021 – 06/2023',
       points: [
-        'Protected and monetized content for high-profile creators through copyright claim workflows.',
-        'Specialized in potential and Pex claims to identify infringement at scale.',
-        'Supported creator transitions onto new platforms.',
+        'Protected and monetized content for high-profile creators through YouTube copyright claim workflows, separating original client content from re-uploaded and pirated copies at daily-ingestion scale.',
+        'Specialized in potential and Pex claims to identify and monetize infringement across both trending and long-tail videos.',
+        'Coordinated with supervising departments to prioritize takedowns of popular videos being re-uploaded by other channels.',
+        'Provided email and technical support for the Skillz gaming platform, resolving user-reported app and game issues.',
       ],
     },
     {
@@ -756,9 +758,12 @@ export const site = {
       role: 'Project Engineer',
       period: '10/2017 – 01/2021',
       points: [
-        'Assessed complex engineering systems across plants and factories.',
-        'Produced CAD documentation used to align clients and contractors.',
-        'Diagnosed issues and delivered practical engineering solutions.',
+        'Managed instrumentation and control projects end to end — proposals, design, procurement, installation, and commissioning — for industrial clients including Petron Bataan Refinery, San Miguel (Monterey Foods), Peter Paul Philippines, and South Luzon Power Generation.',
+        'Served as single point of contact for clients and suppliers worldwide, assessing plant engineering problems and converting them into 2D and 3D CAD system drawings that aligned clients and contractors.',
+        'Prepared full project proposals — scope, material listings, budgets, and drawings — and planned the best-fit solution for each client problem.',
+        'Supervised on-site execution: permit-to-work and safety documentation, worker safety monitoring, instrument calibration, and as-built documentation on every completed project.',
+        'Performed plant-wide asset verification and system-drawing updates at the Kalayaan Pumped Storage Power Plant.',
+        'Built and delivered product presentations, client trainings, and engineering lessons for new sales representatives.',
       ],
     },
     {
@@ -766,9 +771,19 @@ export const site = {
       role: 'QA/QC Engineer',
       period: '02/2016 – 09/2017',
       points: [
-        'Conducted pre-loop and final loop inspections for DCS systems.',
-        'Ensured compliance with safety and quality standards.',
-        'Identified issues early to protect project delivery schedules.',
+        'Handled instrumentation QA/QC during construction of Unit III at the Team Energy Pagbilao Power Plant.',
+        'Raised requests for inspection for cable loop checking and final instrument calibration, and witnessed pre-loop and final loop checks in the DCS.',
+        'Documented thousands of pulled, terminated, and loop-tested cables and installed instruments in a plant-wide cable and instrument matrix maintained in Google Sheets.',
+      ],
+    },
+    {
+      company: 'Puyat Steel Corporation',
+      role: 'PLC/Instrument Technician',
+      period: '04/2015 – 01/2016',
+      points: [
+        'Maintained and repaired PLC-monitored instruments and electrical equipment across the plant, troubleshooting machines during downtime to restore operation.',
+        'Performed preventive maintenance of electrical panels, controls, and motor drives; fabricated and hardwired control panels.',
+        'Tested new and rewound AC/DC motors and supported maintenance of the main switchboard, generators, air compressors, and plant lighting systems.',
       ],
     },
   ],

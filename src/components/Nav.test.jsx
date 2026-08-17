@@ -26,7 +26,7 @@ describe('Nav structure', () => {
   it('opens a dropdown on click, links every grouped section, closes on selection', async () => {
     const user = userEvent.setup()
     render(<Nav />)
-    const trigger = screen.getByRole('button', { name: 'Projects' })
+    const trigger = screen.getByRole('button', { name: 'Portfolio' })
     await user.click(trigger)
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
     groups[0].items.forEach(({ id, label }) => {
@@ -49,7 +49,7 @@ describe('Nav structure', () => {
   it('closes an open dropdown when clicking outside it', async () => {
     const user = userEvent.setup()
     render(<Nav />)
-    const trigger = screen.getByRole('button', { name: 'Projects' })
+    const trigger = screen.getByRole('button', { name: 'Portfolio' })
     await user.click(trigger)
     fireEvent.mouseDown(document.body)
     expect(trigger).toHaveAttribute('aria-expanded', 'false')
@@ -58,7 +58,7 @@ describe('Nav structure', () => {
   it('only one dropdown is open at a time', async () => {
     const user = userEvent.setup()
     render(<Nav />)
-    const projects = screen.getByRole('button', { name: 'Projects' })
+    const projects = screen.getByRole('button', { name: 'Portfolio' })
     const experience = screen.getByRole('button', { name: 'Experience' })
     await user.click(projects)
     await user.click(experience)

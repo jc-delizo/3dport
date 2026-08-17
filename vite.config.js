@@ -43,5 +43,8 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './src/test/setup.js',
+    // Overlay tests run real user-event sequences; under full-suite parallel
+    // load the default 5s produces false timeouts on a busy machine.
+    testTimeout: 20000,
   },
 })
