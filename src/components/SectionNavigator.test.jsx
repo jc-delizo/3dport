@@ -45,10 +45,9 @@ describe('SectionNavigator', () => {
     act(() => io.callback([{ isIntersecting: true, target }]))
     const active = screen.getByRole('link', { name: /experience/i })
     expect(active).toHaveAttribute('aria-current', 'true')
-    // Exactly one current item.
+    // Exactly one current item — and no indicator dash (removed by request).
     expect(document.querySelectorAll('[aria-current="true"]').length).toBe(1)
-    // The travelling indicator exists and is positioned.
-    expect(document.querySelector('[data-rail-indicator]')).not.toBeNull()
+    expect(document.querySelector('[data-rail-indicator]')).toBeNull()
   })
 
   it('moves aria-current when another section takes over — no duplicates, no flicker', () => {

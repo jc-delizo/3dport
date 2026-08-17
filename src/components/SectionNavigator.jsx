@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Floating right-rail section map — a quiet "system interface" layer that lets
 // a recruiter read the whole page structure in a glance and jump anywhere.
 // Real anchors (native smooth scroll, already reduced-motion aware via the
-// global scroll-behavior rules); IntersectionObserver drives the active state;
-// a single indicator dash travels between items instead of blinking on/off.
+// global scroll-behavior rules); IntersectionObserver drives the active state.
 //
 // Shown only where it has clean air: content is 72rem wide, so below ~1450px
 // the rail would overlap it — there the existing menus carry navigation.
@@ -25,8 +24,6 @@ export const SECTIONS = [
 
 export function SectionNavigator() {
   const [active, setActive] = useState(null)
-  const [indicatorTop, setIndicatorTop] = useState(null)
-  const itemRefs = useRef({})
 
   // Active tracking: a narrow band across the upper-middle of the viewport;
   // whichever section occupies it is "where you are". The band (not a 0.5
@@ -53,30 +50,17 @@ export function SectionNavigator() {
     return () => io.disconnect()
   }, [])
 
-  // The indicator travels: its top eases to the active item's center.
-  useEffect(() => {
-    const el = itemRefs.current[active]
-    if (el) setIndicatorTop(el.offsetTop + el.offsetHeight / 2)
-  }, [active])
-
   return (
     <nav
       aria-label="Section shortcuts"
       className="group fixed right-5 top-1/2 z-30 hidden -translate-y-1/2 min-[1450px]:block"
     >
       <div className="relative">
-        {/* The travelling position dash. */}
-        <span
-          data-rail-indicator
-          aria-hidden="true"
-          className="absolute -left-6 h-px w-4 bg-accent transition-[top,opacity] duration-300 ease-out"
-          style={{ top: indicatorTop ?? 0, opacity: indicatorTop === null ? 0 : 1 }}
-        />
         <ol className="flex flex-col items-end gap-1.5">
           {SECTIONS.map(({ id, label }, i) => {
             const isActive = active === id
             return (
-              <li key={id} ref={(el) => (itemRefs.current[id] = el)}>
+              <li key={id}>
                 <a
                   href={`#${id}`}
                   aria-current={isActive ? 'true' : undefined}
