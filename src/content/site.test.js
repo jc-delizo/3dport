@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { site } from './site'
+import { strips } from './strips'
 import { findForbidden, FORBIDDEN_COUNT } from './forbidden'
 
 // Every string in the content tree, flattened.
@@ -10,7 +11,8 @@ function allStrings(value, acc = []) {
   return acc
 }
 
-const corpus = allStrings(site).join('\n')
+// Strips are content too — the confidentiality and factual guards cover them.
+const corpus = allStrings(site).concat(allStrings(strips)).join('\n')
 
 describe('confidentiality', () => {
   // Terms are compared as hashes (src/content/forbidden.js) because this repo is public.

@@ -4,8 +4,12 @@ import userEvent from '@testing-library/user-event'
 import { renderWithTheme as render } from '../test/render'
 import { Portfolio } from './Portfolio'
 import { site } from '../content/site'
+import { strips } from '../content/strips'
+import { slug } from '../lib/slug'
 
 const TOTAL = site.portfolio.groups.reduce((n, g) => n + g.items.length, 0)
+const ALL_ITEMS = site.portfolio.groups.flatMap((g) => g.items)
+const ON_HOLD = 'Payroll Implementation — 1,600 Employees'
 
 describe('Portfolio', () => {
   it('renders the section heading and intro', () => {
@@ -53,6 +57,53 @@ describe('Portfolio', () => {
     expect(container.querySelectorAll('article[id]').length).toBe(TOTAL)
     // Exactly one role chip per entry.
     expect(screen.getAllByText(/^(Led|Coordinated|Oversight)$/)).toHaveLength(TOTAL)
+  })
+
+  it('gives every project except the on-hold payroll a complete PM → System → Outcome strip', () => {
+    ALL_ITEMS.forEach(({ title }) => {
+      const strip = strips[slug(title)]
+      if (title === ON_HOLD) {
+        expect(strip).toBeUndefined()
+      } else {
+        expect(strip, title).toBeTruthy()
+        expect(strip.problem).toBeTruthy()
+        expect(strip.actions.length).toBeGreaterThanOrEqual(2)
+        expect(strip.system).toBeTruthy()
+        expect(strip.outcome).toBeTruthy()
+      }
+    })
+    // No orphan strips for entries that no longer exist.
+    const titles = new Set(ALL_ITEMS.map(({ title }) => slug(title)))
+    Object.keys(strips).forEach((key) => expect(titles.has(key), key).toBe(true))
+  })
+
+  it('opens a compact strip modal from an entry, steps with wrap-around, closes on Escape', async () => {
+    const user = userEvent.setup()
+    render(<Portfolio />)
+    const first = site.portfolio.groups[0]
+    await user.click(screen.getByRole('button', { name: new RegExp(first.group, 'i') }))
+
+    // The on-hold payroll entry offers no modal trigger.
+    const payrollHeading = screen.getByRole('heading', { name: ON_HOLD, level: 3 })
+    expect(payrollHeading.querySelector('button')).toBeNull()
+
+    // Open the first strip-enabled entry.
+    const opener = screen.getByRole('button', { name: first.items[0].title })
+    await user.click(opener)
+    const dialog = screen.getByRole('dialog')
+    expect(dialog).toHaveTextContent('Problem')
+    expect(dialog).toHaveTextContent('PM Action')
+    expect(dialog).toHaveTextContent('System')
+    expect(dialog).toHaveTextContent('Outcome')
+    expect(dialog).toHaveTextContent(strips[slug(first.items[0].title)].problem)
+
+    // Prev from the first entry wraps to the last strip-enabled project.
+    await user.click(screen.getByRole('button', { name: /previous project/i }))
+    const last = ALL_ITEMS.filter(({ title }) => strips[slug(title)]).at(-1)
+    expect(screen.getByRole('dialog')).toHaveTextContent(last.title)
+
+    await user.keyboard('{Escape}')
+    expect(screen.queryByRole('dialog')).toBeNull()
   })
 
   it('opens the containing group when the page loads with a deep link to an entry', () => {

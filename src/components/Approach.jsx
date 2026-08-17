@@ -160,11 +160,14 @@ export function Approach() {
             width as the Studio color blocks. */}
         <div
           data-approach-panel
-          className="rounded-card py-10 transition-colors duration-150 md:py-14"
+          className="rounded-card p-3 transition-colors duration-150 md:p-5"
           // The attract demo moves the thumb, not the room: while it plays,
           // the surface stays pinned to the center color.
           style={{ backgroundColor: blendSurface(grammar.approach, demoActive ? 0.5 : value / 100) }}
         >
+        {/* White sheet inside the blending envelope: the living color reads as
+            a mat around the content instead of underneath the text. */}
+        <div className="rounded-card bg-card py-10 md:py-14">
         <Container>
         <SectionHeading id="approach" label="Both sides of the table" title={approach.title}>
           {approach.intro}
@@ -339,6 +342,7 @@ export function Approach() {
           </div>
         </Reveal>
         </Container>
+        </div>
         </div>
       </div>
     </Section>
