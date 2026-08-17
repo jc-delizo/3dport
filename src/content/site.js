@@ -17,7 +17,6 @@ export const site = {
   // links. Case Studies stays top-level deliberately — it's the page hiring
   // managers most need to find.
   nav: [
-    { id: 'top', label: 'Home' },
     {
       label: 'Portfolio',
       items: [

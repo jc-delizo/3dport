@@ -328,11 +328,9 @@ describe('portfolio data', () => {
     ])
   })
 
-  it('groups the nav: Home · Portfolio ▾ · Experience ▾ · Contact, mirroring page order', () => {
-    expect(site.nav.map((n) => n.label)).toEqual(['Home', 'Portfolio', 'Experience', 'Contact'])
-    const [home, portfolio, experience, contact] = site.nav
-    // Home is a direct link back to the landing hero.
-    expect(home.id).toBe('top')
+  it('groups the nav: Portfolio ▾ · Experience ▾ · Contact, mirroring page order', () => {
+    expect(site.nav.map((n) => n.label)).toEqual(['Portfolio', 'Experience', 'Contact'])
+    const [portfolio, experience, contact] = site.nav
     expect(portfolio.items.map((i) => i.id)).toEqual([
       'approach',
       'initiatives',

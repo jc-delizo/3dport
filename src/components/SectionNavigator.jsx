@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 // Shown only where it has clean air: content is 72rem wide, so below ~1450px
 // the rail would overlap it — there the existing menus carry navigation.
 export const SECTIONS = [
+  { id: 'top', label: 'Home' },
   { id: 'approach', label: 'Approach' },
   { id: 'initiatives', label: 'Initiatives' },
   { id: 'case-studies', label: 'Case Studies' },

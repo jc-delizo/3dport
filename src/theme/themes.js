@@ -133,6 +133,7 @@ export const THEMES = [
       tiles: {
         initiatives: 'lime',
         'case-studies': 'lilac',
+        portfolio: 'sky',
         principles: 'cream',
         recommendations: 'navy',
         contact: 'mint',

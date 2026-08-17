@@ -20,6 +20,7 @@ describe('Studio experience', () => {
     const blockOf = (id) => document.getElementById(id).closest('[data-surface]')
     expect(blockOf('initiatives').dataset.surface).toBe('lime')
     expect(blockOf('case-studies').dataset.surface).toBe('lilac')
+    expect(blockOf('portfolio').dataset.surface).toBe('sky')
     expect(blockOf('contact').dataset.surface).toBe('mint')
     expect(blockOf('recommendations').dataset.surface).toBe('navy')
     // The panel is a rounded inset, not a full-bleed section.
