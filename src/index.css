@@ -163,6 +163,16 @@
   color-scheme: dark;
 }
 
+/* Approach's inner sheet: PURE white — not the theme's card tint (Studio's
+   card is 245 245 245 and read as dirty white on the blend). Midnight keeps
+   its dark card so the light ink tokens stay readable. */
+.approach-sheet {
+  background: #fff;
+}
+[data-theme='midnight'] .approach-sheet {
+  background: rgb(var(--color-card));
+}
+
 [data-theme='paper'] [data-surface='coral'] {
   --color-canvas: 169 88 62;
   --color-ink: 255 255 255;

@@ -160,20 +160,21 @@ export function Approach() {
             width as the Studio color blocks. */}
         <div
           data-approach-panel
-          className="rounded-card p-3 transition-colors duration-150 md:p-5"
+          className="rounded-card py-10 transition-colors duration-150 md:py-14"
           // The attract demo moves the thumb, not the room: while it plays,
           // the surface stays pinned to the center color.
           style={{ backgroundColor: blendSurface(grammar.approach, demoActive ? 0.5 : value / 100) }}
         >
-        {/* White sheet inside the blending envelope: the living color reads as
-            a mat around the content instead of underneath the text. */}
-        <div className="rounded-card bg-card py-10 md:py-14">
         <Container>
         <SectionHeading id="approach" label="Both sides of the table" title={approach.title}>
           {approach.intro}
         </SectionHeading>
 
         <Reveal>
+          {/* Pure-white sheet under the interactive core only — slider, chains,
+              captions, working points. The heading above and the closing
+              message below stay directly on the blending color. */}
+          <div className="approach-sheet rounded-card px-4 py-8 md:px-10 md:py-10">
           {/* The slider */}
           <div ref={sliderWrapRef} className="mx-auto max-w-2xl">
             <p
@@ -326,6 +327,7 @@ export function Approach() {
               {t <= 0.5 ? approach.pm.evidence : approach.eng.evidence}
             </p>
           </div>
+          </div>
 
           {/* Closing message strengthens toward the center and engineer side. */}
           <div
@@ -342,7 +344,6 @@ export function Approach() {
           </div>
         </Reveal>
         </Container>
-        </div>
         </div>
       </div>
     </Section>
