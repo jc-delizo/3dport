@@ -1,4 +1,5 @@
 import { Nav } from './components/Nav'
+import { SectionNavigator } from './components/SectionNavigator'
 import { Hero } from './components/Hero'
 import { ProofBar } from './components/ProofBar'
 import { Initiatives } from './components/Initiatives'
@@ -22,6 +23,7 @@ export default function App() {
         Skip to content
       </a>
       <Nav />
+      <SectionNavigator />
       <main id="main">
         <Hero />
         <ProofBar />
