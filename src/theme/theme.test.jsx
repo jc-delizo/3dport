@@ -20,9 +20,9 @@ describe('theme registry', () => {
     expect(DEFAULT_THEME).toBe('studio')
   })
 
-  it('gives Studio the monochrome color-block grammar with a marquee nav', () => {
+  it('gives Studio the monochrome color-block grammar on the standard nav', () => {
     const studio = THEMES.find((t) => t.id === 'studio')
-    expect(studio.grammar.nav).toBe('marquee')
+    expect(studio.grammar.nav).toBe('default')
     expect(studio.grammar.rhythm).toBe('blocks')
     expect(studio.grammar.button).toBe('pill')
     // The block map assigns pastel panels; everything else stays white canvas.

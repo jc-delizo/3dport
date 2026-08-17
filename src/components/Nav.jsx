@@ -169,21 +169,6 @@ function MobilePanel({ closeAndFocus }) {
 
 const PANEL_LINK = 'block px-4 py-1.5 text-label text-muted hover:bg-card hover:text-ink'
 
-// Studio: black ribbon under the nav scrolling the delivery domains in mono
-// caps. Decorative (the same names head the portfolio groups), so aria-hidden;
-// prefers-reduced-motion stops the animation via CSS.
-function MarqueeStrip() {
-  const row = site.portfolio.groups.map((g) => g.group).join(' · ')
-  return (
-    <div aria-hidden="true" className="marquee bg-black text-white">
-      <div className="marquee-track font-mono text-[11px] uppercase tracking-widest">
-        <span>{row} · </span>
-        <span>{row} · </span>
-      </div>
-    </div>
-  )
-}
-
 export function Nav() {
   const [open, setOpen] = useState(false) // mobile panel
   const [openId, setOpenId] = useState(null) // which desktop dropdown
@@ -276,7 +261,6 @@ export function Nav() {
         {menuButton()}
       </Container>
 
-      {grammar.nav === 'marquee' ? <MarqueeStrip /> : null}
       {open ? <MobilePanel closeAndFocus={closeAndFocus} /> : null}
     </header>
   )

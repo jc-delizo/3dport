@@ -158,28 +158,6 @@
   color-scheme: dark;
 }
 
-/* Studio marquee strip: mono caps domains scrolling under the nav. */
-.marquee {
-  overflow: hidden;
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  white-space: nowrap;
-  padding: 0.5rem 0;
-  animation: marquee 45s linear infinite;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
-}
-
 [data-theme='paper'] [data-surface='coral'] {
   --color-canvas: 169 88 62;
   --color-ink: 255 255 255;

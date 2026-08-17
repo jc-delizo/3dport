@@ -1,6 +1,6 @@
 // Theme registry. A theme is tokens (CSS variables in index.css, keyed by
 // data-theme) plus a "grammar" — the structural personality components consult:
-//   nav:     'default' | 'global-bar' | 'marquee'
+//   nav:     'default' | 'global-bar'
 //   rhythm:  'bordered' | 'tiles' | 'blocks'
 //   button:  'rounded' | 'pill'
 //   display: 'sans' | 'sans-tight' | 'serif'
@@ -123,7 +123,7 @@ export const THEMES = [
     id: 'studio',
     label: 'Studio',
     grammar: {
-      nav: 'marquee',
+      nav: 'default',
       rhythm: 'blocks',
       button: 'pill',
       display: 'sans',
