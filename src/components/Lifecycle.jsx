@@ -187,7 +187,7 @@ export function Lifecycle() {
                       aria-current={isActive ? 'step' : undefined}
                       onClick={() => selectPhase(i)}
                       ref={(el) => (dotRefs.current[i] = el)}
-                      className={`relative flex items-baseline gap-1.5 whitespace-nowrap rounded-button border px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors duration-[400ms] ${
+                      className={`relative whitespace-nowrap rounded-button border px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors duration-[400ms] ${
                         isActive
                           ? 'border-ink bg-ink text-canvas'
                           : isDone
@@ -195,9 +195,6 @@ export function Lifecycle() {
                             : 'border-hairline bg-canvas text-muted hover:border-muted hover:text-ink'
                       }`}
                     >
-                      <span aria-hidden="true" className={isActive ? 'opacity-70' : 'opacity-50'}>
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
                       {name}
                     </button>
                   </li>
