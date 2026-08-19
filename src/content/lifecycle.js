@@ -5,7 +5,6 @@ export const lifecycle = {
   title: 'From Business Problem → Production.',
   intro:
     'How I turn ambiguous business problems into shipped, adopted, and continuously improved software.',
-  loop: 'Improvement feeds the next request — projects end, products evolve.',
   phases: [
     {
       id: 'request',

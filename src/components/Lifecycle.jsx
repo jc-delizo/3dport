@@ -144,7 +144,6 @@ export function Lifecycle() {
   }
 
   const phase = PHASES[active]
-  const isLast = active === PHASES.length - 1
 
   return (
     <Section surface="lifecycle">
@@ -291,15 +290,6 @@ export function Lifecycle() {
               </ul>
             </div>
             </div>
-
-            {/* The loop: improvement is not an ending. */}
-            <p
-              className={`mt-12 text-center font-mono text-label uppercase tracking-widest transition-[color,opacity] duration-500 ${
-                isLast ? 'text-accent opacity-100' : 'text-muted opacity-60'
-              }`}
-            >
-              <span aria-hidden="true">↺</span> {lifecycle.loop}
-            </p>
           </div>
         </Reveal>
       </Container>

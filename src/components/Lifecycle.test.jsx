@@ -11,7 +11,7 @@ const enterView = () => act(() => lastIO().callback([{ isIntersecting: true }]))
 describe('Lifecycle', () => {
   afterEach(() => vi.useRealTimers())
 
-  it('renders the heading, subtitle, all 11 phases twice (row + chips), and the loop line', () => {
+  it('renders the heading, subtitle, and all 11 phases twice (row + chips)', () => {
     render(<Lifecycle />)
     expect(
       screen.getByRole('heading', { name: 'From Business Problem → Production.' })
@@ -21,7 +21,6 @@ describe('Lifecycle', () => {
       // One desktop pipeline entry + one sub-lg chip.
       expect(screen.getAllByRole('button', { name: new RegExp(`^${name}$`, 'i') })).toHaveLength(2)
     })
-    expect(screen.getByText(new RegExp(lifecycle.loop))).toBeInTheDocument()
   })
 
   it('starts on Project Request and shows its description and artifacts', () => {
