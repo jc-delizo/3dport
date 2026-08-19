@@ -43,6 +43,7 @@ import {
   SquareTerminal,
   Workflow,
 } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { site } from '../content/site'
 import { Container } from './ui/Container'
 import { Section } from './ui/Section'
@@ -155,12 +156,46 @@ export const brandForeground = (hex) => {
   return (299 * r + 587 * g + 114 * b) / 1000 >= 140 ? '#0D0D0D' : '#FFFFFF'
 }
 
+const ALL_TOOLS = site.tools.flatMap((g) => g.items)
+const GLARE_EVERY_MS = 1100 // 900ms sweep + a short rest
+
 export function Tools() {
+  // One label glares at a time, in a shuffled queue — every tool gets a turn
+  // before any repeats. Runs only while the section is on screen; skipped
+  // entirely under prefers-reduced-motion.
+  const [glare, setGlare] = useState(null)
+  const [inView, setInView] = useState(false)
+  const rootRef = useRef(null)
+  const queueRef = useRef([])
+
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el) return undefined
+    const io = new IntersectionObserver(
+      (entries) => setInView(entries.some((e) => e.isIntersecting)),
+      { threshold: 0.2 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!inView) return undefined
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    const t = setInterval(() => {
+      if (!queueRef.current.length) {
+        queueRef.current = [...ALL_TOOLS].sort(() => Math.random() - 0.5)
+      }
+      setGlare(queueRef.current.pop())
+    }, GLARE_EVERY_MS)
+    return () => clearInterval(t)
+  }, [inView])
+
   return (
     <Section surface="tools">
       <Container>
         <SectionHeading id="tools" label="Environment" title="Tools." />
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div ref={rootRef} className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {site.tools.map(({ group, items }, i) => (
             <Reveal key={group} delay={Math.min(i, 3) * 60}>
               <p className="text-label uppercase tracking-widest text-muted">{group}</p>
@@ -179,7 +214,7 @@ export function Tools() {
                       }
                     >
                       {Icon && <Icon aria-hidden className="h-3.5 w-3.5 shrink-0 opacity-70" />}
-                      {item}
+                      <span className={glare === item ? 'tool-glare' : undefined}>{item}</span>
                     </li>
                   )
                 })}

@@ -163,6 +163,44 @@
   color-scheme: dark;
 }
 
+/* Tool label glare: a diagonal shine sweeps left→right across one label at a
+   time (the Tools component orchestrates which). Gradient is clipped to the
+   text; the streak passes through as a brighter flash. */
+.tool-glare {
+  background-image: linear-gradient(
+    105deg,
+    rgb(var(--color-ink)) 42%,
+    #fff 50%,
+    rgb(var(--color-ink)) 58%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: tool-glare 900ms ease-in-out both;
+}
+@keyframes tool-glare {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+/* A hovered chip shows its brand state instead — glare yields. */
+.tool-chip:hover .tool-glare {
+  animation: none;
+  background: none;
+  color: inherit;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tool-glare {
+    animation: none;
+    background: none;
+    color: inherit;
+  }
+}
+
 /* Tool chips: hovering instantly adopts the tool's brand color (per-chip
    custom props set inline); leaving snaps straight back — no transition,
    by request. The icon rides currentColor and goes full-strength. */
