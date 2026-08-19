@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 export const SECTIONS = [
   { id: 'top', label: 'Home' },
   { id: 'approach', label: 'Approach' },
+  { id: 'lifecycle', label: 'Lifecycle' },
   { id: 'initiatives', label: 'Initiatives' },
   { id: 'case-studies', label: 'Case Studies' },
   { id: 'portfolio', label: 'Projects' },

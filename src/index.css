@@ -163,6 +163,23 @@
   color-scheme: dark;
 }
 
+/* Lifecycle phase changes: content fades up into place; artifact cards
+   stagger in via animation-delay. Purely opacity/translate — no layout jumps. */
+.lifecycle-enter {
+  animation: lifecycle-in 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes lifecycle-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lifecycle-enter {
+    animation: none;
+  }
+}
+
 /* Approach's inner sheet: PURE white — not the theme's card tint (Studio's
    card is 245 245 245 and read as dirty white on the blend). Midnight keeps
    its dark card so the light ink tokens stay readable. */

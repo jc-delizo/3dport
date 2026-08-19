@@ -21,6 +21,7 @@ export const site = {
       label: 'Portfolio',
       items: [
         { id: 'approach', label: 'How I Approach Software' },
+        { id: 'lifecycle', label: 'Delivery Lifecycle' },
         { id: 'initiatives', label: 'Initiatives' },
         { id: 'case-studies', label: 'Case Studies' },
         { id: 'portfolio', label: 'Projects' },

@@ -2,6 +2,7 @@ import { Nav } from './components/Nav'
 import { SectionNavigator } from './components/SectionNavigator'
 import { Hero } from './components/Hero'
 import { ProofBar } from './components/ProofBar'
+import { Lifecycle } from './components/Lifecycle'
 import { Initiatives } from './components/Initiatives'
 import { CaseStudies } from './components/CaseStudies'
 import { Portfolio } from './components/Portfolio'
@@ -28,6 +29,7 @@ export default function App() {
         <Hero />
         <ProofBar />
         <Approach />
+        <Lifecycle />
         <Initiatives />
         <CaseStudies />
         <Portfolio />

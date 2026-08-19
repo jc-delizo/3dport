@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { site } from './site'
 import { strips } from './strips'
+import { lifecycle, artifactPreviews } from './lifecycle'
 import { findForbidden, FORBIDDEN_COUNT } from './forbidden'
 
 // Every string in the content tree, flattened.
@@ -11,8 +12,11 @@ function allStrings(value, acc = []) {
   return acc
 }
 
-// Strips are content too — the confidentiality and factual guards cover them.
-const corpus = allStrings(site).concat(allStrings(strips)).join('\n')
+// Strips and lifecycle content are content too — the confidentiality and
+// factual guards cover them.
+const corpus = allStrings(site)
+  .concat(allStrings(strips), allStrings(lifecycle), allStrings(artifactPreviews))
+  .join('\n')
 
 describe('confidentiality', () => {
   // Terms are compared as hashes (src/content/forbidden.js) because this repo is public.
@@ -335,6 +339,7 @@ describe('portfolio data', () => {
     const [portfolio, experience, contact] = site.nav
     expect(portfolio.items.map((i) => i.id)).toEqual([
       'approach',
+      'lifecycle',
       'initiatives',
       'case-studies',
       'portfolio',
