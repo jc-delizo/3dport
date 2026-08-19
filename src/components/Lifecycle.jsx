@@ -163,52 +163,42 @@ export function Lifecycle() {
             }}
           >
             {/* Stationary pipeline: every phase stays visible; only the
-                active state travels. Desktop is one connected row. */}
+                active state travels. Desktop is one connected row of numbered
+                chips sitting ON the line — pipeline reading, card presence. */}
             <ol
               ref={trackRef}
-              className="relative hidden items-start justify-between lg:flex"
+              className="relative hidden items-center justify-between lg:flex"
               aria-label="Delivery lifecycle"
             >
-              {/* Track + progress, aligned to the dot row. */}
-              <div aria-hidden="true" className="absolute left-0 right-0 top-[3px] h-px bg-hairline" />
+              {/* Track + progress, running behind the chips. */}
+              <div aria-hidden="true" className="absolute left-0 right-0 top-1/2 h-px bg-hairline" />
               <div
                 aria-hidden="true"
-                className="absolute left-0 top-[3px] h-px bg-ink transition-[width] duration-500 ease-out"
+                className="absolute left-0 top-1/2 h-px bg-ink transition-[width] duration-500 ease-out"
                 style={{ width: progressPx }}
               />
               {PHASES.map(({ id, name }, i) => {
                 const isActive = i === active
                 const isDone = i < active
                 return (
-                  <li key={id} className="relative flex justify-center first:justify-start last:justify-end">
+                  <li key={id} className="relative">
                     <button
                       type="button"
                       aria-current={isActive ? 'step' : undefined}
                       onClick={() => selectPhase(i)}
-                      className="group/phase flex flex-col items-center gap-2.5 first:items-start last:items-end"
+                      ref={(el) => (dotRefs.current[i] = el)}
+                      className={`relative flex items-baseline gap-1.5 whitespace-nowrap rounded-button border px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors duration-[400ms] ${
+                        isActive
+                          ? 'border-ink bg-ink text-canvas'
+                          : isDone
+                            ? 'border-muted bg-canvas text-ink'
+                            : 'border-hairline bg-canvas text-muted hover:border-muted hover:text-ink'
+                      }`}
                     >
-                      <span
-                        ref={(el) => (dotRefs.current[i] = el)}
-                        aria-hidden="true"
-                        className={`h-[7px] w-[7px] rounded-full transition-[transform,background-color] duration-[400ms] ${
-                          isActive
-                            ? 'scale-125 bg-ink'
-                            : isDone
-                              ? 'bg-ink'
-                              : 'bg-hairline group-hover/phase:bg-muted'
-                        }`}
-                      />
-                      <span
-                        className={`whitespace-nowrap font-mono text-[10px] uppercase tracking-widest transition-[color,opacity] duration-[400ms] ${
-                          isActive
-                            ? 'text-ink'
-                            : isDone
-                              ? 'text-muted'
-                              : 'text-muted opacity-50 group-hover/phase:opacity-90'
-                        }`}
-                      >
-                        {name}
+                      <span aria-hidden="true" className={isActive ? 'opacity-70' : 'opacity-50'}>
+                        {String(i + 1).padStart(2, '0')}
                       </span>
+                      {name}
                     </button>
                   </li>
                 )
