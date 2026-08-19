@@ -237,17 +237,6 @@ export function Approach() {
                 className="pm-slider relative w-full"
               />
             </div>
-            <p className="mt-4 text-center font-mono text-label uppercase tracking-widest text-muted">
-              {approach.credibility}
-            </p>
-            <p className="mt-1 flex flex-wrap items-center justify-center gap-x-2 text-label text-muted">
-              {approach.arc.map((stage, i) => (
-                <span key={stage} className="flex items-center gap-2">
-                  {i > 0 ? <span aria-hidden="true">→</span> : null}
-                  {stage}
-                </span>
-              ))}
-            </p>
           </div>
 
           {/* Captions crossfade with the blend */}
@@ -308,7 +297,7 @@ export function Approach() {
             </div>
           </div>
 
-          {/* Dominant side's working points + evidence line */}
+          {/* Dominant side's working points */}
           <div
             className="mx-auto mt-10 max-w-xl transition-opacity duration-150"
             style={{ opacity: 0.35 + 0.65 * Math.max(pointsStrength, 0.3) }}
@@ -323,9 +312,6 @@ export function Approach() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-center font-mono text-[11px] uppercase tracking-widest text-muted">
-              {t <= 0.5 ? approach.pm.evidence : approach.eng.evidence}
-            </p>
           </div>
           </div>
 

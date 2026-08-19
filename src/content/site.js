@@ -678,7 +678,6 @@ export const site = {
         'Keep teams focused on the highest-value work',
         'Make delivery visible and predictable',
       ],
-      evidence: '65 projects end to end · 5–11 concurrent · ERP & HRIS delivery',
     },
     eng: {
       label: 'Software Engineer',
@@ -692,7 +691,6 @@ export const site = {
         'Understand Git and software-development workflows',
         'Understand deployment and technical dependencies',
       ],
-      evidence: 'BS I&C Engineering · full-stack trained · Git · React · Node.js · Odoo',
     },
     bridge: {
       label: 'Where delivery meets engineering',
@@ -708,8 +706,6 @@ export const site = {
         'Measurable outcome',
       ],
     },
-    credibility: '10+ years across engineering and software delivery',
-    arc: ['Engineering', 'Software Development', 'Project Management', 'Digital Transformation'],
     final: {
       lead: 'Not just managing software.\nUnderstanding how to deliver it.',
       sub: "That's the difference between coordinating a technical team and leading technical delivery.",

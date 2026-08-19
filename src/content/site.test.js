@@ -157,12 +157,6 @@ describe('approach data', () => {
     expect(site.approach.bridge.flow).toHaveLength(7)
     expect(site.approach.pm.points.length).toBeGreaterThanOrEqual(5)
     expect(site.approach.eng.points.length).toBeGreaterThanOrEqual(5)
-    expect(site.approach.arc).toEqual([
-      'Engineering',
-      'Software Development',
-      'Project Management',
-      'Digital Transformation',
-    ])
   })
 })
 

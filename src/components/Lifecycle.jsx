@@ -155,8 +155,8 @@ export function Lifecycle() {
         <Reveal>
           <div
             ref={rootRef}
-            onMouseEnter={() => setEngaged(true)}
-            onMouseLeave={() => setEngaged(false)}
+            // Hovering deliberately does NOT pause (JC's call) — only keyboard
+            // focus, a click, or an open modal holds the clock.
             onFocus={() => setEngaged(true)}
             onBlur={(e) => {
               if (!e.currentTarget.contains(e.relatedTarget)) setEngaged(false)

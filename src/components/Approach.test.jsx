@@ -112,7 +112,7 @@ describe('Approach section', () => {
     fireEvent.pointerDown(screen.getByRole('slider'))
   })
 
-  it('carries the three captions, the closing message, and the credibility arc', () => {
+  it('carries the three captions and the closing message — no credibility/evidence lines', () => {
     render(<Approach />)
     expect(screen.getByText(site.approach.pm.caption)).toBeInTheDocument()
     expect(screen.getByText(site.approach.eng.caption)).toBeInTheDocument()
@@ -121,11 +121,8 @@ describe('Approach section', () => {
     expect(
       screen.getByText(/coordinating a technical team and leading technical delivery/i)
     ).toBeInTheDocument()
-    expect(
-      screen.getByText('10+ years across engineering and software delivery')
-    ).toBeInTheDocument()
-    site.approach.arc.forEach((stage) =>
-      expect(screen.getAllByText(stage).length).toBeGreaterThan(0)
-    )
+    // Removed at JC's request — the slider speaks for itself.
+    expect(screen.queryByText(/10\+ years across engineering/i)).toBeNull()
+    expect(screen.queryByText(/65 projects end to end/i)).toBeNull()
   })
 })

@@ -31,17 +31,17 @@ describe('Lifecycle', () => {
     )
   })
 
-  it('advances on its own clock once in view, and pauses while hovered', () => {
+  it('advances on its own clock once in view — hovering does not pause it', () => {
     vi.useFakeTimers()
     render(<Lifecycle />)
     enterView()
     act(() => vi.advanceTimersByTime(2900))
     expect(screen.getByText(lifecycle.phases[1].desc)).toBeInTheDocument()
 
-    // Hover pauses; nothing advances while engaged.
+    // Hover keeps the clock running (deliberate).
     fireEvent.mouseEnter(screen.getByText(lifecycle.phases[1].desc).parentElement.parentElement)
-    act(() => vi.advanceTimersByTime(6000))
-    expect(screen.getByText(lifecycle.phases[1].desc)).toBeInTheDocument()
+    act(() => vi.advanceTimersByTime(2900))
+    expect(screen.getByText(lifecycle.phases[2].desc)).toBeInTheDocument()
   })
 
   it('does not autoplay before the section scrolls into view', () => {
