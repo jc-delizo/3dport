@@ -136,6 +136,7 @@ export const THEMES = [
         portfolio: 'sky',
         principles: 'cream',
         recommendations: 'navy',
+        capabilities: 'peach',
         contact: 'mint',
       },
       chart: {

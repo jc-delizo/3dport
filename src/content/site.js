@@ -724,6 +724,7 @@ export const site = {
       company: 'Oak Drive Ventures Inc.',
       role: 'Digital Transformation Project Manager',
       period: '07/2023 – Present',
+      facts: ['22 departments', '1,600+ employees', '65 projects', '5–11 concurrent'],
       points: [
         'Led a cross-functional team of 6 developers, 1 QA, and 1 designer serving 22 departments and 1,600+ employees.',
         'Reported directly to the COO, presenting sprint and portfolio updates to the C-suite and department heads.',
@@ -955,19 +956,69 @@ export const site = {
   ],
 
   // All twelve map to the resume's Skills line — don't add one that doesn't.
+  // Each capability carries a one-line proof, sourced from the experience
+  // bullets and proof stats above — evidence, not self-assessment.
   capabilities: [
-    { icon: 'Workflow', label: 'Agile Transformation' },
-    { icon: 'GitBranch', label: 'Technical Delivery Leadership' },
-    { icon: 'Sparkles', label: 'AI Workflow Design' },
-    { icon: 'Target', label: 'Process Optimization' },
-    { icon: 'Database', label: 'Enterprise Systems (ERP / HRIS)' },
-    { icon: 'Users', label: 'Cross-Functional Leadership' },
-    { icon: 'Layers', label: 'Portfolio & Program Governance' },
-    { icon: 'Briefcase', label: 'Vendor Management' },
-    { icon: 'Handshake', label: 'Stakeholder Management' },
-    { icon: 'LineChart', label: 'Executive Reporting' },
-    { icon: 'RefreshCw', label: 'Change Management' },
-    { icon: 'ShieldAlert', label: 'Risk & Dependency Management' },
+    {
+      icon: 'Workflow',
+      label: 'Agile Transformation',
+      proof: 'Led the shift to Scrum; delivery capacity grew from 2 to 20–28 projects/year.',
+    },
+    {
+      icon: 'GitBranch',
+      label: 'Technical Delivery Leadership',
+      proof: 'Led 6 developers, 1 QA, and 1 designer across 65 projects delivered end to end.',
+    },
+    {
+      icon: 'Sparkles',
+      label: 'AI Workflow Design',
+      proof: 'Designed the AI-powered intake, ticketing, and delivery workflows the team runs on.',
+    },
+    {
+      icon: 'Target',
+      label: 'Process Optimization',
+      proof: 'Automated intake, ticket routing, and backlog administration to cut context switching.',
+    },
+    {
+      icon: 'Database',
+      label: 'Enterprise Systems (ERP / HRIS)',
+      proof: 'Connected ERP workflows serving 22 departments and 1,600+ employees.',
+    },
+    {
+      icon: 'Users',
+      label: 'Cross-Functional Leadership',
+      proof: 'Balanced 5–11 concurrent projects across departments with predictable schedules.',
+    },
+    {
+      icon: 'Layers',
+      label: 'Portfolio & Program Governance',
+      proof: 'Real-time roadmap, velocity, and sprint visibility across the whole portfolio.',
+    },
+    {
+      icon: 'Briefcase',
+      label: 'Vendor Management',
+      proof: 'Coordinated three external vendors across enterprise application delivery.',
+    },
+    {
+      icon: 'Handshake',
+      label: 'Stakeholder Management',
+      proof: 'Centralized stakeholder intake through an AI-powered ticketing system.',
+    },
+    {
+      icon: 'LineChart',
+      label: 'Executive Reporting',
+      proof: 'Reported directly to the COO; sprint and portfolio updates to the C-suite.',
+    },
+    {
+      icon: 'RefreshCw',
+      label: 'Change Management',
+      proof: 'UAT, training, cutover, and post-launch support on every rollout.',
+    },
+    {
+      icon: 'ShieldAlert',
+      label: 'Risk & Dependency Management',
+      proof: 'Risk identification and bottleneck analysis built into delivery planning.',
+    },
   ],
 
   tools: [

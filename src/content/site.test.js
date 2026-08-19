@@ -177,6 +177,8 @@ describe('capabilities data', () => {
       'Risk & Dependency Management',
     ])
     site.capabilities.forEach((c) => expect(c.icon).toBeTruthy())
+    // Every capability carries its one-line proof (a sourced fact).
+    site.capabilities.forEach((c) => expect(c.proof, c.label).toBeTruthy())
   })
 })
 

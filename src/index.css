@@ -147,6 +147,11 @@
   --color-card: 255 255 255;
   --color-hairline: 212 200 170;
 }
+[data-theme='studio'] [data-surface='peach'] {
+  --color-canvas: 249 229 214;
+  --color-card: 255 255 255;
+  --color-hairline: 224 193 168;
+}
 [data-theme='studio'] [data-surface='mint'] {
   --color-canvas: 207 244 228;
   --color-card: 255 255 255;

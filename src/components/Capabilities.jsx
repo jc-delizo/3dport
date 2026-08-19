@@ -40,13 +40,17 @@ export function Capabilities() {
       <Container>
         <SectionHeading id="capabilities" label="Where I operate" title="Capabilities." />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {site.capabilities.map(({ icon, label }, i) => {
+          {site.capabilities.map(({ icon, label, proof }, i) => {
             const Icon = ICONS[icon]
             return (
               <Reveal key={label} delay={Math.min(i, 3) * 60}>
-                <Card className="flex h-full items-center gap-3">
-                  <Icon size={18} aria-hidden="true" className="shrink-0 text-muted" />
-                  <span className="text-body font-medium">{label}</span>
+                <Card className="flex h-full items-start gap-3">
+                  <Icon size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-muted" />
+                  <div>
+                    <p className="text-body font-medium">{label}</p>
+                    {/* The receipt: a sourced fact, not an adjective. */}
+                    <p className="mt-1 text-label text-muted">{proof}</p>
+                  </div>
                 </Card>
               </Reveal>
             )
