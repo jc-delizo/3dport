@@ -163,6 +163,18 @@
   color-scheme: dark;
 }
 
+/* Tool chips: hovering instantly adopts the tool's brand color (per-chip
+   custom props set inline); leaving snaps straight back — no transition,
+   by request. The icon rides currentColor and goes full-strength. */
+.tool-chip:hover {
+  background-color: var(--brand, rgb(var(--color-card)));
+  border-color: var(--brand, rgb(var(--color-hairline)));
+  color: var(--brand-fg, rgb(var(--color-ink)));
+}
+.tool-chip:hover svg {
+  opacity: 1;
+}
+
 /* Lifecycle phase changes: content fades up into place; artifact cards
    stagger in via animation-delay. Purely opacity/translate — no layout jumps. */
 .lifecycle-enter {
