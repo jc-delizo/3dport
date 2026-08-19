@@ -11,7 +11,7 @@ const enterView = () => act(() => lastIO().callback([{ isIntersecting: true }]))
 describe('Lifecycle', () => {
   afterEach(() => vi.useRealTimers())
 
-  it('renders the heading, subtitle, and all 11 phases twice (row + chips)', () => {
+  it('renders the heading, subtitle, and every phase twice (row + chips)', () => {
     render(<Lifecycle />)
     expect(
       screen.getByRole('heading', { name: 'From Business Problem → Production.' })
@@ -69,12 +69,13 @@ describe('Lifecycle', () => {
     expect(screen.getByText(lifecycle.phases[7].desc)).toBeInTheDocument()
   })
 
-  it('wraps from Improvement back to Project Request — the loop', () => {
+  it('wraps from the last phase back to Project Request — the loop', () => {
     vi.useFakeTimers()
     render(<Lifecycle />)
     enterView()
-    const improvement = screen.getAllByRole('button', { name: /^Improvement$/i })[0]
-    fireEvent.click(improvement)
+    const last = lifecycle.phases.at(-1)
+    const lastChip = screen.getAllByRole('button', { name: new RegExp(`^${last.name}$`, 'i') })[0]
+    fireEvent.click(lastChip)
     act(() => vi.advanceTimersByTime(6100)) // click-pause elapses
     act(() => vi.advanceTimersByTime(2900)) // clock restarts and wraps
     expect(screen.getByText(lifecycle.phases[0].desc)).toBeInTheDocument()

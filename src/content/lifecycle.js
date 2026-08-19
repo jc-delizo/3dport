@@ -66,12 +66,6 @@ export const lifecycle = {
       desc: 'I stabilize the system before transitioning it into normal operations.',
       artifacts: ['Issue Tracker', 'Incident Monitoring', 'Daily Status', 'Resolution Tracking', 'Handover Checklist'],
     },
-    {
-      id: 'improvement',
-      name: 'Improvement',
-      desc: 'Go-live creates the next backlog. I use feedback, data, and lessons learned to continuously improve the system.',
-      artifacts: ['User Feedback', 'Enhancement Backlog', 'Usage Data', 'Lessons Learned', 'Improvement Roadmap'],
-    },
   ],
 }
 
@@ -151,15 +145,6 @@ export const artifactPreviews = {
       {
         label: 'Exit',
         lines: ['Incident rate stabilized', 'Open criticals at zero', 'Handover to operations'],
-      },
-    ],
-  },
-  'Improvement Roadmap': {
-    sections: [
-      { label: 'Inputs', lines: ['User feedback', 'Usage data', 'Lessons learned'] },
-      {
-        label: 'Output',
-        lines: ['Prioritized enhancement backlog', 'Next release themes', 'The next project request'],
       },
     ],
   },
