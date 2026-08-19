@@ -20,7 +20,7 @@ describe('About', () => {
 
   it('lists the fast facts — location-free, pivot gap left implied, per JC', () => {
     render(<About />)
-    expect(site.about.facts).toHaveLength(4)
+    expect(site.about.facts).toHaveLength(3)
     site.about.facts.forEach((fact) => expect(screen.getByText(fact)).toBeInTheDocument())
     const text = JSON.stringify(site.about)
     expect(text).not.toMatch(/Batangas|Philippines|Rosario/i)

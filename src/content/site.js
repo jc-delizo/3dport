@@ -1092,7 +1092,6 @@ export const site = {
       'Licensed I&C Engineer — ranked 8th of 1,057',
       '10+ years engineering & software delivery',
       '65 projects shipped end to end since 2023',
-      'Reports to the COO · 22 departments served',
     ],
   },
 

@@ -16,7 +16,10 @@ export function Recommendations() {
           tabIndex={0}
           role="region"
           aria-label="Recommendations"
-          className="no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2"
+          // overflow-y must be pinned: with overflow-x auto alone, the browser
+          // computes overflow-y as auto too, and the row gains a few px of
+          // internal vertical scroll.
+          className="no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-6 pb-2"
         >
           {site.recommendations.map(({ quote, name, context, date }, i) => (
             <Reveal
