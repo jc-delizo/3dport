@@ -65,9 +65,9 @@ export function SectionNavigator() {
                 <a
                   href={`#${id}`}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`flex items-baseline gap-2 py-0.5 font-mono text-[10px] uppercase tracking-widest transition-[opacity,transform,color] duration-200 ease-out hover:-translate-x-1 hover:text-ink hover:opacity-100 focus-visible:-translate-x-1 focus-visible:text-ink focus-visible:opacity-100 ${
+                  className={`flex items-baseline gap-2 py-0.5 font-mono text-label uppercase tracking-widest transition-[opacity,transform,color] duration-200 ease-out hover:-translate-x-1 hover:text-ink hover:opacity-100 focus-visible:-translate-x-1 focus-visible:text-ink focus-visible:opacity-100 ${
                     isActive
-                      ? 'text-ink opacity-100'
+                      ? '-translate-x-1 text-ink opacity-100'
                       : 'text-muted opacity-40 group-hover:opacity-70'
                   }`}
                 >

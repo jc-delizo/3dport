@@ -1,3 +1,4 @@
+import { Backdrop } from './components/backdrop/Backdrop'
 import { Nav } from './components/Nav'
 import { SectionNavigator } from './components/SectionNavigator'
 import { Hero } from './components/Hero'
@@ -23,6 +24,7 @@ export default function App() {
       <a href="#main" className="skip-link">
         Skip to content
       </a>
+      <Backdrop />
       <Nav />
       <SectionNavigator />
       <main id="main">

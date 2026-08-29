@@ -168,6 +168,40 @@
   color-scheme: dark;
 }
 
+/* Drafting layer (Backdrop.jsx): every glyph element carries pathLength="1",
+   so dasharray 1 means "one full stroke" on any shape. Static renders (no JS,
+   reduced motion) therefore show solid lines; the GSAP draw-in only animates
+   dashoffset 1→0 over the same dash. */
+[data-backdrop] :is(path, rect, circle, line, polyline, ellipse) {
+  stroke-dasharray: 1;
+}
+
+/* Micro-interactions. Cards rise on an overshoot (spring-feel) curve; text
+   links grow their underline from the left instead of toggling it. The global
+   reduced-motion rule below zeroes both transitions, so the end states still
+   apply instantly for those users. */
+.card-lift {
+  transition:
+    transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 260ms ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -14px rgb(var(--color-ink) / 0.25);
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 220ms ease;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
 /* Text glare: a diagonal shine sweeps left→right across one piece of text at
    a time (a component orchestrates which). Gradient is clipped to the text;
    the streak passes through as a brighter flash. `--glare-base` sets the

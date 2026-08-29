@@ -9,7 +9,7 @@ export function ListMore({ expanded, onToggle, controls, moreLabel, className = 
       aria-expanded={expanded}
       aria-controls={controls}
       onClick={onToggle}
-      className={`text-label font-medium text-accent hover:underline ${className}`}
+      className={`text-label font-medium text-accent link-underline ${className}`}
     >
       {expanded ? 'Show less' : `+ ${moreLabel}`}
     </button>

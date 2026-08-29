@@ -45,6 +45,9 @@ describe('SectionNavigator', () => {
     act(() => io.callback([{ isIntersecting: true, target }]))
     const active = screen.getByRole('link', { name: /experience/i })
     expect(active).toHaveAttribute('aria-current', 'true')
+    // The active label slides out (the transform transitions), never snaps.
+    // Must be the bare class, not the hover:/focus-visible: variants.
+    expect(active.className).toMatch(/(^|\s)-translate-x-1(\s|$)/)
     // Exactly one current item — and no indicator dash (removed by request).
     expect(document.querySelectorAll('[aria-current="true"]').length).toBe(1)
     expect(document.querySelector('[data-rail-indicator]')).toBeNull()
