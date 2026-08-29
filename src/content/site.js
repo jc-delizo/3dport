@@ -786,8 +786,9 @@ export const site = {
   ],
 
   // Real recommendations only. Emmanuel's is paraphrased for length and tone
-  // at JC's request (the verbatim original lives on LinkedIn); Ronak's and
-  // Lisette's are verbatim; Harrison's was relayed by JC and grammar-fixed.
+  // at JC's request (the verbatim original lives on LinkedIn); Jae-Mar's,
+  // Ronak's and Lisette's are verbatim; Harrison's was relayed by JC and
+  // grammar-fixed.
   recommendations: [
     {
       quote:
@@ -795,6 +796,15 @@ export const site = {
       name: 'Emmanuel Louis Gonzaga',
       context: 'Reported to JC directly',
       date: 'December 2024',
+    },
+    // Verbatim from LinkedIn, August 28, 2026. Jae-Mar and JC worked together
+    // from different companies (cross-company delivery peer).
+    {
+      quote:
+        "I worked with JC on several enterprise system development projects. He's a very detail-oriented person and has the ability to efficiently handle multiple large-scale projects at the same time without losing sight of the finer details that make or break enterprise implementations. I highly recommend JC to anyone looking for a meticulous, dependable, and skilled professional in enterprise systems development.",
+      name: 'Jae-Mar Arenque',
+      context: 'Project & Program Manager — cross-company collaborator',
+      date: 'August 2026',
     },
     {
       quote:

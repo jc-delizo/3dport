@@ -5,13 +5,19 @@ import { Recommendations } from './Recommendations'
 import { site } from '../content/site'
 
 describe('Recommendations', () => {
-  it('carries the four real recommendations with corrected attributions', () => {
+  it('carries the five real recommendations with corrected attributions', () => {
     expect(site.recommendations.map((r) => r.name)).toEqual([
       'Emmanuel Louis Gonzaga',
+      'Jae-Mar Arenque',
       'Ronak Viramgama',
       'Harrison Wallace',
       'Lisette Racoma',
     ])
+    const jaeMar = site.recommendations.find((r) => r.name === 'Jae-Mar Arenque')
+    // Verbatim from LinkedIn (August 28, 2026); cross-company peer.
+    expect(jaeMar.date).toBe('August 2026')
+    expect(jaeMar.quote).toMatch(/enterprise system development/)
+    expect(jaeMar.context).toMatch(/Program Manager/)
     const harrison = site.recommendations.find((r) => r.name === 'Harrison Wallace')
     expect(harrison.context).toMatch(/COO/)
     // Dated to the end of the TaskUs working relationship, per JC.
