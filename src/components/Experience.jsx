@@ -10,6 +10,7 @@ import { ListMore } from './ui/InlineDisclosure'
 export function Experience() {
   // Collapsed, only the current role shows; earlier roles sit behind See more.
   const [expanded, setExpanded] = useState(false)
+  const [currentExpanded, setCurrentExpanded] = useState(false)
   const visible = expanded ? site.experience : site.experience.slice(0, 1)
 
   return (
@@ -23,7 +24,10 @@ export function Experience() {
             aria-hidden="true"
             className="absolute bottom-6 left-[3px] top-6 w-px bg-hairline"
           />
-          {visible.map(({ company, role, period, facts, points }, i) => (
+          {visible.map(({ company, role, period, facts, points }, i) => {
+            const shownPoints = i === 0 && !currentExpanded ? points.slice(0, 4) : points
+            const pointsId = `experience-points-${i}`
+            return (
             <Reveal key={company} delay={Math.min(i, 3) * 60} className="relative">
               {/* Current role gets the filled dot; earlier roles are open. */}
               <span
@@ -50,14 +54,24 @@ export function Experience() {
                     ))}
                   </ul>
                 ) : null}
-                <ul className="measure mt-4 list-disc space-y-2 pl-5 text-body text-muted">
-                  {points.map((point) => (
+                <ul id={pointsId} className="measure mt-5 list-disc space-y-2 pl-5 text-label leading-6 text-muted">
+                  {shownPoints.map((point) => (
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
+                {i === 0 ? (
+                  <ListMore
+                    expanded={currentExpanded}
+                    onToggle={() => setCurrentExpanded((value) => !value)}
+                    controls={pointsId}
+                    moreLabel={`${points.length - 4} more role highlights`}
+                    className="mt-5"
+                  />
+                ) : null}
               </Card>
             </Reveal>
-          ))}
+            )
+          })}
         </div>
         <ListMore
           expanded={expanded}

@@ -10,6 +10,12 @@ const directLinks = site.nav.filter((n) => n.id)
 const pageLinks = site.nav.filter((n) => n.href)
 
 describe('Nav structure', () => {
+  it('uses the name and role as the navbar identity lockup', () => {
+    render(<Nav />)
+    const brand = screen.getByRole('link', { name: /JC Delizo Technical Project Manager/i })
+    expect(brand).toHaveAttribute('href', '#top')
+  })
+
   it('renders group dropdown triggers closed, and direct links as anchors', () => {
     render(<Nav />)
     groups.forEach(({ label }) => {
@@ -123,5 +129,6 @@ describe('Nav mobile', () => {
         expect(screen.getByRole('link', { name: itemLabel })).toHaveAttribute('href', `#${id}`)
       })
     })
+    expect(screen.getByRole('radio', { name: 'Quiet' })).toBeInTheDocument()
   })
 })

@@ -33,13 +33,14 @@ export function Section({ surface, divider = true, compact = false, className = 
     }
     return (
       <section
-        className={`bg-canvas ${compact ? 'py-4 md:py-6' : 'py-6 md:py-10'} ${className}`}
+        data-section={surface}
+        className={`bg-canvas ${compact ? 'py-3 md:py-4' : 'py-4 md:py-7'} ${className}`}
         {...rest}
       >
         <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
           <div
             data-surface={block}
-            className={`rounded-[24px] bg-canvas ${compact ? 'py-8 md:py-10' : 'py-12 md:py-16'}`}
+            className={`studio-block overflow-hidden rounded-[28px] border border-hairline bg-canvas ${compact ? 'py-7 md:py-9' : 'py-11 md:py-16'}`}
           >
             {children}
           </div>

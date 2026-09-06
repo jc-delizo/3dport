@@ -11,15 +11,15 @@ describe('Backdrop', () => {
     expect(layer.className).toMatch(/\bfixed\b/)
   })
 
-  it('splits responsively: full sets on wide screens, one watermark below 1450px', () => {
+  it('renders only when a 1680px-wide viewport provides safe side gutters', () => {
     const { container } = render(<Backdrop />)
+    const layer = container.querySelector('[data-backdrop]')
+    expect(layer.className).toMatch(/\bhidden\b/)
+    expect(layer.className).toMatch(/min-\[1680px\]:block/)
     container.querySelectorAll('[data-backdrop-set]').forEach((set) => {
       const desktop = set.querySelector('[data-backdrop-desktop]')
-      expect(desktop.className).toMatch(/\bhidden\b/)
-      expect(desktop.className).toMatch(/min-\[1450px\]:contents/)
-      const watermarks = set.querySelectorAll('[data-backdrop-watermark]')
-      expect(watermarks).toHaveLength(1)
-      expect(watermarks[0].className).toMatch(/min-\[1450px\]:hidden/)
+      expect(desktop.className).toMatch(/\bcontents\b/)
+      expect(set.querySelector('[data-backdrop-watermark]')).toBeNull()
     })
   })
 
@@ -56,7 +56,8 @@ describe('Backdrop', () => {
     const anchors = BACKDROP_SETS.map((s) => s.anchor)
     expect(new Set(anchors).size).toBe(anchors.length)
     // Spot-check the load-bearing ones; the full id list lives in the components.
-    expect(anchors).toEqual(expect.arrayContaining(['approach', 'lifecycle', 'portfolio', 'contact']))
+    expect(anchors).toEqual(expect.arrayContaining(['lifecycle', 'portfolio', 'contact']))
+    expect(anchors).not.toContain('approach')
     // The hero stays clean — its glare sweep is the only motion there (JC's call).
     expect(anchors).not.toContain('top')
   })

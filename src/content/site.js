@@ -7,9 +7,9 @@ const LAB_URL = `${import.meta.env.BASE_URL}lab/`
 
 export const site = {
   meta: {
-    title: 'JC Delizo | Digital Transformation Project Manager',
+    title: 'JC Delizo | Technical Project Manager',
     description:
-      'Digital Transformation Project Manager and Software Delivery Manager who scaled delivery from 2 to 20–28 projects a year through Agile and AI workflows.',
+      'Technical Project Manager and Software Delivery Manager who scaled delivery from 2 to 20–28 projects a year through Agile and AI workflows.',
     url: 'https://jc-delizo.github.io/3dport/',
     ogImage: 'https://jc-delizo.github.io/3dport/og.png',
   },
@@ -21,10 +21,9 @@ export const site = {
     {
       label: 'Portfolio',
       items: [
-        { id: 'approach', label: 'How I Approach Software' },
-        { id: 'lifecycle', label: 'Delivery Lifecycle' },
         { id: 'initiatives', label: 'Initiatives' },
         { id: 'case-studies', label: 'Case Studies' },
+        { id: 'lifecycle', label: 'Delivery Lifecycle' },
         { id: 'portfolio', label: 'Projects' },
         { id: 'principles', label: 'Principles' },
       ],
@@ -38,13 +37,13 @@ export const site = {
         { id: 'certifications', label: 'Certifications' },
       ],
     },
-    { id: 'contact', label: 'Contact' },
     { href: LAB_URL, page: 'lab', label: 'Lab' },
+    { id: 'contact', label: 'Contact' },
   ],
 
   hero: {
     name: 'JC Delizo',
-    title: 'Digital Transformation Project Manager',
+    title: 'Technical Project Manager',
     claim: 'I help organizations deliver software faster by transforming the way teams work.',
     support:
       'Increased software delivery capacity from 2 to 20–28 projects/year through Agile, AI-powered workflows, and scalable delivery systems.',
@@ -494,7 +493,7 @@ export const site = {
           },
           {
             title: 'ATM Inventory & Movement Tracking',
-            role: 'Coordinated',
+            role: 'Led',
             desc: 'Custody, availability, and processing visibility for ATM inventory across the organization.',
           },
           {
@@ -549,7 +548,7 @@ export const site = {
           },
           {
             title: 'Zero-Touch Maintenance',
-            role: 'Oversight',
+            role: 'Led',
             desc: 'AI agents implementing and monitoring selected development issues via GitHub integration, webhooks, and label tracking.',
           },
           {
@@ -654,7 +653,7 @@ export const site = {
           },
           {
             title: 'Transaction Queuing — Partner Organization',
-            role: 'Coordinated',
+            role: 'Led',
             desc: "Early business-process scoping for a partner organization's transaction queuing, with the third-party vendor.",
           },
         ],
@@ -805,7 +804,7 @@ export const site = {
       quote:
         "I worked with JC on several enterprise system development projects. He's a very detail-oriented person and has the ability to efficiently handle multiple large-scale projects at the same time without losing sight of the finer details that make or break enterprise implementations. I highly recommend JC to anyone looking for a meticulous, dependable, and skilled professional in enterprise systems development.",
       name: 'Jae-Mar Arenque',
-      context: 'Project & Program Manager — cross-company collaborator',
+      context: 'CEO of Pinfront Digital',
       date: 'August 2026',
     },
     {

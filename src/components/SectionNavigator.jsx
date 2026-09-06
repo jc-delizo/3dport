@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
 
 // Floating right-rail section map — a quiet "system interface" layer that lets
-// a recruiter read the whole page structure in a glance and jump anywhere.
+// a visitor read the whole page structure in a glance and jump anywhere.
 // Real anchors (native smooth scroll, already reduced-motion aware via the
 // global scroll-behavior rules); IntersectionObserver drives the active state.
 //
-// Shown only where it has clean air: content is 72rem wide, so below ~1450px
-// the rail would overlap it — there the existing menus carry navigation.
+// It appears only when a real gutter exists. Every label remains visible so the
+// rail works as a map rather than a set of unexplained numbers.
 export const SECTIONS = [
   { id: 'top', label: 'Home' },
-  { id: 'approach', label: 'Approach' },
-  { id: 'lifecycle', label: 'Lifecycle' },
   { id: 'initiatives', label: 'Initiatives' },
   { id: 'case-studies', label: 'Case Studies' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'lifecycle', label: 'Lifecycle' },
   { id: 'portfolio', label: 'Projects' },
   { id: 'principles', label: 'Principles' },
-  { id: 'experience', label: 'Experience' },
+  { id: 'recommendations', label: 'References' },
   { id: 'capabilities', label: 'Capabilities' },
   { id: 'tools', label: 'Tools' },
   { id: 'lab', label: 'Lab' },
@@ -55,7 +55,7 @@ export function SectionNavigator() {
   return (
     <nav
       aria-label="Section shortcuts"
-      className="group fixed right-5 top-1/2 z-30 hidden -translate-y-1/2 min-[1450px]:block"
+      className="fixed right-5 top-1/2 z-20 hidden -translate-y-1/2 min-[1680px]:block 2xl:right-7"
     >
       <div className="relative">
         <ol className="flex flex-col items-end gap-1.5">
@@ -69,13 +69,19 @@ export function SectionNavigator() {
                   className={`flex items-baseline gap-2 py-0.5 font-mono text-label uppercase tracking-widest transition-[opacity,transform,color] duration-200 ease-out hover:-translate-x-1 hover:text-ink hover:opacity-100 focus-visible:-translate-x-1 focus-visible:text-ink focus-visible:opacity-100 ${
                     isActive
                       ? '-translate-x-1 text-ink opacity-100'
-                      : 'text-muted opacity-40 group-hover:opacity-70'
+                      : 'text-muted opacity-55'
                   }`}
                 >
                   <span className={isActive ? 'text-accent' : 'opacity-60'}>
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  {label}
+                  <span
+                    className={`section-rail-label whitespace-nowrap border-b pb-0.5 transition-[border-color] duration-200 ${
+                      isActive ? 'border-accent font-semibold' : 'border-transparent'
+                    }`}
+                  >
+                    {label}
+                  </span>
                 </a>
               </li>
             )

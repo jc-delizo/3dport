@@ -5,11 +5,13 @@ import { Hero } from './Hero'
 import { site } from '../content/site'
 
 describe('Hero', () => {
-  it('renders the name as the only h1', () => {
+  it('renders the central claim as the only h1 and leaves identity to the navbar', () => {
     render(<Hero />)
     const h1s = screen.getAllByRole('heading', { level: 1 })
     expect(h1s).toHaveLength(1)
-    expect(h1s[0]).toHaveTextContent(site.hero.name)
+    expect(h1s[0]).toHaveTextContent(site.hero.claim)
+    expect(screen.queryByText(site.hero.name)).toBeNull()
+    expect(screen.queryByText(site.hero.title)).toBeNull()
   })
 
   it('states the central claim and the supporting metric', () => {
@@ -35,14 +37,13 @@ describe('Hero', () => {
     expect(container.querySelector('canvas')).toBeNull()
   })
 
-  it('glares the six key claims once, in reading order, then goes still', () => {
+  it('glares the five supporting claims once, in reading order, then goes still', () => {
     vi.useFakeTimers()
     render(<Hero />)
     // Nothing glares before the start delay.
     expect(document.querySelectorAll('.text-glare')).toHaveLength(0)
 
     const expected = [
-      site.hero.title,
       '2 to 20–28 projects/year',
       'Agile, AI-powered workflows, and scalable delivery systems',
       ...site.pipeline,

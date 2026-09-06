@@ -9,7 +9,6 @@ import { Initiatives } from './components/Initiatives'
 import { CaseStudies } from './components/CaseStudies'
 import { Portfolio } from './components/Portfolio'
 import { Principles } from './components/Principles'
-import { Approach } from './components/Approach'
 import { Experience } from './components/Experience'
 import { Recommendations } from './components/Recommendations'
 import { Capabilities } from './components/Capabilities'
@@ -64,13 +63,12 @@ export default function App() {
       <main id="main">
         <Hero />
         <ProofBar />
-        <Approach />
-        <Lifecycle />
         <Initiatives />
         <CaseStudies />
+        <Experience />
+        <Lifecycle />
         <Portfolio />
         <Principles />
-        <Experience />
         <Recommendations />
         <Capabilities />
         <Tools />

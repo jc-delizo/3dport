@@ -298,9 +298,9 @@ describe('portfolio data', () => {
 
   it('uses only the three role chips, in the approved split', () => {
     const count = (role) => items.filter((i) => i.role === role).length
-    expect(count('Led')).toBe(35)
-    expect(count('Coordinated')).toBe(8)
-    expect(count('Oversight')).toBe(14)
+    expect(count('Led')).toBe(38)
+    expect(count('Coordinated')).toBe(6)
+    expect(count('Oversight')).toBe(13)
     expect(items.every((i) => ['Led', 'Coordinated', 'Oversight'].includes(i.role))).toBe(true)
   })
 
@@ -332,14 +332,13 @@ describe('portfolio data', () => {
     ])
   })
 
-  it('groups the nav and places Lab directly between Contact and the theme control', () => {
-    expect(site.nav.map((n) => n.label)).toEqual(['Portfolio', 'Experience', 'Contact', 'Lab'])
-    const [portfolio, experience, contact, lab] = site.nav
+  it('orders navigation from evidence to experimentation to contact', () => {
+    expect(site.nav.map((n) => n.label)).toEqual(['Portfolio', 'Experience', 'Lab', 'Contact'])
+    const [portfolio, experience, lab, contact] = site.nav
     expect(portfolio.items.map((i) => i.id)).toEqual([
-      'approach',
-      'lifecycle',
       'initiatives',
       'case-studies',
+      'lifecycle',
       'portfolio',
       'principles',
     ])

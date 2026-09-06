@@ -30,6 +30,7 @@ describe('ProofBar', () => {
     // ('10×' → 10, '20–28' → 20); markup still shows the real value so nothing
     // depends on JS timing or motion preference.
     expect(stats.map((s) => s.dataset.countupTarget)).toEqual(['10', '20', '65', '15'])
+    expect(stats.map((s) => s.dataset.countupDelay)).toEqual(['0', '120', '240', '360'])
     site.proof.forEach(({ value }) => expect(screen.getByText(value)).toBeInTheDocument())
   })
 })

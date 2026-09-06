@@ -9,15 +9,24 @@ const GRAMMAR_KEYS = ['nav', 'rhythm', 'button', 'display', 'chart', 'approach']
 const CHART_KEYS = ['accent', 'surface', 'grid', 'textMuted', 'textStrong']
 
 describe('theme registry', () => {
-  it('ships all five themes, Studio as the brand default', () => {
+  it('ships all six themes, Quiet as the brand default', () => {
     expect(THEMES.map((t) => t.id)).toEqual([
       'daylight',
       'midnight',
       'cupertino',
       'paper',
       'studio',
+      'quiet',
     ])
-    expect(DEFAULT_THEME).toBe('studio')
+    expect(DEFAULT_THEME).toBe('quiet')
+  })
+
+  it('gives Quiet a restrained, bordered system with a muted green accent', () => {
+    const quiet = THEMES.find((t) => t.id === 'quiet')
+    expect(quiet.grammar.nav).toBe('default')
+    expect(quiet.grammar.rhythm).toBe('bordered')
+    expect(quiet.grammar.button).toBe('rounded')
+    expect(quiet.grammar.chart.accent).toBe('#355E52')
   })
 
   it('gives Studio the monochrome color-block grammar on the standard nav', () => {
@@ -30,10 +39,10 @@ describe('theme registry', () => {
     expect(studio.grammar.tiles['case-studies']).toBe('lilac')
     expect(studio.grammar.tiles.contact).toBe('mint')
     expect(studio.grammar.tiles.recommendations).toBe('navy')
-    // Chart renders on the white card inside the lilac block, in the validated
-    // orange — the only saturated accent in an otherwise monochrome system.
-    expect(studio.grammar.chart.surface).toBe('#FFFFFF')
-    expect(studio.grammar.chart.accent).toBe('#F24E1E')
+    // Chart renders on the cool-white card inside the lilac evidence block;
+    // deep teal keeps the operational palette consistent and accessible.
+    expect(studio.grammar.chart.surface).toBe('#FAFAFF')
+    expect(studio.grammar.chart.accent).toBe('#006959')
   })
 
   it('gives Paper the editorial grammar: serif display, bands, coral moments', () => {
@@ -89,7 +98,7 @@ describe('theme tokens in index.css', () => {
     const root = css.match(/:root\s*{([^}]+)}/)[1]
     const rootColorVars = varsIn(root).filter((v) => v.startsWith('--color'))
     expect(rootColorVars.length).toBeGreaterThanOrEqual(6)
-    ;['midnight', 'cupertino', 'paper', 'studio'].forEach((theme) => {
+    ;['midnight', 'cupertino', 'paper', 'studio', 'quiet'].forEach((theme) => {
       const block = css.match(new RegExp(`\\[data-theme='${theme}'\\]\\s*{([^}]+)}`))[1]
       rootColorVars.forEach((v) => expect(varsIn(block), `${theme} missing ${v}`).toContain(v))
     })
@@ -161,8 +170,8 @@ describe('ThemeProvider', () => {
 
   it('applies the default theme to <html> and exposes its grammar', () => {
     render(<ThemeProvider><Probe /></ThemeProvider>)
-    expect(document.documentElement.dataset.theme).toBe('studio')
-    expect(screen.getByTestId('rhythm').textContent).toBe('blocks')
+    expect(document.documentElement.dataset.theme).toBe('quiet')
+    expect(screen.getByTestId('rhythm').textContent).toBe('bordered')
   })
 
   it('switches theme, updates the attribute, and persists the choice', () => {
@@ -170,26 +179,26 @@ describe('ThemeProvider', () => {
     act(() => screen.getByText('go dark').click())
     expect(screen.getByTestId('current').textContent).toBe('midnight')
     expect(document.documentElement.dataset.theme).toBe('midnight')
-    expect(localStorage.getItem('3dport-theme')).toBe('midnight')
+    expect(localStorage.getItem('3dport-theme-v2')).toBe('midnight')
   })
 
   it('restores a stored choice on mount', () => {
-    localStorage.setItem('3dport-theme', 'midnight')
+    localStorage.setItem('3dport-theme-v2', 'midnight')
     render(<ThemeProvider><Probe /></ThemeProvider>)
     expect(screen.getByTestId('current').textContent).toBe('midnight')
   })
 
-  it('shows Studio to everyone regardless of OS color scheme — the brand default wins', () => {
+  it('shows Quiet to everyone regardless of OS color scheme — the authored default wins', () => {
     // Deliberate: auto-switching dark-OS visitors to Midnight would mean most
     // of them never see the signature theme. They can still pick it manually.
     matchMedia.mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })
     render(<ThemeProvider><Probe /></ThemeProvider>)
-    expect(screen.getByTestId('current').textContent).toBe('studio')
+    expect(screen.getByTestId('current').textContent).toBe('quiet')
   })
 
   it('ignores an unknown stored theme rather than breaking the page', () => {
-    localStorage.setItem('3dport-theme', 'vaporwave')
+    localStorage.setItem('3dport-theme-v2', 'vaporwave')
     render(<ThemeProvider><Probe /></ThemeProvider>)
-    expect(screen.getByTestId('current').textContent).toBe('studio')
+    expect(screen.getByTestId('current').textContent).toBe('quiet')
   })
 })

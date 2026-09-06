@@ -5,7 +5,7 @@ import App from '../App'
 
 describe('Studio experience', () => {
   beforeEach(() => {
-    localStorage.setItem('3dport-theme', 'studio')
+    localStorage.setItem('3dport-theme-v2', 'studio')
     delete document.documentElement.dataset.theme
   })
 

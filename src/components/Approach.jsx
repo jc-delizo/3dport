@@ -23,15 +23,15 @@ function valueText(v) {
 function Chain({ steps, strength, accent = false, join = '↓' }) {
   return (
     <ol
-      className="flex flex-col items-center transition-[opacity,transform] duration-150"
+      className="approach-chain flex flex-col items-center transition-[opacity,transform] duration-150"
       style={{ opacity: 0.35 + 0.65 * strength, transform: `scale(${0.96 + 0.04 * strength})` }}
     >
       {steps.map((step, i) => (
-        <li key={step} className="flex flex-col items-center">
+        <li key={step} className="approach-chain-step flex flex-col items-center">
           {i > 0 ? (
             <span
               aria-hidden="true"
-              className={`py-0.5 font-mono text-label ${
+              className={`approach-chain-join py-0.5 font-mono text-label ${
                 accent && strength > 0.6 ? 'text-accent' : 'text-muted'
               }`}
             >
@@ -39,7 +39,7 @@ function Chain({ steps, strength, accent = false, join = '↓' }) {
             </span>
           ) : null}
           <span
-            className={`rounded-button border px-3.5 py-1.5 font-mono text-label uppercase tracking-widest transition-colors duration-150 ${
+            className={`approach-chain-chip rounded-button border px-3.5 py-1.5 font-mono text-label uppercase tracking-widest transition-colors duration-150 ${
               accent && strength > 0.6
                 ? 'border-accent bg-card text-ink'
                 : 'border-hairline bg-card text-muted'
@@ -56,16 +56,19 @@ function Chain({ steps, strength, accent = false, join = '↓' }) {
 // Caption layers crossfade in place; the tallest sets the height so the
 // section never jumps as the slider moves.
 function CaptionStack({ layers }) {
+  const dominant = layers.reduce((best, layer) =>
+    layer.strength > best.strength ? layer : best
+  )
   return (
-    <div className="relative mx-auto max-w-xl text-center">
-      {layers.map(({ key, text, strength, accent }, i) => (
+    <div className="mx-auto grid max-w-xl text-center">
+      {layers.map(({ key, text, accent }) => (
         <p
           key={key}
-          aria-hidden={strength < 0.5}
-          className={`${i === 0 ? '' : 'absolute inset-0'} text-body font-medium transition-opacity duration-150 ${
+          aria-hidden={key !== dominant.key}
+          className={`col-start-1 row-start-1 text-body font-medium transition-opacity duration-150 ${
             accent ? 'text-accent' : ''
           }`}
-          style={{ opacity: Math.max(0, strength) }}
+          style={{ opacity: key === dominant.key ? 1 : 0, visibility: key === dominant.key ? 'visible' : 'hidden' }}
         >
           {text}
         </p>
@@ -119,6 +122,9 @@ export function Approach() {
         if (!entries.some((e) => e.isIntersecting)) return
         io.disconnect()
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+        // On a phone, moving three dense diagrams before the visitor touches
+        // anything reads as instability and can catch a screenshot mid-blend.
+        if (window.innerWidth < 768) return
         setDemoActive(true)
         const start = performance.now()
         const DURATION = 1800
@@ -153,7 +159,7 @@ export function Approach() {
   const pointsStrength = Math.max(pm, eng)
 
   return (
-    <Section surface="approach">
+    <Section surface="approach" className="approach-section">
       <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
         {/* The living surface: blends between the theme's three approach
             colors as the slider moves, easing like the text does. Same outer
@@ -273,14 +279,17 @@ export function Approach() {
                 chips peek from behind the overlaid side chain. */}
             <div
               className="flex justify-center transition-opacity duration-150"
-              style={{ opacity: Math.max(pm, eng) > 0.7 ? 0.06 : 1 }}
+              style={{
+                opacity: center >= Math.max(pm, eng) ? 1 : 0,
+                visibility: center >= Math.max(pm, eng) ? 'visible' : 'hidden',
+              }}
             >
               <Chain steps={approach.bridge.flow} strength={Math.max(center, 0.15)} accent />
             </div>
             <div
               className="absolute inset-0 flex justify-center transition-opacity duration-150"
-              style={{ opacity: pm > 0.7 ? 1 : 0, pointerEvents: 'none' }}
-              aria-hidden={pm <= 0.7}
+              style={{ opacity: pm > Math.max(center, eng) ? 1 : 0, visibility: pm > Math.max(center, eng) ? 'visible' : 'hidden', pointerEvents: 'none' }}
+              aria-hidden={pm <= Math.max(center, eng)}
             >
               <div className="px-6">
                 <Chain steps={approach.pm.flow} strength={1} />
@@ -288,8 +297,8 @@ export function Approach() {
             </div>
             <div
               className="absolute inset-0 flex justify-center transition-opacity duration-150"
-              style={{ opacity: eng > 0.7 ? 1 : 0, pointerEvents: 'none' }}
-              aria-hidden={eng <= 0.7}
+              style={{ opacity: eng > Math.max(center, pm) ? 1 : 0, visibility: eng > Math.max(center, pm) ? 'visible' : 'hidden', pointerEvents: 'none' }}
+              aria-hidden={eng <= Math.max(center, pm)}
             >
               <div className="px-6">
                 <Chain steps={approach.eng.flow} strength={1} />
@@ -302,7 +311,7 @@ export function Approach() {
             className="mx-auto mt-10 max-w-xl transition-opacity duration-150"
             style={{ opacity: 0.35 + 0.65 * Math.max(pointsStrength, 0.3) }}
           >
-            <ul className="grid gap-2 sm:grid-cols-2">
+            <ul className="approach-points grid gap-2 sm:grid-cols-2">
               {points.map((point) => (
                 <li key={point} className="flex gap-2 text-label text-muted">
                   <span aria-hidden="true" className="text-accent">

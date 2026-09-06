@@ -61,9 +61,9 @@ export function Certifications() {
         <SectionHeading id="certifications" label="Verified" title="Certifications." />
 
         <Reveal>
-          <ul className="grid gap-4 sm:grid-cols-3">
+          <ul className="cert-featured-list -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
             {featured.map(({ name, issuer, date, url }) => (
-              <li key={name} className="h-full">
+              <li key={name} className="h-full w-[84%] shrink-0 snap-start sm:w-auto">
                 <Card className="flex h-full flex-col">
                   <div className="flex items-center gap-2 text-label text-muted">
                     <IssuerMark issuer={issuer} />

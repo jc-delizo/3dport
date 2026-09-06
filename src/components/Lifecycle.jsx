@@ -202,13 +202,13 @@ export function Lifecycle() {
               })}
             </ol>
 
-            {/* Below lg the row would crush 11 labels: wrap them as chips
-                instead. The page itself still scrolls normally. */}
-            <ol className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:hidden" aria-label="Delivery lifecycle">
+            {/* Below lg, keep the eleven phases on one tactile rail instead of
+                turning the top of the interaction into a dense chip cloud. */}
+            <ol className="lifecycle-mobile-track -mx-2 flex flex-nowrap justify-start gap-2 px-2 pb-2 lg:hidden" aria-label="Delivery lifecycle">
               {PHASES.map(({ id, name }, i) => {
                 const isActive = i === active
                 return (
-                  <li key={id}>
+                  <li key={id} className="shrink-0 snap-start">
                     <button
                       type="button"
                       aria-current={isActive ? 'step' : undefined}

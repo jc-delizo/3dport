@@ -23,9 +23,9 @@ export function LabTeaser() {
           </a>
         </div>
 
-        <ul className="grid gap-6 md:grid-cols-2">
+        <ul className="lab-teaser-list -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0">
           {featuredLabProjects.map((project, index) => (
-            <Reveal as="li" key={project.id} delay={index * 70}>
+            <Reveal as="li" key={project.id} delay={index * 70} className="w-[88%] shrink-0 snap-start md:w-auto">
               <ProjectCard project={project} compact headingLevel={3} />
             </Reveal>
           ))}

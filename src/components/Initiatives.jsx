@@ -21,6 +21,11 @@ const INITIATIVE_DIAGRAMS = {
   'ai-intake': intakeDiagram,
 }
 
+const outcomePreview = (outcome) => {
+  const words = outcome.split(' ')
+  return words.length > 18 ? `${words.slice(0, 18).join(' ')}…` : outcome
+}
+
 function Block({ label, children }) {
   return (
     <div className="mt-8">
@@ -93,18 +98,28 @@ function InitiativeOverlay({ initiative, onClose, onNavigate }) {
 }
 
 function InitiativeCard({ initiative, index, onOpen }) {
-  const { id, category, title, problem } = initiative
+  const { id, category, title, problem, outcome } = initiative
   return (
-    <Card as="article">
-      <p className="text-label uppercase tracking-widest text-accent">{category}</p>
-      <h3 className="font-display mt-2 text-card-title font-semibold tracking-display">{title}</h3>
-      <p className="measure mt-4 text-body text-muted">{problem}</p>
+    <Card as="article" className="initiative-card flex h-full flex-col">
+      <div className="flex items-center justify-between gap-4 border-b border-hairline pb-4">
+        <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">{category}</p>
+        <span className="font-mono text-[10px] text-muted">{String(index + 1).padStart(2, '0')} / 04</span>
+      </div>
+      <h3 className="font-display mt-5 text-card-title font-semibold tracking-display">{title}</h3>
+      <p className="initiative-problem measure mt-3 text-label leading-6 text-muted">{problem}</p>
+
+      <div className="initiative-result mt-5 border-l-2 border-accent pl-4">
+        <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted">Result</p>
+        <p className="initiative-outcome mt-1.5 text-label font-medium leading-6">
+          {outcomePreview(outcome)}
+        </p>
+      </div>
 
       <button
         type="button"
         data-btn=""
         onClick={onOpen}
-        className="mt-6 inline-flex items-center gap-1.5 rounded-button border border-hairline px-4 py-2 font-mono text-label font-medium uppercase tracking-widest text-muted transition-colors hover:bg-card hover:text-ink"
+        className="mt-6 inline-flex min-h-11 items-center gap-1.5 self-start rounded-button border border-hairline px-4 py-2 font-mono text-[10px] font-medium uppercase tracking-widest text-muted transition-colors hover:border-accent hover:text-ink"
       >
         {INITIATIVE_DIAGRAMS[id] ? 'View diagram & story' : 'View full story'}
         <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
@@ -136,13 +151,16 @@ export function Initiatives() {
       <Container>
         <SectionHeading id="initiatives" label="Selected work" title="Initiatives." />
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.14em] text-muted md:hidden">
+          Swipe through 4 initiatives →
+        </p>
+        <div className="initiative-grid -mx-5 grid gap-4 overflow-x-auto px-5 pb-3 md:mx-0 md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0">
           {site.initiatives.map((initiative, i) => (
             <Reveal
               key={initiative.id}
               delay={Math.min(i, 3) * 60}
               id={`${initiative.id}-trigger`}
-              className="min-w-0"
+              className="initiative-item min-w-0"
             >
               <InitiativeCard
                 initiative={initiative}

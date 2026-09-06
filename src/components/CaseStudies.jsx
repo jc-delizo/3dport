@@ -19,13 +19,13 @@ import { Card } from './ui/Card'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 
-function StatTiles({ stats }) {
+function StatTiles({ stats, className = '' }) {
   return (
-    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className={`case-stat-grid mt-6 grid grid-cols-2 gap-2 lg:grid-cols-4 ${className}`}>
       {stats.map(({ value, label }) => (
-        <div key={label} className="rounded-lg border border-hairline bg-canvas p-4">
-          <p className="text-section font-semibold tracking-display text-accent">{value}</p>
-          <p className="mt-1 text-label uppercase tracking-widest text-muted">{label}</p>
+        <div key={label} className="case-stat rounded-lg border border-hairline bg-canvas p-3.5 md:p-4">
+          <p className="font-display text-[1.75rem] font-semibold leading-none tracking-display text-accent md:text-section">{value}</p>
+          <p className="mt-2 font-mono text-[9px] uppercase leading-4 tracking-[0.12em] text-muted">{label}</p>
         </div>
       ))}
     </div>
@@ -262,20 +262,29 @@ function StudyOverlay({ study, onClose, onNavigate }) {
 
 function StudyCard({ study, index, onOpen }) {
   return (
-    <Card as="article">
-      <p className="text-label uppercase tracking-widest text-accent">
-        Case study {String(index + 1).padStart(2, '0')}
-      </p>
-      <h3 className="font-display mt-2 text-card-title font-semibold tracking-display">{study.title}</h3>
-      <p className="measure mt-4 text-body text-muted">{study.summary}</p>
+    <Card as="article" className="case-study-card overflow-hidden">
+      <div className="grid items-start gap-7 md:grid-cols-[0.82fr_1.18fr] md:gap-9">
+        <div>
+          <div className="flex items-center justify-between gap-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+              Field case
+            </p>
+            <span className="font-mono text-[10px] text-muted">
+              {String(index + 1).padStart(2, '0')} / {String(site.caseStudies.length).padStart(2, '0')}
+            </span>
+          </div>
+          <h3 className="font-display mt-5 text-card-title font-semibold tracking-display">{study.title}</h3>
+          <p className="measure mt-3 text-label leading-6 text-muted">{study.summary}</p>
+        </div>
 
-      <StatTiles stats={study.stats} />
+        <StatTiles stats={study.stats} className="md:mt-0" />
+      </div>
 
       <button
         type="button"
         data-btn=""
         onClick={onOpen}
-        className="mt-8 inline-flex items-center gap-1.5 rounded-button border border-hairline px-4 py-2 font-mono text-label font-medium uppercase tracking-widest text-muted transition-colors hover:bg-card hover:text-ink"
+        className="mt-7 inline-flex min-h-11 items-center gap-1.5 rounded-button border border-hairline px-4 py-2 font-mono text-[10px] font-medium uppercase tracking-widest text-muted transition-colors hover:border-accent hover:text-ink"
       >
         View diagram &amp; full story
         <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
@@ -310,9 +319,12 @@ export function CaseStudies() {
           nearly derailed them. Every figure comes from delivery records or production data.
         </SectionHeading>
 
-        <div className="grid gap-4">
+        <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.14em] text-muted md:hidden">
+          Swipe through 2 field cases →
+        </p>
+        <div className="case-study-list -mx-5 grid gap-4 overflow-x-auto px-5 pb-3 md:mx-0 md:overflow-visible md:px-0 md:pb-0">
           {site.caseStudies.map((study, i) => (
-            <Reveal key={study.id} delay={Math.min(i, 3) * 60} id={`${study.id}-trigger`}>
+            <Reveal key={study.id} delay={Math.min(i, 3) * 60} id={`${study.id}-trigger`} className="case-study-item">
               <StudyCard study={study} index={i} onOpen={() => setOpenId(study.id)} />
             </Reveal>
           ))}

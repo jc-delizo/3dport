@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ChevronDown, Flame, Menu, SunMoon, X } from 'lucide-react'
+import { ChevronDown, Flame, Menu, X } from 'lucide-react'
 import { site } from '../content/site'
 import { useTheme } from '../theme/ThemeContext'
 import { Container } from './ui/Container'
@@ -68,12 +68,7 @@ function ThemeMenu({ openId, setOpenId, triggerClass }) {
       setOpenId={setOpenId}
       triggerClass={triggerClass}
       chevron={false}
-      trigger={
-        <>
-          <SunMoon aria-hidden="true" className="h-4 w-4" />
-          <span className="sr-only">Theme</span>
-        </>
-      }
+      trigger="Themes"
     >
       <div role="menu" aria-label="Theme">
         {themes.map(({ id, label }) => (
@@ -153,14 +148,15 @@ function NavEntries({ openId, setOpenId, linkClass, panelLinkClass, currentPage 
 }
 
 function MobilePanel({ closeAndFocus, close, currentPage }) {
+  const { theme, setTheme, themes } = useTheme()
   const select = (entry) => {
     if (currentPage === 'home' && entry.id && !entry.href) closeAndFocus(entry.id)
     else close()
   }
 
   return (
-    <nav aria-label="Mobile" className="border-t border-hairline bg-canvas md:hidden">
-      <Container className="flex flex-col gap-5 py-6">
+    <nav aria-label="Mobile" className="mobile-nav-panel border-t border-hairline bg-canvas lg:hidden">
+      <Container className="flex max-h-[calc(100dvh-4rem)] flex-col gap-5 overflow-y-auto py-6">
         {site.nav.map((entry) =>
           entry.items ? (
             <div key={entry.label}>
@@ -194,6 +190,29 @@ function MobilePanel({ closeAndFocus, close, currentPage }) {
             </a>
           )
         )}
+        <div>
+          <p className="font-mono text-label uppercase tracking-widest text-muted">
+            Appearance
+          </p>
+          <div role="radiogroup" aria-label="Theme" className="mt-2 grid grid-cols-2 gap-2">
+            {themes.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                role="radio"
+                aria-checked={theme === id}
+                onClick={() => setTheme(id)}
+                className={`min-h-[2.75rem] rounded-button border px-3 text-left text-label transition-colors ${
+                  theme === id
+                    ? 'border-accent bg-accent text-accent-contrast'
+                    : 'border-hairline bg-card text-muted hover:text-ink'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
         <Button href={site.contact.resume} variant="ghost" download={site.contact.resumeFilename} className="self-start">
           Résumé
         </Button>
@@ -204,11 +223,66 @@ function MobilePanel({ closeAndFocus, close, currentPage }) {
 
 const PANEL_LINK = 'block px-4 py-1.5 text-label text-muted hover:bg-card hover:text-ink'
 
+function useScrollProgress() {
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0)
+    }
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [])
+
+  return progress
+}
+
+function Brand({ href, inverse = false }) {
+  return (
+    <a
+      href={href}
+      className={`nav-brand group flex flex-col leading-tight transition-opacity hover:opacity-65 ${
+        inverse ? 'text-white' : 'text-ink'
+      }`}
+    >
+      <span className="text-[14px] font-semibold tracking-display">{site.hero.name}</span>
+      <span
+        className={`font-mono text-[8.5px] uppercase tracking-[0.12em] ${
+          inverse ? 'text-white/55' : 'text-muted'
+        }`}
+      >
+        {site.hero.title}
+      </span>
+    </a>
+  )
+}
+
+function Progress({ value }) {
+  return (
+    <div aria-hidden="true" className="nav-progress absolute bottom-0 left-1/2 h-[2px] w-screen -translate-x-1/2 bg-hairline/70">
+      <span className="block h-full origin-left bg-accent" style={{ transform: `scaleX(${value})` }} />
+    </div>
+  )
+}
+
 export function Nav({ currentPage = 'home' }) {
   const [open, setOpen] = useState(false) // mobile panel
   const [openId, setOpenId] = useState(null) // which desktop dropdown
   const { grammar } = useTheme()
   const brandHref = currentPage === 'home' ? '#top' : import.meta.env.BASE_URL
+  const scrollProgress = useScrollProgress()
 
   const closeAndFocus = (id) => {
     setOpen(false)
@@ -226,7 +300,7 @@ export function Nav({ currentPage = 'home' }) {
       aria-label={open ? 'Close menu' : 'Open menu'}
       aria-expanded={open}
       onClick={() => setOpen((v) => !v)}
-      className={`md:hidden ${cls}`}
+      className={`grid h-11 w-11 place-items-center rounded-full border border-hairline lg:hidden ${cls}`}
     >
       {open ? <X size={18} /> : <Menu size={18} />}
     </button>
@@ -236,13 +310,11 @@ export function Nav({ currentPage = 'home' }) {
   // blue pill Résumé CTA riding at the far right.
   if (grammar.nav === 'global-bar') {
     return (
-      <header data-testid="global-nav" className="sticky top-0 z-40">
+      <header data-testid="global-nav" className="site-header sticky top-0 z-40">
         <div className="bg-black text-white">
-          <Container className="flex h-12 items-center justify-between">
-            <a href={brandHref} className="text-[13px] font-semibold tracking-display">
-              JC Delizo
-            </a>
-            <nav aria-label="Main" className="hidden items-center gap-6 md:flex">
+          <Container className="relative flex h-14 items-center justify-between">
+            <Brand href={brandHref} inverse />
+            <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
               <NavEntries
                 openId={openId}
                 setOpenId={setOpenId}
@@ -264,6 +336,7 @@ export function Nav({ currentPage = 'home' }) {
               </Button>
             </nav>
             {menuButton('text-white')}
+            <Progress value={scrollProgress} />
           </Container>
         </div>
         {open ? (
@@ -278,13 +351,11 @@ export function Nav({ currentPage = 'home' }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-hairline bg-canvas/85 backdrop-blur">
-      <Container className="flex h-16 items-center justify-between">
-        <a href={brandHref} className="text-body font-semibold tracking-display">
-          JC Delizo
-        </a>
+    <header className="site-header sticky top-0 z-40 border-b border-hairline bg-canvas/90 backdrop-blur-xl">
+      <Container className="relative flex h-[4.5rem] items-center justify-between">
+        <Brand href={brandHref} />
 
-        <nav aria-label="Main" className="hidden items-center gap-5 md:flex lg:gap-7">
+        <nav aria-label="Main" className="hidden items-center gap-5 lg:flex xl:gap-7">
           <NavEntries
             openId={openId}
             setOpenId={setOpenId}
@@ -303,6 +374,7 @@ export function Nav({ currentPage = 'home' }) {
         </nav>
 
         {menuButton()}
+        <Progress value={scrollProgress} />
       </Container>
 
       {open ? (

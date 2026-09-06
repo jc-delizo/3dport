@@ -134,6 +134,7 @@ export const THEMES = [
       // returns to white canvas between every two blocks. Navy is the one
       // inverse story block.
       tiles: {
+        hero: 'navy',
         initiatives: 'lime',
         'case-studies': 'lilac',
         portfolio: 'sky',
@@ -145,24 +146,45 @@ export const THEMES = [
         contact: 'mint',
       },
       chart: {
-        // The chart's card stays white inside the lilac block; the logo-orange
-        // accent is the single saturated color in the monochrome system
-        // (validated ≥3:1 on white).
-        accent: '#F24E1E',
-        surface: '#FFFFFF',
-        grid: '#E5E5E5',
-        textMuted: '#404040',
-        textStrong: '#0D0D0D',
+        accent: '#006959',
+        surface: '#FAFAFF',
+        grid: '#C2C3D9',
+        textMuted: '#4F5B5B',
+        textStrong: '#0F191B',
       },
       // The approach slider's living surface — one color per detent, blended
       // continuously between them as the slider moves.
-      approach: { pm: '#D8E9F8', mid: '#F8EAC2', eng: '#CDEFE3' },
+      approach: { pm: '#DCECEF', mid: '#F1E8CF', eng: '#DDEFCB' },
+    },
+  },
+  {
+    id: 'quiet',
+    label: 'Quiet',
+    grammar: {
+      nav: 'default',
+      rhythm: 'bordered',
+      button: 'rounded',
+      display: 'sans-tight',
+      // Bordered sections stay flat; only the full-screen readers receive a
+      // soft neutral backdrop so their white reading sheet has clear depth.
+      tiles: {
+        initiatives: 'soft',
+        'case-studies': 'soft',
+      },
+      chart: {
+        accent: '#355E52',
+        surface: '#FFFFFD',
+        grid: '#DADFDA',
+        textMuted: '#626762',
+        textStrong: '#1C1F1D',
+      },
+      approach: { pm: '#EDF2EF', mid: '#F3F0E8', eng: '#E8F0EC' },
     },
   },
 ]
 
-// Studio is the brand default — JC's pick after seeing all five. Every visitor
-// gets it regardless of OS color scheme; the theme menu carries the rest.
-export const DEFAULT_THEME = 'studio'
+// Quiet is the deliberate first impression: restrained, legible, and focused
+// on evidence. The other visual systems remain available in the theme menu.
+export const DEFAULT_THEME = 'quiet'
 
 export const themeById = (id) => THEMES.find((t) => t.id === id)

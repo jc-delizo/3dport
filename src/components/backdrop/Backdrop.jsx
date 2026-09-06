@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP)
 // itself in (stroke draw) while its section is in view, cross-fading to the
 // next set as the reader travels. Objects also drift at per-glyph depths for
 // gentle parallax. Same visibility contract as the SectionNavigator: the
-// layer only exists at min-[1450px], where the gutters are real.
+// layer only exists at min-[1680px], where the gutters are demonstrably clear.
 //
 // `anchor` is a SectionHeading/Section id from the app; the trigger is that
 // element's enclosing <section>, so set boundaries match what the reader sees.
@@ -23,16 +23,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP)
 // as scattered desk objects, not a repeated stamp. The hero has no set at all:
 // its glare sweep stays the only motion on first paint.
 export const BACKDROP_SETS = [
-  {
-    anchor: 'approach',
-    mobile: { glyph: 'setSquare', className: 'right-[3%] top-[16%] w-16 rotate-6', depth: 0.25 },
-    items: [
-      { glyph: 'setSquare', className: 'left-[0.3%] top-[26%] w-36 rotate-6', depth: 0.3 },
-      { glyph: 'ruler', className: 'left-[1.4%] top-[56%] w-24 -rotate-[24deg]', depth: 0.55 },
-      { glyph: 'pencil', className: 'left-[2.4%] top-[74%] w-14 rotate-[42deg]', depth: 0.7 },
-      { glyph: 'grid', className: 'left-[2.8%] top-[12%] w-12 rotate-3', depth: 0.5 },
-    ],
-  },
   {
     anchor: 'lifecycle',
     mobile: { glyph: 'cycle', className: 'right-[4%] top-[20%] w-14 -rotate-6', depth: 0.3 },
@@ -163,10 +153,12 @@ export function Backdrop() {
         {
           reduce: '(prefers-reduced-motion: reduce)',
           full: '(prefers-reduced-motion: no-preference)',
-          desktopPointer: '(min-width: 1450px) and (pointer: fine)',
+          gutter: '(min-width: 1680px)',
+          desktopPointer: '(min-width: 1680px) and (pointer: fine)',
         },
         (ctx) => {
-          const { reduce, desktopPointer } = ctx.conditions
+          const { reduce, gutter, desktopPointer } = ctx.conditions
+          if (!gutter) return undefined
           const activeSets = new Set()
 
           BACKDROP_SETS.forEach(({ anchor }) => {
@@ -273,19 +265,15 @@ export function Backdrop() {
       ref={layerRef}
       data-backdrop
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[1] text-ink"
+      className="pointer-events-none fixed inset-0 z-[1] hidden text-ink min-[1680px]:block"
     >
-      {BACKDROP_SETS.map(({ anchor, items, mobile }) => {
-        const M = GLYPHS[mobile.glyph]
-        return (
+      {BACKDROP_SETS.map(({ anchor, items }) => (
           <div
             key={anchor}
             data-backdrop-set={anchor}
             className="absolute inset-y-0 left-6 right-0 opacity-0"
           >
-            {/* display:contents keeps items positioned against the set while
-                letting one class hide the whole desktop group below 1450px */}
-            <div data-backdrop-desktop className="hidden min-[1450px]:contents">
+            <div data-backdrop-desktop className="contents">
               {items.map(({ glyph, className, depth, accent }, i) => {
                 const G = GLYPHS[glyph]
                 return (
@@ -304,19 +292,8 @@ export function Backdrop() {
                 )
               })}
             </div>
-            {/* Below 1450px there is no gutter: one faint watermark carries
-                the concept instead, on the right where no rail lives there */}
-            <div
-              data-backdrop-watermark
-              data-glyph={mobile.glyph}
-              data-depth={mobile.depth}
-              className={`absolute opacity-[0.06] min-[1450px]:hidden ${mobile.className}`}
-            >
-              <M />
-            </div>
           </div>
-        )
-      })}
+      ))}
     </div>
   )
 }

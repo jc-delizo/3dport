@@ -34,7 +34,13 @@ describe('LabApp', () => {
   it('opens directly with a compact project constellation and uncluttered carousels', () => {
     render(<LabApp />)
     expect(screen.getByRole('heading', { name: 'Make. Ship. Learn.' })).toBeInTheDocument()
-    expect(screen.getByRole('img', { name: /five project signals/i })).toBeInTheDocument()
+    const constellation = screen.getByRole('img', {
+      name: /six project signals.*AI Delivery Platform/i,
+    })
+    expect(constellation).toBeInTheDocument()
+    expect(constellation).toHaveTextContent('Ako may lesson plan na!')
+    expect(constellation).toHaveTextContent('AI Delivery Platform')
+    expect(constellation).toHaveTextContent('06 signals mapped')
     expect(screen.queryByText(/AI is part of the toolchain/i)).toBeNull()
     labProjects.forEach((project) => {
       const article = screen.getByRole('heading', { name: project.title }).closest('article')

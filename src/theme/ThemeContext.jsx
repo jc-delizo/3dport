@@ -1,15 +1,17 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { THEMES, DEFAULT_THEME, themeById } from './themes'
 
-const STORAGE_KEY = '3dport-theme'
+// Versioned once when Quiet became the default so returning visitors also see
+// the new first impression. Choices made after this change still persist.
+const STORAGE_KEY = '3dport-theme-v2'
 
 const ThemeContext = createContext(null)
 
 function initialTheme() {
   const stored = localStorage.getItem(STORAGE_KEY)
   if (stored && themeById(stored)) return stored
-  // No OS-scheme auto-switch: Studio is the brand's first impression for
-  // everyone; dark-preferring visitors can pick Midnight from the menu.
+  // No OS-scheme auto-switch: every viewer starts with the same authored
+  // first impression; dark-preferring visitors can still pick Midnight.
   return DEFAULT_THEME
 }
 

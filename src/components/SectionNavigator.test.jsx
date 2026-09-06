@@ -34,8 +34,11 @@ describe('SectionNavigator', () => {
     render(<Page />)
     const nav = screen.getByRole('navigation', { name: /section/i })
     expect(nav.className).toMatch(/hidden/)
-    expect(nav.className).toMatch(/min-\[1450px\]:block/)
+    expect(nav.className).toMatch(/min-\[1680px\]:block/)
     expect(nav.className).toMatch(/fixed/)
+    nav.querySelectorAll('.section-rail-label').forEach((label) => {
+      expect(label.className).not.toMatch(/max-w-0|opacity-0/)
+    })
   })
 
   it('marks the visible section as current when the observer reports it', () => {
@@ -45,12 +48,12 @@ describe('SectionNavigator', () => {
     act(() => io.callback([{ isIntersecting: true, target }]))
     const active = screen.getByRole('link', { name: /experience/i })
     expect(active).toHaveAttribute('aria-current', 'true')
-    // The active label slides out (the transform transitions), never snaps.
-    // Must be the bare class, not the hover:/focus-visible: variants.
+    // The active link shifts slightly left without hiding any map labels.
     expect(active.className).toMatch(/(^|\s)-translate-x-1(\s|$)/)
     // Exactly one current item — and no indicator dash (removed by request).
     expect(document.querySelectorAll('[aria-current="true"]').length).toBe(1)
     expect(document.querySelector('[data-rail-indicator]')).toBeNull()
+    expect(active.querySelector('.section-rail-label').className).toMatch(/border-accent/)
   })
 
   it('moves aria-current when another section takes over — no duplicates, no flicker', () => {

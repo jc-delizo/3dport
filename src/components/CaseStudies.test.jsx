@@ -39,8 +39,8 @@ describe('CaseStudies overlay', () => {
     expect(screen.getByText('Where it nearly derailed')).toBeInTheDocument()
     // Only the opened study's content renders.
     expect(screen.queryByText(site.caseStudies[1].timeline[0].title)).toBeNull()
-    // The backdrop floods with the section's themed surface (lilac in Studio,
-    // the default theme under test).
+    // The backdrop floods with the section's themed surface (soft neutral in
+    // Quiet, the default theme under test).
     expect(dialog.querySelector('[data-surface]')).not.toBeNull()
   })
 

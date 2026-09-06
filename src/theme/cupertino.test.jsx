@@ -6,7 +6,7 @@ import { Nav } from '../components/Nav'
 
 describe('Cupertino experience', () => {
   beforeEach(() => {
-    localStorage.setItem('3dport-theme', 'cupertino')
+    localStorage.setItem('3dport-theme-v2', 'cupertino')
     delete document.documentElement.dataset.theme
   })
 
@@ -14,8 +14,8 @@ describe('Cupertino experience', () => {
     render(<Nav />)
     const bar = screen.getByTestId('global-nav')
     expect(bar).toBeInTheDocument()
-    // One strip only — no frosted sub-bar with a duplicate role line.
-    expect(screen.queryByText('Digital Transformation Project Manager')).toBeNull()
+    // The identity lockup now lives in the nav rather than duplicating the hero.
+    expect(screen.getByText('Technical Project Manager')).toBeInTheDocument()
     const resume = screen.getByRole('link', { name: /résumé/i })
     expect(resume).toHaveAttribute('download', 'JC Delizo - Resume.pdf')
     expect(bar.contains(resume)).toBe(true)
@@ -46,8 +46,8 @@ describe('Cupertino experience', () => {
 
 describe('Daylight keeps the bordered rhythm', () => {
   beforeEach(() => {
-    // Explicit: Studio is the site default now, so Daylight must be chosen.
-    localStorage.setItem('3dport-theme', 'daylight')
+    // Explicit: Quiet is the site default now, so Daylight must be chosen.
+    localStorage.setItem('3dport-theme-v2', 'daylight')
     delete document.documentElement.dataset.theme
   })
 

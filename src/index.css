@@ -71,18 +71,41 @@
 }
 
 [data-theme='studio'] {
-  --color-canvas: 255 255 255;
-  --color-ink: 13 13 13;
-  --color-muted: 64 64 64;
-  --color-hairline: 229 229 229;
-  --color-card: 245 245 245;
-  /* Monochrome chrome: black is the interactive color. */
-  --color-accent: 13 13 13;
+  --color-canvas: 248 247 242;
+  --color-ink: 15 25 27;
+  --color-muted: 79 91 91;
+  --color-hairline: 210 214 207;
+  --color-card: 255 254 250;
+  /* A calm deep teal carries action; highlighter green is reserved for
+     inverse surfaces and status signals. */
+  --color-accent: 0 105 89;
   --color-accent-contrast: 255 255 255;
   --radius-button: 9999px;
-  --radius-card: 1.5rem;
-  --tracking-display: -0.02em;
+  --radius-card: 1.125rem;
+  --tracking-display: -0.035em;
   color-scheme: light;
+}
+
+/* Quiet: warm-neutral, flat, and deliberately low-chrome. The restrained
+   evergreen accent gives the information hierarchy one consistent signal. */
+[data-theme='quiet'] {
+  --color-canvas: 247 247 244;
+  --color-ink: 28 31 29;
+  --color-muted: 98 103 98;
+  --color-hairline: 218 223 218;
+  --color-card: 255 255 253;
+  --color-accent: 53 94 82;
+  --color-accent-contrast: 255 255 255;
+  --radius-button: 0.45rem;
+  --radius-card: 0.625rem;
+  --tracking-display: -0.03em;
+  color-scheme: light;
+}
+
+[data-theme='quiet'] [data-surface='soft'] {
+  --color-canvas: 238 241 238;
+  --color-card: 255 255 253;
+  --color-hairline: 205 212 207;
 }
 
 /* Surface scopes: a surface locally re-declares the tokens, so everything
@@ -128,43 +151,45 @@
 /* Studio block scopes: giant pastel sticky-notes on a clean white wall. Cards
    inside a block go white; the navy block is the single inverse moment. */
 [data-theme='studio'] [data-surface='lime'] {
-  --color-canvas: 214 242 106;
-  --color-card: 255 255 255;
-  --color-hairline: 173 202 74;
+  --color-canvas: 235 244 207;
+  --color-card: 255 254 250;
+  --color-hairline: 190 204 151;
 }
 [data-theme='studio'] [data-surface='lilac'] {
-  --color-canvas: 227 222 252;
-  --color-card: 255 255 255;
-  --color-hairline: 188 180 226;
+  --color-canvas: 232 232 244;
+  --color-card: 250 250 255;
+  --color-hairline: 194 195 217;
 }
 [data-theme='studio'] [data-surface='sky'] {
-  --color-canvas: 216 233 248;
-  --color-card: 255 255 255;
-  --color-hairline: 168 197 224;
+  --color-canvas: 222 238 239;
+  --color-card: 251 255 254;
+  --color-hairline: 176 206 205;
 }
 [data-theme='studio'] [data-surface='cream'] {
-  --color-canvas: 245 238 220;
-  --color-card: 255 255 255;
-  --color-hairline: 212 200 170;
+  --color-canvas: 244 237 219;
+  --color-card: 255 253 247;
+  --color-hairline: 211 199 169;
 }
 [data-theme='studio'] [data-surface='peach'] {
-  --color-canvas: 249 229 214;
-  --color-card: 255 255 255;
-  --color-hairline: 224 193 168;
+  --color-canvas: 247 228 216;
+  --color-card: 255 252 248;
+  --color-hairline: 222 190 169;
 }
 [data-theme='studio'] [data-surface='mint'] {
-  --color-canvas: 207 244 228;
-  --color-card: 255 255 255;
-  --color-hairline: 157 208 186;
+  --color-canvas: 216 244 139;
+  --color-card: 239 255 194;
+  --color-hairline: 169 197 101;
+  --color-accent: 15 25 27;
+  --color-accent-contrast: 255 255 255;
 }
 [data-theme='studio'] [data-surface='navy'] {
-  --color-canvas: 30 30 70;
-  --color-ink: 255 255 255;
-  --color-muted: 199 199 221;
-  --color-hairline: 70 70 110;
-  --color-card: 45 45 90;
-  --color-accent: 255 255 255;
-  --color-accent-contrast: 30 30 70;
+  --color-canvas: 15 32 35;
+  --color-ink: 249 250 244;
+  --color-muted: 181 199 196;
+  --color-hairline: 54 77 78;
+  --color-card: 23 46 49;
+  --color-accent: 216 255 103;
+  --color-accent-contrast: 15 32 35;
   color-scheme: dark;
 }
 
@@ -245,6 +270,329 @@
     background: none;
     color: inherit;
   }
+}
+
+/* --------------------------------------------------------------------------
+   2026 recruiter-flow refinement
+
+   Studio now reads as an executive delivery workspace: warm drafting canvas,
+   deep operating panels, restrained highlighter signals, and denser evidence.
+   These rules also improve the shared information hierarchy across themes.
+   -------------------------------------------------------------------------- */
+
+[data-theme='studio'] body {
+  background-color: rgb(var(--color-canvas));
+  background-image:
+    linear-gradient(rgb(var(--color-ink) / 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--color-ink) / 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+[data-theme='studio'] .studio-block {
+  box-shadow: 0 20px 60px -48px rgb(15 25 27 / 0.45);
+}
+
+.site-header {
+  box-shadow: 0 10px 30px -28px rgb(var(--color-ink) / 0.5);
+}
+
+.nav-progress > span {
+  transition: transform 120ms linear;
+}
+
+.hero-statement {
+  font-size: clamp(2.35rem, 4.6vw, 4.35rem);
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.portfolio-card {
+  box-shadow: 0 1px 0 rgb(var(--color-ink) / 0.025);
+}
+
+.card-lift {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  border-color: rgb(var(--color-accent) / 0.42);
+  box-shadow: 0 18px 36px -30px rgb(var(--color-ink) / 0.45);
+}
+
+.initiative-grid,
+.case-study-list,
+.cert-featured-list {
+  scrollbar-width: none;
+}
+
+.initiative-grid::-webkit-scrollbar,
+.case-study-list::-webkit-scrollbar,
+.cert-featured-list::-webkit-scrollbar {
+  display: none;
+}
+
+.case-study-item > .portfolio-card {
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .approach-section.section-gap {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .initiative-grid,
+  .case-study-list {
+    display: flex;
+    scroll-padding-inline: 1.25rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .initiative-item {
+    width: 88%;
+    flex: 0 0 88%;
+    scroll-snap-align: start;
+  }
+
+  .case-study-item {
+    width: 92%;
+    flex: 0 0 92%;
+    scroll-snap-align: start;
+  }
+
+  .approach-section.section-gap {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .approach-chain {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .approach-chain-step {
+    display: block;
+    min-width: 0;
+  }
+
+  .approach-chain-join {
+    display: none;
+  }
+
+  .approach-chain-chip {
+    display: grid;
+    width: 100%;
+    min-height: 2.5rem;
+    place-items: center;
+    padding: 0.55rem 0.4rem;
+    font-size: 0.58rem;
+    line-height: 0.9rem;
+    text-align: center;
+    letter-spacing: 0.08em;
+    white-space: normal;
+  }
+
+  .approach-points {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .principle-card {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .principle-card p {
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+}
+
+[data-theme='studio'] .lab-nav-link {
+  border-color: rgb(var(--color-hairline));
+  background: rgb(var(--color-card));
+  box-shadow: none;
+}
+
+[data-theme='studio'] .lab-nav-link::before {
+  display: none;
+}
+
+[data-theme='studio'] .lab-nav-ember {
+  color: rgb(var(--color-accent));
+  filter: none;
+  animation: none;
+}
+
+.initiative-problem,
+.initiative-outcome {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.initiative-problem {
+  -webkit-line-clamp: 3;
+}
+
+.initiative-outcome {
+  -webkit-line-clamp: 3;
+}
+
+.initiative-result {
+  min-height: 6.2rem;
+}
+
+.case-study-card {
+  position: relative;
+}
+
+.case-study-card::after {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  content: '';
+  background: linear-gradient(90deg, rgb(var(--color-accent)), transparent 68%);
+}
+
+.case-stat {
+  min-height: 7.4rem;
+}
+
+.recommendation-card {
+  min-height: 22rem;
+}
+
+.capability-card {
+  padding: 1rem;
+}
+
+.capability-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.capability-more > summary::after {
+  margin-left: 0.5rem;
+  content: '↓';
+  color: rgb(var(--color-accent));
+  transition: transform 180ms ease;
+}
+
+.capability-more[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.lifecycle-mobile-track {
+  overflow-x: auto;
+  scroll-padding-inline: 0.5rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.lifecycle-mobile-track::-webkit-scrollbar,
+.lab-teaser-list::-webkit-scrollbar {
+  display: none;
+}
+
+.lab-teaser-list {
+  scrollbar-width: none;
+}
+
+.about-portrait {
+  background-image: radial-gradient(circle at 50% 35%, rgb(var(--color-accent) / 0.1), transparent 56%);
+}
+
+@media (min-width: 768px) {
+  .section-gap {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .hero-section .studio-block {
+    padding-top: 3.75rem;
+    padding-bottom: 3.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .container-page,
+  .container-wide {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .hero-statement {
+    font-size: clamp(2.2rem, 10vw, 2.65rem);
+    line-height: 0.98;
+  }
+
+  .hero-pipeline ol {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .hero-pipeline li span[aria-hidden='true'] {
+    transform: rotate(90deg);
+  }
+
+  .section-heading {
+    padding-top: 0.15rem;
+  }
+
+  .case-stat {
+    min-height: 6.8rem;
+  }
+
+  .recommendation-card {
+    min-height: 25rem;
+  }
+
+  .initiative-result {
+    min-height: 0;
+  }
+
+  .mobile-nav-panel {
+    box-shadow: 0 24px 60px -36px rgb(var(--color-ink) / 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-progress > span {
+    transition: none;
+  }
+}
+
+/* Quiet stays intentionally flat: hierarchy comes from spacing and rules, not
+   shadows or animated elevation. */
+[data-theme='quiet'] .site-header,
+[data-theme='quiet'] .portfolio-card {
+  box-shadow: none;
+}
+
+[data-theme='quiet'] .card-lift:hover {
+  transform: none;
+  border-color: rgb(var(--color-accent) / 0.5);
+  box-shadow: 0 0 0 1px rgb(var(--color-accent) / 0.08);
+}
+
+[data-theme='quiet'] .lab-nav-link {
+  border-color: rgb(var(--color-hairline));
+  background: transparent;
+  box-shadow: none;
+}
+
+[data-theme='quiet'] .lab-nav-link::before,
+[data-theme='quiet'] .lab-nav-ember {
+  animation: none;
 }
 
 /* Tool chips: hovering instantly adopts the tool's brand color (per-chip
@@ -568,6 +916,9 @@
 .lab-constellation-links path:nth-child(5) {
   animation-delay: -610ms;
 }
+.lab-constellation-links path:nth-child(6) {
+  animation-delay: -900ms;
+}
 .lab-constellation-core rect {
   fill: rgb(var(--color-ink));
   stroke: rgb(var(--color-accent) / 0.6);
@@ -610,6 +961,13 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.025em;
+}
+.lab-constellation-project-professional rect {
+  stroke: rgb(var(--color-accent));
+  stroke-dasharray: 4 3;
+}
+.lab-constellation-project-professional text {
+  fill: rgb(var(--color-accent));
 }
 .lab-constellation-live {
   box-shadow: 0 0 0 0 rgb(var(--color-accent) / 0.35);
@@ -768,4 +1126,20 @@
   .delivery-flow .react-flow__edge.animated path {
     animation: none;
   }
+}
+
+/* Keep these interaction refinements last: the original craft rules above are
+   intentionally shared by every theme, while this is the calmer final motion
+   pass used by the recruiter flow. */
+.card-lift {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  border-color: rgb(var(--color-accent) / 0.42);
+  box-shadow: 0 18px 36px -30px rgb(var(--color-ink) / 0.45);
 }
