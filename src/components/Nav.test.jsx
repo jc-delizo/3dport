@@ -7,6 +7,7 @@ import { site } from '../content/site'
 
 const groups = site.nav.filter((n) => n.items)
 const directLinks = site.nav.filter((n) => n.id)
+const pageLinks = site.nav.filter((n) => n.href)
 
 describe('Nav structure', () => {
   it('renders group dropdown triggers closed, and direct links as anchors', () => {
@@ -18,6 +19,9 @@ describe('Nav structure', () => {
     })
     directLinks.forEach(({ id, label }) => {
       expect(screen.getByRole('link', { name: label })).toHaveAttribute('href', `#${id}`)
+    })
+    pageLinks.forEach(({ href, label }) => {
+      expect(screen.getByRole('link', { name: label })).toHaveAttribute('href', href)
     })
     // Group section links are hidden until the dropdown opens.
     expect(screen.queryByRole('link', { name: 'Initiatives' })).toBeNull()
@@ -86,6 +90,25 @@ describe('Nav utilities', () => {
   it('uses a navigation landmark', () => {
     render(<Nav />)
     expect(screen.getAllByRole('navigation').length).toBeGreaterThan(0)
+  })
+
+  it('routes section links back to the portfolio when rendered on the Lab page', async () => {
+    const user = userEvent.setup()
+    render(<Nav currentPage="lab" />)
+    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute(
+      'href',
+      `${import.meta.env.BASE_URL}#contact`,
+    )
+    for (const group of groups) {
+      await user.click(screen.getByRole('button', { name: group.label }))
+      group.items.forEach(({ id, label }) => {
+        expect(screen.getByRole('link', { name: label })).toHaveAttribute(
+          'href',
+          `${import.meta.env.BASE_URL}#${id}`,
+        )
+      })
+    }
+    expect(screen.getByRole('link', { name: 'Lab' })).toHaveAttribute('aria-current', 'page')
   })
 })
 

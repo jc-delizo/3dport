@@ -18,6 +18,7 @@
     "@fontsource/geist-mono": "^5.3.0",
     "@fontsource/geist-sans": "^5.2.5",
     "@gsap/react": "^2.1.2",
+    "@xyflow/react": "^12.11.6",
     "gsap": "^3.15.0",
     "lucide-react": "^1.25.0",
     "react": "^18.2.0",

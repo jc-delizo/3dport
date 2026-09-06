@@ -1,9 +1,13 @@
-import { describe, it, expect } from 'vitest'
-import { screen } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { screen, waitFor } from '@testing-library/react'
 import { renderWithTheme as render } from './test/render'
 import App from './App'
 
 describe('App', () => {
+  afterEach(() => {
+    window.history.replaceState({}, '', '/')
+  })
+
   it('renders exactly one h1', () => {
     render(<App />)
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
@@ -31,5 +35,19 @@ describe('App', () => {
     // Hero's "View Initiatives" and Contact's mailto are both primary by design;
     // the spec allows one per screen, not one per page. Assert they are the only two.
     expect(container.querySelectorAll('a.bg-accent')).toHaveLength(2)
+  })
+
+  it('resolves a cross-page hash after React mounts the target section', async () => {
+    const scrollIntoView = vi.fn()
+    const original = HTMLElement.prototype.scrollIntoView
+    HTMLElement.prototype.scrollIntoView = scrollIntoView
+    window.history.replaceState({}, '', `${import.meta.env.BASE_URL}#contact`)
+
+    render(<App />)
+
+    await waitFor(() =>
+      expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'instant', block: 'start' }),
+    )
+    HTMLElement.prototype.scrollIntoView = original
   })
 })

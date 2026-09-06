@@ -3,6 +3,7 @@
 const RESUME_PDF = `${import.meta.env.BASE_URL}resume.pdf`
 // The filename the browser saves the download as, independent of the URL.
 const RESUME_FILENAME = 'JC Delizo - Resume.pdf'
+const LAB_URL = `${import.meta.env.BASE_URL}lab/`
 
 export const site = {
   meta: {
@@ -38,6 +39,7 @@ export const site = {
       ],
     },
     { id: 'contact', label: 'Contact' },
+    { href: LAB_URL, page: 'lab', label: 'Lab' },
   ],
 
   hero: {
@@ -1109,12 +1111,20 @@ export const site = {
   // public. Availability stays implied; the section is an open door.
   availability: {
     heading: "Let's talk",
-    body: 'The fastest way to reach me is email. Whether you want to compare notes on delivery systems, dig into how one of the case studies was run, or explore working together — my inbox is open.',
+    body: 'Email or message me directly. Whether you want to compare notes on delivery systems, dig into a case study, or explore working together — the door is open.',
   },
 
   contact: {
     email: 'mrjcdelizo@gmail.com',
     linkedin: 'https://www.linkedin.com/in/jcdelizo/',
+    whatsapp: {
+      display: '+63 964 866 0263',
+      href: 'https://wa.me/639648660263',
+    },
+    viber: {
+      display: '+63 930 613 4419',
+      href: 'viber://chat?number=%2B639306134419',
+    },
     resume: RESUME_PDF,
     resumeFilename: RESUME_FILENAME,
   },

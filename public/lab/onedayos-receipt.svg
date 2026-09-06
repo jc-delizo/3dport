@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">OneDayOS new inventory receipt</title>
+  <desc id="desc">Illustrative OneDayOS receipt workflow using synthetic product and warehouse data.</desc>
+  <rect width="1440" height="900" fill="#f5f4f1"/>
+  <rect width="238" height="900" fill="#fff"/><path d="M238 0v900" stroke="#dedbd4"/>
+  <rect x="30" y="30" width="38" height="38" rx="9" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="49" y="55" text-anchor="middle" fill="#ea580c" font-family="Arial,sans-serif" font-size="16" font-weight="700">1D</text>
+  <text x="82" y="56" fill="#161616" font-family="Arial,sans-serif" font-size="20" font-weight="700">OneDayOS</text>
+  <text x="30" y="116" fill="#8a847b" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.8">INVENTORY</text>
+  <g fill="#5f5a53" font-family="Arial,sans-serif" font-size="15">
+    <text x="62" y="165">Overview</text><text x="62" y="213">Product settings</text>
+    <rect x="18" y="232" width="202" height="46" rx="10" fill="#fff1e8"/>
+    <text x="62" y="261" fill="#c2410c" font-weight="700">Receipts</text>
+    <text x="62" y="309">Issues</text><text x="62" y="357">Transfers</text>
+    <text x="62" y="405">Adjustments</text><text x="62" y="453">Movement ledger</text><text x="62" y="501">Process flow</text>
+  </g>
+  <g fill="none" stroke="#9b958c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="42" cy="159" r="7"/><path d="M39 159h6M42 156v6"/><rect x="36" y="201" width="12" height="12" rx="2"/>
+    <path d="M36 248h13M36 254h13M36 260h9" stroke="#f97316"/><path d="M36 296h13M36 302h13M36 308h9"/>
+    <path d="M35 349h14M45 345l4 4-4 4M49 365H35M39 361l-4 4 4 4"/><path d="M36 392h13v13H36zM39 396h7"/>
+    <path d="M36 440h13M36 446h13M36 452h13"/><circle cx="42" cy="493" r="8"/><path d="M42 485v16M34 493h16"/>
+  </g>
+  <rect x="238" width="1202" height="82" fill="#fff"/><path d="M238 82h1202" stroke="#dedbd4"/>
+  <text x="278" y="51" fill="#161616" font-family="Arial,sans-serif" font-size="18" font-weight="700">Inventory / Receipts</text>
+  <rect x="1128" y="24" width="176" height="34" rx="17" fill="#f5f4f1" stroke="#dedbd4"/><circle cx="1150" cy="41" r="6" fill="#22c55e"/>
+  <text x="1164" y="46" fill="#5f5a53" font-family="Arial,sans-serif" font-size="13">Demo organization</text>
+  <circle cx="1367" cy="41" r="18" fill="#171717"/><text x="1367" y="46" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">JC</text>
+
+  <g font-family="Arial,sans-serif">
+    <text x="278" y="132" fill="#8a847b" font-size="12" font-weight="700" letter-spacing="1.8">RECEIPTS / NEW</text>
+    <text x="278" y="178" fill="#161616" font-size="38" font-weight="700">Receive stock</text>
+    <text x="278" y="210" fill="#6f6961" font-size="16">Post incoming quantities into a destination Warehouse.</text>
+    <rect x="1142" y="149" width="258" height="40" rx="20" fill="#fff7ed" stroke="#fdba74"/>
+    <text x="1271" y="174" text-anchor="middle" fill="#c2410c" font-size="12" font-weight="700" letter-spacing="1.1">ILLUSTRATIVE · SYNTHETIC DATA</text>
+
+    <rect x="278" y="246" width="1122" height="592" rx="16" fill="#fff" stroke="#dedbd4"/>
+    <text x="308" y="288" fill="#161616" font-size="19" font-weight="700">Receipt details</text>
+    <rect x="1250" y="267" width="112" height="28" rx="14" fill="#fef3c7"/><text x="1306" y="286" text-anchor="middle" fill="#a16207" font-size="11" font-weight="700">DRAFT</text>
+
+    <g fill="#6f6961" font-size="12" font-weight="700">
+      <text x="308" y="332">REFERENCE</text><text x="642" y="332">RECEIPT DATE</text><text x="976" y="332">DESTINATION WAREHOUSE</text>
+    </g>
+    <g fill="#161616" font-size="14">
+      <rect x="308" y="346" width="294" height="48" rx="8" fill="#faf9f7" stroke="#dedbd4"/><text x="326" y="376">Generated when posted</text>
+      <rect x="642" y="346" width="294" height="48" rx="8" fill="#fff" stroke="#dedbd4"/><text x="660" y="376">06 Sep 2026</text>
+      <rect x="976" y="346" width="386" height="48" rx="8" fill="#fff" stroke="#f97316"/><text x="994" y="376">Main Warehouse</text><path d="m1334 366 7 7 7-7" fill="none" stroke="#8a847b" stroke-width="2"/>
+    </g>
+
+    <text x="308" y="444" fill="#161616" font-size="17" font-weight="700">Product lines</text>
+    <g fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1.2">
+      <text x="326" y="486">PRODUCT</text><text x="760" y="486">QUANTITY</text><text x="925" y="486">UNIT</text><text x="1080" y="486">LINE NOTE</text>
+    </g>
+    <path d="M308 502h1054M308 570h1054M308 638h1054" stroke="#ebe8e2"/>
+    <g fill="#161616" font-size="14">
+      <rect x="326" y="521" width="34" height="34" rx="8" fill="#e0f2fe"/><text x="343" y="543" text-anchor="middle" fill="#0369a1" font-size="11" font-weight="700">WT</text>
+      <text x="374" y="536" font-weight="700">Bottled Water 500 ml</text><text x="374" y="555" fill="#8a847b" font-size="12">SKU WATER-500</text>
+      <text x="760" y="544" font-weight="700">48</text><text x="925" y="544">pieces</text><text x="1080" y="544" fill="#6f6961">Opening delivery</text>
+      <rect x="326" y="589" width="34" height="34" rx="8" fill="#dcfce7"/><text x="343" y="611" text-anchor="middle" fill="#15803d" font-size="11" font-weight="700">TE</text>
+      <text x="374" y="604" font-weight="700">Green Tea</text><text x="374" y="623" fill="#8a847b" font-size="12">SKU TEA-GRN</text>
+      <text x="760" y="612" font-weight="700">24</text><text x="925" y="612">boxes</text><text x="1080" y="612" fill="#6f6961">Supplier delivery</text>
+    </g>
+    <rect x="308" y="670" width="178" height="38" rx="9" fill="#fff" stroke="#dedbd4"/><text x="397" y="694" text-anchor="middle" fill="#5f5a53" font-size="13" font-weight="700">+ Add product line</text>
+
+    <rect x="308" y="750" width="850" height="58" rx="10" fill="#f5f4f1"/>
+    <circle cx="336" cy="779" r="10" fill="#fff7ed" stroke="#fdba74"/><text x="336" y="783" text-anchor="middle" fill="#ea580c" font-size="12" font-weight="700">i</text>
+    <text x="358" y="775" fill="#161616" font-size="13" font-weight="700">Posting is atomic.</text>
+    <text x="358" y="793" fill="#6f6961" font-size="12">The receipt, lines, movements, and resulting balances are written together.</text>
+    <rect x="1176" y="753" width="90" height="44" rx="9" fill="#fff" stroke="#dedbd4"/><text x="1221" y="780" text-anchor="middle" fill="#5f5a53" font-size="13" font-weight="700">Save draft</text>
+    <rect x="1278" y="753" width="84" height="44" rx="9" fill="#f97316"/><text x="1320" y="780" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Post</text>
+  </g>
+</svg>

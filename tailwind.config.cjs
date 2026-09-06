@@ -3,7 +3,7 @@
 // where each [data-theme] block overrides them — that's the whole theme system
 // from Tailwind's point of view.
 module.exports = {
-  content: ['./index.html', './src/**/*.{js,jsx}'],
+  content: ['./index.html', './lab/index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {

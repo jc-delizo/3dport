@@ -15,6 +15,7 @@ describe('Footer', () => {
     expect(line).toHaveTextContent(/React \d+/)
     expect(line).toHaveTextContent(/Vite/)
     expect(line).toHaveTextContent(/Tailwind CSS/)
+    expect(line).toHaveTextContent(/GSAP/)
     expect(line).toHaveTextContent(/draw\.io/)
     expect(line).toHaveTextContent(/\d+ tests/)
     expect(line).toHaveTextContent(/[0-9a-f]{7}/)

@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { site } from './site'
 import { strips } from './strips'
 import { lifecycle, artifactPreviews } from './lifecycle'
+import { labPage, labProjects, professionalWork } from './lab'
 import { findForbidden, FORBIDDEN_COUNT } from './forbidden'
 
 // Every string in the content tree, flattened.
@@ -16,6 +17,7 @@ function allStrings(value, acc = []) {
 // factual guards cover them.
 const corpus = allStrings(site)
   .concat(allStrings(strips), allStrings(lifecycle), allStrings(artifactPreviews))
+  .concat(allStrings(labPage), allStrings(labProjects), allStrings(professionalWork))
   .join('\n')
 
 describe('confidentiality', () => {
@@ -330,9 +332,9 @@ describe('portfolio data', () => {
     ])
   })
 
-  it('groups the nav: Portfolio ▾ · Experience ▾ · Contact, mirroring page order', () => {
-    expect(site.nav.map((n) => n.label)).toEqual(['Portfolio', 'Experience', 'Contact'])
-    const [portfolio, experience, contact] = site.nav
+  it('groups the nav and places Lab directly between Contact and the theme control', () => {
+    expect(site.nav.map((n) => n.label)).toEqual(['Portfolio', 'Experience', 'Contact', 'Lab'])
+    const [portfolio, experience, contact, lab] = site.nav
     expect(portfolio.items.map((i) => i.id)).toEqual([
       'approach',
       'lifecycle',
@@ -348,6 +350,7 @@ describe('portfolio data', () => {
       'tools',
       'certifications',
     ])
+    expect(lab.href).toMatch(/lab\/$/)
     expect(contact.id).toBe('contact')
   })
 })

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">OneDayOS controlled inventory reversal</title>
+  <desc id="desc">Illustrative OneDayOS posted transfer detail and controlled reversal using synthetic data.</desc>
+  <rect width="1440" height="900" fill="#f5f4f1"/>
+
+  <rect width="238" height="900" fill="#ffffff"/>
+  <path d="M238 0v900" stroke="#dedbd4"/>
+  <rect x="30" y="30" width="38" height="38" rx="9" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="49" y="55" text-anchor="middle" fill="#ea580c" font-family="Arial, sans-serif" font-size="16" font-weight="700">1D</text>
+  <text x="82" y="56" fill="#161616" font-family="Arial, sans-serif" font-size="20" font-weight="700">OneDayOS</text>
+
+  <text x="30" y="116" fill="#8a847b" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.8">INVENTORY</text>
+  <g fill="#5f5a53" font-family="Arial, sans-serif" font-size="15">
+    <text x="62" y="165">Overview</text>
+    <text x="62" y="213">Product settings</text>
+    <text x="62" y="261">Receipts</text>
+    <text x="62" y="309">Issues</text>
+    <text x="62" y="357">Transfers</text>
+    <text x="62" y="405">Adjustments</text>
+  </g>
+  <rect x="18" y="422" width="202" height="46" rx="10" fill="#fff1e8"/>
+  <path d="M36 437h13M36 443h13M36 449h13" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round"/>
+  <text x="62" y="451" fill="#c2410c" font-family="Arial, sans-serif" font-size="15" font-weight="700">Movement ledger</text>
+  <text x="62" y="501" fill="#5f5a53" font-family="Arial, sans-serif" font-size="15">Process flow</text>
+  <g fill="none" stroke="#9b958c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="42" cy="159" r="7"/><path d="M39 159h6M42 156v6"/>
+    <rect x="36" y="201" width="12" height="12" rx="2"/>
+    <path d="M36 250h13M36 255h13M36 260h9M36 298h13M36 303h13M36 308h9"/>
+    <path d="M35 347h14M45 343l4 4-4 4M49 363H35M39 359l-4 4 4 4"/>
+    <path d="M36 394h13v13H36zM39 398h7"/>
+    <circle cx="42" cy="491" r="8"/><path d="M42 483v16M34 491h16"/>
+  </g>
+
+  <rect x="238" width="1202" height="82" fill="#ffffff"/>
+  <path d="M238 82h1202" stroke="#dedbd4"/>
+  <text x="278" y="51" fill="#161616" font-family="Arial, sans-serif" font-size="18" font-weight="700">Inventory</text>
+  <rect x="1128" y="24" width="176" height="34" rx="17" fill="#f5f4f1" stroke="#dedbd4"/>
+  <circle cx="1150" cy="41" r="6" fill="#22c55e"/>
+  <text x="1164" y="46" fill="#5f5a53" font-family="Arial, sans-serif" font-size="13">Demo organization</text>
+  <circle cx="1367" cy="41" r="18" fill="#171717"/>
+  <text x="1367" y="46" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="700">JC</text>
+
+  <text x="278" y="137" fill="#8a847b" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.8">TRANSACTION DETAIL</text>
+  <text x="278" y="180" fill="#161616" font-family="Arial, sans-serif" font-size="38" font-weight="700">Transfer TRF-0003</text>
+  <text x="278" y="212" fill="#6f6961" font-family="Arial, sans-serif" font-size="16">Posted activity remains traceable; corrections create an explicit reversing entry.</text>
+  <rect x="1004" y="151" width="96" height="34" rx="17" fill="#ecfdf3"/>
+  <circle cx="1025" cy="168" r="5" fill="#22c55e"/>
+  <text x="1062" y="173" text-anchor="middle" fill="#15803d" font-family="Arial, sans-serif" font-size="11" font-weight="700">POSTED</text>
+  <rect x="1130" y="149" width="270" height="40" rx="20" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="1265" y="174" text-anchor="middle" fill="#c2410c" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.2">ILLUSTRATIVE · SYNTHETIC DATA</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="278" y="248" width="738" height="590" rx="16" fill="#ffffff" stroke="#dedbd4"/>
+    <text x="306" y="288" fill="#161616" font-size="18" font-weight="700">Posted transfer</text>
+    <text x="306" y="332" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1.1">FROM</text>
+    <text x="306" y="357" fill="#161616" font-size="15" font-weight="700">Main Warehouse</text>
+    <path d="M489 348h88M567 340l10 8-10 8" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="606" y="332" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1.1">TO</text>
+    <text x="606" y="357" fill="#161616" font-size="15" font-weight="700">Field Warehouse</text>
+    <text x="842" y="332" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1.1">POSTED</text>
+    <text x="842" y="357" fill="#161616" font-size="14">06 Sep 2026 · 09:14</text>
+    <path d="M306 391h682" stroke="#ebe8e2"/>
+
+    <text x="306" y="431" fill="#161616" font-size="16" font-weight="700">Transaction lines</text>
+    <text x="306" y="463" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1">PRODUCT</text>
+    <text x="742" y="463" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1">QUANTITY</text>
+    <text x="875" y="463" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1">LEDGER PAIR</text>
+    <path d="M306 478h682M306 547h682M306 616h682" stroke="#ebe8e2"/>
+
+    <rect x="306" y="494" width="36" height="36" rx="8" fill="#fff1e8"/>
+    <path d="M316 505h16v14h-16zM319 505v-4h10v4" fill="none" stroke="#f97316" stroke-width="1.6"/>
+    <text x="356" y="510" fill="#161616" font-size="14" font-weight="700">Bottled Water · 500 ml</text>
+    <text x="356" y="529" fill="#6f6961" font-size="12">SKU WATER-500</text>
+    <text x="742" y="520" fill="#161616" font-size="14" font-weight="700">20 units</text>
+    <rect x="875" y="500" width="90" height="25" rx="12.5" fill="#f5f4f1"/>
+    <text x="920" y="517" text-anchor="middle" fill="#5f5a53" font-size="11" font-weight="700">−20 / +20</text>
+
+    <rect x="306" y="563" width="36" height="36" rx="8" fill="#fff7ed"/>
+    <circle cx="324" cy="581" r="9" fill="none" stroke="#f59e0b" stroke-width="1.6"/>
+    <path d="M319 580h10M321 584h6" stroke="#f59e0b" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="356" y="579" fill="#161616" font-size="14" font-weight="700">Black Tea · 20 bags</text>
+    <text x="356" y="598" fill="#6f6961" font-size="12">SKU TEA-020</text>
+    <text x="742" y="589" fill="#161616" font-size="14" font-weight="700">8 units</text>
+    <rect x="875" y="569" width="90" height="25" rx="12.5" fill="#f5f4f1"/>
+    <text x="920" y="586" text-anchor="middle" fill="#5f5a53" font-size="11" font-weight="700">−8 / +8</text>
+
+    <text x="306" y="661" fill="#161616" font-size="16" font-weight="700">Audit trail</text>
+    <path d="M326 695v79" stroke="#dedbd4" stroke-width="2"/>
+    <circle cx="326" cy="699" r="7" fill="#22c55e"/>
+    <circle cx="326" cy="773" r="7" fill="#f97316"/>
+    <text x="349" y="699" fill="#161616" font-size="13" font-weight="700">Transaction posted</text>
+    <text x="349" y="719" fill="#6f6961" font-size="12">Balances validated and four ledger movements appended.</text>
+    <text x="349" y="773" fill="#161616" font-size="13" font-weight="700">Reversal available</text>
+    <text x="349" y="793" fill="#6f6961" font-size="12">Original history stays intact if a correction is required.</text>
+  </g>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="1040" y="248" width="360" height="590" rx="16" fill="#ffffff" stroke="#dedbd4"/>
+    <rect x="1066" y="274" width="308" height="92" rx="12" fill="#fff7ed" stroke="#fdba74"/>
+    <circle cx="1093" cy="306" r="12" fill="#f97316"/>
+    <path d="M1093 299v8M1093 313h.01" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+    <text x="1115" y="305" fill="#9a3412" font-size="14" font-weight="700">Controlled reversal</text>
+    <text x="1084" y="334" fill="#9a5b37" font-size="12">Creates a linked counter-entry. It does not</text>
+    <text x="1084" y="351" fill="#9a5b37" font-size="12">edit or delete the original movement.</text>
+
+    <text x="1066" y="408" fill="#6f6961" font-size="12" font-weight="700">REASON</text>
+    <rect x="1066" y="423" width="308" height="98" rx="9" fill="#faf9f7" stroke="#dedbd4"/>
+    <text x="1083" y="451" fill="#161616" font-size="13">Incorrect destination selected</text>
+    <text x="1083" y="480" fill="#8a847b" font-size="12">Required for the audit record</text>
+
+    <text x="1066" y="563" fill="#6f6961" font-size="12" font-weight="700">WHAT WILL HAPPEN</text>
+    <g fill="#5f5a53" font-size="13">
+      <circle cx="1075" cy="595" r="3" fill="#f97316"/><text x="1088" y="600">Stock quantities are counter-posted</text>
+      <circle cx="1075" cy="631" r="3" fill="#f97316"/><text x="1088" y="636">A reversal reference is appended</text>
+      <circle cx="1075" cy="667" r="3" fill="#f97316"/><text x="1088" y="672">Both records remain inspectable</text>
+    </g>
+
+    <rect x="1066" y="721" width="308" height="52" rx="10" fill="#171717"/>
+    <text x="1220" y="753" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Confirm reversal</text>
+    <text x="1220" y="805" text-anchor="middle" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1">PERMISSION REQUIRED</text>
+  </g>
+</svg>

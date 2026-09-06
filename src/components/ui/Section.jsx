@@ -5,13 +5,15 @@ import { useTheme } from '../../theme/ThemeContext'
 //   tiles (Cupertino): full-bleed surfaces — the theme grammar's tile map picks
 //   light/parchment/dark per section, and the data-surface attribute re-scopes
 //   the color tokens locally (see index.css), so children re-theme untouched.
-export function Section({ surface, divider = true, className = '', children, ...rest }) {
+export function Section({ surface, divider = true, compact = false, className = '', children, ...rest }) {
   const { grammar } = useTheme()
+  const flowSpacing = compact ? 'py-10 md:py-14' : 'section-gap'
+  const tileSpacing = compact ? 'py-10 md:py-14' : 'section-gap-tile'
 
   if (grammar.rhythm === 'tiles') {
     const tile = grammar.tiles?.[surface] ?? 'light'
     return (
-      <section data-surface={tile} className={`section-gap-tile bg-canvas ${className}`} {...rest}>
+      <section data-surface={tile} className={`${tileSpacing} bg-canvas ${className}`} {...rest}>
         {children}
       </section>
     )
@@ -24,15 +26,21 @@ export function Section({ surface, divider = true, className = '', children, ...
     const block = grammar.tiles?.[surface]
     if (!block) {
       return (
-        <section className={`section-gap bg-canvas ${className}`} {...rest}>
+        <section className={`${flowSpacing} bg-canvas ${className}`} {...rest}>
           {children}
         </section>
       )
     }
     return (
-      <section className={`bg-canvas py-6 md:py-10 ${className}`} {...rest}>
+      <section
+        className={`bg-canvas ${compact ? 'py-4 md:py-6' : 'py-6 md:py-10'} ${className}`}
+        {...rest}
+      >
         <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
-          <div data-surface={block} className="rounded-[24px] bg-canvas py-12 md:py-16">
+          <div
+            data-surface={block}
+            className={`rounded-[24px] bg-canvas ${compact ? 'py-8 md:py-10' : 'py-12 md:py-16'}`}
+          >
             {children}
           </div>
         </div>
@@ -47,7 +55,7 @@ export function Section({ surface, divider = true, className = '', children, ...
     return (
       <section
         {...(band ? { 'data-surface': band } : {})}
-        className={`section-gap bg-canvas ${className}`}
+        className={`${flowSpacing} bg-canvas ${className}`}
         {...rest}
       >
         {children}
@@ -57,7 +65,7 @@ export function Section({ surface, divider = true, className = '', children, ...
 
   return (
     <section
-      className={`${divider ? 'border-b border-hairline ' : ''}section-gap ${className}`}
+      className={`${divider ? 'border-b border-hairline ' : ''}${flowSpacing} ${className}`}
       {...rest}
     >
       {children}

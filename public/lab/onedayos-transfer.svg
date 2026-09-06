@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">OneDayOS warehouse transfer workflow</title>
+  <desc id="desc">Illustrative OneDayOS transfer form using synthetic warehouse and product data.</desc>
+  <rect width="1440" height="900" fill="#f5f4f1"/>
+
+  <rect width="238" height="900" fill="#ffffff"/>
+  <path d="M238 0v900" stroke="#dedbd4"/>
+  <rect x="30" y="30" width="38" height="38" rx="9" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="49" y="55" text-anchor="middle" fill="#ea580c" font-family="Arial, sans-serif" font-size="16" font-weight="700">1D</text>
+  <text x="82" y="56" fill="#161616" font-family="Arial, sans-serif" font-size="20" font-weight="700">OneDayOS</text>
+
+  <text x="30" y="116" fill="#8a847b" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.8">INVENTORY</text>
+  <g fill="#5f5a53" font-family="Arial, sans-serif" font-size="15">
+    <text x="62" y="165">Overview</text>
+    <text x="62" y="213">Product settings</text>
+    <text x="62" y="261">Receipts</text>
+    <text x="62" y="309">Issues</text>
+  </g>
+  <rect x="18" y="326" width="202" height="46" rx="10" fill="#fff1e8"/>
+  <path d="M35 349h14M45 345l4 4-4 4M49 365H35M39 361l-4 4 4 4" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="62" y="355" fill="#c2410c" font-family="Arial, sans-serif" font-size="15" font-weight="700">Transfers</text>
+  <g fill="#5f5a53" font-family="Arial, sans-serif" font-size="15">
+    <text x="62" y="405">Adjustments</text>
+    <text x="62" y="453">Movement ledger</text>
+    <text x="62" y="501">Process flow</text>
+  </g>
+  <g fill="none" stroke="#9b958c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="42" cy="159" r="7"/><path d="M39 159h6M42 156v6"/>
+    <rect x="36" y="201" width="12" height="12" rx="2"/>
+    <path d="M36 250h13M36 255h13M36 260h9M36 298h13M36 303h13M36 308h9"/>
+    <path d="M36 394h13v13H36zM39 398h7M36 442h13M36 448h13M36 454h13"/>
+    <circle cx="42" cy="491" r="8"/><path d="M42 483v16M34 491h16"/>
+  </g>
+
+  <rect x="238" width="1202" height="82" fill="#ffffff"/>
+  <path d="M238 82h1202" stroke="#dedbd4"/>
+  <text x="278" y="51" fill="#161616" font-family="Arial, sans-serif" font-size="18" font-weight="700">Inventory</text>
+  <rect x="1128" y="24" width="176" height="34" rx="17" fill="#f5f4f1" stroke="#dedbd4"/>
+  <circle cx="1150" cy="41" r="6" fill="#22c55e"/>
+  <text x="1164" y="46" fill="#5f5a53" font-family="Arial, sans-serif" font-size="13">Demo organization</text>
+  <circle cx="1367" cy="41" r="18" fill="#171717"/>
+  <text x="1367" y="46" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="700">JC</text>
+
+  <text x="278" y="137" fill="#8a847b" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.8">WAREHOUSE MOVEMENT</text>
+  <text x="278" y="180" fill="#161616" font-family="Arial, sans-serif" font-size="38" font-weight="700">New transfer</text>
+  <text x="278" y="212" fill="#6f6961" font-family="Arial, sans-serif" font-size="16">Move stock between warehouses as one atomic posted transaction.</text>
+  <rect x="1130" y="149" width="270" height="40" rx="20" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="1265" y="174" text-anchor="middle" fill="#c2410c" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.2">ILLUSTRATIVE · SYNTHETIC DATA</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="278" y="248" width="754" height="590" rx="16" fill="#ffffff" stroke="#dedbd4"/>
+    <text x="306" y="286" fill="#161616" font-size="18" font-weight="700">Transfer details</text>
+    <rect x="902" y="267" width="98" height="28" rx="14" fill="#f5f4f1"/>
+    <text x="951" y="286" text-anchor="middle" fill="#6f6961" font-size="11" font-weight="700" letter-spacing="1">DRAFT</text>
+
+    <text x="306" y="336" fill="#6f6961" font-size="12" font-weight="700">SOURCE WAREHOUSE</text>
+    <rect x="306" y="350" width="330" height="54" rx="9" fill="#faf9f7" stroke="#dedbd4"/>
+    <text x="324" y="383" fill="#161616" font-size="15" font-weight="700">Main Warehouse</text>
+    <path d="M611 374l7 7 7-7" fill="none" stroke="#8a847b" stroke-width="1.7" stroke-linecap="round"/>
+
+    <text x="674" y="336" fill="#6f6961" font-size="12" font-weight="700">DESTINATION WAREHOUSE</text>
+    <rect x="674" y="350" width="330" height="54" rx="9" fill="#faf9f7" stroke="#dedbd4"/>
+    <text x="692" y="383" fill="#161616" font-size="15" font-weight="700">Field Warehouse</text>
+    <path d="M979 374l7 7 7-7" fill="none" stroke="#8a847b" stroke-width="1.7" stroke-linecap="round"/>
+
+    <path d="M306 438h698" stroke="#ebe8e2"/>
+    <text x="306" y="477" fill="#161616" font-size="16" font-weight="700">Products</text>
+    <text x="306" y="506" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1">ITEM</text>
+    <text x="764" y="506" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1">AVAILABLE</text>
+    <text x="899" y="506" fill="#8a847b" font-size="11" font-weight="700" letter-spacing="1">QUANTITY</text>
+    <path d="M306 521h698M306 589h698M306 657h698" stroke="#ebe8e2"/>
+
+    <rect x="306" y="537" width="36" height="36" rx="8" fill="#fff1e8"/>
+    <path d="M316 548h16v14h-16zM319 548v-4h10v4" fill="none" stroke="#f97316" stroke-width="1.6"/>
+    <text x="356" y="554" fill="#161616" font-size="14" font-weight="700">Bottled Water · 500 ml</text>
+    <text x="356" y="574" fill="#6f6961" font-size="12">SKU WATER-500</text>
+    <text x="764" y="563" fill="#161616" font-size="14">130 units</text>
+    <rect x="899" y="539" width="105" height="38" rx="8" fill="#faf9f7" stroke="#dedbd4"/>
+    <text x="951" y="563" text-anchor="middle" fill="#161616" font-size="14" font-weight="700">20</text>
+
+    <rect x="306" y="605" width="36" height="36" rx="8" fill="#fff7ed"/>
+    <circle cx="324" cy="623" r="9" fill="none" stroke="#f59e0b" stroke-width="1.6"/>
+    <path d="M319 622h10M321 626h6" stroke="#f59e0b" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="356" y="622" fill="#161616" font-size="14" font-weight="700">Black Tea · 20 bags</text>
+    <text x="356" y="642" fill="#6f6961" font-size="12">SKU TEA-020</text>
+    <text x="764" y="631" fill="#161616" font-size="14">40 units</text>
+    <rect x="899" y="607" width="105" height="38" rx="8" fill="#faf9f7" stroke="#dedbd4"/>
+    <text x="951" y="631" text-anchor="middle" fill="#161616" font-size="14" font-weight="700">8</text>
+
+    <rect x="306" y="681" width="126" height="38" rx="19" fill="#ffffff" stroke="#dedbd4"/>
+    <text x="369" y="705" text-anchor="middle" fill="#5f5a53" font-size="13" font-weight="700">+ Add product</text>
+    <text x="306" y="766" fill="#6f6961" font-size="12" font-weight="700">TRANSFER NOTE</text>
+    <rect x="306" y="780" width="698" height="34" rx="8" fill="#faf9f7" stroke="#dedbd4"/>
+    <text x="324" y="802" fill="#8a847b" font-size="13">Replenish field-team supplies</text>
+  </g>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="1056" y="248" width="344" height="590" rx="16" fill="#ffffff" stroke="#dedbd4"/>
+    <text x="1082" y="286" fill="#161616" font-size="18" font-weight="700">Movement preview</text>
+    <text x="1082" y="311" fill="#6f6961" font-size="13">Both sides post together.</text>
+
+    <rect x="1082" y="347" width="292" height="76" rx="12" fill="#faf9f7" stroke="#dedbd4"/>
+    <circle cx="1110" cy="385" r="13" fill="#fff1e8"/>
+    <text x="1110" y="390" text-anchor="middle" fill="#c2410c" font-size="12" font-weight="700">M</text>
+    <text x="1135" y="378" fill="#161616" font-size="14" font-weight="700">Main Warehouse</text>
+    <text x="1135" y="399" fill="#6f6961" font-size="12">28 units leave</text>
+
+    <path d="M1228 440v53M1220 485l8 8 8-8" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="1082" y="510" width="292" height="76" rx="12" fill="#fff7ed" stroke="#fdba74"/>
+    <circle cx="1110" cy="548" r="13" fill="#ffffff"/>
+    <text x="1110" y="553" text-anchor="middle" fill="#c2410c" font-size="12" font-weight="700">F</text>
+    <text x="1135" y="541" fill="#161616" font-size="14" font-weight="700">Field Warehouse</text>
+    <text x="1135" y="562" fill="#6f6961" font-size="12">28 units arrive</text>
+
+    <rect x="1082" y="625" width="292" height="88" rx="12" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <circle cx="1105" cy="651" r="8" fill="#22c55e"/>
+    <path d="M1101 651l3 3 6-7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1122" y="656" fill="#166534" font-size="13" font-weight="700">Atomic posting</text>
+    <text x="1100" y="682" fill="#4b6755" font-size="12">Balances and ledger entries update</text>
+    <text x="1100" y="700" fill="#4b6755" font-size="12">inside one controlled transaction.</text>
+
+    <rect x="1082" y="752" width="292" height="52" rx="10" fill="#171717"/>
+    <text x="1228" y="784" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Review and post transfer</text>
+  </g>
+</svg>

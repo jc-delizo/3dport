@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ChevronDown, Menu, SunMoon, X } from 'lucide-react'
+import { ChevronDown, Flame, Menu, SunMoon, X } from 'lucide-react'
 import { site } from '../content/site'
 import { useTheme } from '../theme/ThemeContext'
 import { Container } from './ui/Container'
@@ -100,7 +100,24 @@ function ThemeMenu({ openId, setOpenId, triggerClass }) {
 
 // Desktop nav entries: dropdown groups + direct links. Styling comes from the
 // caller so the same structure serves both nav grammars.
-function NavEntries({ openId, setOpenId, linkClass, panelLinkClass }) {
+const entryHref = (entry, currentPage) =>
+  entry.href ?? (currentPage === 'home' ? `#${entry.id}` : `${import.meta.env.BASE_URL}#${entry.id}`)
+
+function LabNavLabel() {
+  return (
+    <>
+      <span className="lab-nav-ember" aria-hidden="true">
+        <Flame className="h-3.5 w-3.5" />
+      </span>
+      <span>Lab</span>
+      <span className="lab-nav-count" aria-hidden="true">
+        05
+      </span>
+    </>
+  )
+}
+
+function NavEntries({ openId, setOpenId, linkClass, panelLinkClass, currentPage }) {
   return site.nav.map((entry) =>
     entry.items ? (
       <Dropdown
@@ -112,20 +129,35 @@ function NavEntries({ openId, setOpenId, linkClass, panelLinkClass }) {
         triggerClass={`flex items-center gap-1 ${linkClass}`}
       >
         {entry.items.map(({ id, label }) => (
-          <a key={id} href={`#${id}`} onClick={() => setOpenId(null)} className={panelLinkClass}>
+          <a
+            key={id}
+            href={entryHref({ id }, currentPage)}
+            onClick={() => setOpenId(null)}
+            className={panelLinkClass}
+          >
             {label}
           </a>
         ))}
       </Dropdown>
     ) : (
-      <a key={entry.id} href={`#${entry.id}`} className={linkClass}>
-        {entry.label}
+      <a
+        key={entry.id ?? entry.href}
+        href={entryHref(entry, currentPage)}
+        aria-current={entry.page === currentPage ? 'page' : undefined}
+        className={`${linkClass} ${entry.page === 'lab' ? 'lab-nav-link' : ''}`}
+      >
+        {entry.page === 'lab' ? <LabNavLabel /> : entry.label}
       </a>
     )
   )
 }
 
-function MobilePanel({ closeAndFocus }) {
+function MobilePanel({ closeAndFocus, close, currentPage }) {
+  const select = (entry) => {
+    if (currentPage === 'home' && entry.id && !entry.href) closeAndFocus(entry.id)
+    else close()
+  }
+
   return (
     <nav aria-label="Mobile" className="border-t border-hairline bg-canvas md:hidden">
       <Container className="flex flex-col gap-5 py-6">
@@ -139,8 +171,8 @@ function MobilePanel({ closeAndFocus }) {
                 {entry.items.map(({ id, label }) => (
                   <a
                     key={id}
-                    href={`#${id}`}
-                    onClick={() => closeAndFocus(id)}
+                    href={entryHref({ id }, currentPage)}
+                    onClick={() => select({ id })}
                     className="text-body text-muted hover:text-ink"
                   >
                     {label}
@@ -150,12 +182,15 @@ function MobilePanel({ closeAndFocus }) {
             </div>
           ) : (
             <a
-              key={entry.id}
-              href={`#${entry.id}`}
-              onClick={() => closeAndFocus(entry.id)}
-              className="text-body text-muted hover:text-ink"
+              key={entry.id ?? entry.href}
+              href={entryHref(entry, currentPage)}
+              aria-current={entry.page === currentPage ? 'page' : undefined}
+              onClick={() => select(entry)}
+              className={`text-body text-muted hover:text-ink ${
+                entry.page === 'lab' ? 'lab-nav-link self-start' : ''
+              }`}
             >
-              {entry.label}
+              {entry.page === 'lab' ? <LabNavLabel /> : entry.label}
             </a>
           )
         )}
@@ -169,10 +204,11 @@ function MobilePanel({ closeAndFocus }) {
 
 const PANEL_LINK = 'block px-4 py-1.5 text-label text-muted hover:bg-card hover:text-ink'
 
-export function Nav() {
+export function Nav({ currentPage = 'home' }) {
   const [open, setOpen] = useState(false) // mobile panel
   const [openId, setOpenId] = useState(null) // which desktop dropdown
   const { grammar } = useTheme()
+  const brandHref = currentPage === 'home' ? '#top' : import.meta.env.BASE_URL
 
   const closeAndFocus = (id) => {
     setOpen(false)
@@ -203,7 +239,7 @@ export function Nav() {
       <header data-testid="global-nav" className="sticky top-0 z-40">
         <div className="bg-black text-white">
           <Container className="flex h-12 items-center justify-between">
-            <a href="#top" className="text-[13px] font-semibold tracking-display">
+            <a href={brandHref} className="text-[13px] font-semibold tracking-display">
               JC Delizo
             </a>
             <nav aria-label="Main" className="hidden items-center gap-6 md:flex">
@@ -212,6 +248,7 @@ export function Nav() {
                 setOpenId={setOpenId}
                 linkClass="text-[12px] text-white/75 hover:text-white"
                 panelLinkClass={PANEL_LINK}
+                currentPage={currentPage}
               />
               <ThemeMenu
                 openId={openId}
@@ -229,7 +266,13 @@ export function Nav() {
             {menuButton('text-white')}
           </Container>
         </div>
-        {open ? <MobilePanel closeAndFocus={closeAndFocus} /> : null}
+        {open ? (
+          <MobilePanel
+            closeAndFocus={closeAndFocus}
+            close={() => setOpen(false)}
+            currentPage={currentPage}
+          />
+        ) : null}
       </header>
     )
   }
@@ -237,7 +280,7 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-40 border-b border-hairline bg-canvas/85 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
-        <a href="#top" className="text-body font-semibold tracking-display">
+        <a href={brandHref} className="text-body font-semibold tracking-display">
           JC Delizo
         </a>
 
@@ -247,6 +290,7 @@ export function Nav() {
             setOpenId={setOpenId}
             linkClass="text-label text-muted hover:text-ink"
             panelLinkClass={PANEL_LINK}
+            currentPage={currentPage}
           />
           <ThemeMenu
             openId={openId}
@@ -261,7 +305,13 @@ export function Nav() {
         {menuButton()}
       </Container>
 
-      {open ? <MobilePanel closeAndFocus={closeAndFocus} /> : null}
+      {open ? (
+        <MobilePanel
+          closeAndFocus={closeAndFocus}
+          close={() => setOpen(false)}
+          currentPage={currentPage}
+        />
+      ) : null}
     </header>
   )
 }

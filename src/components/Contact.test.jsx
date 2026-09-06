@@ -15,6 +15,18 @@ describe('Contact', () => {
     )
   })
 
+  it('offers direct WhatsApp and Viber contact links', () => {
+    render(<Contact />)
+    expect(screen.getByRole('link', { name: /whatsapp/i })).toHaveAttribute(
+      'href',
+      site.contact.whatsapp.href
+    )
+    expect(screen.getByRole('link', { name: /viber/i })).toHaveAttribute(
+      'href',
+      site.contact.viber.href
+    )
+  })
+
   it('invites conversation without announcing a job search', () => {
     // JC is employed and the site is public: availability stays implied.
     // "exploring opportunities" phrasing is banned from this section.

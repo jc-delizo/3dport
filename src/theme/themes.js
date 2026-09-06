@@ -70,6 +70,8 @@ export const THEMES = [
         recommendations: 'dark',
         capabilities: 'light',
         tools: 'parchment',
+        lab: 'dark',
+        'professional-work': 'parchment',
         certifications: 'light',
         about: 'parchment',
         contact: 'dark',
@@ -101,6 +103,7 @@ export const THEMES = [
       // moments — dark product chrome, the coral callout, the dark close.
       tiles: {
         'case-studies': 'dark',
+        'professional-work': 'dark',
         contact: 'coral',
         footer: 'dark',
       },
@@ -137,6 +140,8 @@ export const THEMES = [
         principles: 'cream',
         recommendations: 'navy',
         capabilities: 'peach',
+        lab: 'mint',
+        'professional-work': 'cream',
         contact: 'mint',
       },
       chart: {

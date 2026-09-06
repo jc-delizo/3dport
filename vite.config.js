@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -36,6 +36,14 @@ function buildInfo() {
 export default defineConfig({
   base: '/3dport/',
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(process.cwd(), 'index.html'),
+        lab: resolve(process.cwd(), 'lab/index.html'),
+      },
+    },
+  },
   define: {
     __BUILD_INFO__: JSON.stringify(buildInfo()),
   },
