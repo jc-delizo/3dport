@@ -4,15 +4,23 @@ import { useTheme } from '../../theme/ThemeContext'
 // 65 is not a decoration: it is the figure the ProofBar already claims —
 // "Projects delivered end to end in 3 years". The rail ships exactly that many
 // by the time the reader reaches the footer, so the motion carries real data.
-const TOTAL = 65
+export const TOTAL = 65
 const LANES = ['Intake', 'Build', 'Review', 'Shipped']
 
 // Where each project sits at a given scroll progress. Work enters staggered
 // and advances lane by lane, so mid-page the board looks like a real pipeline
 // — some queued, some in flight, some done — rather than a progress bar.
-function laneFor(index, progress) {
-  const entry = (index / TOTAL) * 0.72
-  const advanced = (progress - entry) / 0.28
+//
+// The last item must ship at COMPLETE (0.85), not at 1.0: tying the payoff to
+// absolute scroll bottom means a reader who stops at the footer's top never
+// sees 65 of 65, which is the whole point of the rail.
+const LAST_ENTRY = 0.6
+const TRANSIT = 0.25
+export const COMPLETE = LAST_ENTRY + TRANSIT
+
+export function laneFor(index, progress) {
+  const entry = (index / TOTAL) * LAST_ENTRY
+  const advanced = (progress - entry) / TRANSIT
   if (advanced <= 0) return -1
   if (advanced >= 1) return 3
   return Math.min(2, Math.floor(advanced * 3))
@@ -64,6 +72,12 @@ export function ThroughputRail() {
 
   if (theme !== 'throughput') return null
 
+  // The rail is a fixed bar over the page foot, so it would sit across the
+  // hero's proof figures on first paint. It arrives with the reader's first
+  // scroll instead — which also reads better: the pipeline starts moving
+  // because they moved.
+  const armed = progress > 0.015
+
   const lanes = [[], [], [], []]
   for (let i = 0; i < TOTAL; i += 1) {
     const lane = laneFor(i, progress)
@@ -72,7 +86,11 @@ export function ThroughputRail() {
   const shipped = lanes[3].length
 
   return (
-    <div className="throughput-rail" data-testid="throughput-rail">
+    <div
+      className="throughput-rail"
+      data-testid="throughput-rail"
+      data-armed={armed ? 'true' : 'false'}
+    >
       {/* aria-hidden: the same figures are already stated as text in the proof
           bar, so announcing a moving duplicate would only add noise. */}
       <div className="mx-auto w-full max-w-[80rem] px-4 py-2 md:px-6" aria-hidden="true">

@@ -1223,8 +1223,17 @@
   --color-hairline: 214 222 230;
 }
 /* The rail: fixed to the viewport foot, lanes fill as the reader descends. */
+/* The rail is fixed over the page foot, so the document must reserve its
+   height or the last thing in view is always sitting underneath it. */
+[data-theme='throughput'] body {
+  padding-bottom: 76px;
+}
+
 .throughput-rail {
   position: fixed;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
   left: 0;
   right: 0;
   bottom: 0;
@@ -1233,6 +1242,18 @@
   border-top: 1px solid rgb(var(--color-hairline));
   background: rgb(var(--color-canvas) / 0.92);
   backdrop-filter: blur(8px);
+}
+.throughput-rail[data-armed='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Reduced motion gets the finished board immediately, with no slide. */
+  .throughput-rail {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 [data-theme='throughput'] .throughput-card {
   background: rgb(var(--color-accent) / 0.14);

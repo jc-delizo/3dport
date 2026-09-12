@@ -3,6 +3,7 @@ import { screen, act } from '@testing-library/react'
 import { renderWithTheme as render } from '../test/render'
 import App from '../App'
 import { AtriumPlane } from '../components/ui/AtriumPlane'
+import { laneFor, TOTAL, COMPLETE } from '../components/signature/ThroughputRail'
 
 const useTheme = (id) => {
   localStorage.setItem('3dport-theme-v2', id)
@@ -140,5 +141,27 @@ describe('Atrium experience', () => {
     } finally {
       global.IntersectionObserver = saved
     }
+  })
+})
+
+describe('Throughput pacing', () => {
+  it('ships every project by the time the pipeline completes, before the page bottom', () => {
+    // The payoff must not require pixel-perfect scroll to the very bottom: a
+    // reader who stops at the footer would otherwise never see 65 of 65.
+    expect(COMPLETE).toBeLessThan(1)
+    for (let i = 0; i < TOTAL; i += 1) {
+      expect(laneFor(i, COMPLETE), `project ${i} at completion`).toBe(3)
+      expect(laneFor(i, 1), `project ${i} at page bottom`).toBe(3)
+    }
+  })
+
+  it('shows a genuinely mixed board mid-scroll, not a progress bar', () => {
+    const lanes = new Set(Array.from({ length: TOTAL }, (_, i) => laneFor(i, 0.45)))
+    // Queued, in-flight and delivered work all visible at once.
+    expect(lanes.size).toBeGreaterThan(2)
+  })
+
+  it('starts with nothing shipped', () => {
+    expect(Array.from({ length: TOTAL }, (_, i) => laneFor(i, 0)).every((l) => l < 3)).toBe(true)
   })
 })
