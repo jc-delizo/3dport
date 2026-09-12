@@ -8,6 +8,14 @@ const STORAGE_KEY = '3dport-theme-v2'
 const ThemeContext = createContext(null)
 
 function initialTheme() {
+  // Dev-only escape hatch: `VITE_FORCE_THEME=order npm run dev` pins a theme on
+  // load so several sandboxes can run the same source on different ports and
+  // each open on its own theme. Never consulted in a production build, and the
+  // in-page switcher still works on top of it.
+  if (import.meta.env?.DEV) {
+    const forced = import.meta.env.VITE_FORCE_THEME
+    if (forced && themeById(forced)) return forced
+  }
   const stored = localStorage.getItem(STORAGE_KEY)
   if (stored && themeById(stored)) return stored
   // No OS-scheme auto-switch: every viewer starts with the same authored

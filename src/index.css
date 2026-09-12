@@ -1143,3 +1143,206 @@
   border-color: rgb(var(--color-accent) / 0.42);
   box-shadow: 0 18px 36px -30px rgb(var(--color-ink) / 0.45);
 }
+
+/* ============================================================
+   Signature themes (2026-09) — Order, Throughput, Signal, Atrium.
+   Four light systems, each with one memorable gesture. Every accent is
+   validated against its own canvas AND its own chart surface (>=4.5:1).
+   ============================================================ */
+
+/* --- Order: a plan set. Warm paper, graphite, drafting vermilion. --------- */
+[data-theme='order'] {
+  --color-canvas: 253 252 250;
+  --color-ink: 26 26 24;
+  --color-muted: 94 92 87;
+  --color-hairline: 226 223 216;
+  --color-card: 246 244 239;
+  --color-accent: 190 63 40;
+  --color-accent-contrast: 255 255 255;
+  --radius-card: 0.25rem;
+  --radius-button: 0.25rem;
+  --tracking-display: -0.02em;
+  color-scheme: light;
+}
+
+/* The drafting grid: always faintly present, so the snap lands on real
+   structure instead of reading as a splash animation. */
+.order-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+[data-theme='order'] .order-grid {
+  opacity: 1;
+}
+[data-theme='order'] .order-rule {
+  stroke: rgb(var(--color-hairline));
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+[data-theme='order'] .order-rule-major {
+  stroke: rgb(var(--color-accent) / 0.22);
+}
+/* Registration marks in the corners — the drawing-set tell. */
+[data-theme='order'] .order-mark {
+  stroke: rgb(var(--color-accent) / 0.45);
+  stroke-width: 1;
+  fill: none;
+}
+/* Items begin scattered only when motion is welcome; the class is removed by
+   the animation on completion, so a failed script still leaves the page true. */
+[data-theme='order'] .order-item {
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='order'] .order-item {
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* --- Throughput: a delivery board. Cool white, graphite, shipped green. --- */
+[data-theme='throughput'] {
+  --color-canvas: 251 252 253;
+  --color-ink: 16 20 24;
+  --color-muted: 85 96 112;
+  --color-hairline: 223 228 234;
+  --color-card: 242 245 248;
+  --color-accent: 11 110 91;
+  --color-accent-contrast: 255 255 255;
+  --radius-card: 0.5rem;
+  --radius-button: 0.375rem;
+  color-scheme: light;
+}
+[data-theme='throughput'] [data-surface='lane'] {
+  --color-canvas: 242 245 248;
+  --color-card: 255 255 255;
+  --color-hairline: 214 222 230;
+}
+/* The rail: fixed to the viewport foot, lanes fill as the reader descends. */
+.throughput-rail {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  pointer-events: none;
+  border-top: 1px solid rgb(var(--color-hairline));
+  background: rgb(var(--color-canvas) / 0.92);
+  backdrop-filter: blur(8px);
+}
+[data-theme='throughput'] .throughput-card {
+  background: rgb(var(--color-accent) / 0.14);
+  border: 1px solid rgb(var(--color-accent) / 0.35);
+  border-radius: 2px;
+}
+[data-theme='throughput'] .throughput-card[data-shipped='true'] {
+  background: rgb(var(--color-accent));
+  border-color: rgb(var(--color-accent));
+}
+
+/* --- Signal: an operating console. Lit white panels on a cool deck. ------- */
+[data-theme='signal'] {
+  --color-canvas: 247 248 250;
+  --color-ink: 13 17 23;
+  --color-muted: 90 100 114;
+  --color-hairline: 225 229 234;
+  --color-card: 255 255 255;
+  --color-accent: 67 56 202;
+  --color-accent-contrast: 255 255 255;
+  --radius-card: 0.5rem;
+  --radius-button: 9999px;
+  --tracking-display: -0.015em;
+  color-scheme: light;
+}
+/* Panels are lit; the deck between them is recessed. The contrast between the
+   two is what makes the panels read as instruments rather than as sections. */
+[data-theme='signal'] [data-surface='panel'] {
+  --color-canvas: 255 255 255;
+  --color-card: 247 248 250;
+  --color-hairline: 225 229 234;
+}
+[data-theme='signal'] [data-surface='deck'] {
+  --color-canvas: 240 242 246;
+  --color-card: 255 255 255;
+  --color-hairline: 214 219 226;
+}
+[data-theme='signal'] [data-surface='panel'] {
+  box-shadow: inset 0 1px 0 rgb(255 255 255), 0 1px 2px rgb(13 17 23 / 0.04);
+}
+.signal-rail {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 30;
+  pointer-events: none;
+  display: none;
+}
+[data-theme='signal'] .signal-rail {
+  display: block;
+}
+[data-theme='signal'] .signal-spark {
+  stroke: rgb(var(--color-accent));
+  fill: none;
+  stroke-width: 1.5;
+}
+[data-theme='signal'] .signal-dot {
+  fill: rgb(var(--color-accent));
+}
+
+/* --- Atrium: real depth, no WebGL. Planes on a CSS 3D stage. ------------- */
+[data-theme='atrium'] {
+  --color-canvas: 244 246 248;
+  --color-ink: 22 32 43;
+  --color-muted: 91 104 117;
+  --color-hairline: 227 232 237;
+  --color-card: 255 255 255;
+  --color-accent: 29 78 216;
+  --color-accent-contrast: 255 255 255;
+  --radius-card: 1rem;
+  --radius-button: 9999px;
+  color-scheme: light;
+}
+[data-theme='atrium'] [data-surface='deep'] {
+  --color-canvas: 232 236 241;
+  --color-card: 255 255 255;
+  --color-hairline: 213 220 228;
+}
+/* The stage. Perspective lives on the scroll container's parent so every
+   plane shares one vanishing point — separate perspectives would read as
+   unrelated cards tilting, not as one room. */
+[data-theme='atrium'] .atrium-stage {
+  perspective: 1400px;
+  perspective-origin: 50% 45%;
+}
+[data-theme='atrium'] .atrium-plane {
+  transform-style: preserve-3d;
+  background: rgb(var(--color-card));
+  border: 1px solid rgb(var(--color-hairline));
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 1px 2px rgb(22 32 43 / 0.04),
+    0 12px 28px -12px rgb(22 32 43 / 0.14),
+    0 32px 64px -32px rgb(22 32 43 / 0.18);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+/* Entering planes are tipped away and lift to flat as they reach centre. */
+[data-theme='atrium'] .atrium-plane[data-depth='far'] {
+  transform: translate3d(0, 24px, -120px) rotateX(6deg);
+}
+[data-theme='atrium'] .atrium-plane[data-depth='near'] {
+  transform: translate3d(0, 0, 0) rotateX(0deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='atrium'] .atrium-plane,
+  [data-theme='atrium'] .atrium-plane[data-depth='far'] {
+    transform: none;
+    transition: none;
+  }
+}

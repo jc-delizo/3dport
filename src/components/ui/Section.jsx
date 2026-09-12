@@ -1,4 +1,5 @@
 import { useTheme } from '../../theme/ThemeContext'
+import { AtriumPlane } from './AtriumPlane'
 
 // Section shell that renders the active theme's rhythm.
 //   bordered (Daylight/Midnight): hairline dividers between sections.
@@ -44,6 +45,25 @@ export function Section({ surface, divider = true, compact = false, className = 
           >
             {children}
           </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Planes (Atrium): every section becomes a floating plane on a shared CSS 3D
+  // stage. One perspective origin lives on the stage wrapper in App, so the
+  // planes read as one room rather than as unrelated tilting cards.
+  if (grammar.rhythm === 'planes') {
+    const plane = grammar.tiles?.[surface]
+    return (
+      <section className={`${flowSpacing} bg-canvas ${className}`} {...rest}>
+        <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
+          <AtriumPlane
+            {...(plane ? { 'data-surface': plane } : {})}
+            className={compact ? 'px-5 py-8 md:px-10 md:py-10' : 'px-5 py-10 md:px-12 md:py-16'}
+          >
+            {children}
+          </AtriumPlane>
         </div>
       </section>
     )

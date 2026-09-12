@@ -221,3 +221,38 @@ Initiatives and Principles, per docs/superpowers/specs/2026-08-05-delivery-portf
 Key choices: anonymize every internal name (guard-enforced), one-line descriptions with
 no interactivity, role chips restricted to Led/Coordinated/Oversight, and no hard project
 count in the intro so the resume-backed "65 systems" Experience bullet stays authoritative.
+
+---
+
+## 2026-09-13 — Four signature themes (Order, Throughput, Signal, Atrium)
+
+Built the replacement signature feature left open in the 2026-08-15 spec when the command
+palette was pulled ("wrong audience: recruiters don't reach for ⌘K"). Four light-mode themes,
+each with one gesture that works with no interaction, no explanation, and no desktop:
+
+- **Order** — warm plan-set canvas with a persistent drafting grid; twelve scattered cards
+  snap onto it once on load. Chaos → system, which is the job description.
+- **Throughput** — scroll advances 65 work items through Intake/Build/Review/Shipped.
+- **Signal** — lit white instrument panels on a recessed deck; a sparkline rail on the right.
+- **Atrium** — CSS 3D planes on one shared stage. Earns the repo's name without WebGL.
+
+Key choices:
+
+- **Zero new runtime dependencies.** GSAP 3.15 already ships Flip/SplitText/DrawSVG unused;
+  the effects here need none of them, and react-three-fiber (~600KB) was rejected for Atrium
+  in favour of `preserve-3d` — this deploys to GitHub Pages for recruiters on mobile data.
+- **Every figure is sourced.** The Throughput rail ships exactly 65 and the Signal rail shows
+  20–28/65/15 — all already stated in `site.proof`. A console displaying numbers it cannot
+  source is the credibility risk this audience notices first.
+- **Reduced motion is a designed state, not a fallback.** Order starts assembled, Throughput
+  starts with the board full and the count landed, Atrium starts flat. Each reads as composed
+  rather than as an effect that failed to load.
+- **Only one new `rhythm`.** Order reuses `bordered`, Throughput `bands`, Signal `tiles`;
+  only Atrium needed `planes`. Every new branch is surface area in a file 11 components read.
+- **`DEFAULT_THEME` stays `quiet`.** The four are for evaluation; the default moves only once
+  one is chosen, and that change versions the storage key (as the Quiet switch did).
+- Accents validated against their own canvas *and* their own chart surface — 16 pairs, all
+  AA or better. See `grammar.chart` per theme.
+
+Sandboxes: `scripts/theme-sandboxes.sh start|stop` runs all four on :5181–:5184 via
+`VITE_FORCE_THEME`, a dev-only pin in ThemeContext that production builds never consult.

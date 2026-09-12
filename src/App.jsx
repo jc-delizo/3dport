@@ -1,5 +1,9 @@
 import { useEffect } from 'react'
 import { Backdrop } from './components/backdrop/Backdrop'
+import { OrderGrid } from './components/signature/OrderGrid'
+import { ThroughputRail } from './components/signature/ThroughputRail'
+import { SignalRail } from './components/signature/SignalRail'
+import { useTheme } from './theme/ThemeContext'
 import { Nav } from './components/Nav'
 import { SectionNavigator } from './components/SectionNavigator'
 import { Hero } from './components/Hero'
@@ -51,6 +55,9 @@ function useHashNavigation() {
 
 export default function App() {
   useHashNavigation()
+  // Atrium's planes share one vanishing point, so the perspective must live on
+  // a single ancestor of every section rather than on each plane.
+  const stage = useTheme().grammar.rhythm === 'planes' ? 'atrium-stage' : ''
 
   return (
     <>
@@ -58,9 +65,12 @@ export default function App() {
         Skip to content
       </a>
       <Backdrop />
+      <OrderGrid />
+      <ThroughputRail />
+      <SignalRail />
       <Nav />
       <SectionNavigator />
-      <main id="main">
+      <main id="main" className={stage}>
         <Hero />
         <ProofBar />
         <Initiatives />

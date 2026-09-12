@@ -3,13 +3,16 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { render, screen, act } from '@testing-library/react'
 import { THEMES, DEFAULT_THEME } from './themes'
+
+// Mirrors ThemeContext's key. Versioned only when the default actually changes.
+const STORAGE_KEY = '3dport-theme-v2'
 import { ThemeProvider, useTheme } from './ThemeContext'
 
 const GRAMMAR_KEYS = ['nav', 'rhythm', 'button', 'display', 'chart', 'approach']
 const CHART_KEYS = ['accent', 'surface', 'grid', 'textMuted', 'textStrong']
 
 describe('theme registry', () => {
-  it('ships all six themes, Quiet as the brand default', () => {
+  it('ships the six originals plus the four signature themes; Quiet stays default until one is chosen', () => {
     expect(THEMES.map((t) => t.id)).toEqual([
       'daylight',
       'midnight',
@@ -17,8 +20,33 @@ describe('theme registry', () => {
       'paper',
       'studio',
       'quiet',
+      'order',
+      'throughput',
+      'signal',
+      'atrium',
     ])
     expect(DEFAULT_THEME).toBe('quiet')
+  })
+
+  it('gives each signature theme a distinct rhythm so they cannot collapse into one another', () => {
+    const rhythmOf = (id) => THEMES.find((t) => t.id === id).grammar.rhythm
+    expect(rhythmOf('order')).toBe('bordered')
+    expect(rhythmOf('throughput')).toBe('bands')
+    expect(rhythmOf('signal')).toBe('tiles')
+    expect(rhythmOf('atrium')).toBe('planes')
+    // Every signature theme names the gesture it owns, so App can mount one
+    // signature layer per theme without a growing chain of id comparisons.
+    ;['order', 'throughput', 'signal', 'atrium'].forEach((id) =>
+      expect(THEMES.find((t) => t.id === id).grammar.signature).toBe(id)
+    )
+  })
+
+  it('keeps all four signature themes in light mode, as briefed', () => {
+    const css = readFileSync(resolve(__dirname, '../index.css'), 'utf-8')
+    ;['order', 'throughput', 'signal', 'atrium'].forEach((theme) => {
+      const block = css.match(new RegExp(`\\[data-theme='${theme}'\\]\\s*{([^}]+)}`))[1]
+      expect(block, `${theme} must declare light color-scheme`).toMatch(/color-scheme:\s*light/)
+    })
   })
 
   it('gives Quiet a restrained, bordered system with a muted green accent', () => {
@@ -98,7 +126,7 @@ describe('theme tokens in index.css', () => {
     const root = css.match(/:root\s*{([^}]+)}/)[1]
     const rootColorVars = varsIn(root).filter((v) => v.startsWith('--color'))
     expect(rootColorVars.length).toBeGreaterThanOrEqual(6)
-    ;['midnight', 'cupertino', 'paper', 'studio', 'quiet'].forEach((theme) => {
+    ;['midnight', 'cupertino', 'paper', 'studio', 'quiet', 'order', 'throughput', 'signal', 'atrium'].forEach((theme) => {
       const block = css.match(new RegExp(`\\[data-theme='${theme}'\\]\\s*{([^}]+)}`))[1]
       rootColorVars.forEach((v) => expect(varsIn(block), `${theme} missing ${v}`).toContain(v))
     })
@@ -179,16 +207,16 @@ describe('ThemeProvider', () => {
     act(() => screen.getByText('go dark').click())
     expect(screen.getByTestId('current').textContent).toBe('midnight')
     expect(document.documentElement.dataset.theme).toBe('midnight')
-    expect(localStorage.getItem('3dport-theme-v2')).toBe('midnight')
+    expect(localStorage.getItem(STORAGE_KEY)).toBe('midnight')
   })
 
   it('restores a stored choice on mount', () => {
-    localStorage.setItem('3dport-theme-v2', 'midnight')
+    localStorage.setItem(STORAGE_KEY, 'midnight')
     render(<ThemeProvider><Probe /></ThemeProvider>)
     expect(screen.getByTestId('current').textContent).toBe('midnight')
   })
 
-  it('shows Quiet to everyone regardless of OS color scheme — the authored default wins', () => {
+  it('shows the default to everyone regardless of OS color scheme — the authored default wins', () => {
     // Deliberate: auto-switching dark-OS visitors to Midnight would mean most
     // of them never see the signature theme. They can still pick it manually.
     matchMedia.mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })
@@ -197,7 +225,7 @@ describe('ThemeProvider', () => {
   })
 
   it('ignores an unknown stored theme rather than breaking the page', () => {
-    localStorage.setItem('3dport-theme-v2', 'vaporwave')
+    localStorage.setItem(STORAGE_KEY, 'vaporwave')
     render(<ThemeProvider><Probe /></ThemeProvider>)
     expect(screen.getByTestId('current').textContent).toBe('quiet')
   })
