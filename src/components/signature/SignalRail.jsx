@@ -29,6 +29,11 @@ function path(series, w, h) {
 export function SignalRail() {
   const { theme } = useTheme()
   const [drawn, setDrawn] = useState(false)
+  // Below the wide breakpoint the rail reflows into a fixed bottom strip, so
+  // it needs the same treatment the throughput rail needed: arrive with the
+  // reader's first scroll rather than sitting across the hero. On wide screens
+  // it lives in the right margin and CSS ignores this flag.
+  const [armed, setArmed] = useState(false)
   const timer = useRef(0)
 
   useEffect(() => {
@@ -38,10 +43,18 @@ export function SignalRail() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
       setDrawn(true)
+      setArmed(true)
       return undefined
     }
     timer.current = window.setTimeout(() => setDrawn(true), 260)
-    return () => window.clearTimeout(timer.current)
+
+    const onScroll = () => setArmed(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.clearTimeout(timer.current)
+      window.removeEventListener('scroll', onScroll)
+    }
   }, [theme])
 
   if (theme !== 'signal') return null
@@ -53,17 +66,22 @@ export function SignalRail() {
   const H = 30
 
   return (
-    <aside className="signal-rail" data-testid="signal-rail" aria-hidden="true">
-      <div className="flex h-full flex-col justify-center gap-5 px-3 py-4">
+    <aside
+      className="signal-rail"
+      data-testid="signal-rail"
+      data-armed={armed ? 'true' : 'false'}
+      aria-hidden="true"
+    >
+      <div className="flex h-full flex-row items-stretch justify-center gap-2 px-3 py-2 xl:flex-col xl:gap-5 xl:py-4">
         {INSTRUMENTS.map(({ label, series, value }) => (
           <div
             key={label}
-            className="rounded-card border border-hairline bg-card px-3 py-2 shadow-sm"
+            className="min-w-0 flex-1 rounded-card border border-hairline bg-card px-2 py-1.5 shadow-sm xl:flex-none xl:px-3 xl:py-2"
           >
-            <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
+            <div className="truncate font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
               {label}
             </div>
-            <div className="font-display text-lg font-semibold leading-tight tabular-nums">
+            <div className="font-display text-base font-semibold leading-tight tabular-nums xl:text-lg">
               {value}
             </div>
             <svg
@@ -71,7 +89,8 @@ export function SignalRail() {
               height={H + DOT * 2}
               viewBox={`0 0 ${W} ${H + DOT * 2}`}
               focusable="false"
-              className="mt-1"
+              className="mt-1 hidden w-full sm:block"
+              preserveAspectRatio="none"
             >
               <path
                 className="signal-spark"
