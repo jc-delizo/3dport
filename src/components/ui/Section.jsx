@@ -55,11 +55,13 @@ export function Section({ surface, divider = true, compact = false, className = 
   // planes read as one room rather than as unrelated tilting cards.
   if (grammar.rhythm === 'planes') {
     const plane = grammar.tiles?.[surface]
+    const elev = grammar.depths?.[surface]
     return (
       <section className={`${flowSpacing} bg-canvas ${className}`} {...rest}>
         <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
           <AtriumPlane
             {...(plane ? { 'data-surface': plane } : {})}
+            {...(elev ? { 'data-elev': elev } : {})}
             className={compact ? 'px-5 py-8 md:px-10 md:py-10' : 'px-5 py-10 md:px-12 md:py-16'}
           >
             {children}

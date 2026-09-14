@@ -33,6 +33,23 @@
       content="Technical Project Manager and Software Delivery Manager who scaled delivery from 2 to 20–28 projects a year through Agile and AI workflows."
     />
     <meta name="twitter:image" content="https://jc-delizo.github.io/3dport/og.png" />
+
+    <!-- Structured data: lets search engines show JC as an entity, not just a
+         page. Strings mirror the meta tags above; site.test.js guards both
+         against drifting from src/content/site.js. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "JC Delizo",
+        "jobTitle": "Technical Project Manager",
+        "url": "https://jc-delizo.github.io/3dport/",
+        "image": "https://jc-delizo.github.io/3dport/og.png",
+        "sameAs": ["https://www.linkedin.com/in/jcdelizo/"],
+        "description": "Technical Project Manager and Software Delivery Manager who scaled delivery from 2 to 20–28 projects a year through Agile and AI workflows.",
+        "knowsAbout": ["Agile software delivery", "Technical program management", "AI-powered delivery workflows"]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

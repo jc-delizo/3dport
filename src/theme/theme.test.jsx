@@ -161,6 +161,11 @@ describe('theme tokens in index.css', () => {
     expect(block).toMatch(/--radius-button:\s*9999px/)
   })
 
+  it('opts into cross-document view transitions, and out again for reduced motion', () => {
+    expect(css).toMatch(/@view-transition\s*{\s*navigation:\s*auto/)
+    expect(css).toMatch(/prefers-reduced-motion[^}]*{[^@]*@view-transition\s*{\s*navigation:\s*none/)
+  })
+
   it('sets color-scheme per theme so form controls follow', () => {
     expect(css).toMatch(/\[data-theme='midnight'\][^{]*{[^}]*color-scheme:\s*dark/)
   })
@@ -196,6 +201,20 @@ describe('ThemeProvider', () => {
     expect(screen.getByTestId('current').textContent).toBe('midnight')
     expect(document.documentElement.dataset.theme).toBe('midnight')
     expect(localStorage.getItem(STORAGE_KEY)).toBe('midnight')
+  })
+
+  it('routes a theme switch through startViewTransition when the browser has it', () => {
+    const vt = vi.fn((cb) => cb())
+    document.startViewTransition = vt
+    try {
+      render(<ThemeProvider><Probe /></ThemeProvider>)
+      act(() => screen.getByText('go dark').click())
+      expect(vt).toHaveBeenCalledTimes(1)
+      // The switch itself must have landed inside the transition callback.
+      expect(document.documentElement.dataset.theme).toBe('midnight')
+    } finally {
+      delete document.startViewTransition
+    }
   })
 
   it('restores a stored choice on mount', () => {

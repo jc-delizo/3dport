@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { THEMES, DEFAULT_THEME, themeById } from './themes'
 
 // Versioned once when Quiet became the default so returning visitors also see
@@ -32,8 +33,22 @@ export function ThemeProvider({ children }) {
 
   const setTheme = (id) => {
     if (!themeById(id)) return
-    setThemeState(id)
-    localStorage.setItem(STORAGE_KEY, id)
+    const apply = () => {
+      setThemeState(id)
+      localStorage.setItem(STORAGE_KEY, id)
+    }
+    // A theme switch swaps the whole visual system at once; the browser-native
+    // view transition turns that hard cut into a crossfade. flushSync so the
+    // DOM change lands inside the transition's snapshot window. Progressive:
+    // no API or reduced motion -> the plain instant switch.
+    const reduced =
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (typeof document.startViewTransition === 'function' && !reduced) {
+      document.startViewTransition(() => flushSync(apply))
+    } else {
+      apply()
+    }
   }
 
   return (

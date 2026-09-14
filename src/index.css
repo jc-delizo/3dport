@@ -1176,7 +1176,18 @@
   perspective: 1400px;
   perspective-origin: 50% 45%;
 }
+/* One composed transform, driven by custom properties, so four motions share
+   a single declaration instead of fighting over it:
+     --elev     resting depth (the section's importance, from grammar.depths)
+     --tip-*    the entering tilt (data-depth, set by AtriumPlane)
+     --par-*    cursor parallax (set on <html> by useAtriumStage, rAF-coalesced)
+   The 600ms transition doubles as the parallax smoother: each pointer frame
+   only moves the target, and the transition eases toward it. */
 [data-theme='atrium'] .atrium-plane {
+  --elev: 0px;
+  --tip-y: 0px;
+  --tip-z: 0px;
+  --tip-rx: 0deg;
   transform-style: preserve-3d;
   background: rgb(var(--color-card));
   border: 1px solid rgb(var(--color-hairline));
@@ -1185,21 +1196,55 @@
     0 1px 2px rgb(22 32 43 / 0.04),
     0 12px 28px -12px rgb(22 32 43 / 0.14),
     0 32px 64px -32px rgb(22 32 43 / 0.18);
+  transform: translate3d(0, var(--tip-y), calc(var(--elev) + var(--tip-z)))
+    rotateX(calc(var(--tip-rx) + var(--par-rx, 0deg))) rotateY(var(--par-ry, 0deg));
   transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 600ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 /* Entering planes are tipped away and lift to flat as they reach centre. */
 [data-theme='atrium'] .atrium-plane[data-depth='far'] {
-  transform: translate3d(0, 24px, -120px) rotateX(6deg);
+  --tip-y: 24px;
+  --tip-z: -120px;
+  --tip-rx: 6deg;
 }
-[data-theme='atrium'] .atrium-plane[data-depth='near'] {
-  transform: translate3d(0, 0, 0) rotateX(0deg);
+/* Depth as information: the sections that sell sit nearest the reader,
+   utility sections recess. Small offsets — legibility beats theatre. */
+[data-theme='atrium'] .atrium-plane[data-elev='raised'] {
+  --elev: 26px;
+}
+[data-theme='atrium'] .atrium-plane[data-elev='recessed'] {
+  --elev: -34px;
+}
+/* The entrance dolly: until the stage has arrived, every plane sits deep in
+   the room; arrival releases them and the transition carries them forward.
+   Declared after the depth rules so it wins while data-arrived='false'. */
+[data-theme='atrium'] .atrium-stage[data-arrived='false'] .atrium-plane {
+  --tip-y: 34px;
+  --tip-z: -220px;
 }
 @media (prefers-reduced-motion: reduce) {
   [data-theme='atrium'] .atrium-plane,
-  [data-theme='atrium'] .atrium-plane[data-depth='far'] {
+  [data-theme='atrium'] .atrium-plane[data-depth='far'],
+  [data-theme='atrium'] .atrium-stage[data-arrived='false'] .atrium-plane {
     transform: none;
     transition: none;
+  }
+}
+
+/* Cross-document view transitions (main page <-> Lab): browser-native morph
+   between same-origin navigations. Pure progressive enhancement — browsers
+   without the at-rule, or readers preferring reduced motion, get an instant
+   swap exactly as before. */
+@view-transition {
+  navigation: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
   }
 }

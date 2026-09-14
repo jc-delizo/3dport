@@ -274,3 +274,43 @@ the storage key.
 
 If a dropped theme is ever wanted back, it's one revert away: commit f78e8a9
 (themes) and 6f170c6/3a9877c (their fixes).
+
+---
+
+## 2026-09-14 — Atrium Signature Pass + Receipts Pass (+ quiet wins)
+
+Approved from the researched ideas menu (Awwwards/Muzli winners + PM-recruiter
+guidance). Everything still zero new runtime dependencies.
+
+**Atrium Signature Pass**
+- Planes now compose one transform from custom properties: `--elev` (resting
+  depth), `--tip-*` (entering tilt), `--par-*` (cursor parallax). The 600ms
+  transition doubles as the parallax smoother.
+- Entrance dolly: the stage mounts one frame deep (`data-arrived='false'`),
+  then releases. Replays when Atrium becomes the active theme.
+- Depth as information via `grammar.depths`: hero/initiatives/case-studies/
+  recommendations raised (+26px), tools/certifications/footer recessed (−34px).
+- Cursor parallax gated on NOT `(pointer: coarse)` — headless/kiosk browsers
+  report `pointer: none` and fire no pointer events, so excluding only coarse
+  is both safer and testable. Touch-primary devices skip it.
+- View Transitions API: theme switches route through `startViewTransition`
+  (flushSync inside the callback); `@view-transition { navigation: auto }`
+  gives main ↔ Lab a cross-document morph. Both stand down for reduced motion.
+
+**Receipts Pass**
+- Every case study carries `facts` (Role / Team / Duration / Context) rendered
+  as a bordered definition list on card and overlay. Hard rule, tested: every
+  value restates a fact already in the entry's story/timeline or Experience —
+  the strip summarizes, never introduces claims.
+
+**Quiet wins**
+- Person JSON-LD in index.html, guarded by site.test.js against drifting from
+  site.js meta.
+- public/404.html: self-contained (no webfonts, no JS), Atrium-styled tilted
+  plane, "This page never shipped."
+- Data-saver: `navigator.connection.saveData` skips the decorative Backdrop
+  and all Atrium stage motion (`prefersLiteData()`).
+
+Deliberately NOT done: scrollytelling for the 2→28 story (adjacent to the
+rejected Throughput concept; JC can opt in later), Scenario Playbook (offered,
+not yet approved). DEFAULT_THEME still 'quiet'.

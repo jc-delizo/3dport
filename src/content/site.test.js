@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { site } from './site'
 import { strips } from './strips'
 import { lifecycle, artifactPreviews } from './lifecycle'
@@ -400,5 +402,21 @@ describe('case studies data', () => {
     // Turnaround times and hours-saved were TBD in the source briefs; publishing
     // any such figure would be invented. Guard the phrasings that would carry one.
     expect(text).not.toMatch(/hours saved|turnaround time of|% faster/i)
+  })
+})
+
+describe('structured data in index.html', () => {
+  it('carries a Person JSON-LD block that mirrors the site meta', () => {
+    const html = readFileSync(resolve(__dirname, '../../index.html'), 'utf-8')
+    const block = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)
+    expect(block, 'JSON-LD script must exist').not.toBeNull()
+    const data = JSON.parse(block[1])
+    expect(data['@type']).toBe('Person')
+    expect(data.name).toBe(site.hero.name)
+    expect(data.jobTitle).toBe(site.hero.title)
+    expect(data.url).toBe(site.meta.url)
+    expect(data.image).toBe(site.meta.ogImage)
+    expect(data.sameAs).toContain(site.contact.linkedin)
+    expect(data.description).toBe(site.meta.description)
   })
 })

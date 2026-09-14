@@ -193,6 +193,17 @@ export const THEMES = [
       // tilts toward the reader as it enters and settles flat when centred.
       signature: 'atrium',
       tiles: { footer: 'deep' },
+      // Depth as information: the sections doing the selling sit nearest the
+      // reader; utility sections recess. Unmapped sections rest at zero.
+      depths: {
+        hero: 'raised',
+        initiatives: 'raised',
+        'case-studies': 'raised',
+        recommendations: 'raised',
+        tools: 'recessed',
+        certifications: 'recessed',
+        footer: 'recessed',
+      },
       chart: {
         accent: '#1D4ED8',
         surface: '#FFFFFF',
