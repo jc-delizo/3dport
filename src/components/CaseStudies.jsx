@@ -32,6 +32,23 @@ function StatTiles({ stats, className = '' }) {
   )
 }
 
+// The screener's strip: role, team, timeline, context at a glance, without
+// opening the overlay. Rendered as a definition list so assistive tech reads
+// each pair as a pair.
+function FactsStrip({ facts, className = '' }) {
+  if (!facts?.length) return null
+  return (
+    <dl className={`grid gap-x-8 gap-y-3.5 border-y border-hairline py-4 sm:grid-cols-2 ${className}`}>
+      {facts.map(({ k, v }) => (
+        <div key={k}>
+          <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-accent">{k}</dt>
+          <dd className="mt-1 text-label leading-5 text-muted">{v}</dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+
 function Timeline({ entries }) {
   return (
     <ol className="mt-4 border-l border-hairline">
@@ -254,6 +271,7 @@ function StudyOverlay({ study, onClose, onNavigate }) {
       </h2>
 
       <p className="measure mt-4 text-body text-muted">{study.summary}</p>
+      <FactsStrip facts={study.facts} className="mt-6" />
       <StatTiles stats={study.stats} />
       <StudyDetail study={study} />
     </ReaderOverlay>
@@ -279,6 +297,8 @@ function StudyCard({ study, index, onOpen }) {
 
         <StatTiles stats={study.stats} className="md:mt-0" />
       </div>
+
+      <FactsStrip facts={study.facts} className="mt-7" />
 
       <button
         type="button"

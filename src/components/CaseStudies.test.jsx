@@ -164,3 +164,21 @@ describe('CaseStudies overlay', () => {
     }
   })
 })
+
+describe('facts strip (the screener read)', () => {
+  it('defines a facts strip on every case study, with the fields screeners scan for', () => {
+    site.caseStudies.forEach((study) => {
+      const keys = (study.facts ?? []).map((f) => f.k)
+      ;['Role', 'Team', 'Duration', 'Context'].forEach((k) =>
+        expect(keys, `${study.id} facts`).toContain(k)
+      )
+    })
+  })
+
+  it('renders every fact on the card, without opening the overlay', () => {
+    render(<CaseStudies />)
+    site.caseStudies[0].facts.forEach(({ v }) => {
+      expect(screen.getByText(v)).toBeInTheDocument()
+    })
+  })
+})

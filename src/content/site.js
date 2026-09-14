@@ -146,6 +146,15 @@ export const site = {
         { value: '8', label: 'Document types seeded at launch' },
         { value: '0', label: 'Support tickets since go-live' },
       ],
+      // The screener's five-second read. Every value restates a fact already
+      // in this entry's story/timeline or the Experience section — the strip
+      // summarizes, it never introduces claims of its own.
+      facts: [
+        { k: 'Role', v: 'Technical PM — the delivery system: daily scrum, 3×-daily checkpoints, portfolio triage' },
+        { k: 'Team', v: 'One newly hired developer + an AI-phased delivery framework, every phase human-gated' },
+        { k: 'Duration', v: '30 days — one-day design sprint (Jun 1) to five-entity go-live (Jun 30)' },
+        { k: 'Context', v: 'One of eight go-lives sharing the same June 30 date, one small team' },
+      ],
       timeline: [
         {
           date: 'Jun 1',
@@ -229,6 +238,12 @@ export const site = {
         { value: '61', label: 'Users onboarded' },
         { value: '22', label: 'Automated implementation runs' },
         { value: '3', label: 'Days from first commit to first production ticket' },
+      ],
+      facts: [
+        { k: 'Role', v: 'Software Delivery Manager — the platform automates the delivery system that is the job' },
+        { k: 'Team', v: 'No dedicated platform team: the delivery team itself — 6 developers, 1 QA, 1 designer' },
+        { k: 'Duration', v: 'Feb to ongoing — MVP in one sprint, first production ticket 3 days after first commit' },
+        { k: 'Context', v: 'Built in the gaps between 20+ concurrent business projects; ran untouched through April' },
       ],
       timeline: [
         {
