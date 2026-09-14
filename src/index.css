@@ -1169,26 +1169,38 @@
   --color-card: 255 255 255;
   --color-hairline: 213 220 228;
 }
-/* The stage. Perspective lives on the scroll container's parent so every
-   plane shares one vanishing point — separate perspectives would read as
-   unrelated cards tilting, not as one room. */
-[data-theme='atrium'] .atrium-stage {
-  perspective: 1400px;
-  perspective-origin: 50% 45%;
-}
-/* One composed transform, driven by custom properties, so four motions share
-   a single declaration instead of fighting over it:
-     --elev     resting depth (the section's importance, from grammar.depths)
-     --tip-*    the entering tilt (data-depth, set by AtriumPlane)
-     --par-*    cursor parallax (set on <html> by useAtriumStage, rAF-coalesced)
+/* Projection safety contract (see the 2026-09-14 hover-divergence entry in
+   docs/decision-log.md and the regression tests in signature.test.jsx):
+
+   1. `perspective` lives on the PER-SECTION cell, never on the page-height
+      stage. Percent perspective-origins resolve against the element's own
+      box, so a stage-level origin sat ~6,000px off-screen and every plane
+      projected relative to a point nobody could see.
+   2. Planes REST FLAT. Persistent effects are 2D only — resting elevation is
+      scale + shadow, parallax is a differential 2D drift. Non-zero resting Z
+      diverged visual position from hit-test geometry (hover landed on the
+      wrong tool chip) and stopped background-clip glare text repainting.
+   3. 3D is transient: the scroll-in tilt and the entrance dolly, both ending
+      at identity.
+
+   The composed transform's custom properties:
+     --elev-scale  resting size (the section's importance, from grammar.depths)
+     --par-depth   how far this tier drifts with the cursor (raised drifts
+                   most — the differential IS the depth cue)
+     --par-x/-y    cursor offset, unitless -1..1, set on <html> by
+                   useAtriumStage, rAF-coalesced
+     --tip-*       transient 3D (scroll-in tilt, entrance dolly)
    The 600ms transition doubles as the parallax smoother: each pointer frame
    only moves the target, and the transition eases toward it. */
+[data-theme='atrium'] .atrium-cell {
+  perspective: 1400px;
+}
 [data-theme='atrium'] .atrium-plane {
-  --elev: 0px;
+  --elev-scale: 1;
+  --par-depth: 6px;
   --tip-y: 0px;
   --tip-z: 0px;
   --tip-rx: 0deg;
-  transform-style: preserve-3d;
   background: rgb(var(--color-card));
   border: 1px solid rgb(var(--color-hairline));
   border-radius: var(--radius-card);
@@ -1196,8 +1208,12 @@
     0 1px 2px rgb(22 32 43 / 0.04),
     0 12px 28px -12px rgb(22 32 43 / 0.14),
     0 32px 64px -32px rgb(22 32 43 / 0.18);
-  transform: translate3d(0, var(--tip-y), calc(var(--elev) + var(--tip-z)))
-    rotateX(calc(var(--tip-rx) + var(--par-rx, 0deg))) rotateY(var(--par-ry, 0deg));
+  transform: translate3d(
+      calc(var(--par-x, 0) * var(--par-depth)),
+      calc(var(--par-y, 0) * var(--par-depth) + var(--tip-y)),
+      var(--tip-z)
+    )
+    rotateX(var(--tip-rx)) scale(var(--elev-scale));
   transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 600ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
@@ -1208,20 +1224,30 @@
   --tip-z: -120px;
   --tip-rx: 6deg;
 }
-/* Depth as information: the sections that sell sit nearest the reader,
-   utility sections recess. Small offsets — legibility beats theatre. */
+/* Depth as information, in 2D: nearer sections render slightly larger with a
+   deeper shadow and drift furthest with the cursor; utility sections shrink,
+   flatten, and barely move. */
 [data-theme='atrium'] .atrium-plane[data-elev='raised'] {
-  --elev: 26px;
+  --elev-scale: 1.015;
+  --par-depth: 12px;
+  box-shadow:
+    0 2px 4px rgb(22 32 43 / 0.05),
+    0 18px 36px -14px rgb(22 32 43 / 0.18),
+    0 44px 80px -36px rgb(22 32 43 / 0.22);
 }
 [data-theme='atrium'] .atrium-plane[data-elev='recessed'] {
-  --elev: -34px;
+  --elev-scale: 0.985;
+  --par-depth: 2px;
+  box-shadow:
+    0 1px 2px rgb(22 32 43 / 0.04),
+    0 8px 18px -10px rgb(22 32 43 / 0.1);
 }
 /* The entrance dolly: until the stage has arrived, every plane sits deep in
-   the room; arrival releases them and the transition carries them forward.
-   Declared after the depth rules so it wins while data-arrived='false'. */
+   its own cell; arrival releases it and the transition carries it forward.
+   Deep enough to be unmissable — the local perspective makes it a true zoom. */
 [data-theme='atrium'] .atrium-stage[data-arrived='false'] .atrium-plane {
-  --tip-y: 34px;
-  --tip-z: -220px;
+  --tip-y: 28px;
+  --tip-z: -300px;
 }
 @media (prefers-reduced-motion: reduce) {
   [data-theme='atrium'] .atrium-plane,

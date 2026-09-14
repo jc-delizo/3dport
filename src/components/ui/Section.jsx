@@ -58,7 +58,10 @@ export function Section({ surface, divider = true, compact = false, className = 
     const elev = grammar.depths?.[surface]
     return (
       <section className={`${flowSpacing} bg-canvas ${className}`} {...rest}>
-        <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
+        {/* atrium-cell carries the perspective: per-section, so the vanishing
+            point is always near the plane it projects (projection safety
+            contract, index.css). */}
+        <div className="atrium-cell mx-auto w-full max-w-[80rem] px-4 md:px-6">
           <AtriumPlane
             {...(plane ? { 'data-surface': plane } : {})}
             {...(elev ? { 'data-elev': elev } : {})}

@@ -53,8 +53,8 @@ function useHashNavigation() {
 
 export default function App() {
   useHashNavigation()
-  // Atrium's planes share one vanishing point, so the perspective must live on
-  // a single ancestor of every section rather than on each plane.
+  // The stage class scopes Atrium's arrival state; perspective itself lives
+  // per-section on .atrium-cell (see the projection safety contract).
   const isAtrium = useTheme().grammar.rhythm === 'planes'
   const stage = isAtrium ? 'atrium-stage' : ''
   const stageProps = useAtriumStage(isAtrium)

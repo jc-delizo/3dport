@@ -3,6 +3,8 @@ import { screen, act } from '@testing-library/react'
 import { renderWithTheme as render } from '../test/render'
 import App from '../App'
 import { AtriumPlane } from '../components/ui/AtriumPlane'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 const useTheme = (id) => {
   localStorage.setItem('3dport-theme-v2', id)
@@ -64,6 +66,29 @@ describe('Atrium depth hierarchy', () => {
   })
 })
 
+describe('Atrium projection safety (the hover-divergence regression)', () => {
+  // Root cause of 2026-09-14's broken tool hover: perspective declared on the
+  // page-height stage put the vanishing point ~6,000px off-screen, and planes
+  // resting at non-zero Z diverged visually from hit-test geometry. The
+  // contract: perspective is per-section, and every persistent (resting)
+  // effect is 2D — 3D transforms may only be transient.
+  const css = readFileSync(resolve(__dirname, '../index.css'), 'utf-8')
+
+  it('declares perspective on the per-section cell, never on the page-height stage', () => {
+    expect(css).toMatch(/\.atrium-cell\s*{[^}]*perspective:/)
+    const stage = css.match(/\[data-theme='atrium'\] \.atrium-stage\s*{([^}]*)}/)
+    if (stage) expect(stage[1]).not.toMatch(/perspective/)
+  })
+
+  it('expresses resting elevation as 2D scale, not translateZ', () => {
+    const raised = css.match(/\[data-elev='raised'\]\s*{([^}]*)}/)[1]
+    const recessed = css.match(/\[data-elev='recessed'\]\s*{([^}]*)}/)[1]
+    expect(raised).toMatch(/--elev-scale/)
+    expect(recessed).toMatch(/--elev-scale/)
+    expect(raised + recessed).not.toMatch(/translateZ|--elev:/)
+  })
+})
+
 describe('Atrium stage direction', () => {
   beforeEach(() => {
     useTheme('atrium')
@@ -120,9 +145,9 @@ describe('Atrium stage direction', () => {
       vi.advanceTimersByTime(32) // let the rAF-coalesced write land
     })
     const root = document.documentElement
-    expect(root.style.getPropertyValue('--par-ry')).not.toBe('')
+    expect(root.style.getPropertyValue('--par-x')).not.toBe('')
     // Unmount must sweep the vars — they are stage props, not page state.
     unmount()
-    expect(root.style.getPropertyValue('--par-ry')).toBe('')
+    expect(root.style.getPropertyValue('--par-x')).toBe('')
   })
 })

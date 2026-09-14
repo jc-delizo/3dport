@@ -314,3 +314,36 @@ guidance). Everything still zero new runtime dependencies.
 Deliberately NOT done: scrollytelling for the 2→28 story (adjacent to the
 rejected Throughput concept; JC can opt in later), Scenario Playbook (offered,
 not yet approved). DEFAULT_THEME still 'quiet'.
+
+---
+
+## 2026-09-14 (later) — Projection safety: the hover-divergence post-mortem
+
+JC reported: hovering one tool highlighted another, the tools glare vanished,
+and the entrance dolly/parallax were invisible. One root cause, found by
+measurement, not guessing:
+
+**`perspective` lived on the page-height stage.** Percent perspective-origins
+resolve against the element's own box, so the vanishing point sat at
+`700px, 5952px` — ~6,000px off-screen. Every plane projected relative to a
+point nobody could see. With the signature pass's persistent resting Z
+(±26/34px), visual geometry diverged from hit-test geometry (a real mouse over
+"Jira" hovered nothing), Chrome stopped repainting `background-clip: text`
+glare inside the non-flat 3D context, and motion read as smear, not depth.
+
+**The contract now (regression-tested in signature.test.jsx):**
+1. `perspective` is declared per-section on `.atrium-cell`, never on the stage.
+2. Planes rest FLAT. Persistent effects are 2D only — elevation is
+   scale (±1.5%) + shadow depth; parallax is a differential 2D drift
+   (raised 12px, base 6px, recessed 2px — the differential is the depth cue).
+3. 3D is transient: scroll-in tilt and the entrance dolly (deepened to
+   −300px, a true zoom under local perspective), both ending at identity.
+
+Verified live: 12/12 chips hit-test exact with elevation applied, `li:hover`
+true under a real mouse, glare paints (1,295px changed between frames 400ms
+apart), raised plane drifts 23px cursor-left-to-right. Planes collapse to 2D
+matrices at rest — also cheaper to render.
+
+Lesson recorded: never leave a persistent non-identity 3D transform under
+content that must be hovered, and never put perspective on an element taller
+than the viewport.

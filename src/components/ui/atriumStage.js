@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react'
 // for readers on data-saver connections — those get the composed resting
 // state immediately, not a disabled effect.
 //
-// Parallax mechanism: pointer position becomes two custom properties on
-// <html> (--par-rx/--par-ry), which every plane's transform already reads.
-// Updates are rAF-coalesced, and the planes' own 600ms transform transition
-// does the smoothing — each frame only moves the target.
-const MAX_TILT_X = 2.2 // deg, left-right
-const MAX_TILT_Y = 1.6 // deg, up-down
+// Parallax mechanism: pointer position becomes a unitless -1..1 pair on
+// <html> (--par-x/--par-y); each plane multiplies it by its tier's
+// --par-depth, so raised planes drift furthest — the differential is the
+// depth cue, and staying 2D keeps hit-testing exact (see the projection
+// safety contract in index.css). Updates are rAF-coalesced, and the planes'
+// own 600ms transform transition does the smoothing.
 
 // Data-saver check, shared with App's decorative layers: a reader who asked
 // their browser to save data should not pay for backdrop art or stage motion.
@@ -42,10 +42,11 @@ export function useAtriumStage(active) {
       if (frame) return
       frame = window.requestAnimationFrame(() => {
         frame = 0
-        const ry = (e.clientX / window.innerWidth - 0.5) * MAX_TILT_X
-        const rx = (e.clientY / window.innerHeight - 0.5) * -MAX_TILT_Y
-        root.style.setProperty('--par-rx', `${rx.toFixed(2)}deg`)
-        root.style.setProperty('--par-ry', `${ry.toFixed(2)}deg`)
+        // Content drifts opposite the cursor, like looking past a window frame.
+        const px = (0.5 - e.clientX / window.innerWidth) * 2
+        const py = (0.5 - e.clientY / window.innerHeight) * 2
+        root.style.setProperty('--par-x', px.toFixed(3))
+        root.style.setProperty('--par-y', py.toFixed(3))
       })
     }
     // Touch scrolling fires pointermove, and the room swimming under a thumb
@@ -60,8 +61,8 @@ export function useAtriumStage(active) {
       window.clearTimeout(t)
       if (fine) window.removeEventListener('pointermove', onMove)
       if (frame) window.cancelAnimationFrame(frame)
-      root.style.removeProperty('--par-rx')
-      root.style.removeProperty('--par-ry')
+      root.style.removeProperty('--par-x')
+      root.style.removeProperty('--par-y')
     }
   }, [active])
 
