@@ -1,8 +1,5 @@
 import { useEffect } from 'react'
 import { Backdrop } from './components/backdrop/Backdrop'
-import { OrderGrid } from './components/signature/OrderGrid'
-import { ThroughputRail } from './components/signature/ThroughputRail'
-import { SignalRail } from './components/signature/SignalRail'
 import { useTheme } from './theme/ThemeContext'
 import { Nav } from './components/Nav'
 import { SectionNavigator } from './components/SectionNavigator'
@@ -65,9 +62,6 @@ export default function App() {
         Skip to content
       </a>
       <Backdrop />
-      <OrderGrid />
-      <ThroughputRail />
-      <SignalRail />
       <Nav />
       <SectionNavigator />
       <main id="main" className={stage}>

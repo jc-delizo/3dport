@@ -256,3 +256,21 @@ Key choices:
 
 Sandboxes: `scripts/theme-sandboxes.sh start|stop` runs all four on :5181–:5184 via
 `VITE_FORCE_THEME`, a dev-only pin in ThemeContext that production builds never consult.
+
+---
+
+## 2026-09-14 — Atrium chosen; Order, Throughput, Signal removed
+
+JC reviewed all four signature candidates live on the sandboxes and picked
+**Atrium**. The other three were removed the same day — registry entries,
+components, CSS blocks, and tests — not just hidden: an unreachable theme is
+dead code 11 grammar consumers would still have to honour.
+
+What survives: the `planes` rhythm, `AtriumPlane`, the Atrium token/CSS block,
+and the sandbox script (now Atrium-only on :5184, with a `setsid` fix so
+`stop` kills the vite child, not just the npx wrapper). `DEFAULT_THEME` is
+still `quiet` — promoting Atrium is a separate, deliberate step that versions
+the storage key.
+
+If a dropped theme is ever wanted back, it's one revert away: commit f78e8a9
+(themes) and 6f170c6/3a9877c (their fixes).

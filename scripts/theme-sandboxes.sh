@@ -1,32 +1,38 @@
 #!/usr/bin/env bash
-# Four sandboxes, one per signature theme, same source on different ports.
-# VITE_FORCE_THEME pins each port's opening theme (dev-only, see ThemeContext).
+# Atrium sandbox — the surviving signature theme (Order/Throughput/Signal were
+# reviewed live and dropped; see docs/decision-log.md 2026-09-14).
+# VITE_FORCE_THEME pins the opening theme (dev-only, see ThemeContext).
 #   start:  scripts/theme-sandboxes.sh start
 #   stop:   scripts/theme-sandboxes.sh stop
 set -u
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOGDIR="${SANDBOX_LOGDIR:-/tmp/3dport-sandboxes}"
 PIDFILE="$LOGDIR/pids"
-THEMES=("order:5181" "throughput:5182" "signal:5183" "atrium:5184")
+THEMES=("atrium:5184")
 
 start() {
   mkdir -p "$LOGDIR"; : > "$PIDFILE"
   cd "$ROOT" || exit 1
   for entry in "${THEMES[@]}"; do
     theme="${entry%%:*}"; port="${entry##*:}"
-    VITE_FORCE_THEME="$theme" nohup npx vite \
+    # setsid: npx wraps vite in a child, so killing the npx pid alone leaves
+    # the server listening. A fresh process group lets stop() kill the tree.
+    VITE_FORCE_THEME="$theme" setsid nohup npx vite \
       --host 0.0.0.0 --port "$port" --strictPort --base / \
       > "$LOGDIR/$theme.log" 2>&1 &
     echo "$! $theme $port" >> "$PIDFILE"
-    echo "started $theme on :$port (pid $!)"
+    echo "started $theme on :$port (pgid $!)"
   done
 }
 
 stop() {
   [ -f "$PIDFILE" ] || { echo "no pidfile at $PIDFILE"; exit 0; }
   while read -r pid theme port; do
-    if kill "$pid" 2>/dev/null; then echo "stopped $theme :$port (pid $pid)"
-    else echo "$theme :$port (pid $pid) was not running"; fi
+    if kill -- "-$pid" 2>/dev/null || kill "$pid" 2>/dev/null; then
+      echo "stopped $theme :$port (pgid $pid)"
+    else
+      echo "$theme :$port (pgid $pid) was not running"
+    fi
   done < "$PIDFILE"
   rm -f "$PIDFILE"
 }

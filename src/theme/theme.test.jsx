@@ -12,7 +12,7 @@ const GRAMMAR_KEYS = ['nav', 'rhythm', 'button', 'display', 'chart', 'approach']
 const CHART_KEYS = ['accent', 'surface', 'grid', 'textMuted', 'textStrong']
 
 describe('theme registry', () => {
-  it('ships the six originals plus the four signature themes; Quiet stays default until one is chosen', () => {
+  it('ships the six originals plus Atrium; Quiet stays default until JC promotes it', () => {
     expect(THEMES.map((t) => t.id)).toEqual([
       'daylight',
       'midnight',
@@ -20,33 +20,21 @@ describe('theme registry', () => {
       'paper',
       'studio',
       'quiet',
-      'order',
-      'throughput',
-      'signal',
       'atrium',
     ])
     expect(DEFAULT_THEME).toBe('quiet')
   })
 
-  it('gives each signature theme a distinct rhythm so they cannot collapse into one another', () => {
-    const rhythmOf = (id) => THEMES.find((t) => t.id === id).grammar.rhythm
-    expect(rhythmOf('order')).toBe('bordered')
-    expect(rhythmOf('throughput')).toBe('bands')
-    expect(rhythmOf('signal')).toBe('tiles')
-    expect(rhythmOf('atrium')).toBe('planes')
-    // Every signature theme names the gesture it owns, so App can mount one
-    // signature layer per theme without a growing chain of id comparisons.
-    ;['order', 'throughput', 'signal', 'atrium'].forEach((id) =>
-      expect(THEMES.find((t) => t.id === id).grammar.signature).toBe(id)
-    )
-  })
-
-  it('keeps all four signature themes in light mode, as briefed', () => {
+  it('gives Atrium the planes grammar: one shared 3D stage, light mode', () => {
+    // Sole survivor of the four 2026-09 signature candidates — Order,
+    // Throughput and Signal were built, reviewed live, and dropped.
+    const atrium = THEMES.find((t) => t.id === 'atrium')
+    expect(atrium.grammar.rhythm).toBe('planes')
+    expect(atrium.grammar.signature).toBe('atrium')
+    expect(atrium.grammar.button).toBe('pill')
     const css = readFileSync(resolve(__dirname, '../index.css'), 'utf-8')
-    ;['order', 'throughput', 'signal', 'atrium'].forEach((theme) => {
-      const block = css.match(new RegExp(`\\[data-theme='${theme}'\\]\\s*{([^}]+)}`))[1]
-      expect(block, `${theme} must declare light color-scheme`).toMatch(/color-scheme:\s*light/)
-    })
+    const block = css.match(/\[data-theme='atrium'\]\s*{([^}]+)}/)[1]
+    expect(block, 'Atrium must stay light, as briefed').toMatch(/color-scheme:\s*light/)
   })
 
   it('gives Quiet a restrained, bordered system with a muted green accent', () => {
@@ -126,7 +114,7 @@ describe('theme tokens in index.css', () => {
     const root = css.match(/:root\s*{([^}]+)}/)[1]
     const rootColorVars = varsIn(root).filter((v) => v.startsWith('--color'))
     expect(rootColorVars.length).toBeGreaterThanOrEqual(6)
-    ;['midnight', 'cupertino', 'paper', 'studio', 'quiet', 'order', 'throughput', 'signal', 'atrium'].forEach((theme) => {
+    ;['midnight', 'cupertino', 'paper', 'studio', 'quiet', 'atrium'].forEach((theme) => {
       const block = css.match(new RegExp(`\\[data-theme='${theme}'\\]\\s*{([^}]+)}`))[1]
       rootColorVars.forEach((v) => expect(varsIn(block), `${theme} missing ${v}`).toContain(v))
     })
