@@ -11,11 +11,11 @@ describe('Backdrop', () => {
     expect(layer.className).toMatch(/\bfixed\b/)
   })
 
-  it('renders only when a 1680px-wide viewport provides safe side gutters', () => {
+  it('renders whenever the trail does — from 1520px, where a right gutter exists', () => {
     const { container } = render(<Backdrop />)
     const layer = container.querySelector('[data-backdrop]')
     expect(layer.className).toMatch(/\bhidden\b/)
-    expect(layer.className).toMatch(/min-\[1680px\]:block/)
+    expect(layer.className).toMatch(/min-\[1520px\]:block/)
     container.querySelectorAll('[data-backdrop-set]').forEach((set) => {
       const desktop = set.querySelector('[data-backdrop-desktop]')
       expect(desktop.className).toMatch(/\bcontents\b/)

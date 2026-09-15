@@ -12,7 +12,11 @@ gsap.registerPlugin(ScrollTrigger, useGSAP)
 // itself in (stroke draw) while its section is in view, cross-fading to the
 // next set as the reader travels. Objects also drift at per-glyph depths for
 // gentle parallax. Same visibility contract as the SectionNavigator: the
-// layer only exists at min-[1680px], where the gutters are demonstrably clear.
+// layer exists from min-[1520px] — the same threshold as the SectionNavigator
+// trail, so whenever the left gutter carries the outline, the right one
+// carries the marginalia (JC, 2026-09-15). In the 1520-1679 range the widest
+// glyphs tuck slightly under the plane edge; they render behind it, so the
+// plane simply crops them.
 //
 // `anchor` is a SectionHeading/Section id from the app; the trigger is that
 // element's enclosing <section>, so set boundaries match what the reader sees.
@@ -154,8 +158,8 @@ export function Backdrop() {
         {
           reduce: '(prefers-reduced-motion: reduce)',
           full: '(prefers-reduced-motion: no-preference)',
-          gutter: '(min-width: 1680px)',
-          desktopPointer: '(min-width: 1680px) and (pointer: fine)',
+          gutter: '(min-width: 1520px)',
+          desktopPointer: '(min-width: 1520px) and (pointer: fine)',
         },
         (ctx) => {
           const { reduce, gutter, desktopPointer } = ctx.conditions
@@ -266,7 +270,7 @@ export function Backdrop() {
       ref={layerRef}
       data-backdrop
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[1] hidden text-ink min-[1680px]:block"
+      className="pointer-events-none fixed inset-0 z-[1] hidden text-ink min-[1520px]:block"
     >
       {BACKDROP_SETS.map(({ anchor, items }) => (
           <div
