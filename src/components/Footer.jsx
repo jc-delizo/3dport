@@ -23,6 +23,22 @@ export function Footer({ currentPage }) {
 
   return (
     <footer {...surfaceProps} className="border-t border-hairline bg-canvas py-10">
+      {/* The "Now" strip: a liveness signal — a portfolio that visibly moves
+          reads differently from a brochure. Content lives in site.now. */}
+      <Container>
+        <div className="mb-6 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-b border-hairline pb-6">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
+            Now · {site.now.updated}
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-1">
+            {site.now.items.map((item) => (
+              <li key={item} className="text-label text-muted">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
       {/* The sitemap row: everything the flat nav demoted (2026-09-15). On
           wide screens the trail duplicates this; below 1680px it is the only
           route to these sections besides scrolling. */}

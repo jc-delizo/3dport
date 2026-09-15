@@ -1286,3 +1286,24 @@
     animation: none;
   }
 }
+
+/* Scenario playbook: the panel re-keys on tab change; a short rise-and-fade
+   marks the swap. Stays still under prefers-reduced-motion. */
+.scenario-panel {
+  animation: scenario-in 360ms ease-out;
+}
+@keyframes scenario-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scenario-panel {
+    animation: none;
+  }
+}

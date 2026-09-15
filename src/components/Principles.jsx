@@ -4,6 +4,7 @@ import { Section } from './ui/Section'
 import { Card } from './ui/Card'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
+import { ScenarioPlaybook } from './ScenarioPlaybook'
 
 export function Principles() {
   return (
@@ -20,6 +21,7 @@ export function Principles() {
             </Reveal>
           ))}
         </div>
+        <ScenarioPlaybook />
       </Container>
     </Section>
   )

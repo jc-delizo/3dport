@@ -468,3 +468,25 @@ instant behavior.
 Verified at 1920 and 1536: every section lands at exactly 85px (header 73 +
 12). Contact stops at 126px — the page bottom-clamps; that is scroll physics,
 not a defect.
+
+---
+
+## 2026-09-15 (late) — Tier 2: Scenario Playbook + Now strip
+
+Both Tier-2 items from the researched menu, on JC's go.
+
+**Scenario Playbook** ("How I'd run your project") — lives inside Principles
+(no new section id, so nav/trail/footer maps untouched). Three scenarios —
+Greenfield build / Legacy replacement / Rescue mission — each showing the
+opening plays, the risks flagged before work starts, and a "receipt" link to
+the initiative or case study that proves it. Fact discipline enforced by
+test: every play restates a playbook stage/ceremony/governance rule, every
+risk restates a documented case-study moment, every evidence href targets an
+existing section, forbidden-names guard covers the module. Proper tablist
+(roving tabindex, arrow keys); panel swap animation stands down under
+reduced motion; "Read the full playbook" reuses PlaybookOverlay.
+
+**Now strip** — site.now { updated, items } rendered at the top of the
+footer: accent "NOW · <month year>" plus three current lines, each restating
+an existing site claim (5–11 concurrent, 949 tickets, this site's Atrium
+work). Update items + date with deploys that change them.
