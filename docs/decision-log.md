@@ -445,3 +445,26 @@ Three JC reports, three root causes:
 Told JC: if he also wants the entrance dolly/parallax/hero glare on his
 machine, Windows Settings > Accessibility > Visual effects > Animation
 effects ON — those remain reduce-gated by design.
+
+---
+
+## 2026-09-15 (night) — Anchor landings: scrollToSection everywhere
+
+JC: trail clicks landed sections under the navbar or cut their tops off.
+Measured: headings at 18-50px under a 73px sticky header, section tops up to
+-136px off-screen, variance driven by two defects — no scroll offset for the
+sticky header anywhere, and native anchor scrolling chasing the transformed
+position of planes still animating their entrance (getBoundingClientRect
+includes the translate; landings drifted up to 34px with timing).
+
+Fix: `src/lib/scrollToSection.js` — targets the enclosing <section>'s layout
+position (transforms never touch it), under the *measured* header height plus
+12px. One document-level click interceptor in App routes every same-page
+anchor through it (trail, nav, footer sitemap, hero CTAs, mobile panel),
+pushes the hash, and falls back to native behavior for missing targets; the
+skip link is exempt (its job is focus). Hash loads use the same helper with
+instant behavior.
+
+Verified at 1920 and 1536: every section lands at exactly 85px (header 73 +
+12). Contact stops at 126px — the page bottom-clamps; that is scroll physics,
+not a defect.

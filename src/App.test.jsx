@@ -38,16 +38,17 @@ describe('App', () => {
   })
 
   it('resolves a cross-page hash after React mounts the target section', async () => {
-    const scrollIntoView = vi.fn()
-    const original = HTMLElement.prototype.scrollIntoView
-    HTMLElement.prototype.scrollIntoView = scrollIntoView
+    // Hash loads land via scrollToSection (layout-true, header-offset), so
+    // the observable call is window.scrollTo with instant behavior.
+    const scrollTo = vi.fn()
+    vi.stubGlobal('scrollTo', scrollTo)
     window.history.replaceState({}, '', `${import.meta.env.BASE_URL}#contact`)
 
     render(<App />)
 
     await waitFor(() =>
-      expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'instant', block: 'start' }),
+      expect(scrollTo).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'instant' })),
     )
-    HTMLElement.prototype.scrollIntoView = original
+    vi.unstubAllGlobals()
   })
 })
