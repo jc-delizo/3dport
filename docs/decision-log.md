@@ -371,3 +371,31 @@ phone visitors — the majority, and the audience. Agreed outcome:
 
 Verified at 1920px: trail at x=28, nearest glyph at x=1755, flat nav rendering,
 sitemap row live. 237 tests green.
+
+---
+
+## 2026-09-15 (later) — Width system: compact nav dropdown + two-stage trail
+
+JC: 13-inch-class screens should get a single Portfolio dropdown (all
+sections) · Lab · Themes · Résumé; and his 15.6" laptop had no trail — 125%
+Windows scaling makes a 1920×1080 panel a 1536px viewport, under the trail's
+1680px gate. The width system now:
+
+| viewport      | nav                              | trail          |
+|---------------|----------------------------------|----------------|
+| <1024 (lg)    | hamburger panel (unchanged)      | hidden         |
+| 1024–1439     | Portfolio dropdown · Lab · Themes · Résumé | hidden |
+| 1440–1679     | flat Case Studies · Lab · Contact | numbers only  |
+| ≥1680         | flat                             | full labels    |
+
+- The compact dropdown's items derive from SectionNavigator's SECTIONS (page
+  order, minus Home/Lab) — one source of truth for "all the sections".
+- Both variants render always and are CSS-switched at 1440px (no resize
+  listeners); the dropdown machinery kept on 09-15 got its use back. Applied
+  to the Cupertino global bar too.
+- Compact trail is numbers-only with aria-label + title per stop: the
+  1440-1679 gutter (~80-200px) can't fit labels without touching the planes.
+- Backdrop glyphs stay ≥1680 — the right gutter below that is genuinely bare.
+
+Verified at 1280/1366/1536/1680/1920: no horizontal overflow, correct
+variant at every width; 1536 (JC's laptop) = flat nav + numbers trail.

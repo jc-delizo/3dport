@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen, fireEvent, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithTheme as render } from '../test/render'
 import { Nav } from './Nav'
 import { site } from '../content/site'
+import { SECTIONS } from './SectionNavigator'
 
 const directLinks = site.nav.filter((n) => n.id)
 const pageLinks = site.nav.filter((n) => n.href)
@@ -15,20 +16,38 @@ describe('Nav structure', () => {
     expect(brand).toHaveAttribute('href', '#top')
   })
 
-  it('renders the flat primary links as anchors — no dropdowns anywhere', () => {
+  it('keeps the wide variant flat — links only, switched from the compact variant by CSS at 1440px', () => {
     render(<Nav />)
     expect(screen.getByRole('link', { name: 'Case Studies' })).toHaveAttribute('href', '#case-studies')
     expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '#contact')
-    expect(screen.getByRole('link', { name: 'Lab' })).toBeInTheDocument()
-    // The 2026-09-15 flattening: the config carries no groups, so nothing in
-    // the navigation may render a dropdown trigger. (The theme menu lives in
-    // the utility cluster and is exempt — it is a menu, not navigation.)
+    // The config itself stays flat; the compact Portfolio dropdown is
+    // constructed in Nav, not in site.nav.
     expect(site.nav.some((n) => n.items)).toBe(false)
-    const nav = screen.getAllByRole('navigation')[0]
-    const triggers = [...nav.querySelectorAll('[aria-haspopup="true"]')].filter(
-      (el) => !/theme/i.test(el.getAttribute('aria-label') ?? el.textContent)
-    )
-    expect(triggers).toHaveLength(0)
+    const wide = screen.getByRole('link', { name: 'Case Studies' }).closest('div')
+    expect(wide.className).toMatch(/min-\[1440px\]:flex/)
+    expect(wide.className).toMatch(/\bhidden\b/)
+    expect(wide.querySelector('[aria-haspopup="true"]')).toBeNull()
+  })
+
+  it('gives 13-inch-class widths one Portfolio dropdown holding every section', async () => {
+    const user = userEvent.setup()
+    render(<Nav />)
+    const trigger = screen.getByRole('button', { name: 'Portfolio' })
+    // Hidden from 1440px up, where the flat links and the trail take over.
+    // (closest('div') would stop at the Dropdown's own positioning wrapper.)
+    let wrapper = trigger.parentElement
+    while (wrapper && !wrapper.className.includes('min-[1440px]:hidden')) wrapper = wrapper.parentElement
+    expect(wrapper, 'trigger must sit inside the compact-only wrapper').not.toBeNull()
+    await user.click(trigger)
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    // Scoped to the compact wrapper: the same labels also exist as flat links
+    // in the wide variant alongside it.
+    SECTIONS.filter(({ id }) => id !== 'top' && id !== 'lab').forEach(({ id, label }) => {
+      expect(within(wrapper).getByRole('link', { name: label })).toHaveAttribute('href', `#${id}`)
+    })
+    await user.keyboard('{Escape}')
+    expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    expect(trigger).toHaveFocus()
   })
 
   it('exposes a résumé link that downloads the self-hosted PDF', () => {
@@ -66,7 +85,10 @@ describe('Nav structure', () => {
           `${import.meta.env.BASE_URL}#${id}`,
         )
       })
-    expect(screen.getByRole('link', { name: 'Lab' })).toHaveAttribute('aria-current', 'page')
+    // Lab renders in both width variants; each must mark the current page.
+    const labs = screen.getAllByRole('link', { name: 'Lab' })
+    expect(labs.length).toBeGreaterThan(0)
+    labs.forEach((a) => expect(a).toHaveAttribute('aria-current', 'page'))
   })
 })
 

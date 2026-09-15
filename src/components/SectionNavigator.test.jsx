@@ -34,7 +34,14 @@ describe('SectionNavigator', () => {
     render(<Page />)
     const nav = screen.getByRole('navigation', { name: /section/i })
     expect(nav.className).toMatch(/hidden/)
-    expect(nav.className).toMatch(/min-\[1680px\]:block/)
+    // Compact (numbers-only) from 1440px — a 15.6" laptop at 125% scaling is
+    // a 1536px viewport and must still get the trail; full labels from 1680px.
+    expect(nav.className).toMatch(/min-\[1440px\]:block/)
+    const label = nav.querySelector('.section-rail-label')
+    expect(label.className).toMatch(/\bhidden\b/)
+    expect(label.className).toMatch(/min-\[1680px\]:inline/)
+    // Numbers-only stops stay identifiable to assistive tech and on hover.
+    expect(nav.querySelector('a[aria-label]')).not.toBeNull()
     expect(nav.className).toMatch(/fixed/)
     nav.querySelectorAll('.section-rail-label').forEach((label) => {
       expect(label.className).not.toMatch(/max-w-0|opacity-0/)

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronDown, Flame, Menu, X } from 'lucide-react'
 import { site } from '../content/site'
+import { SECTIONS } from './SectionNavigator'
 import { useTheme } from '../theme/ThemeContext'
 import { Container } from './ui/Container'
 import { Button } from './ui/Button'
@@ -112,8 +113,20 @@ function LabNavLabel() {
   )
 }
 
-function NavEntries({ openId, setOpenId, linkClass, panelLinkClass, currentPage }) {
-  return site.nav.map((entry) =>
+// The compact bar's one dropdown: every section, in page order, straight from
+// the trail's own map — Home is the brand, Lab keeps its own button.
+const PORTFOLIO_GROUP = {
+  label: 'Portfolio',
+  items: SECTIONS.filter(({ id }) => id !== 'top' && id !== 'lab'),
+}
+// 13-inch-class laptops (and Windows displays at 125% scaling) report
+// 1280-1439px viewports: too wide for the mobile panel, too narrow for the
+// flat links plus the trail. They get the single Portfolio dropdown instead;
+// the flat nav takes over at >=1440px, where the trail also appears.
+const COMPACT_ENTRIES = [PORTFOLIO_GROUP, ...site.nav.filter((n) => n.page === 'lab')]
+
+function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLinkClass, currentPage }) {
+  return entries.map((entry) =>
     entry.items ? (
       <Dropdown
         key={entry.label}
@@ -144,6 +157,21 @@ function NavEntries({ openId, setOpenId, linkClass, panelLinkClass, currentPage 
         {entry.page === 'lab' ? <LabNavLabel /> : entry.label}
       </a>
     )
+  )
+}
+
+// The desktop nav's two width variants, CSS-switched at 1440px so no resize
+// listener is needed. Both share openId, so only one dropdown opens at once.
+function ResponsiveNavEntries({ gapClass, ...shared }) {
+  return (
+    <>
+      <div className={`flex items-center min-[1440px]:hidden ${gapClass}`}>
+        <NavEntries entries={COMPACT_ENTRIES} {...shared} />
+      </div>
+      <div className={`hidden items-center min-[1440px]:flex ${gapClass}`}>
+        <NavEntries {...shared} />
+      </div>
+    </>
   )
 }
 
@@ -315,7 +343,8 @@ export function Nav({ currentPage = 'home' }) {
           <Container className="relative flex h-14 items-center justify-between">
             <Brand href={brandHref} inverse />
             <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
-              <NavEntries
+              <ResponsiveNavEntries
+                gapClass="gap-6"
                 openId={openId}
                 setOpenId={setOpenId}
                 linkClass="text-[12px] text-white/75 hover:text-white"
@@ -356,7 +385,8 @@ export function Nav({ currentPage = 'home' }) {
         <Brand href={brandHref} />
 
         <nav aria-label="Main" className="hidden items-center gap-5 lg:flex xl:gap-7">
-          <NavEntries
+          <ResponsiveNavEntries
+            gapClass="gap-5 xl:gap-7"
             openId={openId}
             setOpenId={setOpenId}
             linkClass="text-label text-muted hover:text-ink"
