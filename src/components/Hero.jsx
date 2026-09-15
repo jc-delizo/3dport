@@ -101,7 +101,11 @@ export function Hero() {
             <p className={`measure mt-5 text-body text-muted ${centered ? 'mx-auto' : ''}`}>
               {supportSegments(support).map(({ text, step }, i) =>
                 Number.isInteger(step) ? (
-                  <span key={i} className={glareClass(glareStep === step)}>
+                  // inline-block: a glare phrase wraps to the next line as a
+                  // unit instead of breaking mid-phrase (which cut the sweep
+                  // at the line boundary). Where the phrase is wider than the
+                  // viewport itself — phones — it still breaks internally.
+                  <span key={i} className={`inline-block ${glareClass(glareStep === step) ?? ''}`}>
                     {text}
                   </span>
                 ) : (

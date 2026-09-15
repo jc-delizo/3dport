@@ -63,3 +63,15 @@ describe('Hero', () => {
     vi.useRealTimers()
   })
 })
+
+describe('glare phrase wrapping', () => {
+  it('renders each glare segment as an inline-block so the sweep is never cut mid-phrase', () => {
+    render(<Hero />)
+    ;['2 to 20–28 projects/year', 'Agile, AI-powered workflows, and scalable delivery systems'].forEach(
+      (phrase) => {
+        const span = screen.getByText(phrase)
+        expect(span.className).toMatch(/\binline-block\b/)
+      }
+    )
+  })
+})
