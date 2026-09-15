@@ -399,3 +399,21 @@ Windows scaling makes a 1920×1080 panel a 1536px viewport, under the trail's
 
 Verified at 1280/1366/1536/1680/1920: no horizontal overflow, correct
 variant at every width; 1536 (JC's laptop) = flat nav + numbers trail.
+
+---
+
+## 2026-09-15 (revision) — Dropdown to 1680; trail always shows its labels
+
+JC on his 1536px laptop: no dropdown (flat nav held until 1440 there... it
+showed flat) and a numbers-only trail — "it must also show the texts". The
+numbers-only compromise is dead; what scales now is the type, not the content:
+
+| viewport   | nav                              | trail                    |
+|------------|----------------------------------|--------------------------|
+| <1024      | hamburger panel                  | hidden                   |
+| 1024–1519  | Portfolio dropdown · Lab · Themes · Résumé | hidden (dropdown carries nav) |
+| 1520–1679  | Portfolio dropdown (same)        | numbers + labels, 9px compact type, left-3 |
+| ≥1680      | flat Case Studies · Lab · Contact | numbers + labels, full type |
+
+Verified clearances (trail right edge → first plane left edge): 12px at 1536,
+41px at 1680, 161px at 1920; no horizontal overflow 1366–1920.

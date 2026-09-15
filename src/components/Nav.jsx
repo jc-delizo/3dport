@@ -119,10 +119,9 @@ const PORTFOLIO_GROUP = {
   label: 'Portfolio',
   items: SECTIONS.filter(({ id }) => id !== 'top' && id !== 'lab'),
 }
-// 13-inch-class laptops (and Windows displays at 125% scaling) report
-// 1280-1439px viewports: too wide for the mobile panel, too narrow for the
-// flat links plus the trail. They get the single Portfolio dropdown instead;
-// the flat nav takes over at >=1440px, where the trail also appears.
+// Below 1680px — 13-inch laptops through scaled 15.6" displays — the bar
+// carries the single Portfolio dropdown; the flat links only take over at
+// >=1680px, where the full-label trail also exists to carry navigation.
 const COMPACT_ENTRIES = [PORTFOLIO_GROUP, ...site.nav.filter((n) => n.page === 'lab')]
 
 function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLinkClass, currentPage }) {
@@ -160,15 +159,15 @@ function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLin
   )
 }
 
-// The desktop nav's two width variants, CSS-switched at 1440px so no resize
+// The desktop nav's two width variants, CSS-switched at 1680px so no resize
 // listener is needed. Both share openId, so only one dropdown opens at once.
 function ResponsiveNavEntries({ gapClass, ...shared }) {
   return (
     <>
-      <div className={`flex items-center min-[1440px]:hidden ${gapClass}`}>
+      <div className={`flex items-center min-[1680px]:hidden ${gapClass}`}>
         <NavEntries entries={COMPACT_ENTRIES} {...shared} />
       </div>
-      <div className={`hidden items-center min-[1440px]:flex ${gapClass}`}>
+      <div className={`hidden items-center min-[1680px]:flex ${gapClass}`}>
         <NavEntries {...shared} />
       </div>
     </>

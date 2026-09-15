@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react'
 // Real anchors (native smooth scroll, already reduced-motion aware via the
 // global scroll-behavior rules); IntersectionObserver drives the active state.
 //
-// Two stages of gutter (2026-09-15, after a 15.6" laptop at 125% scaling —
-// a 1536px viewport — lost the trail entirely):
-//   >=1440px  compact rail — numbers only (the gutter is ~80px; labels would
-//             overlap the content column). aria-label and title keep every
-//             stop identifiable.
-//   >=1680px  the full map, every label visible.
+// The trail always shows its labels (JC, 2026-09-15: numbers alone read as
+// unexplained). What scales with the gutter is the type:
+//   >=1520px  compact — 9px, tight tracking, left-3: ~117px total, inside the
+//             ~144px gutter of a scaled 15.6" laptop (1536px viewport).
+//   >=1680px  full size. Below 1520px the Portfolio nav dropdown carries
+//             navigation and the trail stands down.
 export const SECTIONS = [
   { id: 'top', label: 'Home' },
   { id: 'initiatives', label: 'Initiatives' },
@@ -60,7 +60,7 @@ export function SectionNavigator() {
   return (
     <nav
       aria-label="Section shortcuts"
-      className="fixed left-5 top-1/2 z-20 hidden -translate-y-1/2 min-[1440px]:block 2xl:left-7"
+      className="fixed left-3 top-1/2 z-20 hidden -translate-y-1/2 min-[1520px]:block min-[1680px]:left-5 2xl:left-7"
     >
       <div className="relative">
         <ol className="flex flex-col items-start gap-1.5">
@@ -73,7 +73,7 @@ export function SectionNavigator() {
                   aria-label={label}
                   title={label}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`flex items-baseline gap-2 py-0.5 font-mono text-label uppercase tracking-widest transition-[opacity,transform,color] duration-200 ease-out hover:translate-x-1 hover:text-ink hover:opacity-100 focus-visible:translate-x-1 focus-visible:text-ink focus-visible:opacity-100 ${
+                  className={`flex items-baseline gap-2 py-0.5 font-mono text-[9px] tracking-[0.06em] min-[1680px]:text-label min-[1680px]:tracking-widest uppercase transition-[opacity,transform,color] duration-200 ease-out hover:translate-x-1 hover:text-ink hover:opacity-100 focus-visible:translate-x-1 focus-visible:text-ink focus-visible:opacity-100 ${
                     isActive
                       ? 'translate-x-1 text-ink opacity-100'
                       : 'text-muted opacity-55'
@@ -83,7 +83,7 @@ export function SectionNavigator() {
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span
-                    className={`section-rail-label hidden whitespace-nowrap border-b pb-0.5 transition-[border-color] duration-200 min-[1680px]:inline ${
+                    className={`section-rail-label whitespace-nowrap border-b pb-0.5 transition-[border-color] duration-200 ${
                       isActive ? 'border-accent font-semibold' : 'border-transparent'
                     }`}
                   >

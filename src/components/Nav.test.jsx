@@ -16,7 +16,7 @@ describe('Nav structure', () => {
     expect(brand).toHaveAttribute('href', '#top')
   })
 
-  it('keeps the wide variant flat — links only, switched from the compact variant by CSS at 1440px', () => {
+  it('keeps the wide variant flat — links only, switched from the compact variant by CSS at 1680px', () => {
     render(<Nav />)
     expect(screen.getByRole('link', { name: 'Case Studies' })).toHaveAttribute('href', '#case-studies')
     expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '#contact')
@@ -24,7 +24,7 @@ describe('Nav structure', () => {
     // constructed in Nav, not in site.nav.
     expect(site.nav.some((n) => n.items)).toBe(false)
     const wide = screen.getByRole('link', { name: 'Case Studies' }).closest('div')
-    expect(wide.className).toMatch(/min-\[1440px\]:flex/)
+    expect(wide.className).toMatch(/min-\[1680px\]:flex/)
     expect(wide.className).toMatch(/\bhidden\b/)
     expect(wide.querySelector('[aria-haspopup="true"]')).toBeNull()
   })
@@ -33,10 +33,10 @@ describe('Nav structure', () => {
     const user = userEvent.setup()
     render(<Nav />)
     const trigger = screen.getByRole('button', { name: 'Portfolio' })
-    // Hidden from 1440px up, where the flat links and the trail take over.
+    // Hidden from 1680px up, where the flat links and the full trail take over.
     // (closest('div') would stop at the Dropdown's own positioning wrapper.)
     let wrapper = trigger.parentElement
-    while (wrapper && !wrapper.className.includes('min-[1440px]:hidden')) wrapper = wrapper.parentElement
+    while (wrapper && !wrapper.className.includes('min-[1680px]:hidden')) wrapper = wrapper.parentElement
     expect(wrapper, 'trigger must sit inside the compact-only wrapper').not.toBeNull()
     await user.click(trigger)
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
