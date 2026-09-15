@@ -1,4 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { screen, act } from '@testing-library/react'
 import { renderWithTheme as render } from '../test/render'
 import { Tools, TOOL_BRANDS, brandForeground } from './Tools'
@@ -57,5 +59,33 @@ describe('Tools', () => {
     expect(brandForeground('#FF9900')).toBe('#0D0D0D') // AWS orange
     expect(brandForeground('#0052CC')).toBe('#FFFFFF') // Jira blue
     expect(brandForeground('#000000')).toBe('#FFFFFF')
+  })
+})
+
+describe('glare under reduced motion', () => {
+  it('keeps sweeping — the shimmer is a color change, not spatial motion', () => {
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })
+    )
+    vi.useFakeTimers()
+    try {
+      render(<Tools />)
+      // act: the observer callback sets state; the interval effect must be
+      // mounted before the timers advance.
+      act(() => global.IntersectionObserverInstances.at(-1).callback([{ isIntersecting: true }]))
+      act(() => vi.advanceTimersByTime(1200))
+      expect(document.querySelector('.tool-glare')).not.toBeNull()
+      // And the stylesheet must not re-hide what the component shows.
+      const css = readFileSync(resolve(__dirname, '../index.css'), 'utf-8')
+      // Comments may mention the class; only a SELECTOR would re-hide it.
+      const noComments = css.replace(/\/\*[\s\S]*?\*\//g, '')
+      noComments.split('@media (prefers-reduced-motion: reduce)').slice(1).forEach((block) => {
+        expect(block).not.toMatch(/\.tool-glare\s*[,{]/)
+      })
+    } finally {
+      vi.useRealTimers()
+      vi.unstubAllGlobals()
+    }
   })
 })

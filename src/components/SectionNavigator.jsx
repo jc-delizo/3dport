@@ -73,7 +73,7 @@ export function SectionNavigator() {
                   aria-label={label}
                   title={label}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`flex items-baseline gap-2 py-0.5 font-mono text-[9px] tracking-[0.06em] min-[1680px]:text-label min-[1680px]:tracking-widest uppercase transition-[opacity,transform,color] duration-200 ease-out hover:translate-x-1 hover:text-ink hover:opacity-100 focus-visible:translate-x-1 focus-visible:text-ink focus-visible:opacity-100 ${
+                  className={`flex items-baseline gap-2 py-0.5 font-mono text-[9px] leading-5 tracking-[0.06em] min-[1680px]:text-label min-[1680px]:tracking-widest uppercase transition-[opacity,transform,color] duration-200 ease-out hover:translate-x-1 hover:text-ink hover:opacity-100 focus-visible:translate-x-1 focus-visible:text-ink focus-visible:opacity-100 ${
                     isActive
                       ? 'translate-x-1 text-ink opacity-100'
                       : 'text-muted opacity-55'

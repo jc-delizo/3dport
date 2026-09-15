@@ -264,7 +264,9 @@
   color: inherit;
 }
 @media (prefers-reduced-motion: reduce) {
-  .tool-glare,
+  /* .tool-glare is deliberately NOT here — see Tools.jsx: the sweep is a
+     color shimmer, not spatial motion, and reduce was hiding it on ordinary
+     Windows laptops. The hero's one-pass .text-glare stays gated. */
   .text-glare {
     animation: none;
     background: none;
@@ -1227,8 +1229,11 @@
 /* Depth as information, in 2D: nearer sections render slightly larger with a
    deeper shadow and drift furthest with the cursor; utility sections shrink,
    flatten, and barely move. */
+/* The +-1.5% resting scale is a >=1680px effect: on smaller screens the
+   width differential between neighbouring sections reads as misalignment,
+   not depth (JC, 2026-09-15) — below that, planes share one width and depth
+   is carried by shadow and parallax alone. */
 [data-theme='atrium'] .atrium-plane[data-elev='raised'] {
-  --elev-scale: 1.015;
   --par-depth: 12px;
   box-shadow:
     0 2px 4px rgb(22 32 43 / 0.05),
@@ -1236,11 +1241,18 @@
     0 44px 80px -36px rgb(22 32 43 / 0.22);
 }
 [data-theme='atrium'] .atrium-plane[data-elev='recessed'] {
-  --elev-scale: 0.985;
   --par-depth: 2px;
   box-shadow:
     0 1px 2px rgb(22 32 43 / 0.04),
     0 8px 18px -10px rgb(22 32 43 / 0.1);
+}
+@media (min-width: 1680px) {
+  [data-theme='atrium'] .atrium-plane[data-elev='raised'] {
+    --elev-scale: 1.015;
+  }
+  [data-theme='atrium'] .atrium-plane[data-elev='recessed'] {
+    --elev-scale: 0.985;
+  }
 }
 /* The entrance dolly: until the stage has arrived, every plane sits deep in
    its own cell; arrival releases it and the transition carries it forward.

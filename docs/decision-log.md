@@ -417,3 +417,31 @@ numbers-only compromise is dead; what scales now is the type, not the content:
 
 Verified clearances (trail right edge → first plane left edge): 12px at 1536,
 41px at 1680, 161px at 1920; no horizontal overflow 1366–1920.
+
+---
+
+## 2026-09-15 (evening) — Glare exempt from reduce; uniform widths; trail pitch
+
+Three JC reports, three root causes:
+
+1. **Tools glare "gone" (again).** The sweep painted fine in every headless
+   check — the one path that fully disables it is `prefers-reduced-motion`,
+   which Windows reports when "animation effects" is off (common on work
+   laptops). Decision: the tools sweep is a color shimmer, not spatial
+   motion, so it is now EXEMPT from reduce (JS gate removed in Tools.jsx,
+   selector removed from the CSS reduce block). The hero's one-pass
+   .text-glare and all Atrium motion stay gated — those are motion.
+2. **Section widths differ on small screens.** The ±1.5% elevation scale made
+   raised planes ~37px wider than recessed ones — depth on a 27" monitor,
+   misalignment on a laptop. The scale vars now live inside a
+   `min-width: 1680px` media query; below that all planes share one width
+   (verified: five sections at exactly 1232px @1536) and depth is carried by
+   shadow + parallax alone.
+3. **Trail labels too far apart at compact size.** `text-[9px]` without a
+   leading inherited a 26.4px line height (vs text-label's 20px) — pitch was
+   39.4px vs 33px. `leading-5` pins the compact line box to the full-size
+   one: 33px pitch at every width now.
+
+Told JC: if he also wants the entrance dolly/parallax/hero glare on his
+machine, Windows Settings > Accessibility > Visual effects > Animation
+effects ON — those remain reduce-gated by design.

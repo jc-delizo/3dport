@@ -80,12 +80,19 @@ describe('Atrium projection safety (the hover-divergence regression)', () => {
     if (stage) expect(stage[1]).not.toMatch(/perspective/)
   })
 
-  it('expresses resting elevation as 2D scale, not translateZ', () => {
-    const raised = css.match(/\[data-elev='raised'\]\s*{([^}]*)}/)[1]
-    const recessed = css.match(/\[data-elev='recessed'\]\s*{([^}]*)}/)[1]
-    expect(raised).toMatch(/--elev-scale/)
-    expect(recessed).toMatch(/--elev-scale/)
-    expect(raised + recessed).not.toMatch(/translateZ|--elev:/)
+  it('expresses elevation as 2D scale — wide screens only — and never translateZ', () => {
+    const blocks = [...css.matchAll(/\[data-elev='(?:raised|recessed)'\]\s*{([^}]*)}/g)].map((m) => m[1])
+    expect(blocks.length).toBeGreaterThanOrEqual(2)
+    expect(blocks.join('')).not.toMatch(/translateZ|--elev:/)
+    // The width differential is a >=1680px effect; smaller screens keep all
+    // planes one width (JC, 2026-09-15) — so the scale vars must live inside
+    // the min-width media query, not in the base rules.
+    const wide = css.slice(css.indexOf('@media (min-width: 1680px)'))
+    expect(wide).toMatch(/\[data-elev='raised'\]\s*{[^}]*--elev-scale:\s*1\.015/)
+    expect(wide).toMatch(/\[data-elev='recessed'\]\s*{[^}]*--elev-scale:\s*0\.985/)
+    const base = css.slice(0, css.indexOf('@media (min-width: 1680px)'))
+    const baseValues = [...base.matchAll(/--elev-scale:\s*([\d.]+)/g)].map((m) => m[1])
+    baseValues.forEach((v) => expect(v, 'base elevation scale must be neutral').toBe('1'))
   })
 })
 

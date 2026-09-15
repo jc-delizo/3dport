@@ -161,8 +161,10 @@ const GLARE_EVERY_MS = 1100 // 900ms sweep + a short rest
 
 export function Tools() {
   // One label glares at a time, in a shuffled queue — every tool gets a turn
-  // before any repeats. Runs only while the section is on screen; skipped
-  // entirely under prefers-reduced-motion.
+  // before any repeats. Runs only while the section is on screen. Deliberately
+  // EXEMPT from prefers-reduced-motion (JC, 2026-09-15): Windows laptops with
+  // "animation effects" off report reduce and were losing the sweep entirely,
+  // and a 900ms text shimmer is a color change, not spatial motion.
   const [glare, setGlare] = useState(null)
   const [inView, setInView] = useState(false)
   const rootRef = useRef(null)
@@ -181,7 +183,6 @@ export function Tools() {
 
   useEffect(() => {
     if (!inView) return undefined
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
     const t = setInterval(() => {
       if (!queueRef.current.length) {
         queueRef.current = [...ALL_TOOLS].sort(() => Math.random() - 0.5)
