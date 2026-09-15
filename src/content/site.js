@@ -25,19 +25,6 @@ export const site = {
     { id: 'contact', label: 'Contact' },
   ],
 
-  // The "Now" strip: what is actually in motion, stated in the footer. A
-  // liveness signal — update the items and the date with each deploy that
-  // changes them. Same fact discipline as everything else: each line restates
-  // something already claimed on this site.
-  now: {
-    updated: 'September 2026',
-    items: [
-      'Running delivery across 5–11 concurrent projects',
-      'Evolving the internal AI delivery platform — 949 tickets processed and counting',
-      'This site: shipping the Atrium design system',
-    ],
-  },
-
   // The footer sitemap: every section demoted from the flat nav. Keeps the
   // whole page reachable below 1680px, where the trail does not exist.
   footerNav: [

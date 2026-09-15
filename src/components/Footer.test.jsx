@@ -42,11 +42,3 @@ describe('footer sitemap (the demoted nav sections)', () => {
     })
   })
 })
-
-describe('the Now strip', () => {
-  it('states what is currently in motion, with its freshness date', () => {
-    render(<Footer />)
-    expect(screen.getByText(`Now · ${site.now.updated}`)).toBeInTheDocument()
-    site.now.items.forEach((item) => expect(screen.getByText(item)).toBeInTheDocument())
-  })
-})

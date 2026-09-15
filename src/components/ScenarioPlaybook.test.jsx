@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event'
 import { renderWithTheme as render } from '../test/render'
 import { ScenarioPlaybook } from './ScenarioPlaybook'
 import { scenarios } from '../content/scenarios'
-import { site } from '../content/site'
 import { findForbidden } from '../content/forbidden'
 
 describe('scenario content', () => {
@@ -20,7 +19,6 @@ describe('scenario content', () => {
 
   it('carries no internal names', () => {
     expect(findForbidden(JSON.stringify(scenarios))).toEqual([])
-    expect(findForbidden(JSON.stringify(site.now))).toEqual([])
   })
 })
 
