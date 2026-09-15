@@ -33,10 +33,10 @@ describe('Nav structure', () => {
     const user = userEvent.setup()
     render(<Nav />)
     const trigger = screen.getByRole('button', { name: 'Portfolio' })
-    // Hidden from 1680px up, where the flat links and the full trail take over.
+    // Hidden from 1520px up — wherever the trail exists, no Portfolio button.
     // (closest('div') would stop at the Dropdown's own positioning wrapper.)
     let wrapper = trigger.parentElement
-    while (wrapper && !wrapper.className.includes('min-[1680px]:hidden')) wrapper = wrapper.parentElement
+    while (wrapper && !wrapper.className.includes('min-[1520px]:hidden')) wrapper = wrapper.parentElement
     expect(wrapper, 'trigger must sit inside the compact-only wrapper').not.toBeNull()
     await user.click(trigger)
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
@@ -85,10 +85,27 @@ describe('Nav structure', () => {
           `${import.meta.env.BASE_URL}#${id}`,
         )
       })
-    // Lab renders in both width variants; each must mark the current page.
+    // Lab renders in every width band; each must mark the current page.
     const labs = screen.getAllByRole('link', { name: 'Lab' })
     expect(labs.length).toBeGreaterThan(0)
     labs.forEach((a) => expect(a).toHaveAttribute('aria-current', 'page'))
+  })
+
+  it('keeps a Lab-only band between trail arrival and the flat links (1520-1679px)', () => {
+    render(<Nav />)
+    const bands = [...document.querySelectorAll('div')].filter(
+      (d) =>
+        typeof d.className === 'string' &&
+        d.className.includes('min-[1520px]:flex') &&
+        d.className.includes('min-[1680px]:hidden')
+    )
+    // One per desktop nav render (the default header in this test).
+    expect(bands).toHaveLength(1)
+    // Only Lab: the compact trail carries section navigation in this band.
+    const links = [...bands[0].querySelectorAll('a')]
+    expect(links).toHaveLength(1)
+    expect(links[0].textContent).toContain('Lab')
+    expect(bands[0].querySelector('[aria-haspopup="true"]')).toBeNull()
   })
 })
 

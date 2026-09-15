@@ -119,10 +119,13 @@ const PORTFOLIO_GROUP = {
   label: 'Portfolio',
   items: SECTIONS.filter(({ id }) => id !== 'top' && id !== 'lab'),
 }
-// Below 1680px — 13-inch laptops through scaled 15.6" displays — the bar
-// carries the single Portfolio dropdown; the flat links only take over at
-// >=1680px, where the full-label trail also exists to carry navigation.
-const COMPACT_ENTRIES = [PORTFOLIO_GROUP, ...site.nav.filter((n) => n.page === 'lab')]
+// The bar defers to the trail (JC, 2026-09-15): wherever the trail exists,
+// no Portfolio button. Three bands —
+//   <1520px      Portfolio dropdown + Lab (no trail; the dropdown is the map)
+//   1520-1679px  Lab only — the compact trail carries section navigation
+//   >=1680px     flat Case Studies / Lab / Contact beside the full trail
+const LAB_ONLY = site.nav.filter((n) => n.page === 'lab')
+const COMPACT_ENTRIES = [PORTFOLIO_GROUP, ...LAB_ONLY]
 
 function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLinkClass, currentPage }) {
   return entries.map((entry) =>
@@ -159,13 +162,16 @@ function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLin
   )
 }
 
-// The desktop nav's two width variants, CSS-switched at 1680px so no resize
-// listener is needed. Both share openId, so only one dropdown opens at once.
+// The desktop nav's three width bands, CSS-switched (1520/1680) so no resize
+// listener is needed. All share openId, so only one dropdown opens at once.
 function ResponsiveNavEntries({ gapClass, ...shared }) {
   return (
     <>
-      <div className={`flex items-center min-[1680px]:hidden ${gapClass}`}>
+      <div className={`flex items-center min-[1520px]:hidden ${gapClass}`}>
         <NavEntries entries={COMPACT_ENTRIES} {...shared} />
+      </div>
+      <div className={`hidden items-center min-[1520px]:flex min-[1680px]:hidden ${gapClass}`}>
+        <NavEntries entries={LAB_ONLY} {...shared} />
       </div>
       <div className={`hidden items-center min-[1680px]:flex ${gapClass}`}>
         <NavEntries {...shared} />
