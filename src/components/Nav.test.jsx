@@ -125,3 +125,13 @@ describe('Nav mobile', () => {
     expect(screen.getByRole('radio', { name: 'Quiet' })).toBeInTheDocument()
   })
 })
+
+describe('scroll progress bar', () => {
+  it('never sizes itself with viewport units — 100vw includes the scrollbar on Windows', () => {
+    render(<Nav />)
+    const bar = document.querySelector('.nav-progress')
+    expect(bar).not.toBeNull()
+    expect(bar.className).not.toMatch(/w-screen|100vw/)
+    expect(bar.className).toMatch(/inset-x-0/)
+  })
+})

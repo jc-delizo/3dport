@@ -303,8 +303,16 @@ function Brand({ href, inverse = false }) {
 }
 
 function Progress({ value }) {
+  // inset-x-0 against the positioned Container, never w-screen/100vw: on
+  // classic-scrollbar systems (Windows default) 100vw includes the scrollbar
+  // width, and the overhang off the sticky header put a page-wide horizontal
+  // scroll on the whole site. The visual full-bleed comes from negative
+  // margins spanning the Container's own padding instead.
   return (
-    <div aria-hidden="true" className="nav-progress absolute bottom-0 left-1/2 h-[2px] w-screen -translate-x-1/2 bg-hairline/70">
+    <div
+      aria-hidden="true"
+      className="nav-progress absolute bottom-0 inset-x-0 h-[2px] bg-hairline/70"
+    >
       <span className="block h-full origin-left bg-accent" style={{ transform: `scaleX(${value})` }} />
     </div>
   )
@@ -344,7 +352,7 @@ export function Nav({ currentPage = 'home' }) {
   if (grammar.nav === 'global-bar') {
     return (
       <header data-testid="global-nav" className="site-header sticky top-0 z-40">
-        <div className="bg-black text-white">
+        <div className="relative bg-black text-white">
           <Container className="relative flex h-14 items-center justify-between">
             <Brand href={brandHref} inverse />
             <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
@@ -370,8 +378,8 @@ export function Nav({ currentPage = 'home' }) {
               </Button>
             </nav>
             {menuButton('text-white')}
-            <Progress value={scrollProgress} />
           </Container>
+          <Progress value={scrollProgress} />
         </div>
         {open ? (
           <MobilePanel
@@ -409,8 +417,8 @@ export function Nav({ currentPage = 'home' }) {
         </nav>
 
         {menuButton()}
-        <Progress value={scrollProgress} />
       </Container>
+      <Progress value={scrollProgress} />
 
       {open ? (
         <MobilePanel
