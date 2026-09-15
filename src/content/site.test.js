@@ -334,29 +334,26 @@ describe('portfolio data', () => {
     ])
   })
 
-  it('orders navigation from evidence to experimentation to contact', () => {
-    expect(site.nav.map((n) => n.label)).toEqual(['Portfolio', 'Experience', 'Lab', 'Contact'])
-    const [portfolio, experience, lab, contact] = site.nav
-    expect(portfolio.items.map((i) => i.id)).toEqual([
-      'initiatives',
+  it('keeps the flat nav to the money links, everything else in the footer sitemap', () => {
+    // 2026-09-15: dropdowns removed. Case Studies and Contact must survive at
+    // every width; the demoted sections must all be reachable via footerNav.
+    expect(site.nav.map((n) => n.label)).toEqual(['Case Studies', 'Lab', 'Contact'])
+    expect(site.nav.some((n) => n.items)).toBe(false)
+    const reachable = [...site.nav.filter((n) => n.id), ...site.footerNav].map((n) => n.id)
+    ;[
       'case-studies',
+      'contact',
+      'initiatives',
       'lifecycle',
       'portfolio',
       'principles',
-    ])
-    expect(portfolio.items.find((i) => i.id === 'portfolio').label).toBe('Projects')
-    expect(experience.items.map((i) => i.id)).toEqual([
       'experience',
       'capabilities',
       'tools',
       'certifications',
-    ])
-    expect(lab.href).toMatch(/lab\/$/)
-    expect(contact.id).toBe('contact')
+    ].forEach((id) => expect(reachable, `${id} must stay reachable`).toContain(id))
   })
-})
 
-describe('case studies data', () => {
   it('tells the two approved stories: the approval platform and the AI delivery platform', () => {
     expect(site.caseStudies.map((c) => c.title)).toEqual([
       'Multi-Entity Approval Workflow Platform',

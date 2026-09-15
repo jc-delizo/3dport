@@ -14,31 +14,28 @@ export const site = {
     ogImage: 'https://jc-delizo.github.io/3dport/og.png',
   },
 
-  // Entries with `items` render as dropdowns; entries with `id` are direct
-  // links. Case Studies stays top-level deliberately — it's the page hiring
-  // managers most need to find.
+  // Deliberately flat (2026-09-15, JC): no dropdowns — the two money links
+  // sit naked in the bar at every width. The other sections are served by the
+  // SectionNavigator trail on wide screens and by footerNav below everywhere.
+  // (Entries with `items` would still render as dropdowns; the machinery in
+  // Nav.jsx is config-driven and kept.)
   nav: [
-    {
-      label: 'Portfolio',
-      items: [
-        { id: 'initiatives', label: 'Initiatives' },
-        { id: 'case-studies', label: 'Case Studies' },
-        { id: 'lifecycle', label: 'Delivery Lifecycle' },
-        { id: 'portfolio', label: 'Projects' },
-        { id: 'principles', label: 'Principles' },
-      ],
-    },
-    {
-      label: 'Experience',
-      items: [
-        { id: 'experience', label: 'Work History' },
-        { id: 'capabilities', label: 'Capabilities' },
-        { id: 'tools', label: 'Tools' },
-        { id: 'certifications', label: 'Certifications' },
-      ],
-    },
+    { id: 'case-studies', label: 'Case Studies' },
     { href: LAB_URL, page: 'lab', label: 'Lab' },
     { id: 'contact', label: 'Contact' },
+  ],
+
+  // The footer sitemap: every section demoted from the flat nav. Keeps the
+  // whole page reachable below 1680px, where the trail does not exist.
+  footerNav: [
+    { id: 'initiatives', label: 'Initiatives' },
+    { id: 'lifecycle', label: 'Delivery Lifecycle' },
+    { id: 'portfolio', label: 'Projects' },
+    { id: 'principles', label: 'Principles' },
+    { id: 'experience', label: 'Work History' },
+    { id: 'capabilities', label: 'Capabilities' },
+    { id: 'tools', label: 'Tools' },
+    { id: 'certifications', label: 'Certifications' },
   ],
 
   hero: {

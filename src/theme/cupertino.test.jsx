@@ -21,13 +21,13 @@ describe('Cupertino experience', () => {
     expect(bar.contains(resume)).toBe(true)
   })
 
-  it('keeps the grouped dropdowns working inside the global bar', () => {
+  it('carries the flat primary links inside the global bar', () => {
     render(<Nav />)
-    expect(screen.getByRole('button', { name: 'Portfolio' })).toHaveAttribute(
-      'aria-haspopup',
-      'true'
+    expect(screen.getByRole('link', { name: 'Case Studies' })).toHaveAttribute(
+      'href',
+      '#case-studies'
     )
-    expect(screen.getByRole('button', { name: 'Experience' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument()
   })
 
   it('lays the page out as full-bleed tiles with the approved surface pulse', () => {

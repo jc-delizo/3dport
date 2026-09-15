@@ -114,7 +114,7 @@ export default function LabApp() {
         </Section>
         <ProfessionalWork />
       </main>
-      <Footer />
+      <Footer currentPage="lab" />
     </>
   )
 }

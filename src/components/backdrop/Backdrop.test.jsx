@@ -62,11 +62,13 @@ describe('Backdrop', () => {
     expect(anchors).not.toContain('top')
   })
 
-  it('keeps every glyph in the left gutter — the right one belongs to the section trail', () => {
+  it('keeps every glyph in the right gutter — the left one belongs to the section trail', () => {
+    // Gutters swapped 2026-09-15: trail reads as a document outline on the
+    // left, marginalia on the right. The layers must never share a side.
     BACKDROP_SETS.forEach(({ items }) =>
       items.forEach(({ className }) => {
-        expect(className).toMatch(/left-\[/)
-        expect(className).not.toMatch(/right-\[/)
+        expect(className).toMatch(/right-\[/)
+        expect(className).not.toMatch(/left-\[/)
       })
     )
   })

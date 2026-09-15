@@ -5,7 +5,6 @@ import { renderWithTheme as render } from '../test/render'
 import { Nav } from './Nav'
 import { site } from '../content/site'
 
-const groups = site.nav.filter((n) => n.items)
 const directLinks = site.nav.filter((n) => n.id)
 const pageLinks = site.nav.filter((n) => n.href)
 
@@ -16,68 +15,22 @@ describe('Nav structure', () => {
     expect(brand).toHaveAttribute('href', '#top')
   })
 
-  it('renders group dropdown triggers closed, and direct links as anchors', () => {
+  it('renders the flat primary links as anchors — no dropdowns anywhere', () => {
     render(<Nav />)
-    groups.forEach(({ label }) => {
-      const trigger = screen.getByRole('button', { name: label })
-      expect(trigger).toHaveAttribute('aria-haspopup', 'true')
-      expect(trigger).toHaveAttribute('aria-expanded', 'false')
-    })
-    directLinks.forEach(({ id, label }) => {
-      expect(screen.getByRole('link', { name: label })).toHaveAttribute('href', `#${id}`)
-    })
-    pageLinks.forEach(({ href, label }) => {
-      expect(screen.getByRole('link', { name: label })).toHaveAttribute('href', href)
-    })
-    // Group section links are hidden until the dropdown opens.
-    expect(screen.queryByRole('link', { name: 'Initiatives' })).toBeNull()
+    expect(screen.getByRole('link', { name: 'Case Studies' })).toHaveAttribute('href', '#case-studies')
+    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '#contact')
+    expect(screen.getByRole('link', { name: 'Lab' })).toBeInTheDocument()
+    // The 2026-09-15 flattening: the config carries no groups, so nothing in
+    // the navigation may render a dropdown trigger. (The theme menu lives in
+    // the utility cluster and is exempt — it is a menu, not navigation.)
+    expect(site.nav.some((n) => n.items)).toBe(false)
+    const nav = screen.getAllByRole('navigation')[0]
+    const triggers = [...nav.querySelectorAll('[aria-haspopup="true"]')].filter(
+      (el) => !/theme/i.test(el.getAttribute('aria-label') ?? el.textContent)
+    )
+    expect(triggers).toHaveLength(0)
   })
 
-  it('opens a dropdown on click, links every grouped section, closes on selection', async () => {
-    const user = userEvent.setup()
-    render(<Nav />)
-    const trigger = screen.getByRole('button', { name: 'Portfolio' })
-    await user.click(trigger)
-    expect(trigger).toHaveAttribute('aria-expanded', 'true')
-    groups[0].items.forEach(({ id, label }) => {
-      expect(screen.getByRole('link', { name: label })).toHaveAttribute('href', `#${id}`)
-    })
-    await user.click(screen.getByRole('link', { name: 'Initiatives' }))
-    expect(trigger).toHaveAttribute('aria-expanded', 'false')
-  })
-
-  it('closes an open dropdown on Escape and returns focus to its trigger', async () => {
-    const user = userEvent.setup()
-    render(<Nav />)
-    const trigger = screen.getByRole('button', { name: 'Experience' })
-    await user.click(trigger)
-    await user.keyboard('{Escape}')
-    expect(trigger).toHaveAttribute('aria-expanded', 'false')
-    expect(trigger).toHaveFocus()
-  })
-
-  it('closes an open dropdown when clicking outside it', async () => {
-    const user = userEvent.setup()
-    render(<Nav />)
-    const trigger = screen.getByRole('button', { name: 'Portfolio' })
-    await user.click(trigger)
-    fireEvent.mouseDown(document.body)
-    expect(trigger).toHaveAttribute('aria-expanded', 'false')
-  })
-
-  it('only one dropdown is open at a time', async () => {
-    const user = userEvent.setup()
-    render(<Nav />)
-    const projects = screen.getByRole('button', { name: 'Portfolio' })
-    const experience = screen.getByRole('button', { name: 'Experience' })
-    await user.click(projects)
-    await user.click(experience)
-    expect(projects).toHaveAttribute('aria-expanded', 'false')
-    expect(experience).toHaveAttribute('aria-expanded', 'true')
-  })
-})
-
-describe('Nav utilities', () => {
   it('exposes a résumé link that downloads the self-hosted PDF', () => {
     render(<Nav />)
     const link = screen.getByRole('link', { name: /résumé/i })
@@ -105,30 +58,31 @@ describe('Nav utilities', () => {
       'href',
       `${import.meta.env.BASE_URL}#contact`,
     )
-    for (const group of groups) {
-      await user.click(screen.getByRole('button', { name: group.label }))
-      group.items.forEach(({ id, label }) => {
+    site.nav
+      .filter((n) => n.id)
+      .forEach(({ id, label }) => {
         expect(screen.getByRole('link', { name: label })).toHaveAttribute(
           'href',
           `${import.meta.env.BASE_URL}#${id}`,
         )
       })
-    }
     expect(screen.getByRole('link', { name: 'Lab' })).toHaveAttribute('aria-current', 'page')
   })
 })
 
 describe('Nav mobile', () => {
-  it('lists every grouped link under its group heading in the mobile panel', async () => {
+  it('lists every flat link in the mobile panel', async () => {
     const user = userEvent.setup()
     render(<Nav />)
     await user.click(screen.getByRole('button', { name: /open menu/i }))
-    groups.forEach(({ label, items }) => {
-      expect(screen.getAllByText(label).length).toBeGreaterThan(0)
-      items.forEach(({ id, label: itemLabel }) => {
-        expect(screen.getByRole('link', { name: itemLabel })).toHaveAttribute('href', `#${id}`)
+    site.nav
+      .filter((n) => n.id)
+      .forEach(({ id, label }) => {
+        expect(screen.getAllByRole('link', { name: label }).length).toBeGreaterThan(0)
+        expect(
+          screen.getAllByRole('link', { name: label }).some((a) => a.getAttribute('href') === `#${id}`)
+        ).toBe(true)
       })
-    })
     expect(screen.getByRole('radio', { name: 'Quiet' })).toBeInTheDocument()
   })
 })

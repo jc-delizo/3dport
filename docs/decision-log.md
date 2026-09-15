@@ -347,3 +347,27 @@ matrices at rest — also cheaper to render.
 Lesson recorded: never leave a persistent non-identity 3D transform under
 content that must be hovered, and never put perspective on an element taller
 than the viewport.
+
+---
+
+## 2026-09-15 — Flat nav, footer sitemap, rails swapped
+
+JC proposed removing Portfolio/Experience/Contact from the nav (redundant with
+the trail) and moving the trail left / glyphs right. Amended after review: the
+trail only exists at ≥1680px, so removing nav items would strand laptop and
+phone visitors — the majority, and the audience. Agreed outcome:
+
+- **Nav flattened, not gutted:** `Case Studies · Lab · Contact` + Résumé and
+  Themes. Both dropdowns removed from `site.nav`; the money links survive at
+  every width. The config-driven dropdown machinery in Nav.jsx is kept —
+  entries with `items` would still render as groups.
+- **Footer sitemap** (`site.footerNav`): the eight demoted sections in one
+  quiet mono row. Page-aware — the footer also renders on Lab, so links there
+  route back via BASE_URL (Footer now takes `currentPage`, as Nav does).
+- **Rails swapped:** SectionNavigator to the left gutter (reads as a document
+  outline; hover/active nudge flipped to push toward content), all 44 desktop
+  backdrop glyphs mirrored to the right gutter with rotations negated. The
+  layers keep opposite gutters — tested.
+
+Verified at 1920px: trail at x=28, nearest glyph at x=1755, flat nav rendering,
+sitemap row live. 237 tests green.

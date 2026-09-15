@@ -17,8 +17,9 @@ gsap.registerPlugin(ScrollTrigger, useGSAP)
 // `anchor` is a SectionHeading/Section id from the app; the trigger is that
 // element's enclosing <section>, so set boundaries match what the reader sees.
 // `depth` scales the parallax travel (0 = pinned still, 1 = fastest).
-// Left gutter only: the right gutter belongs to the SectionNavigator's section
-// trail, and glyphs behind it made the labels hard to read. Sizes are
+// Right gutter only (mirrored 2026-09-15): the left gutter now belongs to the
+// SectionNavigator's trail, and glyphs behind its labels made them hard to
+// read — the two layers keep opposite gutters, just swapped. Sizes are
 // deliberately mixed (w-10 accents through w-36 statements) so each set reads
 // as scattered desk objects, not a repeated stamp. The hero has no set at all:
 // its glare sweep stays the only motion on first paint.
@@ -27,116 +28,116 @@ export const BACKDROP_SETS = [
     anchor: 'lifecycle',
     mobile: { glyph: 'cycle', className: 'right-[4%] top-[20%] w-14 -rotate-6', depth: 0.3 },
     items: [
-      { glyph: 'cycle', className: 'left-[0.5%] top-[30%] w-32 rotate-3', depth: 0.35, accent: true },
-      { glyph: 'clipboard', className: 'left-[1.8%] top-[58%] w-20 rotate-[10deg]', depth: 0.55 },
-      { glyph: 'gantt', className: 'left-[0.8%] top-[12%] w-16 -rotate-6', depth: 0.7 },
-      { glyph: 'paperclip', className: 'left-[3%] top-[80%] w-10 -rotate-[20deg]', depth: 0.45 },
+      { glyph: 'cycle', className: 'right-[0.5%] top-[30%] w-32 -rotate-3', depth: 0.35, accent: true },
+      { glyph: 'clipboard', className: 'right-[1.8%] top-[58%] w-20 -rotate-[10deg]', depth: 0.55 },
+      { glyph: 'gantt', className: 'right-[0.8%] top-[12%] w-16 rotate-6', depth: 0.7 },
+      { glyph: 'paperclip', className: 'right-[3%] top-[80%] w-10 rotate-[20deg]', depth: 0.45 },
     ],
   },
   {
     anchor: 'initiatives',
     mobile: { glyph: 'stickyNote', className: 'right-[3%] top-[14%] w-14 rotate-[10deg]', depth: 0.35 },
     items: [
-      { glyph: 'stickyNote', className: 'left-[0.4%] top-[20%] w-28 -rotate-6', depth: 0.4 },
-      { glyph: 'pencil', className: 'left-[2%] top-[48%] w-16 -rotate-[30deg]', depth: 0.6 },
-      { glyph: 'stickyNote', className: 'left-[1.2%] top-[68%] w-14 rotate-[14deg]', depth: 0.75 },
-      { glyph: 'magnifier', className: 'left-[2.6%] top-[8%] w-12 rotate-12', depth: 0.5 },
+      { glyph: 'stickyNote', className: 'right-[0.4%] top-[20%] w-28 rotate-6', depth: 0.4 },
+      { glyph: 'pencil', className: 'right-[2%] top-[48%] w-16 rotate-[30deg]', depth: 0.6 },
+      { glyph: 'stickyNote', className: 'right-[1.2%] top-[68%] w-14 -rotate-[14deg]', depth: 0.75 },
+      { glyph: 'magnifier', className: 'right-[2.6%] top-[8%] w-12 -rotate-12', depth: 0.5 },
     ],
   },
   {
     anchor: 'case-studies',
     mobile: { glyph: 'magnifier', className: 'right-[5%] top-[18%] w-12 rotate-12', depth: 0.3 },
     items: [
-      { glyph: 'magnifier', className: 'left-[0.5%] top-[34%] w-28 rotate-12', depth: 0.4 },
-      { glyph: 'folder', className: 'left-[1.2%] top-[60%] w-32 -rotate-6', depth: 0.3 },
-      { glyph: 'stickyNote', className: 'left-[2.4%] top-[14%] w-14 rotate-6', depth: 0.65 },
-      { glyph: 'paperclip', className: 'left-[0.8%] top-[84%] w-10 rotate-[26deg]', depth: 0.8 },
+      { glyph: 'magnifier', className: 'right-[0.5%] top-[34%] w-28 -rotate-12', depth: 0.4 },
+      { glyph: 'folder', className: 'right-[1.2%] top-[60%] w-32 rotate-6', depth: 0.3 },
+      { glyph: 'stickyNote', className: 'right-[2.4%] top-[14%] w-14 -rotate-6', depth: 0.65 },
+      { glyph: 'paperclip', className: 'right-[0.8%] top-[84%] w-10 -rotate-[26deg]', depth: 0.8 },
     ],
   },
   {
     anchor: 'portfolio',
     mobile: { glyph: 'folder', className: 'right-[3%] top-[12%] w-16 -rotate-6', depth: 0.3 },
     items: [
-      { glyph: 'folder', className: 'left-[0.3%] top-[16%] w-32 -rotate-[8deg]', depth: 0.3 },
-      { glyph: 'folder', className: 'left-[1.6%] top-[42%] w-24 rotate-6', depth: 0.5, accent: true },
-      { glyph: 'folder', className: 'left-[0.7%] top-[64%] w-16 -rotate-3', depth: 0.65 },
-      { glyph: 'folder', className: 'left-[2.8%] top-[82%] w-12 rotate-[12deg]', depth: 0.8 },
-      { glyph: 'paperclip', className: 'left-[3%] top-[6%] w-10 rotate-[18deg]', depth: 0.55 },
+      { glyph: 'folder', className: 'right-[0.3%] top-[16%] w-32 rotate-[8deg]', depth: 0.3 },
+      { glyph: 'folder', className: 'right-[1.6%] top-[42%] w-24 -rotate-6', depth: 0.5, accent: true },
+      { glyph: 'folder', className: 'right-[0.7%] top-[64%] w-16 rotate-3', depth: 0.65 },
+      { glyph: 'folder', className: 'right-[2.8%] top-[82%] w-12 -rotate-[12deg]', depth: 0.8 },
+      { glyph: 'paperclip', className: 'right-[3%] top-[6%] w-10 -rotate-[18deg]', depth: 0.55 },
     ],
   },
   {
     anchor: 'principles',
     mobile: { glyph: 'stickyNote', className: 'right-[4%] top-[20%] w-12 rotate-6', depth: 0.35 },
     items: [
-      { glyph: 'stickyNote', className: 'left-[0.4%] top-[26%] w-28 rotate-6', depth: 0.35 },
-      { glyph: 'paperclip', className: 'left-[2%] top-[52%] w-14 -rotate-[20deg]', depth: 0.55 },
-      { glyph: 'quote', className: 'left-[1%] top-[70%] w-16 -rotate-6', depth: 0.7 },
+      { glyph: 'stickyNote', className: 'right-[0.4%] top-[26%] w-28 -rotate-6', depth: 0.35 },
+      { glyph: 'paperclip', className: 'right-[2%] top-[52%] w-14 rotate-[20deg]', depth: 0.55 },
+      { glyph: 'quote', className: 'right-[1%] top-[70%] w-16 rotate-6', depth: 0.7 },
     ],
   },
   {
     anchor: 'experience',
     mobile: { glyph: 'calendar', className: 'right-[3%] top-[16%] w-14 -rotate-3', depth: 0.3 },
     items: [
-      { glyph: 'calendar', className: 'left-[0.4%] top-[22%] w-28 -rotate-3', depth: 0.3 },
-      { glyph: 'gantt', className: 'left-[1.4%] top-[50%] w-32 rotate-3', depth: 0.5 },
-      { glyph: 'clipboard', className: 'left-[2.6%] top-[76%] w-14 rotate-[8deg]', depth: 0.7 },
-      { glyph: 'paperclip', className: 'left-[2.8%] top-[8%] w-10 -rotate-[28deg]', depth: 0.6 },
+      { glyph: 'calendar', className: 'right-[0.4%] top-[22%] w-28 rotate-3', depth: 0.3 },
+      { glyph: 'gantt', className: 'right-[1.4%] top-[50%] w-32 -rotate-3', depth: 0.5 },
+      { glyph: 'clipboard', className: 'right-[2.6%] top-[76%] w-14 -rotate-[8deg]', depth: 0.7 },
+      { glyph: 'paperclip', className: 'right-[2.8%] top-[8%] w-10 rotate-[28deg]', depth: 0.6 },
     ],
   },
   {
     anchor: 'recommendations',
     mobile: { glyph: 'quote', className: 'right-[4%] top-[18%] w-14 rotate-3', depth: 0.35 },
     items: [
-      { glyph: 'quote', className: 'left-[0.5%] top-[28%] w-32 -rotate-6', depth: 0.35, accent: true },
-      { glyph: 'paperclip', className: 'left-[2.2%] top-[56%] w-12 rotate-[28deg]', depth: 0.6 },
-      { glyph: 'stickyNote', className: 'left-[1%] top-[72%] w-20 rotate-[10deg]', depth: 0.5 },
+      { glyph: 'quote', className: 'right-[0.5%] top-[28%] w-32 rotate-6', depth: 0.35, accent: true },
+      { glyph: 'paperclip', className: 'right-[2.2%] top-[56%] w-12 -rotate-[28deg]', depth: 0.6 },
+      { glyph: 'stickyNote', className: 'right-[1%] top-[72%] w-20 -rotate-[10deg]', depth: 0.5 },
     ],
   },
   {
     anchor: 'capabilities',
     mobile: { glyph: 'grid', className: 'right-[3%] top-[14%] w-12 rotate-6', depth: 0.3 },
     items: [
-      { glyph: 'grid', className: 'left-[0.5%] top-[24%] w-28 rotate-3', depth: 0.35 },
-      { glyph: 'setSquare', className: 'left-[1.6%] top-[52%] w-20 -rotate-12', depth: 0.55 },
-      { glyph: 'compass', className: 'left-[2.4%] top-[74%] w-14 rotate-6', depth: 0.7 },
+      { glyph: 'grid', className: 'right-[0.5%] top-[24%] w-28 -rotate-3', depth: 0.35 },
+      { glyph: 'setSquare', className: 'right-[1.6%] top-[52%] w-20 rotate-12', depth: 0.55 },
+      { glyph: 'compass', className: 'right-[2.4%] top-[74%] w-14 -rotate-6', depth: 0.7 },
     ],
   },
   {
     anchor: 'tools',
     mobile: { glyph: 'ruler', className: 'right-[2%] top-[20%] w-16 rotate-[14deg]', depth: 0.3 },
     items: [
-      { glyph: 'ruler', className: 'left-[0.2%] top-[34%] w-36 rotate-[16deg]', depth: 0.4 },
-      { glyph: 'pencil', className: 'left-[2%] top-[62%] w-16 rotate-[40deg]', depth: 0.6 },
-      { glyph: 'setSquare', className: 'left-[1%] top-[10%] w-16 -rotate-6', depth: 0.5 },
-      { glyph: 'magnifier', className: 'left-[3%] top-[84%] w-10 -rotate-12', depth: 0.75 },
+      { glyph: 'ruler', className: 'right-[0.2%] top-[34%] w-36 -rotate-[16deg]', depth: 0.4 },
+      { glyph: 'pencil', className: 'right-[2%] top-[62%] w-16 -rotate-[40deg]', depth: 0.6 },
+      { glyph: 'setSquare', className: 'right-[1%] top-[10%] w-16 rotate-6', depth: 0.5 },
+      { glyph: 'magnifier', className: 'right-[3%] top-[84%] w-10 rotate-12', depth: 0.75 },
     ],
   },
   {
     anchor: 'certifications',
     mobile: { glyph: 'ribbon', className: 'right-[4%] top-[16%] w-12 -rotate-6', depth: 0.3 },
     items: [
-      { glyph: 'ribbon', className: 'left-[0.6%] top-[26%] w-24 -rotate-6', depth: 0.35 },
-      { glyph: 'clipboard', className: 'left-[1.8%] top-[54%] w-16 rotate-6', depth: 0.55 },
-      { glyph: 'ribbon', className: 'left-[2.6%] top-[76%] w-12 rotate-[14deg]', depth: 0.7 },
+      { glyph: 'ribbon', className: 'right-[0.6%] top-[26%] w-24 rotate-6', depth: 0.35 },
+      { glyph: 'clipboard', className: 'right-[1.8%] top-[54%] w-16 -rotate-6', depth: 0.55 },
+      { glyph: 'ribbon', className: 'right-[2.6%] top-[76%] w-12 -rotate-[14deg]', depth: 0.7 },
     ],
   },
   {
     anchor: 'about',
     mobile: { glyph: 'frame', className: 'right-[3%] top-[18%] w-14 rotate-3', depth: 0.3 },
     items: [
-      { glyph: 'frame', className: 'left-[0.5%] top-[24%] w-28 rotate-6', depth: 0.35 },
-      { glyph: 'pencil', className: 'left-[2%] top-[54%] w-16 -rotate-[24deg]', depth: 0.55 },
-      { glyph: 'stickyNote', className: 'left-[1.2%] top-[74%] w-14 -rotate-6', depth: 0.7 },
+      { glyph: 'frame', className: 'right-[0.5%] top-[24%] w-28 -rotate-6', depth: 0.35 },
+      { glyph: 'pencil', className: 'right-[2%] top-[54%] w-16 rotate-[24deg]', depth: 0.55 },
+      { glyph: 'stickyNote', className: 'right-[1.2%] top-[74%] w-14 rotate-6', depth: 0.7 },
     ],
   },
   {
     anchor: 'contact',
     mobile: { glyph: 'plane', className: 'right-[4%] top-[16%] w-14 rotate-6', depth: 0.35 },
     items: [
-      { glyph: 'envelope', className: 'left-[0.4%] top-[30%] w-32 -rotate-6', depth: 0.35 },
-      { glyph: 'plane', className: 'left-[1.8%] top-[58%] w-20 rotate-6', depth: 0.6, accent: true },
-      { glyph: 'paperclip', className: 'left-[2.8%] top-[14%] w-10 rotate-[24deg]', depth: 0.5 },
-      { glyph: 'stickyNote', className: 'left-[0.8%] top-[80%] w-14 rotate-[8deg]', depth: 0.75 },
+      { glyph: 'envelope', className: 'right-[0.4%] top-[30%] w-32 rotate-6', depth: 0.35 },
+      { glyph: 'plane', className: 'right-[1.8%] top-[58%] w-20 -rotate-6', depth: 0.6, accent: true },
+      { glyph: 'paperclip', className: 'right-[2.8%] top-[14%] w-10 -rotate-[24deg]', depth: 0.5 },
+      { glyph: 'stickyNote', className: 'right-[0.8%] top-[80%] w-14 -rotate-[8deg]', depth: 0.75 },
     ],
   },
 ]
