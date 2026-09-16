@@ -7,7 +7,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 const useTheme = (id) => {
-  localStorage.setItem('3dport-theme-v2', id)
+  localStorage.setItem('3dport-theme-v3', id)
   delete document.documentElement.dataset.theme
 }
 

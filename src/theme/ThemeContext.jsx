@@ -2,9 +2,10 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { THEMES, DEFAULT_THEME, themeById } from './themes'
 
-// Versioned once when Quiet became the default so returning visitors also see
-// the new first impression. Choices made after this change still persist.
-const STORAGE_KEY = '3dport-theme-v2'
+// Versioned when the default changes (v2: Quiet, v3: Atrium) so returning
+// visitors also see the new first impression. Choices made after each change
+// still persist.
+const STORAGE_KEY = '3dport-theme-v3'
 
 const ThemeContext = createContext(null)
 

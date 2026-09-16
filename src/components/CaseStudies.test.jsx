@@ -39,9 +39,18 @@ describe('CaseStudies overlay', () => {
     expect(screen.getByText('Where it nearly derailed')).toBeInTheDocument()
     // Only the opened study's content renders.
     expect(screen.queryByText(site.caseStudies[1].timeline[0].title)).toBeNull()
-    // The backdrop floods with the section's themed surface (soft neutral in
-    // Quiet, the default theme under test).
-    expect(dialog.querySelector('[data-surface]')).not.toBeNull()
+    // The backdrop floods with the section's themed surface in themes whose
+    // tile map covers case-studies (Quiet: soft). Atrium — the default since
+    // 2026-09-17 — maps no case-studies tile, so the overlay rests on plain
+    // canvas there; the surface mechanism is asserted under Quiet.
+    localStorage.setItem('3dport-theme-v3', 'quiet')
+    document.documentElement.dataset.theme = 'quiet'
+    const { unmount } = render(<CaseStudies />)
+    await user.click(screen.getAllByRole('button', { name: /view diagram/i }).at(-1))
+    expect(document.querySelector('[role="dialog"] [data-surface]')).not.toBeNull()
+    unmount()
+    localStorage.removeItem('3dport-theme-v3')
+    delete document.documentElement.dataset.theme
   })
 
   it('closes on Escape and returns focus to the trigger', async () => {

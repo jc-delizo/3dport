@@ -6,7 +6,7 @@ import { Nav } from '../components/Nav'
 
 describe('Cupertino experience', () => {
   beforeEach(() => {
-    localStorage.setItem('3dport-theme-v2', 'cupertino')
+    localStorage.setItem('3dport-theme-v3', 'cupertino')
     delete document.documentElement.dataset.theme
   })
 
@@ -47,7 +47,7 @@ describe('Cupertino experience', () => {
 describe('Daylight keeps the bordered rhythm', () => {
   beforeEach(() => {
     // Explicit: Quiet is the site default now, so Daylight must be chosen.
-    localStorage.setItem('3dport-theme-v2', 'daylight')
+    localStorage.setItem('3dport-theme-v3', 'daylight')
     delete document.documentElement.dataset.theme
   })
 

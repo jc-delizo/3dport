@@ -5,14 +5,14 @@ import { render, screen, act } from '@testing-library/react'
 import { THEMES, DEFAULT_THEME } from './themes'
 
 // Mirrors ThemeContext's key. Versioned only when the default actually changes.
-const STORAGE_KEY = '3dport-theme-v2'
+const STORAGE_KEY = '3dport-theme-v3'
 import { ThemeProvider, useTheme } from './ThemeContext'
 
 const GRAMMAR_KEYS = ['nav', 'rhythm', 'button', 'display', 'chart', 'approach']
 const CHART_KEYS = ['accent', 'surface', 'grid', 'textMuted', 'textStrong']
 
 describe('theme registry', () => {
-  it('ships the six originals plus Atrium; Quiet stays default until JC promotes it', () => {
+  it('ships the six originals plus Atrium — the promoted default', () => {
     expect(THEMES.map((t) => t.id)).toEqual([
       'daylight',
       'midnight',
@@ -22,7 +22,7 @@ describe('theme registry', () => {
       'quiet',
       'atrium',
     ])
-    expect(DEFAULT_THEME).toBe('quiet')
+    expect(DEFAULT_THEME).toBe('atrium')
   })
 
   it('gives Atrium the planes grammar: one shared 3D stage, light mode', () => {
@@ -191,8 +191,8 @@ describe('ThemeProvider', () => {
 
   it('applies the default theme to <html> and exposes its grammar', () => {
     render(<ThemeProvider><Probe /></ThemeProvider>)
-    expect(document.documentElement.dataset.theme).toBe('quiet')
-    expect(screen.getByTestId('rhythm').textContent).toBe('bordered')
+    expect(document.documentElement.dataset.theme).toBe('atrium')
+    expect(screen.getByTestId('rhythm').textContent).toBe('planes')
   })
 
   it('switches theme, updates the attribute, and persists the choice', () => {
@@ -228,12 +228,12 @@ describe('ThemeProvider', () => {
     // of them never see the signature theme. They can still pick it manually.
     matchMedia.mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })
     render(<ThemeProvider><Probe /></ThemeProvider>)
-    expect(screen.getByTestId('current').textContent).toBe('quiet')
+    expect(screen.getByTestId('current').textContent).toBe('atrium')
   })
 
   it('ignores an unknown stored theme rather than breaking the page', () => {
     localStorage.setItem(STORAGE_KEY, 'vaporwave')
     render(<ThemeProvider><Probe /></ThemeProvider>)
-    expect(screen.getByTestId('current').textContent).toBe('quiet')
+    expect(screen.getByTestId('current').textContent).toBe('atrium')
   })
 })

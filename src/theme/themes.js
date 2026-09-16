@@ -216,8 +216,9 @@ export const THEMES = [
   },
 ]
 
-// Quiet is the deliberate first impression: restrained, legible, and focused
-// on evidence. The other visual systems remain available in the theme menu.
-export const DEFAULT_THEME = 'quiet'
+// Atrium is the first impression (promoted 2026-09-17, JC): the signature
+// spatial system — planes on per-section stages, entrance dolly, cursor
+// parallax. Quiet and the other systems remain in the theme menu.
+export const DEFAULT_THEME = 'atrium'
 
 export const themeById = (id) => THEMES.find((t) => t.id === id)

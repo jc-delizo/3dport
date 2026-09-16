@@ -5,7 +5,7 @@ import App from '../App'
 
 describe('Paper experience', () => {
   beforeEach(() => {
-    localStorage.setItem('3dport-theme-v2', 'paper')
+    localStorage.setItem('3dport-theme-v3', 'paper')
     delete document.documentElement.dataset.theme
   })
 
