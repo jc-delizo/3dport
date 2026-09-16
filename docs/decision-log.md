@@ -490,3 +490,19 @@ reduced motion; "Read the full playbook" reuses PlaybookOverlay.
 footer: accent "NOW · <month year>" plus three current lines, each restating
 an existing site claim (5–11 concurrent, 949 tickets, this site's Atrium
 work). Update items + date with deploys that change them.
+
+---
+
+## 2026-09-17 — Domain marks on the delivery portfolio
+
+Chosen over real app logos (JC asked; recommendation accepted): logos would
+have broken the site's anonymization promise — a logo identifies a system
+faster than its name — and most entries had none, so coverage would have
+read as patchy. Instead: nine stroke-only marks, one per portfolio category,
+drawn in the backdrop library's line-art language (64×64, currentColor) but
+WITHOUT pathLength — the draw-in dash is scoped to [data-backdrop] and these
+render statically.
+
+Every category header carries its mark in accent; every entry carries a
+small muted one. Coverage is enforced both ways by test: a new category
+without a mark fails, and an orphaned mark for a removed category fails.

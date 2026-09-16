@@ -3,6 +3,7 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithTheme as render } from '../test/render'
 import { Portfolio } from './Portfolio'
+import { DOMAIN_GLYPHS } from './portfolio/domainGlyphs'
 import { site } from '../content/site'
 import { strips } from '../content/strips'
 import { slug } from '../lib/slug'
@@ -116,5 +117,29 @@ describe('Portfolio', () => {
       .filter((b) => b.getAttribute('aria-expanded') === 'true')
     expect(openRows).toHaveLength(1)
     window.location.hash = ''
+  })
+})
+
+describe('domain marks', () => {
+  it('covers every portfolio category with a mark — adding a group without one fails here', () => {
+    const groups = site.portfolio.groups.map((g) => g.group)
+    groups.forEach((g) => expect(Object.keys(DOMAIN_GLYPHS), g).toContain(g))
+    // And no orphaned marks for categories that no longer exist.
+    Object.keys(DOMAIN_GLYPHS).forEach((k) => expect(groups).toContain(k))
+  })
+
+  it('gives every expanded entry its category mark, hidden from assistive tech', async () => {
+    const user = userEvent.setup()
+    render(<Portfolio />)
+    await user.click(screen.getByRole('button', { name: /ERP & HR Platforms/i }))
+    const panel = document.getElementById('portfolio-group-erp-hr-platforms')
+    const articles = panel.querySelectorAll('article')
+    expect(articles.length).toBeGreaterThan(0)
+    articles.forEach((a) => {
+      const mark = a.querySelector('[data-domain-mark] svg')
+      expect(mark).not.toBeNull()
+      expect(mark.getAttribute('aria-hidden')).toBe('true')
+      expect(mark.getAttribute('fill')).toBe('none')
+    })
   })
 })
