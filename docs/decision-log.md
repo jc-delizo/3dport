@@ -506,3 +506,20 @@ render statically.
 Every category header carries its mark in accent; every entry carries a
 small muted one. Coverage is enforced both ways by test: a new category
 without a mark fails, and an orphaned mark for a removed category fails.
+
+---
+
+## 2026-09-17 — Atrium default; unique per-project marks
+
+- **Atrium is the default theme.** Storage key v2 → v3 so returning visitors
+  see it; every theme test pins its theme through the v3 key now. The
+  case-study overlay's themed-surface test pins Quiet explicitly (Atrium
+  maps no case-studies tile — plain canvas there is the intended look).
+- **57 unique project marks** (src/components/portfolio/projectGlyphs.jsx),
+  one per delivery-portfolio entry, keyed by exact title, drawn in the same
+  64×64 stroke language. Entry marks grew (h-4 muted/70 → h-7 ink/75) per
+  JC. Category marks stay on group headers; they also serve as the code
+  fallback for an entry whose mark isn't drawn yet — though the coverage
+  test makes that state unshippable. Guards: title↔mark coverage both ways,
+  and a uniqueness test comparing rendered geometry (it caught a stray mark
+  for a non-portfolio title during the build).

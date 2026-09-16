@@ -4,7 +4,7 @@
 // and left most entries bare). Same line-art language as the backdrop
 // library: 64×64 grid, stroke-only, currentColor — but no pathLength, since
 // these render statically and must not inherit the backdrop's draw-in dash.
-function Mark({ children, ...rest }) {
+export function Mark({ children, ...rest }) {
   return (
     <svg
       viewBox="0 0 64 64"

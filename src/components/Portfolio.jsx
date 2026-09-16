@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import { site } from '../content/site'
 import { DOMAIN_GLYPHS } from './portfolio/domainGlyphs'
+import { PROJECT_GLYPHS } from './portfolio/projectGlyphs'
 import { strips } from '../content/strips'
 import { slug } from '../lib/slug'
 import { Container } from './ui/Container'
@@ -210,17 +211,19 @@ export function Portfolio() {
                   <div id={panelId} className="grid gap-x-10 gap-y-6 pb-8 pt-1 md:grid-cols-2">
                     {items.map(({ title, role, desc }) => {
                       const idx = stripIndexOf(title)
-                      const G = DOMAIN_GLYPHS[group]
+                      // Every entry carries its own mark (2026-09-17) —
+                      // unique per project, chosen over real app logos (see
+                      // projectGlyphs.jsx); the category mark is the fallback
+                      // only until a new entry's mark is drawn.
+                      const G = PROJECT_GLYPHS[title] ?? DOMAIN_GLYPHS[group]
                       return (
                         // The slug id makes each entry individually linkable.
-                        // Every entry carries its category's mark — chosen
-                        // over real app logos (see domainGlyphs.jsx).
-                        <article key={title} id={slug(title)} className="flex gap-3 scroll-mt-24">
+                        <article key={title} id={slug(title)} className="flex gap-3.5 scroll-mt-24">
                           {G ? (
                             <span
                               aria-hidden="true"
                               data-domain-mark=""
-                              className="mt-1 h-4 w-4 shrink-0 text-muted opacity-70"
+                              className="mt-0.5 h-7 w-7 shrink-0 text-ink/75"
                             >
                               <G />
                             </span>

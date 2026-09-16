@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { renderWithTheme as render } from '../test/render'
 import { Portfolio } from './Portfolio'
 import { DOMAIN_GLYPHS } from './portfolio/domainGlyphs'
+import { PROJECT_GLYPHS } from './portfolio/projectGlyphs'
 import { site } from '../content/site'
 import { strips } from '../content/strips'
 import { slug } from '../lib/slug'
@@ -120,12 +121,31 @@ describe('Portfolio', () => {
   })
 })
 
-describe('domain marks', () => {
+describe('domain and project marks', () => {
   it('covers every portfolio category with a mark — adding a group without one fails here', () => {
     const groups = site.portfolio.groups.map((g) => g.group)
     groups.forEach((g) => expect(Object.keys(DOMAIN_GLYPHS), g).toContain(g))
     // And no orphaned marks for categories that no longer exist.
     Object.keys(DOMAIN_GLYPHS).forEach((k) => expect(groups).toContain(k))
+  })
+
+  it('gives every project its own mark, and every mark a project', () => {
+    const titles = site.portfolio.groups.flatMap((g) => g.items.map((i) => i.title))
+    titles.forEach((t) => expect(Object.keys(PROJECT_GLYPHS), t).toContain(t))
+    Object.keys(PROJECT_GLYPHS).forEach((k) => expect(titles, `orphaned mark: ${k}`).toContain(k))
+  })
+
+  it('draws every project mark with unique geometry — no copy-paste marks', () => {
+    const { renderToStaticMarkup } = require('react-dom/server')
+    const drawings = Object.entries(PROJECT_GLYPHS).map(([title, G]) => [
+      title,
+      renderToStaticMarkup(<G />),
+    ])
+    const seen = new Map()
+    drawings.forEach(([title, svg]) => {
+      expect(seen.get(svg), `${title} duplicates ${seen.get(svg)}`).toBeUndefined()
+      seen.set(svg, title)
+    })
   })
 
   it('gives every expanded entry its category mark, hidden from assistive tech', async () => {
