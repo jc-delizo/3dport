@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">OneDayOS inventory movement ledger</title>
+  <desc id="desc">Illustrative OneDayOS append-only movement ledger using synthetic inventory data.</desc>
+  <rect width="1440" height="900" fill="#f5f4f1"/>
+  <rect width="238" height="900" fill="#fff"/><path d="M238 0v900" stroke="#dedbd4"/>
+  <rect x="30" y="30" width="38" height="38" rx="9" fill="#fff7ed" stroke="#fdba74"/><text x="49" y="55" text-anchor="middle" fill="#ea580c" font-family="Arial,sans-serif" font-size="16" font-weight="700">1D</text>
+  <text x="82" y="56" fill="#161616" font-family="Arial,sans-serif" font-size="20" font-weight="700">OneDayOS</text>
+  <text x="30" y="116" fill="#8a847b" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.8">INVENTORY</text>
+  <g fill="#5f5a53" font-family="Arial,sans-serif" font-size="15">
+    <text x="62" y="165">Overview</text><text x="62" y="213">Product settings</text><text x="62" y="261">Receipts</text><text x="62" y="309">Issues</text>
+    <text x="62" y="357">Transfers</text><text x="62" y="405">Adjustments</text>
+    <rect x="18" y="424" width="202" height="46" rx="10" fill="#fff1e8"/><text x="62" y="453" fill="#c2410c" font-weight="700">Movement ledger</text>
+    <text x="62" y="501">Process flow</text>
+  </g>
+  <g fill="none" stroke="#9b958c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="42" cy="159" r="7"/><path d="M39 159h6M42 156v6"/><rect x="36" y="201" width="12" height="12" rx="2"/><path d="M36 248h13M36 254h13M36 260h9M36 296h13M36 302h13M36 308h9"/>
+    <path d="M35 349h14M45 345l4 4-4 4M49 365H35M39 361l-4 4 4 4"/><path d="M36 392h13v13H36zM39 396h7"/>
+    <path d="M36 440h13M36 446h13M36 452h13" stroke="#f97316"/><circle cx="42" cy="493" r="8"/><path d="M42 485v16M34 493h16"/>
+  </g>
+  <rect x="238" width="1202" height="82" fill="#fff"/><path d="M238 82h1202" stroke="#dedbd4"/>
+  <text x="278" y="51" fill="#161616" font-family="Arial,sans-serif" font-size="18" font-weight="700">Inventory / Movement ledger</text>
+  <rect x="1128" y="24" width="176" height="34" rx="17" fill="#f5f4f1" stroke="#dedbd4"/><circle cx="1150" cy="41" r="6" fill="#22c55e"/><text x="1164" y="46" fill="#5f5a53" font-family="Arial,sans-serif" font-size="13">Demo organization</text>
+  <circle cx="1367" cy="41" r="18" fill="#171717"/><text x="1367" y="46" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">JC</text>
+
+  <g font-family="Arial,sans-serif">
+    <text x="278" y="132" fill="#8a847b" font-size="12" font-weight="700" letter-spacing="1.8">STOCK FACTS</text>
+    <text x="278" y="178" fill="#161616" font-size="38" font-weight="700">Movement ledger</text>
+    <text x="278" y="210" fill="#6f6961" font-size="16">Append-only inventory facts created by posted transactions and controlled reversals.</text>
+    <rect x="1142" y="149" width="258" height="40" rx="20" fill="#fff7ed" stroke="#fdba74"/><text x="1271" y="174" text-anchor="middle" fill="#c2410c" font-size="12" font-weight="700" letter-spacing="1.1">ILLUSTRATIVE · SYNTHETIC DATA</text>
+
+    <rect x="278" y="246" width="1122" height="592" rx="16" fill="#fff" stroke="#dedbd4"/>
+    <g fill="#6f6961" font-size="11" font-weight="700"><text x="308" y="280">SEARCH MOVEMENTS</text><text x="732" y="280">WAREHOUSE</text><text x="968" y="280">MOVEMENT TYPE</text></g>
+    <rect x="308" y="294" width="384" height="44" rx="8" fill="#fff" stroke="#dedbd4"/><circle cx="330" cy="316" r="7" fill="none" stroke="#8a847b" stroke-width="1.5"/><path d="m335 321 6 6" stroke="#8a847b" stroke-width="1.5"/><text x="352" y="321" fill="#aaa49a" font-size="13">Product, source, or reference…</text>
+    <rect x="732" y="294" width="196" height="44" rx="8" fill="#fff" stroke="#dedbd4"/><text x="750" y="321" fill="#161616" font-size="13">All warehouses</text><path d="m900 311 7 7 7-7" fill="none" stroke="#8a847b" stroke-width="1.5"/>
+    <rect x="968" y="294" width="196" height="44" rx="8" fill="#fff" stroke="#dedbd4"/><text x="986" y="321" fill="#161616" font-size="13">All types</text><path d="m1136 311 7 7 7-7" fill="none" stroke="#8a847b" stroke-width="1.5"/>
+    <rect x="1182" y="294" width="180" height="44" rx="8" fill="#fff" stroke="#dedbd4"/><text x="1272" y="321" text-anchor="middle" fill="#5f5a53" font-size="13" font-weight="700">Export CSV</text>
+
+    <rect x="308" y="366" width="1054" height="54" rx="8" fill="#f5f4f1"/>
+    <g fill="#8a847b" font-size="10" font-weight="700" letter-spacing="1">
+      <text x="328" y="398">POSTED</text><text x="460" y="398">PRODUCT</text><text x="688" y="398">WAREHOUSE</text><text x="866" y="398">TYPE</text><text x="1010" y="398">SOURCE</text><text x="1210" y="398">QUANTITY</text>
+    </g>
+    <g font-size="13">
+      <path d="M308 484h1054M308 548h1054M308 612h1054M308 676h1054M308 740h1054" stroke="#ebe8e2"/>
+      <g fill="#6f6961"><text x="328" y="458">06 Sep · 10:42</text><text x="328" y="522">06 Sep · 10:42</text><text x="328" y="586">05 Sep · 16:18</text><text x="328" y="650">05 Sep · 09:07</text><text x="328" y="714">04 Sep · 14:33</text><text x="328" y="778">04 Sep · 14:33</text></g>
+      <g fill="#161616" font-weight="700"><text x="460" y="452">Bottled Water 500 ml</text><text x="460" y="516">Green Tea</text><text x="460" y="580">Bottled Water 500 ml</text><text x="460" y="644">Ground Coffee</text><text x="460" y="708">Green Tea</text><text x="460" y="772">Green Tea</text></g>
+      <g fill="#8a847b" font-size="11"><text x="460" y="469">WATER-500</text><text x="460" y="533">TEA-GRN</text><text x="460" y="597">WATER-500</text><text x="460" y="661">COFFEE-GRD</text><text x="460" y="725">TEA-GRN</text><text x="460" y="789">TEA-GRN</text></g>
+      <g fill="#5f5a53"><text x="688" y="458">Main Warehouse</text><text x="688" y="522">Main Warehouse</text><text x="688" y="586">Field Warehouse</text><text x="688" y="650">Main Warehouse</text><text x="688" y="714">Main Warehouse</text><text x="688" y="778">Field Warehouse</text></g>
+      <g font-weight="700"><text x="866" y="458" fill="#15803d">Receipt</text><text x="866" y="522" fill="#15803d">Receipt</text><text x="866" y="586" fill="#2563eb">Transfer in</text><text x="866" y="650" fill="#b91c1c">Issue</text><text x="866" y="714" fill="#b45309">Transfer out</text><text x="866" y="778" fill="#2563eb">Transfer in</text></g>
+      <g fill="#5f5a53"><text x="1010" y="458">RCV-0004</text><text x="1010" y="522">RCV-0004</text><text x="1010" y="586">TRF-0003</text><text x="1010" y="650">ISS-0002</text><text x="1010" y="714">TRF-0003</text><text x="1010" y="778">TRF-0003</text></g>
+      <g font-size="15" font-weight="700" text-anchor="end"><text x="1328" y="458" fill="#15803d">+48 pieces</text><text x="1328" y="522" fill="#15803d">+24 boxes</text><text x="1328" y="586" fill="#15803d">+20 pieces</text><text x="1328" y="650" fill="#b91c1c">−4 bags</text><text x="1328" y="714" fill="#b91c1c">−12 boxes</text><text x="1328" y="778" fill="#15803d">+12 boxes</text></g>
+    </g>
+    <rect x="308" y="802" width="1054" height="1" fill="#ebe8e2"/>
+    <text x="308" y="824" fill="#8a847b" font-size="11">Showing 6 of 18 movements · Ledger facts cannot be edited after posting</text>
+  </g>
+</svg>
