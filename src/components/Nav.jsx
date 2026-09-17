@@ -338,17 +338,19 @@ function Progress({ value }) {
   )
 }
 
-// The way home. It doesn't just appear: its WIDTH animates from zero, so
-// the brand beside it is pushed right by layout as the chip slides in, and
-// glides back left as it slides out (JC's spec, 2026-09-17). The exit phase
-// keeps it mounted until the view transition ends.
+// The way home. Compositor-only choreography (2026-09-17, after the width-
+// animated version stuttered — animating width relayouts the header every
+// frame): the chip is absolutely positioned, so it never touches layout,
+// and slides/fades on transform while the brand glides right on its own
+// transform to make room ([data-chip] on the shared wrapper drives both).
+// The exit phase keeps the chip mounted until the view transition ends.
 function BackToPortfolio({ onBackHome, phase = 'in', inverse = false }) {
   return (
     <button
       type="button"
       data-btn=""
       onClick={onBackHome}
-      className={`back-chip chip-${phase} inline-flex min-h-11 items-center gap-1.5 overflow-hidden whitespace-nowrap rounded-button border px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors ${
+      className={`back-chip chip-${phase} absolute left-0 top-1/2 inline-flex min-h-11 -translate-y-1/2 items-center gap-1.5 whitespace-nowrap rounded-button border px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors ${
         inverse
           ? 'border-white/30 text-white/80 hover:text-white'
           : 'border-hairline text-muted hover:border-accent hover:text-ink'
@@ -405,7 +407,7 @@ export function Nav({ currentPage = 'home', backChip, onOpenLab, onBackHome }) {
       <header data-testid="global-nav" className="site-header sticky top-0 z-40">
         <div className="relative bg-black text-white">
           <Container className="relative flex h-14 items-center justify-between">
-            <span className="flex items-center">
+            <span className="relative flex items-center" data-chip={chipPhase ?? undefined}>
               {chipPhase ? <BackToPortfolio phase={chipPhase} onBackHome={onBackHome} inverse /> : null}
               <Brand href={brandHref} inverse onClick={brandBack} />
             </span>
@@ -451,7 +453,7 @@ export function Nav({ currentPage = 'home', backChip, onOpenLab, onBackHome }) {
   return (
     <header className="site-header sticky top-0 z-40 border-b border-hairline bg-canvas/90 backdrop-blur-xl">
       <Container className="relative flex h-[4.5rem] items-center justify-between">
-        <span className="flex items-center">
+        <span className="relative flex items-center" data-chip={chipPhase ?? undefined}>
           {chipPhase ? <BackToPortfolio phase={chipPhase} onBackHome={onBackHome} /> : null}
           <Brand href={brandHref} onClick={brandBack} />
         </span>

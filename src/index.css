@@ -1359,33 +1359,13 @@
     transform: none;
   }
 }
-[data-theme='atrium'] .view-layer-leaving {
-  animation: view-out-depth 600ms ease both;
-}
-[data-theme='atrium'] .view-enter {
-  animation: view-in-depth 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes view-out-depth {
-  to {
-    transform: scale(0.94);
-    opacity: 0;
-  }
-}
-@keyframes view-in-depth {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: none;
-    opacity: 1;
-  }
-}
-/* The way home. The chip's occupied width animates, so the brand beside it
-   is PUSHED right as the chip arrives and glides back left as it leaves —
-   the slide is layout, not a fade. box-border means max-width: 0 collapses
-   padding too; overflow-hidden clips the label mid-animation. Like the
-   rails, deliberately not reduce-gated. */
+/* 2026-09-17, JC's call after seeing both: the horizontal slide won over
+   the Atrium depth variant — every theme slides, incoming from the right. */
+/* The way home — compositor-only (transform/opacity; the width-animated
+   version relayouted the header every frame and stuttered). The chip is
+   absolute, so it never affects layout: it slides in from the left while
+   the brand glides right on its own transform to make room, both driven by
+   [data-chip] on their shared wrapper. Like the rails, not reduce-gated. */
 .chip-in {
   animation: chip-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -1394,33 +1374,29 @@
 }
 @keyframes chip-in {
   from {
-    max-width: 0;
-    margin-right: 0;
     opacity: 0;
-    transform: translateX(-24px);
-    border-color: transparent;
+    transform: translate(-32px, -50%);
   }
   to {
-    max-width: 10rem;
-    margin-right: 1rem;
     opacity: 1;
-    transform: none;
+    transform: translate(0, -50%);
   }
 }
 @keyframes chip-out {
   from {
-    max-width: 10rem;
-    margin-right: 1rem;
     opacity: 1;
-    transform: none;
+    transform: translate(0, -50%);
   }
   to {
-    max-width: 0;
-    margin-right: 0;
     opacity: 0;
-    transform: translateX(-24px);
-    border-color: transparent;
+    transform: translate(-32px, -50%);
   }
+}
+.nav-brand {
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-chip='in'] .nav-brand {
+  transform: translateX(7.5rem);
 }
 /* The rails ride the view switch to their own edges. Like the back chip,
    deliberately NOT reduce-gated: small peripheral strips, sub-700ms, and the
