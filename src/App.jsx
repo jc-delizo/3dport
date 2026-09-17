@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Backdrop } from './components/backdrop/Backdrop'
 import { useTheme } from './theme/ThemeContext'
 import { useAtriumStage, prefersLiteData } from './components/ui/atriumStage'
@@ -34,7 +34,10 @@ const LabView = lazy(loadLab)
 
 const HOME_TITLE = 'JC Delizo | Technical Project Manager'
 const LAB_TITLE = 'JC Delizo | Personal Lab'
-const VIEW_TRANSITION_MS = 620
+// Two sequential acts (JC, 2026-09-17): the outgoing view exits fully
+// (360ms), THEN the incoming one slides in (560ms, delayed to start as the
+// exit ends). The window covers both.
+const VIEW_TRANSITION_MS = 950
 
 const BASE = import.meta.env.BASE_URL
 
@@ -62,22 +65,21 @@ function useViewRouter() {
   const timer = useRef(0)
   const pendingScroll = useRef(null)
 
-  const settle = useCallback((next) => {
-    document.title = next === 'lab' ? LAB_TITLE : HOME_TITLE
-    window.requestAnimationFrame(() => {
-      const target = pendingScroll.current
-      pendingScroll.current = null
-      if (target) {
-        // A second frame: the incoming view must lay out before we measure.
-        window.requestAnimationFrame(() => scrollToSection(target, { instant: true }))
-      } else {
-        window.scrollTo({
-          top: next === 'home' ? homeScroll.current : 0,
-          behavior: 'instant',
-        })
-      }
-    })
-  }, [])
+  // Title and scroll land in a LAYOUT effect — after the DOM swap, before
+  // paint — so the incoming view never shows a frame at the old scroll
+  // position (which read as content jumping upward before the slide).
+  const firstRender = useRef(true)
+  useLayoutEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    document.title = view === 'lab' ? LAB_TITLE : HOME_TITLE
+    const target = pendingScroll.current
+    pendingScroll.current = null
+    if (target) scrollToSection(target, { instant: true })
+    else window.scrollTo({ top: view === 'home' ? homeScroll.current : 0, behavior: 'instant' })
+  }, [view])
 
   const go = useCallback(
     (next, { push = true, thenScroll = null } = {}) => {
@@ -94,11 +96,10 @@ function useViewRouter() {
         setTransition({ from: current, scrollY: window.scrollY })
         window.clearTimeout(timer.current)
         timer.current = window.setTimeout(() => setTransition(null), VIEW_TRANSITION_MS)
-        settle(next)
         return next
       })
     },
-    [settle]
+    []
   )
 
   // Warm the Lab chunk once the landing view has had its moment.
@@ -261,7 +262,12 @@ export default function App() {
       <Nav currentPage={view} backChip={backChip} onOpenLab={openLab} onBackHome={() => backHome()} />
       {railsMounted ? <SectionNavigator motionClass={railMotion('left')} /> : null}
 
-      <div key={view} className={snapshot ? 'view-enter' : undefined} data-view={view}>
+      <div
+        key={view}
+        className={snapshot ? 'view-enter' : undefined}
+        data-view={view}
+        data-dir={view === 'lab' ? 'to-lab' : 'to-home'}
+      >
         {activeView}
         <Footer />
       </div>
@@ -271,7 +277,12 @@ export default function App() {
           its duplicated ids never win getElementById during the transition.
           aria-hidden: it is a picture of the past, not content. */}
       {snapshot ? (
-        <div className="view-layer-leaving" aria-hidden="true" data-testid="view-leaving">
+        <div
+          className="view-layer-leaving"
+          aria-hidden="true"
+          data-testid="view-leaving"
+          data-dir={view === 'lab' ? 'to-lab' : 'to-home'}
+        >
           <div
             className="view-freeze"
             style={{ '--freeze-y': `${snapshot.scrollY}px` }}

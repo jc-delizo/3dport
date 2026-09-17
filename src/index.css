@@ -1330,30 +1330,58 @@
    other theme slides, both views entering from the right per JC's sketch.
    Reduced motion swaps instantly (the leaving layer is never mounted).
    ============================================================ */
+/* Sequential acts with a spatial model (JC): the Lab lives to the RIGHT.
+   Going there, the portfolio exits fully left, THEN the Lab slides in from
+   the right; coming back, the Lab exits fully right, THEN the portfolio
+   returns from the left. The entering animation's 360ms delay sequences
+   the acts; its `both` fill holds the incoming view off-screen through act
+   one. z-index 30 keeps the frozen layer UNDER the z-40 header — the
+   navbar (brand, back chip, links) stays visible and on top for the whole
+   switch, and content never rides over it. */
 .view-layer-leaving {
   position: fixed;
   inset: 0;
-  z-index: 45;
+  z-index: 30;
   overflow: hidden;
   pointer-events: none;
   background: rgb(var(--color-canvas));
-  animation: view-out-slide 600ms cubic-bezier(0.4, 0, 0.6, 1) both;
+}
+.view-layer-leaving[data-dir='to-lab'] {
+  animation: view-out-left 360ms cubic-bezier(0.55, 0, 0.85, 0.4) both;
+}
+.view-layer-leaving[data-dir='to-home'] {
+  animation: view-out-right 360ms cubic-bezier(0.55, 0, 0.85, 0.4) both;
 }
 .view-freeze {
   transform: translateY(calc(-1 * var(--freeze-y, 0px)));
 }
-.view-enter {
-  animation: view-in-slide 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+.view-enter[data-dir='to-lab'] {
+  animation: view-in-from-right 560ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
 }
-@keyframes view-out-slide {
+.view-enter[data-dir='to-home'] {
+  animation: view-in-from-left 560ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
+}
+@keyframes view-out-left {
   to {
-    transform: translateX(-22%);
-    opacity: 0;
+    transform: translateX(-100%);
   }
 }
-@keyframes view-in-slide {
+@keyframes view-out-right {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes view-in-from-right {
   from {
     transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes view-in-from-left {
+  from {
+    transform: translateX(-100%);
   }
   to {
     transform: none;
@@ -1367,7 +1395,7 @@
    the brand glides right on its own transform to make room, both driven by
    [data-chip] on their shared wrapper. Like the rails, not reduce-gated. */
 .chip-in {
-  animation: chip-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: chip-in 480ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
 }
 .chip-out {
   animation: chip-out 420ms cubic-bezier(0.4, 0, 0.6, 1) both;
@@ -1397,22 +1425,23 @@
 }
 [data-chip='in'] .nav-brand {
   transform: translateX(7.5rem);
+  transition-delay: 360ms;
 }
 /* The rails ride the view switch to their own edges. Like the back chip,
    deliberately NOT reduce-gated: small peripheral strips, sub-700ms, and the
    sliding is the requested design — the full-screen swap above is what
    reduce suppresses. */
 .rail-out-left {
-  animation: rail-out-left 520ms cubic-bezier(0.4, 0, 0.6, 1) both;
+  animation: rail-out-left 340ms cubic-bezier(0.4, 0, 0.6, 1) both;
 }
 .rail-in-left {
-  animation: rail-in-left 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rail-in-left 560ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
 }
 .rail-out-right {
-  animation: rail-out-right 520ms cubic-bezier(0.4, 0, 0.6, 1) both;
+  animation: rail-out-right 340ms cubic-bezier(0.4, 0, 0.6, 1) both;
 }
 .rail-in-right {
-  animation: rail-in-right 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rail-in-right 560ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
 }
 @keyframes rail-out-left {
   to {
