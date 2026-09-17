@@ -230,6 +230,9 @@ export default function App() {
   const railsMounted = view === 'home' || transition?.from === 'home'
   const railMotion = (side) =>
     transition ? (view === 'home' ? `rail-in-${side}` : `rail-out-${side}`) : ''
+  // The back chip's phase: sliding in while the Lab is (becoming) the view,
+  // sliding out — still mounted — while the portfolio returns.
+  const backChip = view === 'lab' ? 'in' : transition?.from === 'lab' ? 'out' : null
   useHashNavigation()
   useAnchorInterception(view, (next, opts) =>
     next === 'home' ? backHome(opts) : openLab()
@@ -255,7 +258,7 @@ export default function App() {
         Skip to content
       </a>
       {railsMounted && !prefersLiteData() ? <Backdrop motionClass={railMotion('right')} /> : null}
-      <Nav currentPage={view} onOpenLab={openLab} onBackHome={() => backHome()} />
+      <Nav currentPage={view} backChip={backChip} onOpenLab={openLab} onBackHome={() => backHome()} />
       {railsMounted ? <SectionNavigator motionClass={railMotion('left')} /> : null}
 
       <div key={view} className={snapshot ? 'view-enter' : undefined} data-view={view}>

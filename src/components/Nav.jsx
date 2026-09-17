@@ -338,15 +338,17 @@ function Progress({ value }) {
   )
 }
 
-// Slides in beside the brand while the Lab is open — the explicit way home,
-// alongside the browser's own Back (the view router pushes real history).
-function BackToPortfolio({ onBackHome, inverse = false }) {
+// The way home. It doesn't just appear: its WIDTH animates from zero, so
+// the brand beside it is pushed right by layout as the chip slides in, and
+// glides back left as it slides out (JC's spec, 2026-09-17). The exit phase
+// keeps it mounted until the view transition ends.
+function BackToPortfolio({ onBackHome, phase = 'in', inverse = false }) {
   return (
     <button
       type="button"
       data-btn=""
       onClick={onBackHome}
-      className={`back-chip mr-4 inline-flex min-h-11 items-center gap-1.5 rounded-button border px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors ${
+      className={`back-chip chip-${phase} inline-flex min-h-11 items-center gap-1.5 overflow-hidden whitespace-nowrap rounded-button border px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors ${
         inverse
           ? 'border-white/30 text-white/80 hover:text-white'
           : 'border-hairline text-muted hover:border-accent hover:text-ink'
@@ -357,7 +359,9 @@ function BackToPortfolio({ onBackHome, inverse = false }) {
   )
 }
 
-export function Nav({ currentPage = 'home', onOpenLab, onBackHome }) {
+export function Nav({ currentPage = 'home', backChip, onOpenLab, onBackHome }) {
+  // Standalone renders (tests, stories) may pass only currentPage.
+  const chipPhase = backChip ?? (currentPage === 'lab' ? 'in' : null)
   const [open, setOpen] = useState(false) // mobile panel
   const [openId, setOpenId] = useState(null) // which desktop dropdown
   const { grammar } = useTheme()
@@ -402,7 +406,7 @@ export function Nav({ currentPage = 'home', onOpenLab, onBackHome }) {
         <div className="relative bg-black text-white">
           <Container className="relative flex h-14 items-center justify-between">
             <span className="flex items-center">
-              {currentPage === 'lab' ? <BackToPortfolio onBackHome={onBackHome} inverse /> : null}
+              {chipPhase ? <BackToPortfolio phase={chipPhase} onBackHome={onBackHome} inverse /> : null}
               <Brand href={brandHref} inverse onClick={brandBack} />
             </span>
             <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
@@ -448,7 +452,7 @@ export function Nav({ currentPage = 'home', onOpenLab, onBackHome }) {
     <header className="site-header sticky top-0 z-40 border-b border-hairline bg-canvas/90 backdrop-blur-xl">
       <Container className="relative flex h-[4.5rem] items-center justify-between">
         <span className="flex items-center">
-          {currentPage === 'lab' ? <BackToPortfolio onBackHome={onBackHome} /> : null}
+          {chipPhase ? <BackToPortfolio phase={chipPhase} onBackHome={onBackHome} /> : null}
           <Brand href={brandHref} onClick={brandBack} />
         </span>
 
