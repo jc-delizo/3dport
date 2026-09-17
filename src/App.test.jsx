@@ -60,7 +60,7 @@ describe('view router — the Lab as a room of this page', () => {
   // outrun even generous findBy timeouts, which tests scheduling, not us.
   beforeAll(async () => {
     await import('./components/lab/LabView')
-  })
+  }, 60000) // the first transform of the Lab graph can crawl on a loaded box
 
   it('opens the Lab in place from the nav, with a real URL and a way back', async () => {
     const user = userEvent.setup()
