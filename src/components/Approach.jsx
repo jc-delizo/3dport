@@ -160,7 +160,7 @@ export function Approach() {
 
   return (
     <Section surface="approach" className="approach-section">
-      <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
+      <div className="mx-auto w-full max-w-[var(--content-max-wide)] px-4 md:px-6">
         {/* The living surface: blends between the theme's three approach
             colors as the slider moves, easing like the text does. Same outer
             width as the Studio color blocks. */}

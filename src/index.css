@@ -10,6 +10,12 @@
 /* Colors are space-separated RGB triplets so Tailwind opacity modifiers
    (bg-canvas/85 etc.) keep working: rgb(var(--color-x) / <alpha-value>). */
 :root {
+  /* The content columns. Narrowed in the 1520-1679px band, where the trail
+     and the backdrop glyphs share the viewport with the content but the
+     gutters are only ~130px (JC, 2026-09-17: give both rails ample space).
+     Full width returns at 1680px, where 200px gutters absorb everything. */
+  --content-max: 72rem;
+  --content-max-wide: 80rem;
   --color-canvas: 255 255 255;
   --color-ink: 9 9 11;
   --color-muted: 82 82 91;
@@ -106,6 +112,13 @@
   --color-canvas: 238 241 238;
   --color-card: 255 255 253;
   --color-hairline: 205 212 207;
+}
+
+@media (min-width: 1520px) and (max-width: 1679.98px) {
+  :root {
+    --content-max: 68rem;
+    --content-max-wide: 74rem;
+  }
 }
 
 /* Surface scopes: a surface locally re-declares the tokens, so everything
@@ -680,12 +693,12 @@
 @layer components {
   .container-page {
     @apply mx-auto w-full px-6;
-    max-width: 72rem;
+    max-width: var(--content-max);
   }
 
   .container-wide {
     @apply mx-auto w-full px-6;
-    max-width: 80rem;
+    max-width: var(--content-max-wide);
   }
 
   /* Spec: no prose runs the full container width. */

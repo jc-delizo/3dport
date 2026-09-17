@@ -38,7 +38,7 @@ export function Section({ surface, divider = true, compact = false, className = 
         className={`bg-canvas ${compact ? 'py-3 md:py-4' : 'py-4 md:py-7'} ${className}`}
         {...rest}
       >
-        <div className="mx-auto w-full max-w-[80rem] px-4 md:px-6">
+        <div className="mx-auto w-full max-w-[var(--content-max-wide)] px-4 md:px-6">
           <div
             data-surface={block}
             className={`studio-block overflow-hidden rounded-[28px] border border-hairline bg-canvas ${compact ? 'py-7 md:py-9' : 'py-11 md:py-16'}`}
@@ -61,7 +61,7 @@ export function Section({ surface, divider = true, compact = false, className = 
         {/* atrium-cell carries the perspective: per-section, so the vanishing
             point is always near the plane it projects (projection safety
             contract, index.css). */}
-        <div className="atrium-cell mx-auto w-full max-w-[80rem] px-4 md:px-6">
+        <div className="atrium-cell mx-auto w-full max-w-[var(--content-max-wide)] px-4 md:px-6">
           <AtriumPlane
             {...(plane ? { 'data-surface': plane } : {})}
             {...(elev ? { 'data-elev': elev } : {})}
