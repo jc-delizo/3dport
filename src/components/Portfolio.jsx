@@ -192,7 +192,7 @@ export function Portfolio() {
                     {(() => {
                       const G = DOMAIN_GLYPHS[group]
                       return G ? (
-                        <span aria-hidden="true" className="h-5 w-5 shrink-0">
+                        <span aria-hidden="true" className="h-7 w-7 shrink-0">
                           <G />
                         </span>
                       ) : null
