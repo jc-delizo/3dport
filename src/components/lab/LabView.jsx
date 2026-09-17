@@ -1,18 +1,20 @@
 import { ArrowRight, BriefcaseBusiness } from 'lucide-react'
-import { Backdrop } from './components/backdrop/Backdrop'
-import { Footer } from './components/Footer'
-import { Nav } from './components/Nav'
-import { DeliveryFlow } from './components/lab/DeliveryFlow'
-import { LabConstellation } from './components/lab/LabConstellation'
-import { ProjectCard } from './components/lab/ProjectCard'
-import { Container } from './components/ui/Container'
-import { Reveal } from './components/ui/Reveal'
-import { Section } from './components/ui/Section'
-import { labPage, labProjects, professionalWork } from './content/lab'
+import { DeliveryFlow } from './DeliveryFlow'
+import { LabConstellation } from './LabConstellation'
+import { ProjectCard } from './ProjectCard'
+import { Container } from '../ui/Container'
+import { Reveal } from '../ui/Reveal'
+import { Section } from '../ui/Section'
+import { labPage, labProjects, professionalWork } from '../../content/lab'
 
+// The Lab as a VIEW of the one-page app (2026-09-17): extracted from the old
+// standalone LabApp when /lab/ became a slide-in room of the portfolio. App
+// owns the chrome (Nav, Footer, skip link, view transitions); this renders
+// only the Lab's content. Lazy-loaded — visitors who never open the Lab
+// never download it.
 function LabHero() {
   return (
-    <section id="top" className="relative overflow-hidden border-b border-hairline py-7 md:py-9">
+    <section id="lab-top" className="relative overflow-hidden border-b border-hairline py-7 md:py-9">
       <Container>
         <div className="grid items-center gap-7 md:grid-cols-[0.8fr_1.2fr] md:gap-12">
           <div>
@@ -70,51 +72,43 @@ function ProfessionalWork() {
   )
 }
 
-export default function LabApp() {
+export default function LabView() {
   return (
-    <>
-      <a href="#lab-main" className="skip-link">
-        Skip to content
-      </a>
-      <Backdrop />
-      <Nav currentPage="lab" />
-      <main id="lab-main">
-        <LabHero />
-        <Section surface="lab" compact>
-          <Container>
-            <div className="mb-7 flex flex-wrap items-end justify-between gap-4 md:mb-9">
-              <div>
-                <p
-                  id="projects"
-                  className="scroll-mt-24 font-mono text-label uppercase tracking-widest text-muted"
-                >
-                  Five independent builds
-                </p>
-                <h2 className="font-display mt-1 text-section font-semibold tracking-display">
-                  Pick one. Poke around.
-                </h2>
-              </div>
-              <p className="max-w-sm text-label leading-6 text-muted">
-                Real screens, real status, no production theater.
+    <main id="main">
+      <LabHero />
+      <Section surface="lab" compact>
+        <Container>
+          <div className="mb-7 flex flex-wrap items-end justify-between gap-4 md:mb-9">
+            <div>
+              <p
+                id="projects"
+                className="scroll-mt-24 font-mono text-label uppercase tracking-widest text-muted"
+              >
+                Five independent builds
               </p>
+              <h2 className="font-display mt-1 text-section font-semibold tracking-display">
+                Pick one. Poke around.
+              </h2>
             </div>
-            <ul className="grid gap-7 md:grid-cols-2">
-              {labProjects.map((project, index) => (
-                <Reveal
-                  as="li"
-                  key={project.id}
-                  delay={Math.min(index, 3) * 60}
-                  className={index === 0 ? 'md:col-span-2 lg:col-span-1' : ''}
-                >
-                  <ProjectCard project={project} />
-                </Reveal>
-              ))}
-            </ul>
-          </Container>
-        </Section>
-        <ProfessionalWork />
-      </main>
-      <Footer currentPage="lab" />
-    </>
+            <p className="max-w-sm text-label leading-6 text-muted">
+              Real screens, real status, no production theater.
+            </p>
+          </div>
+          <ul className="grid gap-7 md:grid-cols-2">
+            {labProjects.map((project, index) => (
+              <Reveal
+                as="li"
+                key={project.id}
+                delay={Math.min(index, 3) * 60}
+                className={index === 0 ? 'md:col-span-2 lg:col-span-1' : ''}
+              >
+                <ProjectCard project={project} />
+              </Reveal>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+      <ProfessionalWork />
+    </main>
   )
 }

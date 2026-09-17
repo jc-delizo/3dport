@@ -32,13 +32,10 @@ describe('footer sitemap (the demoted nav sections)', () => {
     })
   })
 
-  it('routes sitemap links back to the portfolio when rendered on the Lab page', () => {
-    render(<Footer currentPage="lab" />)
-    site.footerNav.forEach(({ id, label }) => {
-      expect(screen.getByRole('link', { name: label })).toHaveAttribute(
-        'href',
-        `${import.meta.env.BASE_URL}#${id}`
-      )
+  it('keeps sitemap links same-document — the Lab is a view, not a page', () => {
+    render(<Footer />)
+    site.footerNav.forEach(({ id }) => {
+      expect(document.querySelector(`footer nav a[href='#${id}']`)).not.toBeNull()
     })
   })
 })

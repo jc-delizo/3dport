@@ -29,7 +29,7 @@ export const SECTIONS = [
   { id: 'contact', label: 'Contact' },
 ]
 
-export function SectionNavigator() {
+export function SectionNavigator({ motionClass = '' }) {
   const [active, setActive] = useState(null)
 
   // Active tracking: a narrow band across the upper-middle of the viewport;
@@ -60,7 +60,7 @@ export function SectionNavigator() {
   return (
     <nav
       aria-label="Section shortcuts"
-      className="fixed left-3 top-1/2 z-20 hidden -translate-y-1/2 min-[1520px]:block min-[1680px]:left-5 2xl:left-7"
+      className={`fixed left-3 top-1/2 z-20 hidden -translate-y-1/2 min-[1520px]:block min-[1680px]:left-5 2xl:left-7 ${motionClass}`}
     >
       <div className="relative">
         <ol className="flex flex-col items-start gap-1.5">

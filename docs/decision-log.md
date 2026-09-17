@@ -523,3 +523,31 @@ without a mark fails, and an orphaned mark for a removed category fails.
   test makes that state unshippable. Guards: title↔mark coverage both ways,
   and a uniqueness test comparing rendered geometry (it caught a stray mark
   for a non-portfolio title during the build).
+
+---
+
+## 2026-09-17 — The Lab becomes a room of the one-page app
+
+JC's proposal (Lab slides in, Back-to-portfolio chip beside the brand),
+built with the recommended depth variant: under Atrium the outgoing view
+recedes into the stage and the incoming one dollies forward; other themes
+slide, both views entering from the right. Architecture:
+
+- One app, two views. LabView extracted from the old standalone LabApp and
+  lazy-loaded (its own ~64KB-gz chunk; an idle prefetch at +2.5s makes first
+  clicks instant, and the router warms the chunk BEFORE switching — a sync
+  switch that suspends on an unloaded lazy component withholds React's whole
+  commit, which froze the first switch until the import resolved).
+- Real URLs survive: /lab/ still exists and its html boots the same app
+  straight into the Lab view; switching pushes history; popstate drives the
+  view; browser Back/Forward verified both ways.
+- The outgoing view stays mounted for 620ms as a frozen, aria-hidden
+  fixed-layer snapshot rendered AFTER the live view (so duplicated ids never
+  win getElementById), translated to its scroll position.
+- Side rails choreograph with the switch — trail out left, glyphs out right,
+  both back in on return — and, like the back chip, are deliberately NOT
+  reduce-gated (small peripheral strips; the sliding is the requested
+  design; the full-screen swap is what reduce suppresses).
+- All section links are same-document hashes now; the anchor interceptor
+  switches views first when a target isn't mounted. Footer/Nav cross-page
+  routing deleted. lab-main.jsx and LabApp.jsx removed.

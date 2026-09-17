@@ -10,11 +10,12 @@ const info =
     ? __BUILD_INFO__
     : { sha: '0000000', tests: 0, date: '1970-01-01' }
 
-export function Footer({ currentPage }) {
+export function Footer() {
   const { grammar } = useTheme()
-  // The footer also renders on the Lab page, where bare #hashes would point
-  // at nothing — mirror the Nav's cross-page routing.
-  const sectionHref = (id) => (currentPage === 'lab' ? `${import.meta.env.BASE_URL}#${id}` : `#${id}`)
+  // Same-document links always (2026-09-17): the Lab is a view of this page,
+  // and the App's anchor interceptor switches views when a target section
+  // isn't mounted.
+  const sectionHref = (id) => `#${id}`
   // Any surface-mapped rhythm can claim the footer (Cupertino: parchment;
   // Paper: the dark close that never inverts).
   const footerSurface =

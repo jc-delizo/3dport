@@ -1320,3 +1320,130 @@
     animation: none;
   }
 }
+
+
+/* ============================================================
+   View router (2026-09-17): portfolio <-> lab as two rooms of one page.
+   The outgoing view is frozen at its scroll position on a fixed layer and
+   animates out while the incoming view animates in underneath. Atrium speaks
+   depth (recede / dolly forward — the site's own motion language); every
+   other theme slides, both views entering from the right per JC's sketch.
+   Reduced motion swaps instantly (the leaving layer is never mounted).
+   ============================================================ */
+.view-layer-leaving {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  overflow: hidden;
+  pointer-events: none;
+  background: rgb(var(--color-canvas));
+  animation: view-out-slide 600ms cubic-bezier(0.4, 0, 0.6, 1) both;
+}
+.view-freeze {
+  transform: translateY(calc(-1 * var(--freeze-y, 0px)));
+}
+.view-enter {
+  animation: view-in-slide 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes view-out-slide {
+  to {
+    transform: translateX(-22%);
+    opacity: 0;
+  }
+}
+@keyframes view-in-slide {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+[data-theme='atrium'] .view-layer-leaving {
+  animation: view-out-depth 600ms ease both;
+}
+[data-theme='atrium'] .view-enter {
+  animation: view-in-depth 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes view-out-depth {
+  to {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+}
+@keyframes view-in-depth {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+/* The way home, arriving beside the brand. */
+.back-chip {
+  animation: chip-in 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* The rails ride the view switch to their own edges. Like the back chip,
+   deliberately NOT reduce-gated: small peripheral strips, sub-700ms, and the
+   sliding is the requested design — the full-screen swap above is what
+   reduce suppresses. */
+.rail-out-left {
+  animation: rail-out-left 520ms cubic-bezier(0.4, 0, 0.6, 1) both;
+}
+.rail-in-left {
+  animation: rail-in-left 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rail-out-right {
+  animation: rail-out-right 520ms cubic-bezier(0.4, 0, 0.6, 1) both;
+}
+.rail-in-right {
+  animation: rail-in-right 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes rail-out-left {
+  to {
+    transform: translate(-140%, -50%);
+    opacity: 0;
+  }
+}
+@keyframes rail-in-left {
+  from {
+    transform: translate(-140%, -50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, -50%);
+  }
+}
+@keyframes rail-out-right {
+  to {
+    transform: translateX(30%);
+    opacity: 0;
+  }
+}
+@keyframes rail-in-right {
+  from {
+    transform: translateX(30%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .view-layer-leaving,
+  .view-enter {
+    animation: none;
+  }
+}

@@ -148,7 +148,7 @@ export const BACKDROP_SETS = [
 
 const DRAWABLES = 'path, rect, circle, line, polyline, ellipse'
 
-export function Backdrop() {
+export function Backdrop({ motionClass = '' }) {
   const layerRef = useRef(null)
 
   useGSAP(
@@ -270,7 +270,7 @@ export function Backdrop() {
       ref={layerRef}
       data-backdrop
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[1] hidden text-ink min-[1520px]:block"
+      className={`pointer-events-none fixed inset-0 z-[1] hidden text-ink min-[1520px]:block ${motionClass}`}
     >
       {BACKDROP_SETS.map(({ anchor, items }) => (
           <div

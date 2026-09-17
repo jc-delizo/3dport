@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithTheme as render } from './test/render'
-import LabApp from './LabApp'
-import { labProjects, professionalWork } from './content/lab'
+import { renderWithTheme as render } from '../../test/render'
+import LabView from './LabView'
+import { labProjects, professionalWork } from '../../content/lab'
 
-describe('LabApp', () => {
+describe('LabView (the Lab as a view of the one-page app)', () => {
   it('renders one page heading, five project articles, and the professional-work boundary', () => {
-    render(<LabApp />)
+    render(<LabView />)
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(screen.getAllByRole('article')).toHaveLength(5)
     labProjects.forEach((project) => {
@@ -17,7 +17,7 @@ describe('LabApp', () => {
   })
 
   it('keeps OneDayOS honest while linking its now-public Inventory build', () => {
-    render(<LabApp />)
+    render(<LabView />)
     const heading = screen.getByRole('heading', { name: 'OneDayOS' })
     const article = heading.closest('article')
     expect(within(article).getByRole('link', { name: /visit build/i })).toHaveAttribute(
@@ -32,7 +32,7 @@ describe('LabApp', () => {
   })
 
   it('opens directly with a compact project constellation and uncluttered carousels', () => {
-    render(<LabApp />)
+    render(<LabView />)
     expect(screen.getByRole('heading', { name: 'Make. Ship. Learn.' })).toBeInTheDocument()
     const constellation = screen.getByRole('img', {
       name: /six project signals.*AI Delivery Platform/i,
@@ -55,7 +55,7 @@ describe('LabApp', () => {
 
   it('lets a visitor switch a project gallery without leaving the page', async () => {
     const user = userEvent.setup()
-    render(<LabApp />)
+    render(<LabView />)
     const article = screen.getByRole('heading', { name: 'Ako may lesson plan na!' }).closest('article')
     await user.click(within(article).getByRole('button', { name: 'Next Ako may lesson plan na! screenshot' }))
     expect(
@@ -64,7 +64,7 @@ describe('LabApp', () => {
   })
 
   it('links employer work only to the anonymized portfolio case study', () => {
-    render(<LabApp />)
+    render(<LabView />)
     const link = screen.getByRole('link', { name: /read the anonymized case study/i })
     expect(link).toHaveAttribute('href', professionalWork.href)
     expect(screen.queryByRole('link', { name: /dtt/i })).toBeNull()

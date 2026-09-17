@@ -96,8 +96,10 @@ function ThemeMenu({ openId, setOpenId, triggerClass }) {
 
 // Desktop nav entries: dropdown groups + direct links. Styling comes from the
 // caller so the same structure serves both nav grammars.
-const entryHref = (entry, currentPage) =>
-  entry.href ?? (currentPage === 'home' ? `#${entry.id}` : `${import.meta.env.BASE_URL}#${entry.id}`)
+// Always same-document (2026-09-17): the Lab is a view of this page now, so
+// section links are plain hashes even while the Lab is open — the App's
+// anchor interceptor switches the view first when the target isn't mounted.
+const entryHref = (entry) => entry.href ?? `#${entry.id}`
 
 function LabNavLabel() {
   return (
@@ -127,7 +129,7 @@ const PORTFOLIO_GROUP = {
 const LAB_ONLY = site.nav.filter((n) => n.page === 'lab')
 const COMPACT_ENTRIES = [PORTFOLIO_GROUP, ...LAB_ONLY]
 
-function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLinkClass, currentPage }) {
+function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLinkClass, currentPage, onOpenLab }) {
   return entries.map((entry) =>
     entry.items ? (
       <Dropdown
@@ -141,7 +143,7 @@ function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLin
         {entry.items.map(({ id, label }) => (
           <a
             key={id}
-            href={entryHref({ id }, currentPage)}
+            href={entryHref({ id })}
             onClick={() => setOpenId(null)}
             className={panelLinkClass}
           >
@@ -152,8 +154,19 @@ function NavEntries({ entries = site.nav, openId, setOpenId, linkClass, panelLin
     ) : (
       <a
         key={entry.id ?? entry.href}
-        href={entryHref(entry, currentPage)}
+        href={entryHref(entry)}
         aria-current={entry.page === currentPage ? 'page' : undefined}
+        onClick={
+          entry.page === 'lab' && onOpenLab
+            ? (e) => {
+                // Plain click opens the Lab view in place; modified clicks
+                // (new tab) keep the real /lab/ URL.
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+                e.preventDefault()
+                onOpenLab()
+              }
+            : undefined
+        }
         className={`${linkClass} ${entry.page === 'lab' ? 'lab-nav-link' : ''}`}
       >
         {entry.page === 'lab' ? <LabNavLabel /> : entry.label}
@@ -180,9 +193,15 @@ function ResponsiveNavEntries({ gapClass, ...shared }) {
   )
 }
 
-function MobilePanel({ closeAndFocus, close, currentPage }) {
+function MobilePanel({ closeAndFocus, close, currentPage, onOpenLab }) {
   const { theme, setTheme, themes } = useTheme()
-  const select = (entry) => {
+  const select = (entry, e) => {
+    if (entry.page === 'lab' && onOpenLab) {
+      e?.preventDefault()
+      close()
+      onOpenLab()
+      return
+    }
     if (currentPage === 'home' && entry.id && !entry.href) closeAndFocus(entry.id)
     else close()
   }
@@ -200,7 +219,7 @@ function MobilePanel({ closeAndFocus, close, currentPage }) {
                 {entry.items.map(({ id, label }) => (
                   <a
                     key={id}
-                    href={entryHref({ id }, currentPage)}
+                    href={entryHref({ id })}
                     onClick={() => select({ id })}
                     className="text-body text-muted hover:text-ink"
                   >
@@ -212,9 +231,9 @@ function MobilePanel({ closeAndFocus, close, currentPage }) {
           ) : (
             <a
               key={entry.id ?? entry.href}
-              href={entryHref(entry, currentPage)}
+              href={entryHref(entry)}
               aria-current={entry.page === currentPage ? 'page' : undefined}
-              onClick={() => select(entry)}
+              onClick={(e) => select(entry, e)}
               className={`text-body text-muted hover:text-ink ${
                 entry.page === 'lab' ? 'lab-nav-link self-start' : ''
               }`}
@@ -282,10 +301,11 @@ function useScrollProgress() {
   return progress
 }
 
-function Brand({ href, inverse = false }) {
+function Brand({ href, inverse = false, onClick }) {
   return (
     <a
       href={href}
+      onClick={onClick}
       className={`nav-brand group flex flex-col leading-tight transition-opacity hover:opacity-65 ${
         inverse ? 'text-white' : 'text-ink'
       }`}
@@ -318,11 +338,38 @@ function Progress({ value }) {
   )
 }
 
-export function Nav({ currentPage = 'home' }) {
+// Slides in beside the brand while the Lab is open — the explicit way home,
+// alongside the browser's own Back (the view router pushes real history).
+function BackToPortfolio({ onBackHome, inverse = false }) {
+  return (
+    <button
+      type="button"
+      data-btn=""
+      onClick={onBackHome}
+      className={`back-chip mr-4 inline-flex min-h-11 items-center gap-1.5 rounded-button border px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors ${
+        inverse
+          ? 'border-white/30 text-white/80 hover:text-white'
+          : 'border-hairline text-muted hover:border-accent hover:text-ink'
+      }`}
+    >
+      <span aria-hidden="true">←</span> Portfolio
+    </button>
+  )
+}
+
+export function Nav({ currentPage = 'home', onOpenLab, onBackHome }) {
   const [open, setOpen] = useState(false) // mobile panel
   const [openId, setOpenId] = useState(null) // which desktop dropdown
   const { grammar } = useTheme()
   const brandHref = currentPage === 'home' ? '#top' : import.meta.env.BASE_URL
+  const brandBack =
+    currentPage === 'lab' && onBackHome
+      ? (e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+          e.preventDefault()
+          onBackHome()
+        }
+      : undefined
   const scrollProgress = useScrollProgress()
 
   const closeAndFocus = (id) => {
@@ -354,10 +401,14 @@ export function Nav({ currentPage = 'home' }) {
       <header data-testid="global-nav" className="site-header sticky top-0 z-40">
         <div className="relative bg-black text-white">
           <Container className="relative flex h-14 items-center justify-between">
-            <Brand href={brandHref} inverse />
+            <span className="flex items-center">
+              {currentPage === 'lab' ? <BackToPortfolio onBackHome={onBackHome} inverse /> : null}
+              <Brand href={brandHref} inverse onClick={brandBack} />
+            </span>
             <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
               <ResponsiveNavEntries
                 gapClass="gap-6"
+                onOpenLab={onOpenLab}
                 openId={openId}
                 setOpenId={setOpenId}
                 linkClass="text-[12px] text-white/75 hover:text-white"
@@ -384,6 +435,7 @@ export function Nav({ currentPage = 'home' }) {
         {open ? (
           <MobilePanel
             closeAndFocus={closeAndFocus}
+            onOpenLab={onOpenLab}
             close={() => setOpen(false)}
             currentPage={currentPage}
           />
@@ -395,11 +447,15 @@ export function Nav({ currentPage = 'home' }) {
   return (
     <header className="site-header sticky top-0 z-40 border-b border-hairline bg-canvas/90 backdrop-blur-xl">
       <Container className="relative flex h-[4.5rem] items-center justify-between">
-        <Brand href={brandHref} />
+        <span className="flex items-center">
+          {currentPage === 'lab' ? <BackToPortfolio onBackHome={onBackHome} /> : null}
+          <Brand href={brandHref} onClick={brandBack} />
+        </span>
 
         <nav aria-label="Main" className="hidden items-center gap-5 lg:flex xl:gap-7">
           <ResponsiveNavEntries
             gapClass="gap-5 xl:gap-7"
+            onOpenLab={onOpenLab}
             openId={openId}
             setOpenId={setOpenId}
             linkClass="text-label text-muted hover:text-ink"
@@ -423,6 +479,7 @@ export function Nav({ currentPage = 'home' }) {
       {open ? (
         <MobilePanel
           closeAndFocus={closeAndFocus}
+            onOpenLab={onOpenLab}
           close={() => setOpen(false)}
           currentPage={currentPage}
         />

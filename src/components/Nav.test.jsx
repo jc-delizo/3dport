@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { screen, fireEvent, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithTheme as render } from '../test/render'
@@ -70,25 +70,31 @@ describe('Nav structure', () => {
     expect(screen.getAllByRole('navigation').length).toBeGreaterThan(0)
   })
 
-  it('routes section links back to the portfolio when rendered on the Lab page', async () => {
-    const user = userEvent.setup()
-    render(<Nav currentPage="lab" />)
-    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute(
-      'href',
-      `${import.meta.env.BASE_URL}#contact`,
-    )
+  it('keeps section links same-document in the Lab view, and shows the way home', () => {
+    const onBackHome = vi.fn()
+    render(<Nav currentPage="lab" onBackHome={onBackHome} />)
+    // Same-document hashes even in the Lab: the App's interceptor switches
+    // the view when a target section is not mounted.
     site.nav
       .filter((n) => n.id)
       .forEach(({ id, label }) => {
-        expect(screen.getByRole('link', { name: label })).toHaveAttribute(
-          'href',
-          `${import.meta.env.BASE_URL}#${id}`,
-        )
+        expect(screen.getByRole('link', { name: label })).toHaveAttribute('href', `#${id}`)
       })
-    // Lab renders in every width band; each must mark the current page.
     const labs = screen.getAllByRole('link', { name: 'Lab' })
-    expect(labs.length).toBeGreaterThan(0)
     labs.forEach((a) => expect(a).toHaveAttribute('aria-current', 'page'))
+    // The back chip renders in every visible header variant.
+    const chips = screen.getAllByRole('button', { name: /portfolio/i })
+    expect(chips.length).toBeGreaterThan(0)
+    chips[0].click()
+    expect(onBackHome).toHaveBeenCalled()
+  })
+
+  it('opens the Lab view instead of navigating when the Lab link is plain-clicked', () => {
+    const onOpenLab = vi.fn()
+    render(<Nav onOpenLab={onOpenLab} />)
+    const lab = screen.getAllByRole('link', { name: 'Lab' })[0]
+    lab.click()
+    expect(onOpenLab).toHaveBeenCalledTimes(1)
   })
 
   it('keeps a Lab-only band between trail arrival and the flat links (1520-1679px)', () => {

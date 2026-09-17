@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Backdrop } from './components/backdrop/Backdrop'
 import { useTheme } from './theme/ThemeContext'
 import { useAtriumStage, prefersLiteData } from './components/ui/atriumStage'
@@ -22,11 +22,120 @@ import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 
+// The Lab is a lazy view: visitors who never open it never download it.
+// The loader is shared so the router can WARM the chunk before switching —
+// a sync view change that suspends on an unloaded lazy component withholds
+// React's whole commit, which froze the first switch's choreography until
+// the import resolved. An idle prefetch below makes first clicks instant in
+// practice.
+let labModulePromise
+const loadLab = () => (labModulePromise ??= import('./components/lab/LabView'))
+const LabView = lazy(loadLab)
+
+const HOME_TITLE = 'JC Delizo | Technical Project Manager'
+const LAB_TITLE = 'JC Delizo | Personal Lab'
+const VIEW_TRANSITION_MS = 620
+
+const BASE = import.meta.env.BASE_URL
+
+export const viewFromLocation = () =>
+  /\/lab\/?$/.test(window.location.pathname) ? 'lab' : 'home'
+
+const reducedMotion = () =>
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+// The view router (2026-09-17): the Lab stopped being a second page and
+// became a second ROOM of this one. Real URLs survive — /lab/ still exists
+// (its html boots this same app straight into the Lab view), switching
+// pushes history so the browser's Back works, and popstate drives the view.
+// Under Atrium the transition is depth (the old view recedes into the stage,
+// the new one dollies forward — the site's own motion language); other
+// themes slide, per JC's original sketch; reduced motion swaps instantly.
+function useViewRouter() {
+  const [view, setView] = useState(viewFromLocation)
+  // {from, scrollY} for the length of the switch. Always set — the side
+  // rails and back chip choreograph off it even under reduced motion — but
+  // the full-screen snapshot layer only mounts when motion is welcome.
+  const [transition, setTransition] = useState(null)
+  const homeScroll = useRef(0)
+  const timer = useRef(0)
+  const pendingScroll = useRef(null)
+
+  const settle = useCallback((next) => {
+    document.title = next === 'lab' ? LAB_TITLE : HOME_TITLE
+    window.requestAnimationFrame(() => {
+      const target = pendingScroll.current
+      pendingScroll.current = null
+      if (target) {
+        // A second frame: the incoming view must lay out before we measure.
+        window.requestAnimationFrame(() => scrollToSection(target, { instant: true }))
+      } else {
+        window.scrollTo({
+          top: next === 'home' ? homeScroll.current : 0,
+          behavior: 'instant',
+        })
+      }
+    })
+  }, [])
+
+  const go = useCallback(
+    (next, { push = true, thenScroll = null } = {}) => {
+      setView((current) => {
+        if (next === current) {
+          if (thenScroll) scrollToSection(thenScroll)
+          return current
+        }
+        if (current === 'home') homeScroll.current = window.scrollY
+        pendingScroll.current = thenScroll
+        if (push) {
+          window.history.pushState({ view: next }, '', next === 'lab' ? `${BASE}lab/` : BASE)
+        }
+        setTransition({ from: current, scrollY: window.scrollY })
+        window.clearTimeout(timer.current)
+        timer.current = window.setTimeout(() => setTransition(null), VIEW_TRANSITION_MS)
+        settle(next)
+        return next
+      })
+    },
+    [settle]
+  )
+
+  // Warm the Lab chunk once the landing view has had its moment.
+  useEffect(() => {
+    const t = window.setTimeout(loadLab, 2500)
+    return () => window.clearTimeout(t)
+  }, [])
+
+  useEffect(() => {
+    const onPop = () => {
+      const next = viewFromLocation()
+      if (next === 'lab') loadLab().finally(() => go('lab', { push: false }))
+      else go('home', { push: false })
+    }
+    window.addEventListener('popstate', onPop)
+    return () => {
+      window.removeEventListener('popstate', onPop)
+      window.clearTimeout(timer.current)
+    }
+  }, [go])
+
+  return {
+    view,
+    transition,
+    // Chunk first, then the switch: the choreography only starts once the
+    // incoming view can actually render.
+    openLab: () => loadLab().finally(() => go('lab')),
+    backHome: (opts) => go('home', opts),
+  }
+}
+
 // Every same-page anchor — trail, nav, footer sitemap, hero CTAs — lands via
 // scrollToSection instead of the native jump, from one document-level
-// listener. The skip link keeps its native behavior (its job is moving
-// focus), and any target that doesn't exist falls back to the browser.
-function useAnchorInterception() {
+// listener. A target that lives in the other view switches the view first,
+// then scrolls. The skip link keeps its native behavior (its job is moving
+// focus); a target that exists nowhere falls back to the browser.
+function useAnchorInterception(view, go) {
   useEffect(() => {
     const onClick = (e) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
@@ -39,14 +148,21 @@ function useAnchorInterception() {
       } catch {
         /* malformed hash: let the browser have it */
       }
-      if (id && scrollToSection(id)) {
+      if (!id) return
+      if (document.getElementById(id)) {
+        if (scrollToSection(id)) {
+          e.preventDefault()
+          window.history.pushState(null, '', `#${id}`)
+        }
+      } else if (view === 'lab') {
+        // Home-section link clicked from inside the Lab: come back first.
         e.preventDefault()
-        window.history.pushState(null, '', `#${id}`)
+        go('home', { thenScroll: id })
       }
     }
     document.addEventListener('click', onClick)
     return () => document.removeEventListener('click', onClick)
-  }, [])
+  }, [view, go])
 }
 
 function useHashNavigation() {
@@ -81,41 +197,92 @@ function useHashNavigation() {
   }, [])
 }
 
+function HomeView({ stage, stageProps }) {
+  return (
+    <main id="main" className={stage} {...stageProps}>
+      <Hero />
+      <ProofBar />
+      <Initiatives />
+      <CaseStudies />
+      <Experience />
+      <Lifecycle />
+      <Portfolio />
+      <Principles />
+      <Recommendations />
+      <Capabilities />
+      <Tools />
+      <LabTeaser />
+      <Certifications />
+      <About />
+      <Contact />
+    </main>
+  )
+}
+
 export default function App() {
+  const { view, transition, openLab, backHome } = useViewRouter()
+  const snapshot = transition && !reducedMotion() ? transition : null
+  // The side rails ride the switch: out to their own edges when the Lab
+  // opens, back in when the portfolio returns. Deliberately not gated on
+  // reduced motion — they are small peripheral strips, and the chip and
+  // rails sliding is the requested design (the full-screen swap stays
+  // instant under reduce).
+  const railsMounted = view === 'home' || transition?.from === 'home'
+  const railMotion = (side) =>
+    transition ? (view === 'home' ? `rail-in-${side}` : `rail-out-${side}`) : ''
   useHashNavigation()
-  useAnchorInterception()
+  useAnchorInterception(view, (next, opts) =>
+    next === 'home' ? backHome(opts) : openLab()
+  )
   // The stage class scopes Atrium's arrival state; perspective itself lives
   // per-section on .atrium-cell (see the projection safety contract).
   const isAtrium = useTheme().grammar.rhythm === 'planes'
   const stage = isAtrium ? 'atrium-stage' : ''
-  const stageProps = useAtriumStage(isAtrium)
+  const stageProps = useAtriumStage(isAtrium && view === 'home')
+
+  const activeView =
+    view === 'home' ? (
+      <HomeView stage={stage} stageProps={stageProps} />
+    ) : (
+      <Suspense fallback={<main id="main" className="min-h-screen" />}>
+        <LabView />
+      </Suspense>
+    )
 
   return (
     <>
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      {prefersLiteData() ? null : <Backdrop />}
-      <Nav />
-      <SectionNavigator />
-      <main id="main" className={stage} {...stageProps}>
-        <Hero />
-        <ProofBar />
-        <Initiatives />
-        <CaseStudies />
-        <Experience />
-        <Lifecycle />
-        <Portfolio />
-        <Principles />
-        <Recommendations />
-        <Capabilities />
-        <Tools />
-        <LabTeaser />
-        <Certifications />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
+      {railsMounted && !prefersLiteData() ? <Backdrop motionClass={railMotion('right')} /> : null}
+      <Nav currentPage={view} onOpenLab={openLab} onBackHome={() => backHome()} />
+      {railsMounted ? <SectionNavigator motionClass={railMotion('left')} /> : null}
+
+      <div key={view} className={snapshot ? 'view-enter' : undefined} data-view={view}>
+        {activeView}
+        <Footer />
+      </div>
+
+      {/* The outgoing view, frozen at its scroll position, animating out on a
+          fixed layer above the incoming one. Rendered AFTER the live view so
+          its duplicated ids never win getElementById during the transition.
+          aria-hidden: it is a picture of the past, not content. */}
+      {snapshot ? (
+        <div className="view-layer-leaving" aria-hidden="true" data-testid="view-leaving">
+          <div
+            className="view-freeze"
+            style={{ '--freeze-y': `${snapshot.scrollY}px` }}
+          >
+            {snapshot.from === 'home' ? (
+              <HomeView stage={stage} stageProps={{}} />
+            ) : (
+              <Suspense fallback={null}>
+                <LabView />
+              </Suspense>
+            )}
+          </div>
+        </div>
+      ) : null}
     </>
   )
 }
